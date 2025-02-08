@@ -1,18 +1,17 @@
 import React from 'react';
 import Footer from '../../components/Footer';
-import About from '../../components/About';
-import Header from '../../components/Header'
+import Header from '../../components/Header';
 import Menu from '../../components/Menu';
-
+import ProductCategory from '../../components/ProductCategory'
+import AddProductForm from '../../components/api/AddProductForm';
 
 const AboutPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Header/>
-      <Menu/>
       <main className="flex-grow">
-        <About />
-        
+      <Header/>
+      <Menu />
+      <ProductCategory/>
       </main>
       <Footer />
     </div>

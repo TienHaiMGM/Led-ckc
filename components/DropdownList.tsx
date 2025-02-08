@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { FaChevronDown } from 'react-icons/fa';
@@ -15,17 +16,17 @@ const DropdownList = () => {
   };
 
   const menuItems = [
-    { href: '/braille', label: 'Chữ nổi' },
-    { href: '/about', label: 'Bảng hiệu' },
-    { href: '/services', label: 'Bảng led' },
-    { href: '/contact', label: 'Hộp đèn' },
-    { href: '/policy', label: 'Led' },
-    { href: '/policy', label: 'Bảng số nhà' },
-    { href: '/policy', label: 'Bảng tên công ty' },
-    { href: '/policy', label: 'Logo' },
-    { href: '/policy', label: 'Sản phẩm gia công' },
-    { href: '/policy', label: 'Sản phẩm thi công nội thất' },
-    { href: '/policy', label: 'Sản phẩm thiết kế' },
+    { href: '/collections/raised-letters', label: 'Chữ nổi' },
+    { href: '/collections/signboard', label: 'Bảng hiệu' },
+    { href: '/collections/led-board', label: 'Bảng led' },
+    { href: '/collections/light-box', label: 'Hộp đèn' },
+    { href: '/collections/led', label: 'Led' },
+    { href: '/collections/house-number-board', label: 'Bảng số nhà' },
+    { href: '/collections/company-name-board', label: 'Bảng tên công ty' },
+    { href: '/collections/logo', label: 'Logo' },
+    { href: '/collections/processed-products', label: 'Sản phẩm gia công' },
+    { href: '/collections/interior-construction-products', label: 'Sản phẩm thi công nội thất' },
+    { href: '/collections/design-products', label: 'Sản phẩm thiết kế' },
   ];
 
   return (

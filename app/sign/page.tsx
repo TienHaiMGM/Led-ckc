@@ -1,15 +1,20 @@
 import React from 'react';
 import Footer from '../../components/Footer';
+import Menu from '../../components/Menu';
+import Header from '../../components/Header';
 
-const Contact = () => {
+const Policy = () => {
   return (
+    
     <div className="flex flex-col min-h-screen">
+      <Header/>
+      <Menu/>
       <main className="flex-grow">
-       <h1>Chư nổi</h1>
+       <h1>test</h1>
       </main>
       <Footer />
     </div>
   );
 };
 
-export default Contact;
+export default Policy;

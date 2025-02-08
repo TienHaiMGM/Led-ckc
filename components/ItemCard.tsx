@@ -13,7 +13,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ image, title, description }) => {
         <img className="w-full h-full object-cover" src={image} alt={title} />
       </div>
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{title}</div>
+        <div className="font-bold text-2xl text-blue-600 mb-2 bg-white bg-opacity-75 p-1 rounded">{title}</div>
         <p className="text-gray-700 text-base">{description}</p>
       </div>
     </div>

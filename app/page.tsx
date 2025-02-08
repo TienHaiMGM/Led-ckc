@@ -21,19 +21,13 @@ export default function Home() {
       <Banner />
       <HowItWorks/>
       <ExploreCategories />
-      <ItemList title="BẢNG HIỆU" items={itemCardSign} />
-      <ItemList title="HỘP ĐÈN" items={itemCardLightBox} />
-      <ItemList title="CHỮ NỔI" items={itemCardBraille} />
-      <ItemList title="LED" items={itemCardAdvertisingSign} />
+      <ItemList bgGradient="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" title="BẢNG HIỆU" items={itemCardSign} />
+      <ItemList bgGradient ="bg-gradient-to-l from-[#38bdf8] via-[#fb7185] to-[#84cc16]" title="HỘP ĐÈN" items={itemCardLightBox} />
+      <ItemList bgGradient="bg-gradient-to-bl from-[#86efac] via-[#fcd34d] to-[#f9a8d4]" title="CHỮ NỔI" items={itemCardBraille} />
+      <ItemList bgGradient="bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-[#dc2626] via-[#f87171] to-[#fecaca]" title="LED" items={itemCardAdvertisingSign} />
       {/* <BannerMid /> */}
       <Testimonials/>
       <SocialButtons/>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 gap-4">
-      <RoundedBox color="bg-red-500">Your Text Here</RoundedBox>
-      <RoundedBox color="bg-blue-500">Your Text Here</RoundedBox>
-      <RoundedBox color="bg-yellow-500">Your Text Here</RoundedBox>
-    </div>
-  );
       <Footer />
       </main>
     </div>
