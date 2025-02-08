@@ -1,7 +1,7 @@
 import React from 'react';
-import Footer from '../../components/Footer';
-import Menu from '../../components/Menu';
-import Header from '../../components/Header';
+import Footer from '@/components/common/Footer'
+import Menu from '@/components/common/Menu'
+import Header from '@/components/common/Header'
 
 const Policy = () => {
   return (

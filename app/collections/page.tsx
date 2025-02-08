@@ -1,7 +1,7 @@
 import React from 'react';
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
-import Menu from '../../components/Menu';
+import Footer from '@/components/common/Footer'
+import Menu from '@/components/common/Menu'
+import Header from '@/components/common/Header'
 import ProductCategory from '../../components/ProductCategory'
 import AddProductForm from '../../components/api/AddProductForm';
 

@@ -1,12 +1,12 @@
 "use client"
-import  Header from "../components/Header";
-import Menu from "../components/Menu";
+import Footer from '@/components/common/Footer'
+import Menu from '@/components/common/Menu'
+import Header from '@/components/common/Header'
 import Banner from '../components/Banner';
 import ExploreCategories from '../components/ExploreCategories';
 import ItemList from '../components/ItemList';
 import BannerMid from '../components/BannerMid';
 import HowItWorks from '../components/HowItWork';
-import Footer from "../components/Footer"
 import Testimonials from "../components/Testimonials"
 import SocialButtons from "../components/SocialButtons"
 import RoundedBox from '../components/RoundedBox'

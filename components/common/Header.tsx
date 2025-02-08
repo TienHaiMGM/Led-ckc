@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import Link from 'next/link';
-import Logo from './Logo';
+import Logo from '@/components/ui/Logo';
 import { FaSearch, FaPhoneAlt } from "react-icons/fa";
 import { useState } from "react";
 

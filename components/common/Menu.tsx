@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import DropdownList from '../components/DropdownList'
+import DropdownList from '@/components/DropdownList'
 
 const Menu: React.FC = () => {
     return (
