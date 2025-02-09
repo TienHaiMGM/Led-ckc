@@ -1,11 +1,11 @@
 "use client"
 import { useState } from "react";
-import { Card, CardContent } from "../components/ui/Card";
-import { Button } from "../components/ui/Button";
+import { Card, CardContent } from "../ui/Card";
+import { Button } from "../ui/Button";
 import Image from "next/image";
 import React from "react";
 
-import productsData from "../utils/products.json";
+import productsData from "../../utils/products.json";
 
 const products = productsData;
 
@@ -16,19 +16,6 @@ export default function ProductCategory() {
   return (
     <div className="container mx-auto p-6">
       <h2 className="text-3xl font-bold mb-6">Danh mục sản phẩm</h2>
-      <div className="flex space-x-4 mb-6">
-        {categories.map((category) => (
-          <Button
-            key={category}
-            className={`px-4 py-2 rounded-lg ${
-              selectedCategory === category ? "bg-black text-white" : "bg-gray-200"
-            }`}
-            onClick={() => setSelectedCategory(category)}
-          >
-            {category}
-          </Button>
-        ))}
-      </div>
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {products
           .filter(product => selectedCategory === "Tất cả" || product.name.includes(selectedCategory))

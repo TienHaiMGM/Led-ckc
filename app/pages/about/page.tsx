@@ -1,5 +1,5 @@
 import React from 'react';
-import About from '../../../components/About';
+import About from '../../../components/specific/About';
 import Footer from '@/components/common/Footer'
 import Menu from '@/components/common/Menu'
 import Header from '@/components/common/Header'
@@ -12,7 +12,6 @@ const AboutPage = () => {
       <Menu/>
       <main className="flex-grow">
         <About />
-        
       </main>
       <Footer />
     </div>

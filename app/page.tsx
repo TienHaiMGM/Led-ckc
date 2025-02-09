@@ -2,14 +2,14 @@
 import Footer from '@/components/common/Footer'
 import Menu from '@/components/common/Menu'
 import Header from '@/components/common/Header'
-import Banner from '../components/Banner';
-import ExploreCategories from '../components/ExploreCategories';
-import ItemList from '../components/ItemList';
-import BannerMid from '../components/BannerMid';
-import HowItWorks from '../components/HowItWork';
-import Testimonials from "../components/Testimonials"
-import SocialButtons from "../components/SocialButtons"
-import RoundedBox from '../components/RoundedBox'
+import Banner from '../components/specific/Banner';
+import ExploreCategories from '../components/specific/ExploreCategories';
+import ItemList from '../components/common/ItemList';
+import BannerMid from '../components/specific/BannerMid';
+import HowItWorks from '../components/specific/HowItWork';
+import Testimonials from "../components/specific/Testimonials"
+import SocialButtons from "../components/specific/SocialButtons"
+import RoundedBox from '../components/specific/RoundedBox'
 import { itemCardSign,itemCardLightBox,itemCardBraille,itemCardAdvertisingSign } from '../utils/listItems';
 
 export default function Home() {

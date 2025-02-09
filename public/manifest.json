@@ -1,0 +1,63 @@
+{
+  "name": "Siêu Thị Bảng Hiệu",
+  "short_name": "STBH",
+  "description": "Chuyên cung cấp các loại bảng hiệu, chữ nổi, hộp đèn, biển bạt, biển LED",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Sản phẩm",
+      "url": "/api",
+      "description": "Xem danh sách sản phẩm"
+    },
+    {
+      "name": "Đăng nhập",
+      "url": "/login",
+      "description": "Đăng nhập hệ thống"
+    }
+  ],
+  "categories": ["business", "shopping"],
+  "lang": "vi-VN",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "scope": "/",
+  "display_override": ["standalone", "browser"],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "platform": "wide",
+      "label": "Trang chủ Siêu Thị Bảng Hiệu"
+    }
+  ],
+  "features": [
+    "Quản lý sản phẩm",
+    "Quản lý người dùng",
+    "Thống kê dữ liệu"
+  ]
+}

@@ -7,26 +7,78 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        'blue-500': '#1e40af',
-        'gray-500': '#6b7280',
+      animation: {
+        'fadeIn': 'fadeIn 0.5s ease-out forwards',
+        'slideUp': 'slideUp 0.3s ease-out forwards',
+        'scaleIn': 'scaleIn 0.3s ease-out forwards',
       },
       keyframes: {
-        wave: {
-          '0%': { transform: 'rotate(0.0deg)' },
-          '10%': { transform: 'rotate(14deg)' },
-          '20%': { transform: 'rotate(-8deg)' },
-          '30%': { transform: 'rotate(14deg)' },
-          '40%': { transform: 'rotate(-4deg)' },
-          '50%': { transform: 'rotate(10.0deg)' },
-          '60%': { transform: 'rotate(0.0deg)' },
-          '100%': { transform: 'rotate(0.0deg)' },
+        fadeIn: {
+          '0%': { 
+            opacity: '0',
+            transform: 'translateY(20px)'
+          },
+          '100%': { 
+            opacity: '1',
+            transform: 'translateY(0)'
+          },
+        },
+        slideUp: {
+          '0%': { 
+            transform: 'translateY(100%)',
+            opacity: '0'
+          },
+          '100%': { 
+            transform: 'translateY(0)',
+            opacity: '1'
+          },
+        },
+        scaleIn: {
+          '0%': { 
+            transform: 'scale(0.95)',
+            opacity: '0'
+          },
+          '100%': { 
+            transform: 'scale(1)',
+            opacity: '1'
+          },
         },
       },
-      animation: {
-        'waving-hand': 'wave 2s linear infinite',
+      transitionProperty: {
+        'height': 'height',
+        'spacing': 'margin, padding',
+        'width': 'width',
+        'colors': 'color, background-color, border-color, text-decoration-color, fill, stroke',
+      },
+      transitionTimingFunction: {
+        'bounce-start': 'cubic-bezier(0.8, 0, 1, 1)',
+        'bounce-end': 'cubic-bezier(0, 0, 0.2, 1)',
+        'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+      transitionDuration: {
+        '400': '400ms',
+        '600': '600ms',
+        '800': '800ms',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+      scale: {
+        '102': '1.02',
+        '98': '0.98',
+      },
+    },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
       },
     },
   },
   plugins: [],
-}
+};

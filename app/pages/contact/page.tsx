@@ -27,23 +27,23 @@ const Contact = () => {
               <h2 className="text-2xl font-bold mb-6 uppercase">Thông tin liên hệ</h2>
               <div className="bg-red-100 shadow-md rounded-lg p-4">
                 <div className="flex items-center mb-4">
-                  <svg className="w-6 h-6 text-cyan-300 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1-13h2v6h-2V5zm0 8h2v2h-2v-2z"/></svg>
+                  <svg className="w-6 h-6 text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1-13h2v6h-2V5zm0 8h2v2h-2v-2z"/></svg>
                   <p className="mb-2"><strong>Email:</strong> contact@example.com</p>
                 </div>
                 <div className="flex items-center mb-4">
-                  <svg className="w-6 h-6 text-cyan-300 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1-13h2v6h-2V5zm0 8h2v2h-2v-2z"/></svg>
+                  <svg className="w-6 h-6 text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1-13h2v6h-2V5zm0 8h2v2h-2v-2z"/></svg>
                   <p className="mb-2"><strong>Phone:</strong> (123) 456-7890</p>
                 </div>
                 <div className="flex items-center mb-4">
-                  <svg className="w-6 h-6 text-cyan-300 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1-13h2v6h-2V5zm0 8h2v2h-2v-2z"/></svg>
+                  <svg className="w-6 h-6 text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1-13h2v6h-2V5zm0 8h2v2h-2v-2z"/></svg>
                   <p className="mb-2"><strong>Giờ làm việc:</strong> 8:00 - 17:00 (Thứ 2 - Thứ 7)</p>
                 </div>
                 <div className="flex items-center mb-4">
-                  <svg className="w-6 h-6 text-cyan-300 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1-13h2v6h-2V5zm0 8h2v2h-2v-2z"/></svg>
+                  <svg className="w-6 h-6 text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1-13h2v6h-2V5zm0 8h2v2h-2v-2z"/></svg>
                   <p className="mb-2"><strong>Địa chỉ:</strong> 129</p>
                 </div>
                 <div className="flex items-center mb-4">
-                  <svg className="w-6 h-6 text-cyan-300 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1-13h2v6h-2V5zm0 8h2v2h-2v-2z"/></svg>
+                  <svg className="w-6 h-6 text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1-13h2v6h-2V5zm0 8h2v2h-2v-2z"/></svg>
                   <p className="mb-2"><strong>Facebook:</strong> <a href="#" className="text-blue-500 hover:underline">Facebook Page</a></p>
                 </div>
               </div>
