@@ -20,13 +20,13 @@ const ItemList: React.FC<ItemListProps> = ({
   bgGradient = "from-blue-600 via-purple-600 to-indigo-600"
 }) => {
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="py-2 bg-gray-100">
       <div className="container mx-auto px-4">
         {/* Section Title */}
-        <div className="mb-12">
-          <div className={`relative bg-gradient-to-r ${bgGradient} rounded-lg shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300`}>
-            <div className="relative px-6 py-8 md:px-10">
-              <h2 className="text-3xl md:text-4xl font-bold text-white text-center group-hover:scale-105 transform transition-transform duration-300">
+        <div className="mb-5">
+          <div className={`relative bg-gradient-to-r ${bgGradient} w-[20vw] rounded-lg shadow-lg overflow-hidden group hover:shadow-xl hover:w-[30vw] transition-shadow duration-300 `}>
+            <div className="relative py-2">
+              <h2 className="text-2xl md:text-2xl font-bold text-white text-left pl-10 group-hover:scale-105 transform transition-transform duration-300">
                 {title}
               </h2>
               
@@ -41,7 +41,7 @@ const ItemList: React.FC<ItemListProps> = ({
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-4">
           {items.map((item, index) => (
             <div 
               key={index}

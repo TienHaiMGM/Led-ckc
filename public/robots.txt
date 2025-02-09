@@ -1,0 +1,24 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://sieuthibanghieu.com/sitemap.xml
+
+# Prevent crawling of admin or private areas if they exist
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+
+# Allow crawling of static assets
+Allow: /images/
+Allow: /videos/
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.gif
+Allow: /*.svg
+
+# Crawl delay to prevent server overload
+Crawl-delay: 1

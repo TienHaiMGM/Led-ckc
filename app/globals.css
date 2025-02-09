@@ -2,21 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  /* Global focus styles */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-blue-400 ring-offset-2 transition-shadow duration-200;
+  }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Links and buttons */
+  a:focus-visible,
+  button:focus-visible {
+    @apply ring-2 ring-blue-400 ring-offset-2 rounded-lg;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Form inputs */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply ring-2 ring-blue-400 ring-offset-1 border-transparent;
+  }
+
+  /* Dark background elements */
+  .bg-blue-600 *:focus-visible,
+  .bg-blue-700 *:focus-visible,
+  .bg-blue-800 *:focus-visible,
+  .bg-gray-900 *:focus-visible {
+    @apply ring-offset-blue-600;
+  }
+
+  /* Icons and small elements */
+  .icon:focus-visible {
+    @apply ring-2 ring-blue-400 ring-offset-2 rounded-full;
+  }
+
+  /* Cards and large interactive elements */
+  .card:focus-visible {
+    @apply ring-2 ring-blue-400 ring-offset-4 rounded-xl shadow-lg;
+  }
+
+  /* Navigation links */
+  .nav-link:focus-visible {
+    @apply ring-2 ring-blue-400 ring-offset-2 rounded-md bg-blue-50;
+  }
+
+  /* Danger/critical actions */
+  .danger:focus-visible {
+    @apply ring-2 ring-red-400 ring-offset-2 rounded-lg;
+  }
+
+  /* Scale effect for interactive elements */
+  .scale-focus:focus-visible {
+    @apply ring-2 ring-blue-400 ring-offset-2 rounded-lg scale-105;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom focus styles for specific components */
+@layer components {
+  .header-search:focus-visible {
+    @apply ring-2 ring-blue-400 ring-offset-2 ring-offset-blue-600 scale-[1.02];
+  }
+
+  .header-contact:focus-visible {
+    @apply ring-2 ring-blue-400 ring-offset-2 ring-offset-blue-600 bg-blue-800;
+  }
+
+  .logo-link:focus-visible {
+    @apply ring-2 ring-blue-400 ring-offset-2 ring-offset-blue-600 rounded-lg scale-105;
+  }
 }

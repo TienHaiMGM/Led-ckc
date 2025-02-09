@@ -125,7 +125,7 @@ const VideoCard = ({ video, thumbnail, name, index }: {
 
 const Testimonials = () => {
   return (
-    <section className="py-12 bg-gray-100">
+    <section className="py-12 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-8">
           Video về sản phẩm
