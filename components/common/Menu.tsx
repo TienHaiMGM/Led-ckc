@@ -16,34 +16,27 @@ const Menu: React.FC = () => {
           </Link>
         </li>
         <li className="transform cursor-pointer transition-all duration-500 hover:scale-125 hover:border-b-2 hover:border-b-orange-400">
-          <Link href="/pages/about">
+          <Link href="/pages/gioi-thieu">
             <span className="hover:scale-120 text-lg font-semibold uppercase text-white transition-all duration-300 hover:text-yellow-300">
               Giới thiệu
             </span>
           </Link>
         </li>
-        <li className="transform cursor-pointer transition-all duration-500 hover:scale-100 hover:border-b-2 hover:border-b-orange-400">
-          <span className="hover:scale-120 text-lg font-semibold uppercase text-white transition-all duration-300 hover:text-yellow-300">
-            <DropdownList />
-          </span>
+        <li className="transform cursor-pointer text-lg font-semibold uppercase text-white transition-all duration-500 hover:scale-100 hover:border-b-2 hover:border-b-orange-400">
+          <DropdownList />
         </li>
-
         <li className="transform cursor-pointer transition-all duration-500 hover:scale-125 hover:border-b-2 hover:border-b-orange-400">
-          <Link href="/pages/sign">
+          <Link href="/pages/lam-bang-hieu">
             <span className="hover:scale-120 text-lg font-semibold uppercase text-white transition-all duration-300 hover:text-yellow-300">
               Làm bảng hiệu
             </span>
           </Link>
         </li>
-        <li className="transform cursor-pointer transition-all duration-500 hover:scale-125 hover:border-b-2 hover:border-b-orange-400">
-          <Link href="/pages/new">
-            <span className="hover:scale-120 text-lg font-semibold uppercase text-white transition-all duration-300 hover:text-yellow-300">
-              <NewsDropdown />
-            </span>
-          </Link>
+        <li className="transform cursor-pointer text-lg font-semibold uppercase text-white transition-all duration-500 hover:scale-125 hover:border-b-2 hover:border-b-orange-400">
+          <NewsDropdown />
         </li>
         <li className="transform cursor-pointer transition-all duration-500 hover:scale-125 hover:border-b-2 hover:border-b-orange-400">
-          <Link href="/pages/contact">
+          <Link href="/pages/lien-he">
             <span className="hover:scale-120 text-lg font-semibold uppercase text-white transition-all duration-300 hover:text-yellow-300">
               Liên hệ
             </span>

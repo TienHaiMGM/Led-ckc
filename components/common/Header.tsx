@@ -61,10 +61,9 @@ const Header = () => {
 
           {/* Desktop Contact Info */}
           <div className="hidden items-center space-x-4 lg:flex">
-            <div className="flex items-center rounded-lg bg-blue-700 px-4 py-2 transition-colors hover:bg-blue-800">
+            <div className="flex items-center rounded-lg bg-blue-700 px-4 py-2 text-xl transition-colors hover:bg-blue-800">
               <FaPhoneAlt className="mr-2" />
               <div>
-                <div className="text-xs opacity-80">Hotline 24/7</div>
                 <a
                   href="tel:0123456789"
                   className="font-bold transition-colors hover:text-blue-200"
