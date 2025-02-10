@@ -1,5 +1,5 @@
 import "./globals.css";
-import JsonLd from "../components/common/JsonLd";
+import JsonLdScript from "../components/common/JsonLdScript";
 import "./font.css"; // Import the new font settings
 
 export default function RootLayout({
@@ -10,7 +10,7 @@ export default function RootLayout({
   const organizationData = {
     name: "Siêu Thị Bảng Hiệu",
     url: "https://sieuthibanghieu.com",
-    logo: "https://sieuthibanghieu.com/images/sieuthibanghieu.png",
+    logo: "https://sieuthibanghieu.com/images/logo_sieuthibanghieu.png",
     description:
       "Chuyên cung cấp các loại bảng hiệu, chữ nổi, hộp đèn, biển bạt, biển LED",
     address: {
@@ -36,8 +36,28 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
+        <style>
+          {`
+            .favicon-text {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 32px;
+              height: 32px;
+              background-color: #ee3337;
+              color: white;
+              font-family: Arial, sans-serif;
+              font-weight: bold;
+              font-size: 20px;
+              border-radius: 50%;
+            }
+          `}
+        </style>
+        <link
+          rel="icon"
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23ee3337'/><text x='16' y='22' fill='white' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle'>S</text></svg>"
+          type="image/svg+xml"
+        />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#4f46e5" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -47,7 +67,7 @@ export default function RootLayout({
         <meta name="format-detection" content="address=no" />
       </head>
       <body className={`antialiased`}>
-        <JsonLd type="Organization" data={organizationData} />
+        <JsonLdScript type="Organization" data={organizationData} />
         <div className="flex min-h-screen flex-col">{children}</div>
       </body>
     </html>
@@ -96,7 +116,7 @@ export const metadata = {
     siteName: "Siêu Thị Bảng Hiệu",
     images: [
       {
-        url: "https://sieuthibanghieu.com/images/sieuthibanghieu.jpg",
+        url: "https://sieuthibanghieu.com/images/logo_sieuthibanghieu.png",
         width: 1200,
         height: 630,
         alt: "Siêu Thị Bảng Hiệu",
@@ -108,7 +128,7 @@ export const metadata = {
     title: "Siêu Thị Bảng Hiệu - Chuyên Thiết Kế và Thi Công Bảng Hiệu",
     description:
       "Chuyên cung cấp các loại bảng hiệu, chữ nổi, hộp đèn, biển bạt, biển LED với chất lượng cao và giá cả cạnh tranh",
-    images: ["https://sieuthibanghieu.com/images/sieuthibanghieu.jpg"],
+    images: ["https://sieuthibanghieu.com/images/logo_sieuthibanghieu.png"],
   },
   alternates: {
     canonical: "https://sieuthibanghieu.com",
@@ -118,5 +138,14 @@ export const metadata = {
   },
   verification: {
     google: "YOUR_GOOGLE_VERIFICATION_ID", // Replace with actual Google verification ID
+  },
+  icons: {
+    icon: [
+      {
+        url: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%234f46e5'/><text x='16' y='22' fill='white' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle'>S</text></svg>",
+        sizes: "32x32",
+        type: "image/svg+xml",
+      },
+    ],
   },
 };

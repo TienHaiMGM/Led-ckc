@@ -1,0 +1,120 @@
+{
+  "collections": [
+    {
+      "id": "bang-hieu-banh-cuon",
+      "title": "Bảng Hiệu Bánh Cuốn",
+      "description": "Bảng hiệu bánh cuốn được thiết kế chuyên nghiệp, chất liệu cao cấp, bền đẹp. Phù hợp cho các quán bánh cuốn, nhà hàng truyền thống.",
+      "image": "/images/bang-hieu-banh-cuon-nong-1.jpg",
+      "gallery": [
+        "/images/bang-hieu-banh-cuon-nong-1.jpg",
+        "/images/bang-hieu-banh-cuon-nong-2.jpg",
+        "/images/bang-hieu-banh-cuon-nong-3.jpg"
+      ],
+      "category": "banghieu",
+      "price": 2500000,
+      "specifications": {
+        "material": ["Alu", "Mica", "LED"],
+        "size": "60cm x 160cm",
+        "lighting": "LED siêu sáng tiết kiệm điện",
+        "warranty": "12 tháng"
+      },
+      "features": [
+        "Thiết kế hiện đại, bắt mắt",
+        "Chất liệu bền đẹp",
+        "Ánh sáng LED mạnh mẽ",
+        "Dễ dàng lắp đặt",
+        "Tiết kiệm điện năng"
+      ],
+      "createdAt": "2024-01-15T08:00:00Z",
+      "updatedAt": "2024-01-15T08:00:00Z",
+      "status": "active"
+    },
+    {
+      "id": "bang-hieu-quan-cafe",
+      "title": "Bảng Hiệu Quán Cafe",
+      "description": "Bảng hiệu cafe sang trọng, thiết kế độc đáo. Sử dụng chất liệu cao cấp, phù hợp với không gian cafe hiện đại.",
+      "image": "/images/bang-hieu-cafe-1.jpg",
+      "gallery": [
+        "/images/bang-hieu-cafe-1.jpg",
+        "/images/bang-hieu-cafe-2.jpg",
+        "/images/bang-hieu-cafe-3.jpg"
+      ],
+      "category": "banghieu",
+      "price": 3500000,
+      "specifications": {
+        "material": ["Gỗ", "LED", "Mica"],
+        "size": "80cm x 200cm",
+        "lighting": "LED dải màu RGB",
+        "warranty": "24 tháng"
+      },
+      "features": [
+        "Thiết kế sang trọng",
+        "Ánh sáng LED đa màu",
+        "Chống thấm nước",
+        "Dễ dàng vệ sinh",
+        "Bảo hành dài hạn"
+      ],
+      "createdAt": "2024-01-16T09:00:00Z",
+      "updatedAt": "2024-01-16T09:00:00Z",
+      "status": "active"
+    },
+    {
+      "id": "chu-noi-inox",
+      "title": "Chữ Nổi Inox",
+      "description": "Chữ nổi inox cao cấp, độ bền cao, phù hợp cho các công ty, văn phòng. Thiết kế theo yêu cầu, thi công nhanh chóng.",
+      "image": "/images/chu-noi-inox-1.jpg",
+      "gallery": [
+        "/images/chu-noi-inox-1.jpg",
+        "/images/chu-noi-inox-2.jpg",
+        "/images/chu-noi-inox-3.jpg"
+      ],
+      "category": "chunoi",
+      "price": 1800000,
+      "specifications": {
+        "material": ["Inox 304", "LED"],
+        "size": "Tùy chỉnh",
+        "lighting": "LED trắng/vàng",
+        "warranty": "36 tháng"
+      },
+      "features": [
+        "Chống gỉ sét",
+        "Độ bền cao",
+        "Thiết kế theo yêu cầu",
+        "Lắp đặt dễ dàng",
+        "Bảo hành lâu dài"
+      ],
+      "createdAt": "2024-01-17T10:00:00Z",
+      "updatedAt": "2024-01-17T10:00:00Z",
+      "status": "active"
+    },
+    {
+      "id": "hop-den-led",
+      "title": "Hộp Đèn LED",
+      "description": "Hộp đèn LED hiện đại, tiết kiệm điện. Thiết kế đẹp mắt, phù hợp cho quảng cáo trong nhà và ngoài trời.",
+      "image": "/images/hop-den-led-1.jpg",
+      "gallery": [
+        "/images/hop-den-led-1.jpg",
+        "/images/hop-den-led-2.jpg",
+        "/images/hop-den-led-3.jpg"
+      ],
+      "category": "hopden",
+      "price": 2800000,
+      "specifications": {
+        "material": ["Nhôm", "Mica", "LED"],
+        "size": "120cm x 80cm",
+        "lighting": "LED Module Samsung",
+        "warranty": "24 tháng"
+      },
+      "features": [
+        "Độ sáng cao",
+        "Tiết kiệm điện",
+        "Dễ thay đổi nội dung",
+        "Chống nước tốt",
+        "Tuổi thọ cao"
+      ],
+      "createdAt": "2024-01-18T11:00:00Z",
+      "updatedAt": "2024-01-18T11:00:00Z",
+      "status": "active"
+    }
+  ]
+}

@@ -7,7 +7,7 @@ import ItemList from "../components/common/ItemList";
 import HowItWorks from "../components/specific/HowItWork";
 import Testimonials from "../components/specific/Testimonials";
 import SocialButtons from "../components/specific/SocialButtons";
-import JsonLd from "../components/common/JsonLd";
+import JsonLdScript from "../components/common/JsonLdScript";
 import {
   itemCardSign,
   itemCardLightBox,
@@ -17,8 +17,7 @@ import {
 
 // Homepage specific metadata
 export const metadata = {
-  title:
-    "Siêu Thị Bảng Hiệu - Thiết Kế & Thi Công Bảng Hiệu Chuyên Nghiệp Tại TPHCM",
+  title: "Siêu Thị Bảng Hiệu",
   description:
     "Chuyên thiết kế và thi công bảng hiệu, chữ nổi, hộp đèn, biển LED với 10+ năm kinh nghiệm. ✓ Giá tốt nhất ✓ Bảo hành dài hạn ✓ Tư vấn miễn phí",
   keywords: [
@@ -59,7 +58,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <JsonLd type="WebPage" data={homePageSchema} />
+      <JsonLdScript type="WebPage" data={homePageSchema} />
       <Header />
       <Menu />
 

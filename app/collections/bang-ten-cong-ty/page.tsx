@@ -3,17 +3,17 @@ import Menu from "@/components/common/Menu";
 import Header from "@/components/common/Header";
 import ProductCategory from "../../../components/common/ProductCategory";
 
-const Led = () => {
+const CompanyNameBoard = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-grow">
         <Header />
         <Menu />
-        <ProductCategory title="LED" />
+        <ProductCategory title="Bảng tên công ty" />
       </main>
       <Footer />
     </div>
   );
 };
 
-export default Led;
+export default CompanyNameBoard;

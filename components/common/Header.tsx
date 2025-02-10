@@ -21,7 +21,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-blue-600 text-white shadow-lg">
+    <header className="z-50 bg-blue-600 text-white shadow-lg">
       {/* SEO Optimization */}
       <div className="hidden">
         <h1>Siêu Thị Bảng Hiệu - Chuyên cung cấp bảng hiệu chất lượng cao</h1>

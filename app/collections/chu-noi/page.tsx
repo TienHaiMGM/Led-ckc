@@ -1,15 +1,15 @@
-import Footer from '@/components/common/Footer'
-import Menu from '@/components/common/Menu'
-import Header from '@/components/common/Header'
+import Footer from "@/components/common/Footer";
+import Menu from "@/components/common/Menu";
+import Header from "@/components/common/Header";
 import ProductCategory from "../../../components/common/ProductCategory";
 
 const RaisedLetters = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <main className="flex-grow">
         <Header />
         <Menu />
-        <ProductCategory />
+        <ProductCategory title="Chữ nổi" />
       </main>
       <Footer />
     </div>

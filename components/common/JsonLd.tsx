@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 type JsonLdValue =
@@ -24,10 +25,14 @@ const JsonLd: React.FC<JsonLdProps> = ({ type, data }) => {
     ...data,
   };
 
+  // Ensure consistent JSON stringification between server and client
+  const jsonString = JSON.stringify(jsonLd, null, 0);
+
   return (
     <script
+      key={`jsonld-${type}`}
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: jsonString }}
     />
   );
 };

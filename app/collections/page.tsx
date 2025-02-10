@@ -1,21 +1,22 @@
-import React from 'react';
-import Footer from '@/components/common/Footer'
-import Menu from '@/components/common/Menu'
-import Header from '@/components/common/Header'
-import ProductCategory from '../../components/common/ProductCategory'
-import AddProductForm from '../../components/api/AddProductForm';
+"use client";
+import React from "react";
+import Footer from "@/components/common/Footer";
+import Menu from "@/components/common/Menu";
+import Header from "@/components/common/Header";
+import ProductCategory from "../../components/common/ProductCategory";
 
-const AboutPage = () => {
+const SignBoard = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <main className="flex-grow">
-      <Header/>
-      <Menu />
-      <ProductCategory/>
+        <Header />
+        <Menu />
+        <ProductCategory title="sssdfdfsdf" />
+        <p>sdfklsf</p>
       </main>
       <Footer />
     </div>
   );
 };
 
-export default AboutPage;
+export default SignBoard;

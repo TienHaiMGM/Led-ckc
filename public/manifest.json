@@ -6,58 +6,18 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4f46e5",
-  "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%234f46e5'/><text x='16' y='22' fill='white' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle'>S</text></svg>",
+      "sizes": "32x32",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512.png",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><circle cx='256' cy='256' r='256' fill='%234f46e5'/><text x='256' y='330' fill='white' font-family='Arial' font-size='320' font-weight='bold' text-anchor='middle'>S</text></svg>",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
-    },
-    {
-      "src": "/apple-icon.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "any"
     }
-  ],
-  "shortcuts": [
-    {
-      "name": "Sản phẩm",
-      "url": "/api",
-      "description": "Xem danh sách sản phẩm"
-    },
-    {
-      "name": "Đăng nhập",
-      "url": "/login",
-      "description": "Đăng nhập hệ thống"
-    }
-  ],
-  "categories": ["business", "shopping"],
-  "lang": "vi-VN",
-  "dir": "ltr",
-  "prefer_related_applications": false,
-  "related_applications": [],
-  "scope": "/",
-  "display_override": ["standalone", "browser"],
-  "screenshots": [
-    {
-      "src": "/screenshots/home.jpg",
-      "sizes": "1280x720",
-      "type": "image/jpeg",
-      "platform": "wide",
-      "label": "Trang chủ Siêu Thị Bảng Hiệu"
-    }
-  ],
-  "features": [
-    "Quản lý sản phẩm",
-    "Quản lý người dùng",
-    "Thống kê dữ liệu"
   ]
 }
