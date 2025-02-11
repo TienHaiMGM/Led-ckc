@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Footer from "components/common/Footer";
 import Menu from "components/common/Menu";
@@ -13,9 +14,9 @@ const SignBoard = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <main className="flex-grow">
-        <Header />
-        <Menu />
+      <Header />
+      <Menu />
+      <main className="flex-grow p-4 md:p-6 lg:p-8">
         <ProductCategory
           title="Bảng hiệu"
           products={bangHieuProducts}

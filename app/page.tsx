@@ -6,7 +6,7 @@ import ExploreCategories from "../components/specific/ExploreCategories";
 import ItemList from "../components/common/ItemList";
 import HowItWorks from "../components/specific/HowItWork";
 import Testimonials from "../components/specific/Testimonials";
-import SocialButtons from "../components/specific/SocialButtons";
+import SocialButtons from "../components/common/SocialButtons";
 import JsonLdScript from "../components/common/JsonLdScript";
 import { products } from "../data/products";
 
