@@ -1,11 +1,13 @@
-"use client"
-import React from 'react';
-import ItemCard from './ItemCard';
+"use client";
+import React from "react";
+import ItemCard from "./ItemCard";
 
 interface Item {
   image: string;
   title: string;
   description: string;
+  slug: string; // Added slug property
+  id: string;
 }
 
 interface ItemListProps {
@@ -14,47 +16,52 @@ interface ItemListProps {
   bgGradient?: string;
 }
 
-const ItemList: React.FC<ItemListProps> = ({ 
-  title, 
-  items, 
-  bgGradient = "from-blue-600 via-purple-600 to-indigo-600"
+const ItemList: React.FC<ItemListProps> = ({
+  title,
+  items,
+  bgGradient = "from-blue-600 via-purple-600 to-indigo-600",
 }) => {
   return (
-    <section className="py-2 bg-gray-100">
-      <div className="container mx-auto px-4">
+    <section className="bg-gray-100 py-2">
+      <div className="container mx-auto px-1">
         {/* Section Title */}
-        <div className="mb-5">
-          <div className={`relative bg-gradient-to-r ${bgGradient} w-[20vw] rounded-lg shadow-lg overflow-hidden group hover:shadow-xl hover:w-[30vw] transition-shadow duration-300 `}>
+        <div className="mb-5 xl:mx-36">
+          <div
+            className={`relative bg-gradient-to-r ${bgGradient} group w-[35vw] overflow-hidden rounded-lg shadow-lg transition-shadow duration-300 hover:w-[95vw] hover:shadow-xl md:w-[25vw] md:hover:w-[35vw] lg:w-[25vw] lg:hover:w-[35vw] xl:w-[15vw] xl:hover:w-[35vw]`}
+          >
             <div className="relative py-2">
-              <h2 className="text-2xl md:text-2xl font-bold text-white text-left pl-10 group-hover:scale-105 transform transition-transform duration-300">
+              <h2 className="transform pl-7 text-left text-sm font-bold text-white transition-transform duration-300 group-hover:scale-105 md:text-2xl">
                 {title}
               </h2>
-              
+
               {/* Decorative Circles */}
-              <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-white opacity-10 rounded-full transform -rotate-45 group-hover:rotate-45 transition-transform duration-500" />
-              <div className="absolute bottom-0 left-0 -mb-8 -ml-8 w-32 h-32 bg-white opacity-10 rounded-full transform rotate-45 group-hover:-rotate-45 transition-transform duration-500" />
+              <div className="absolute right-0 top-0 -mr-8 -mt-8 h-32 w-32 -rotate-45 transform rounded-full bg-white opacity-10 transition-transform duration-500 group-hover:rotate-45" />
+              <div className="absolute bottom-0 left-0 -mb-8 -ml-8 h-32 w-32 rotate-45 transform rounded-full bg-white opacity-10 transition-transform duration-500 group-hover:-rotate-45" />
             </div>
 
             {/* Additional Decorative Elements */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 transform -skew-x-12" />
+            <div className="absolute inset-0 -skew-x-12 transform bg-gradient-to-r from-white/0 via-white/5 to-white/0" />
           </div>
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-4">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-4 xl:mx-36">
           {items.map((item, index) => (
-            <div 
-              key={index}
-              className="opacity-0 animate-fadeIn"
+            <div
+              key={item.id}
+              className="animate-fadeIn opacity-0"
               style={{
                 animationDelay: `${index * 150}ms`,
-                animationFillMode: 'forwards'
+                animationFillMode: "forwards",
               }}
             >
               <ItemCard
-                image={item.image}
                 title={item.title}
                 description={item.description}
+                image={item.image}
+                slug={item.slug}
+                priority={index === 0} // First item gets priority loading
+                index={index} // Pass index for loading strategy
               />
             </div>
           ))}

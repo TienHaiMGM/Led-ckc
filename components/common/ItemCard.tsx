@@ -4,13 +4,45 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-interface ItemCardProps {
+export interface ItemCardProps {
   image: string;
   title: string;
   description: string;
+  slug?: string;
+  priority?: boolean;
+  index?: number;
 }
 
-const ItemCard: React.FC<ItemCardProps> = ({ image, title }) => {
+const ItemCard = ({
+  image,
+  title,
+  slug = "#",
+  priority = false,
+  index = 0,
+}: ItemCardProps): React.ReactElement => {
+  // Determine if this card should be loaded eagerly (first 4 items)
+  const shouldLoadEagerly = index < 4;
+
+  // Generate blur data URL for placeholder
+  const shimmer = (w: number, h: number) => `
+    <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs>
+        <linearGradient id="g">
+          <stop stop-color="#f6f7f8" offset="20%" />
+          <stop stop-color="#edeef1" offset="50%" />
+          <stop stop-color="#f6f7f8" offset="70%" />
+        </linearGradient>
+      </defs>
+      <rect width="${w}" height="${h}" fill="#f6f7f8" />
+      <rect id="r" width="${w}" height="${h}" fill="url(#g)" />
+      <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
+    </svg>`;
+
+  const toBase64 = (str: string) =>
+    typeof window === "undefined"
+      ? Buffer.from(str).toString("base64")
+      : window.btoa(str);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -21,9 +53,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ image, title }) => {
         ease: "easeOut",
       }}
     >
-      <Link href="#" className="block">
+      <Link href={`/products/${slug}`} className="block">
         <motion.div
-          className="overflow-hidden rounded-xl bg-white transition-all duration-500 ease-in-out"
+          className="h-56 overflow-hidden rounded-lg bg-white transition-all duration-500 ease-in-out sm:h-60 sm:rounded-xl md:h-72 lg:h-64 xl:h-72"
           initial={{
             boxShadow:
               "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
@@ -44,7 +76,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ image, title }) => {
           }}
         >
           {/* Image Container with Enhanced Hover Effect */}
-          <div className="group relative h-[25vh]">
+          <div className="group relative h-[19vh] sm:h-[20vh] md:h-[25vh] lg:h-[20vh] xl:h-[25vh]">
             <motion.div
               whileHover={{ scale: 1.08 }}
               transition={{
@@ -53,14 +85,19 @@ const ItemCard: React.FC<ItemCardProps> = ({ image, title }) => {
                 damping: 20,
                 mass: 0.8,
               }}
-              className="h-full w-full"
+              className="relative h-full w-full"
             >
               <Image
                 src={image}
                 alt={title}
                 fill
                 className="object-cover will-change-transform"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                priority={priority || shouldLoadEagerly}
+                loading={shouldLoadEagerly ? "eager" : "lazy"}
+                quality={shouldLoadEagerly ? 85 : 75}
+                placeholder="blur"
+                blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
               />
             </motion.div>
             {/* Smooth Gradient Overlay on Hover */}
@@ -68,7 +105,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ image, title }) => {
           </div>
 
           {/* Title Section with Enhanced Gradient */}
-          <div className="relative overflow-hidden py-3">
+          <div className="relative overflow-hidden p-2 sm:p-3">
             <motion.div
               className="relative z-10"
               whileHover={{ x: 5 }}
@@ -78,7 +115,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ image, title }) => {
                 damping: 20,
               }}
             >
-              <h3 className="text-center text-base font-bold uppercase text-slate-600">
+              <h3 className="text-center text-xs font-bold uppercase text-slate-600 sm:text-sm">
                 {title}
               </h3>
             </motion.div>

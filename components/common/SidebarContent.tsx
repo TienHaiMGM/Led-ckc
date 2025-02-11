@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   FaPhone,
@@ -8,32 +7,9 @@ import {
   FaPercent,
   FaGift,
 } from "react-icons/fa";
-import ItemCard from "./ItemCard";
 
-interface Product {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  price: string;
-  category: string;
-  slug: string;
-}
-
-interface ProductCategoryProps {
-  title: string;
-  description?: string;
-  products?: Product[];
-  showViewAll?: boolean;
-  category?: string;
-}
-
-const ProductCategory: React.FC<ProductCategoryProps> = ({
-  title,
-  products = [],
-}): React.ReactElement => {
-  // Sidebar content component to avoid repetition
-  const SidebarContent = (): React.ReactElement => (
+export const SidebarContent = () => {
+  return (
     <div className="space-y-6">
       {/* Promotional Banner */}
       <div className="overflow-hidden rounded-lg bg-gradient-to-br from-red-500 to-red-600 p-4 text-white shadow-lg">
@@ -121,58 +97,4 @@ const ProductCategory: React.FC<ProductCategoryProps> = ({
       </div>
     </div>
   );
-
-  return (
-    <div className="mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
-      {/* SEO Title and Description */}
-      <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">
-          {title}
-        </h1>
-        <div className="mt-2 h-1 w-16 bg-blue-500 sm:w-20"></div>
-      </div>
-
-      <div className="lg:flex lg:gap-8">
-        {/* Left Sidebar - Visible only on lg and up */}
-        <div className="hidden lg:block lg:w-64 lg:shrink-0">
-          <div className="sticky top-4">
-            <SidebarContent />
-          </div>
-        </div>
-
-        <div className="flex-grow">
-          {/* Products Grid - Mobile First with Progressive Enhancement */}
-          {products.length > 0 ? (
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3">
-              {products.map((product, index) => (
-                <div key={product.id} className="w-full">
-                  <ItemCard
-                    title={product.title}
-                    description={product.description}
-                    image={product.image}
-                    slug={product.slug}
-                    priority={index === 0}
-                    index={index}
-                  />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="py-8 text-center">
-              <p className="text-gray-500">
-                Không có sản phẩm nào trong danh mục này
-              </p>
-            </div>
-          )}
-
-          {/* Sidebar Content - Visible only on mobile */}
-          <div className="mt-8 lg:hidden">
-            <SidebarContent />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 };
-
-export default ProductCategory;

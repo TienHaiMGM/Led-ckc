@@ -8,12 +8,7 @@ import HowItWorks from "../components/specific/HowItWork";
 import Testimonials from "../components/specific/Testimonials";
 import SocialButtons from "../components/specific/SocialButtons";
 import JsonLdScript from "../components/common/JsonLdScript";
-import {
-  itemCardSign,
-  itemCardLightBox,
-  itemCardBraille,
-  itemCardAdvertisingSign,
-} from "../utils/listItems";
+import { products } from "../data/products";
 
 // Homepage specific metadata
 export const metadata = {
@@ -56,6 +51,20 @@ export default function Home() {
     },
   };
 
+  // Filter products by category
+  const bangHieuProducts = products.filter(
+    (product) => product.category === "bang-hieu",
+  );
+  const hopDenProducts = products.filter(
+    (product) => product.category === "hop-den",
+  );
+  const chuNoiProducts = products.filter(
+    (product) => product.category === "chu-noi",
+  );
+  const ledProducts = products.filter(
+    (product) => product.category === "bang-led",
+  );
+
   return (
     <div className="flex min-h-screen flex-col">
       <JsonLdScript type="WebPage" data={homePageSchema} />
@@ -75,7 +84,7 @@ export default function Home() {
         <ItemList
           bgGradient="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
           title="BẢNG HIỆU"
-          items={itemCardSign}
+          items={bangHieuProducts}
         />
       </section>
 
@@ -84,7 +93,7 @@ export default function Home() {
         <ItemList
           bgGradient="bg-gradient-to-l from-[#38bdf8] via-[#fb7185] to-[#84cc16]"
           title="HỘP ĐÈN"
-          items={itemCardLightBox}
+          items={hopDenProducts}
         />
       </section>
 
@@ -93,7 +102,7 @@ export default function Home() {
         <ItemList
           bgGradient="bg-gradient-to-bl from-[#86efac] via-[#fcd34d] to-[#f9a8d4]"
           title="CHỮ NỔI"
-          items={itemCardBraille}
+          items={chuNoiProducts}
         />
       </section>
 
@@ -102,7 +111,7 @@ export default function Home() {
         <ItemList
           bgGradient="bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-[#dc2626] via-[#f87171] to-[#fecaca]"
           title="LED"
-          items={itemCardAdvertisingSign}
+          items={ledProducts}
         />
       </section>
 

@@ -5,10 +5,10 @@ import Header from "components/common/Header";
 import ProductCategory from "components/common/ProductCategory";
 import { products } from "../../../data/products";
 
-const EmbossedLetters = () => {
+const LEDSignBoard = () => {
   // Filter products for this category
-  const chuNoiProducts = products.filter(
-    (product) => product.category === "chu-noi",
+  const ledProducts = products.filter(
+    (product) => product.category === "bang-led",
   );
 
   return (
@@ -16,16 +16,11 @@ const EmbossedLetters = () => {
       <main className="flex-grow">
         <Header />
         <Menu />
-        <ProductCategory
-          title="Chữ nổi"
-          products={chuNoiProducts}
-          category="chu-noi"
-          description="Khám phá bộ sưu tập chữ nổi 3D với nhiều chất liệu đa dạng"
-        />
+        <ProductCategory title="Bảng LED" products={ledProducts} />
       </main>
       <Footer />
     </div>
   );
 };
 
-export default EmbossedLetters;
+export default LEDSignBoard;

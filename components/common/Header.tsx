@@ -2,26 +2,36 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Logo from "../ui/Logo";
-import { FaSearch, FaPhoneAlt, FaBars, FaTimes } from "react-icons/fa";
+import {
+  FaSearch,
+  FaPhoneAlt,
+  FaBars,
+  FaChevronDown,
+  FaTimes,
+} from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { menuItems } from "@/utils/menuItems";
 
 const Header = () => {
   const [search, setSearch] = useState<string>("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    if (isSearchOpen) setIsSearchOpen(false);
+    setActiveDropdown(null);
   };
 
+  const toggleDropdown = (label: string) => {
+    setActiveDropdown(activeDropdown === label ? null : label);
+  };
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
     if (isMobileMenuOpen) setIsMobileMenuOpen(false);
   };
 
   return (
-    <header className="z-50 bg-blue-600 text-white shadow-lg">
+    <header className="z-50 bg-blue-500 text-white shadow-lg">
       {/* SEO Optimization */}
       <div className="hidden">
         <h1>Siêu Thị Bảng Hiệu - Chuyên cung cấp bảng hiệu chất lượng cao</h1>
@@ -33,7 +43,7 @@ const Header = () => {
 
       {/* Main Header Content */}
       <div className="container mx-auto px-4 py-2 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link
@@ -75,7 +85,29 @@ const Header = () => {
           </div>
 
           {/* Mobile Controls */}
-          <div className="flex items-center space-x-2 lg:hidden">
+          <div className="flex items-center space-x-2 py-2 lg:hidden">
+            {/* Mobile Search Bar */}
+            <AnimatePresence>
+              {isSearchOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="mt-2 overflow-hidden lg:hidden"
+                >
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Tìm kiếm..."
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      className="w-[35vw] rounded-lg p-10 px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
             <button
               onClick={toggleSearch}
               className="rounded-lg p-2 transition-colors hover:bg-blue-700"
@@ -83,52 +115,20 @@ const Header = () => {
             >
               <FaSearch className="text-xl" />
             </button>
-            <a
-              href="tel:0123456789"
-              className="rounded-lg p-2 transition-colors hover:bg-blue-700"
-              aria-label="Gọi ngay"
-            >
-              <FaPhoneAlt className="text-xl" />
-            </a>
             <button
               onClick={toggleMobileMenu}
-              className="rounded-lg p-2 transition-colors hover:bg-blue-700"
-              aria-label="Menu"
+              className="text-white focus:outline-none"
+              aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
-                <FaTimes className="text-xl" />
+                <FaTimes className="h-6 w-6" />
               ) : (
-                <FaBars className="text-xl" />
+                <FaBars className="h-6 w-6" />
               )}
             </button>
           </div>
         </div>
-
-        {/* Mobile Search Bar */}
-        <AnimatePresence>
-          {isSearchOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="mt-2 overflow-hidden lg:hidden"
-            >
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm sản phẩm..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="w-full rounded-lg px-4 py-2 pl-10 text-black focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-                <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
-
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
@@ -137,57 +137,64 @@ const Header = () => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="bg-blue-700 lg:hidden"
+            className="lg:hidden"
           >
-            <nav className="container mx-auto px-4 py-4">
-              <ul className="space-y-2">
-                <li>
-                  <Link
-                    href="/"
-                    className="block rounded-lg px-4 py-2 transition-colors hover:bg-blue-800"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Trang chủ
-                  </Link>
+            <ul className="space-y-2 px-4 py-2">
+              {menuItems.map((item, index) => (
+                <li key={index} className="rounded-lg">
+                  {item.isDropdown ? (
+                    <div>
+                      <button
+                        onClick={() => toggleDropdown(item.label)}
+                        className="flex w-full items-center justify-between rounded-lg px-4 py-2 text-white transition-colors hover:bg-white/10"
+                      >
+                        <span className="text-base font-semibold">
+                          {item.label}
+                        </span>
+                        <FaChevronDown
+                          className={`h-4 w-4 transform transition-transform duration-200 ${
+                            activeDropdown === item.label ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                      <AnimatePresence>
+                        {activeDropdown === item.label && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="ml-4 space-y-1"
+                          >
+                            {item.items?.map((subItem, subIndex) => (
+                              <Link
+                                key={subIndex}
+                                href={subItem.href}
+                                onClick={() => {
+                                  setIsMobileMenuOpen(false);
+                                  setActiveDropdown(null);
+                                }}
+                                className="block rounded-lg px-4 py-2 text-sm text-white transition-colors hover:bg-white/10"
+                              >
+                                {subItem.label}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block rounded-lg px-4 py-2 text-base font-semibold text-white transition-colors hover:bg-white/10"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
-                <li>
-                  <Link
-                    href="/collections"
-                    className="block rounded-lg px-4 py-2 transition-colors hover:bg-blue-800"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Sản phẩm
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/news"
-                    className="block rounded-lg px-4 py-2 transition-colors hover:bg-blue-800"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Tin tức
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/about"
-                    className="block rounded-lg px-4 py-2 transition-colors hover:bg-blue-800"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Giới thiệu
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="block rounded-lg px-4 py-2 transition-colors hover:bg-blue-800"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Liên hệ
-                  </Link>
-                </li>
-              </ul>
-            </nav>
+              ))}
+            </ul>
           </motion.div>
         )}
       </AnimatePresence>

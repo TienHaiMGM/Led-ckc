@@ -52,7 +52,7 @@ const Banner = () => {
   return (
     <section
       aria-label="Banner chính"
-      className="relative z-0 mx-auto my-4 h-[60vh] w-full max-w-7xl overflow-hidden"
+      className="relative z-0 mx-auto my-4 h-[50vw] w-full max-w-7xl overflow-hidden xl:h-[60vh]"
     >
       <div className="absolute inset-0 z-10 flex items-center justify-between">
         <button
@@ -60,7 +60,7 @@ const Banner = () => {
           className="group relative mb-2 mr-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 group-hover:from-purple-600 group-hover:to-blue-500 dark:text-white dark:focus:ring-blue-800"
           onClick={prevSlide}
         >
-          <span className="relative rounded-md bg-white px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900">
+          <span className="relative rounded-md bg-white px-2.5 py-1 transition-all duration-75 ease-in group-hover:bg-opacity-0 md:px-3.5 md:py-2 lg:px-5 lg:py-2.5 xl:px-5 xl:py-2.5 dark:bg-gray-900">
             &lt;
           </span>
         </button>
@@ -69,7 +69,7 @@ const Banner = () => {
           onClick={nextSlide}
           className="group relative mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-green-400 to-blue-600 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-200 group-hover:from-green-400 group-hover:to-blue-600 dark:text-white dark:focus:ring-green-800"
         >
-          <span className="relative rounded-md bg-white px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900">
+          <span className="relative rounded-md bg-white px-2.5 py-1 transition-all duration-75 ease-in group-hover:bg-opacity-0 md:px-3.5 md:py-2 lg:px-5 lg:py-2.5 xl:px-5 xl:py-2.5 dark:bg-gray-900">
             &gt;
           </span>
         </button>
@@ -85,16 +85,12 @@ const Banner = () => {
             <Image
               src={banner.image}
               alt={banner.alt}
-              title={banner.title}
               fill
               priority={index === 0}
               sizes="(max-width: 1280px) 100vw, 1280px"
               className="object-cover"
               loading={index === 0 ? "eager" : "lazy"}
             />
-            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4 text-white">
-              <h2 className="text-xl font-bold md:text-2xl">{banner.title}</h2>
-            </div>
           </div>
         ))}
       </div>

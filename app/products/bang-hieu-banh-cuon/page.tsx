@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ProductDetail from "../../../components/specific/ProductDetail";
+import ProductDetail from "../../../components/specific/ProductDetail_Updated";
 import Header from "components/common/Header";
 import Menu from "components/common/Menu";
 import Footer from "components/common/Footer";
