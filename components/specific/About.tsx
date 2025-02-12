@@ -7,6 +7,7 @@ import {
   FaTools,
   FaChartLine,
 } from "react-icons/fa";
+import Breadcrumb from "../common/Breadcrumb";
 
 const About = () => {
   return (
@@ -57,6 +58,7 @@ const About = () => {
         </div>
       </section>
 
+      <Breadcrumb />
       {/* Innovation Section */}
       <section className="py-20">
         <div className="container mx-auto px-6">

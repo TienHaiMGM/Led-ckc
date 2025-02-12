@@ -3,12 +3,14 @@ import Footer from "components/common/Footer";
 import Menu from "components/common/Menu";
 import Header from "components/common/Header";
 import SocialButtons from "@/components/common/SocialButtons";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 const Contact = () => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-100">
       <Header />
       <Menu />
+      <Breadcrumb />
       <main className="flex flex-grow items-center justify-center">
         <div className="flex w-full max-w-6xl flex-col rounded-lg bg-white p-6 shadow-lg">
           {/* Map and Contact Info Container - Keeping original layout for sx/sm, new layout for lg/xl */}

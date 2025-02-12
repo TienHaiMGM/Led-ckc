@@ -7,6 +7,7 @@ import Menu from "components/common/Menu";
 import Footer from "components/common/Footer";
 import JsonLdWrapper from "components/common/JsonLdWrapper";
 import { products } from "../../../data/products";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 export default function ProductPage() {
   const params = useParams();
@@ -62,6 +63,7 @@ export default function ProductPage() {
     <>
       <Header />
       <Menu />
+      <Breadcrumb />
       <ProductDetail_WithData slug={slug} />
       <JsonLdWrapper data={schemaData} />
       <Footer />

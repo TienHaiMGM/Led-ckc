@@ -84,33 +84,6 @@ const ProductDetail_WithData = ({ slug }: ProductDetailProps) => {
       <Head>
         <link rel="preload" href={product.image} as="image" />
       </Head>
-
-      {/* Breadcrumb Navigation */}
-      <nav className="border-b bg-white py-4" aria-label="Breadcrumb">
-        <div className="container mx-auto px-4">
-          <ol className="flex items-center space-x-2 text-sm">
-            <li className="flex items-center">
-              <Link href="/" className="text-gray-600 hover:text-blue-600">
-                <span>Trang chủ</span>
-              </Link>
-              <span className="mx-2 text-gray-400">/</span>
-            </li>
-            <li className="flex items-center">
-              <Link
-                href="/collections/signboard"
-                className="text-gray-600 hover:text-blue-600"
-              >
-                <span>Bảng Hiệu</span>
-              </Link>
-              <span className="mx-2 text-gray-400">/</span>
-            </li>
-            <li className="text-gray-800">
-              <span>{product.title}</span>
-            </li>
-          </ol>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <section className="py-0">
         <div className="container mx-auto px-1 lg:px-28">

@@ -8,6 +8,7 @@ import Menu from "components/common/Menu";
 import Footer from "components/common/Footer";
 import SocialButtons from "components/common/SocialButtons";
 import { products } from "../../../data/products";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 const metadata: Metadata = {
   title: "Làm Bảng Hiệu Chuyên Nghiệp | Siêu Thị Bảng Hiệu",
@@ -175,6 +176,7 @@ export default function SignPage() {
           </div>
         </section>
 
+        <Breadcrumb />
         {/* Products Grid */}
         <section className="py-8 md:py-12">
           <div className="container mx-auto px-4">

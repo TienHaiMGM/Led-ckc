@@ -1,5 +1,6 @@
 "use client";
 import { Metadata } from "next";
+import "../../styles/gradient.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -9,6 +10,7 @@ import Footer from "components/common/Footer";
 import SocialButtons from "@/components/common/SocialButtons";
 import { newsItems } from "../../../utils/newsItems";
 import type { NewsItem } from "../../../types/news";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 const metadata: Metadata = {
   title: "Tin Tức Mới Nhất Về Bảng Hiệu & Quảng Cáo | Siêu Thị Bảng Hiệu",
@@ -89,12 +91,10 @@ export default function NewsPage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
+        <section className="relative py-16 md:py-20 lg:py-24">
           {/* Background with overlay */}
-          <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 h-[20vh] w-[20vw] bg-gradient-to-r from-[#0e7490] via-[#3b82f6] to-[#4f46e5]">
-              asdad
-            </div>
+          <div className="absolute inset-0 h-full w-full">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0e7490] via-[#3b82f6] to-[#4f46e5]"></div>
           </div>
 
           {/* Content */}
@@ -185,6 +185,7 @@ export default function NewsPage() {
           </div>
         </section>
 
+        <Breadcrumb />
         {/* News Grid */}
         <section className="bg-gray-50 py-8 md:py-12">
           <div className="container mx-auto px-4">

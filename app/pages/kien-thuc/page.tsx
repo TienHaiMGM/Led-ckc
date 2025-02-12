@@ -9,6 +9,7 @@ import Footer from "components/common/Footer";
 import SocialButtons from "@/components/common/SocialButtons";
 import { knowledgeItems } from "../../../utils/knowledgeItems";
 import type { KnowledgeArticle } from "../../../types/knowledge";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 const metadata: Metadata = {
   title: "Kiến Thức Chuyên Sâu Về Bảng Hiệu & Quảng Cáo | Siêu Thị Bảng Hiệu",
@@ -25,7 +26,7 @@ const metadata: Metadata = {
   },
 };
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 12;
 
 export default function KnowledgePage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -91,7 +92,6 @@ export default function KnowledgePage() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <Menu />
-
       <main className="flex-grow bg-gray-50">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
@@ -147,8 +147,20 @@ export default function KnowledgePage() {
               </div>
             </div>
           </div>
+          {/* Decorative Elements */}
+          <div className="absolute bottom-0 left-0 w-full overflow-hidden">
+            <svg
+              className="relative block h-12 w-full text-gray-50"
+              viewBox="0 0 1200 120"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.11,141.89,111.3,221.93,101.4Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
         </section>
-
         {/* Categories */}
         <section className="sticky top-0 z-20 border-b bg-white shadow-sm">
           <div className="container mx-auto px-4">
@@ -173,6 +185,7 @@ export default function KnowledgePage() {
           </div>
         </section>
 
+        <Breadcrumb />
         {/* Articles Grid */}
         <section className="py-8 md:py-12">
           <div className="container mx-auto px-4">
