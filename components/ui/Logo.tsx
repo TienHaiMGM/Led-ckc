@@ -6,7 +6,7 @@ const Logo: React.FC = () => {
     <div className="flex items-center space-x-2 p-1 transition-all duration-300 hover:scale-105">
       <div className="relative h-[40px] w-[120px] md:h-[50px] md:w-[150px] lg:h-[60px] lg:w-[180px]">
         <Image
-          src="/images/sieuthibanghieulogo.png"
+          src="/images/sieuthibanghieu.png"
           alt="Siêu Thị Bảng Hiệu - Logo chính thức"
           fill
           priority

@@ -1,6 +1,7 @@
 import "./globals.css";
 import JsonLdScript from "../components/common/JsonLdScript";
-import "./font.css"; // Import the new font settings
+import "./font.css";
+import { StrictMode } from "react";
 
 export default function RootLayout({
   children,
@@ -67,8 +68,10 @@ export default function RootLayout({
         <meta name="format-detection" content="address=no" />
       </head>
       <body className={`antialiased`}>
-        <JsonLdScript type="Organization" data={organizationData} />
-        <div className="flex min-h-screen flex-col">{children}</div>
+        <StrictMode>
+          <JsonLdScript type="Organization" data={organizationData} />
+          <div className="flex min-h-screen flex-col">{children}</div>
+        </StrictMode>
       </body>
     </html>
   );

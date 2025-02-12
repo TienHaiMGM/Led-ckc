@@ -32,6 +32,39 @@ const ProductCategory: React.FC<ProductCategoryProps> = ({
   title,
   products = [],
 }): React.ReactElement => {
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Return a simpler version during SSR
+  if (!mounted) {
+    return (
+      <div className="mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">
+            {title}
+          </h1>
+          <div className="mt-2 h-1 w-16 bg-blue-500 sm:w-20"></div>
+        </div>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3">
+          {products.map((product, index) => (
+            <div key={product.id} className="w-full">
+              <ItemCard
+                title={product.title}
+                description={product.description}
+                image={product.image}
+                slug={product.slug}
+                priority={index === 0}
+                index={index}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
   // Sidebar content component to avoid repetition
   const SidebarContent = (): React.ReactElement => (
     <div className="space-y-6">

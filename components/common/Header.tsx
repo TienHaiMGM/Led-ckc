@@ -31,7 +31,7 @@ const Header = () => {
   };
 
   return (
-    <header className="z-50 bg-blue-500 text-white shadow-lg">
+    <header className="z-50 bg-white text-black shadow-lg">
       {/* SEO Optimization */}
       <div className="hidden">
         <h1>Siêu Thị Bảng Hiệu - Chuyên cung cấp bảng hiệu chất lượng cao</h1>
@@ -56,7 +56,7 @@ const Header = () => {
           </div>
 
           {/* Desktop Search Bar */}
-          <div className="mx-4 hidden max-w-xl flex-grow lg:block">
+          <div className="mx-4 hidden max-w-xl flex-grow rounded-lg border-2 lg:block">
             <div className="relative">
               <input
                 type="text"
@@ -65,18 +65,18 @@ const Header = () => {
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full rounded-lg px-4 py-2 pl-10 text-black focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
-              <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+              <FaSearch className="text-black-500 absolute left-3 top-1/2 -translate-y-1/2" />
             </div>
           </div>
 
           {/* Desktop Contact Info */}
           <div className="hidden items-center space-x-4 lg:flex">
-            <div className="flex items-center rounded-lg bg-blue-700 px-4 py-2 text-xl transition-colors hover:bg-blue-800">
+            <div className="flex items-center rounded-lg px-4 py-2 text-xl transition-colors hover:scale-105">
               <FaPhoneAlt className="mr-2" />
               <div>
                 <a
                   href="tel:0123456789"
-                  className="font-bold transition-colors hover:text-blue-200"
+                  className="transition-colors- font-bold hover:text-neutral-800"
                 >
                   0123-456-789
                 </a>
@@ -94,7 +94,7 @@ const Header = () => {
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="mt-2 overflow-hidden lg:hidden"
+                  className="mt-2 overflow-hidden rounded-lg border-2 lg:hidden"
                 >
                   <div className="relative">
                     <input
@@ -110,14 +110,14 @@ const Header = () => {
             </AnimatePresence>
             <button
               onClick={toggleSearch}
-              className="rounded-lg p-2 transition-colors hover:bg-blue-700"
+              className="hover:bg-black-700 rounded-lg p-2 transition-colors"
               aria-label="Tìm kiếm"
             >
               <FaSearch className="text-xl" />
             </button>
             <button
               onClick={toggleMobileMenu}
-              className="text-white focus:outline-none"
+              className="text-black focus:outline-none"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
@@ -133,6 +133,7 @@ const Header = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            key="mobile-menu"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

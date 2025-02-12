@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import ItemCard from "./ItemCard";
+import { FaChevronRight } from "react-icons/fa";
+import Link from "next/link";
 
 interface Item {
   image: string;
@@ -14,23 +16,25 @@ interface ItemListProps {
   title: string;
   items: Item[];
   bgGradient?: string;
+  linkXemThem: string;
 }
 
 const ItemList: React.FC<ItemListProps> = ({
   title,
   items,
-  bgGradient = "from-blue-600 via-purple-600 to-indigo-600",
+  linkXemThem,
+  bgGradient = "bg-red-700",
 }) => {
   return (
     <section className="bg-gray-100 py-2">
       <div className="container mx-auto px-1">
         {/* Section Title */}
-        <div className="mb-5 xl:mx-36">
+        <div className="mb-5 rounded-lg bg-white xl:mx-36">
           <div
             className={`relative bg-gradient-to-r ${bgGradient} group w-[35vw] overflow-hidden rounded-lg shadow-lg transition-shadow duration-300 hover:w-[95vw] hover:shadow-xl md:w-[25vw] md:hover:w-[35vw] lg:w-[25vw] lg:hover:w-[35vw] xl:w-[15vw] xl:hover:w-[35vw]`}
           >
             <div className="relative py-2">
-              <h2 className="transform pl-7 text-left text-sm font-bold text-white transition-transform duration-300 group-hover:scale-105 md:text-2xl">
+              <h2 className="transform pl-7 text-left font-bold text-white transition-transform duration-300 group-hover:scale-105 md:text-2xl">
                 {title}
               </h2>
 
@@ -46,7 +50,7 @@ const ItemList: React.FC<ItemListProps> = ({
 
         {/* Cards Grid */}
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-4 xl:mx-36">
-          {items.map((item, index) => (
+          {items.slice(0, 8).map((item, index) => (
             <div
               key={item.id}
               className="animate-fadeIn opacity-0"
@@ -65,6 +69,16 @@ const ItemList: React.FC<ItemListProps> = ({
               />
             </div>
           ))}
+        </div>
+        {/* Section Xem thêm */}
+        <div className="mt-3 flex justify-center text-base font-bold text-blue-700">
+          <Link
+            href={`/collections/${linkXemThem}`}
+            className="flex cursor-pointer hover:scale-105"
+          >
+            <p className="">Xem thêm sản phẩm</p>
+            <FaChevronRight className="pt-1 text-xl" />
+          </Link>
         </div>
       </div>
 

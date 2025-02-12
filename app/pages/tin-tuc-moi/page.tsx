@@ -92,7 +92,9 @@ export default function NewsPage() {
         <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
           {/* Background with overlay */}
           <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0e7490] via-[#3b82f6] to-[#4f46e5]" />
+            <div className="absolute inset-0 h-[20vh] w-[20vw] bg-gradient-to-r from-[#0e7490] via-[#3b82f6] to-[#4f46e5]">
+              asdad
+            </div>
           </div>
 
           {/* Content */}

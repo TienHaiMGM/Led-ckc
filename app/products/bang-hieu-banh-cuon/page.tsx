@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ProductDetail from "../../../components/specific/ProductDetail_Updated";
+
 import Header from "components/common/Header";
 import Menu from "components/common/Menu";
 import Footer from "components/common/Footer";
@@ -26,56 +26,6 @@ export const metadata: Metadata = {
     images: ["/images/bang-hieu-banh-cuon-nong-1.jpg"],
     type: "website",
   },
-};
-
-const productData = {
-  id: "bang-hieu-banh-cuon",
-  title: "Bảng Hiệu Bánh Cuốn",
-  description:
-    "Thiết kế và thi công bảng hiệu bánh cuốn với phong cách hiện đại, thu hút. Sử dụng chất liệu cao cấp, hệ thống đèn LED tiết kiệm điện và độ bền cao.",
-  mainImage: "/images/bang-hieu-banh-cuon-nong-1.jpg",
-  gallery: [
-    "/images/bang-hieu-banh-cuon-nong-1.jpg",
-    "/images/bang-hieu-cua-hang-thuc-pham-6.jpg",
-    "/images/bang-hieu-dich-vu-chuyen-tien-1.jpg",
-    "/images/bang-hieu-dung-spa-5.jpg",
-    "/images/bang-hieu-nuoc-mia-9.jpg",
-    "/images/bang-hieu-pickleball-1.jpg",
-    "/images/banghieu.jpg",
-    "/images/sieuthibanghieu.jpg",
-  ],
-  features: [
-    "Thiết kế độc đáo, phù hợp với phong cách ẩm thực truyền thống",
-    "Chất liệu Alu cao cấp, chống oxi hóa, bền màu",
-    "Hệ thống đèn LED tiết kiệm điện, tuổi thọ cao",
-    "Thi công nhanh chóng, lắp đặt chuyên nghiệp",
-    "Bảo hành dài hạn, hỗ trợ bảo trì 24/7",
-    "Giá cả cạnh tranh, phù hợp mọi ngân sách",
-  ],
-  specifications: {
-    material: ["Alu cao cấp", "Mica trong suốt", "Đèn LED", "Khung sắt mạ kẽm"],
-    size: "Tùy chỉnh theo yêu cầu (Phổ biến: 2m x 0.8m đến 4m x 1.2m)",
-    lighting: "Hệ thống LED tiết kiệm điện, tuổi thọ >50.000 giờ",
-    warranty: "Bảo hành 2 năm cho phần cứng, 1 năm cho hệ thống điện",
-  },
-  benefits: [
-    {
-      title: "Thiết Kế Chuyên Nghiệp",
-      description:
-        "Đội ngũ thiết kế giàu kinh nghiệm, sáng tạo mẫu theo yêu cầu",
-      icon: "FaTools",
-    },
-    {
-      title: "Thi Công Nhanh Chóng",
-      description: "Hoàn thành thi công và lắp đặt trong 3-5 ngày",
-      icon: "FaClock",
-    },
-    {
-      title: "Bảo Hành Tận Tâm",
-      description: "Chế độ bảo hành dài hạn, hỗ trợ kỹ thuật 24/7",
-      icon: "FaShieldAlt",
-    },
-  ],
 };
 
 const schemaData = {
@@ -127,7 +77,7 @@ export default function ProductPage() {
     <>
       <Header />
       <Menu />
-      <ProductDetail product={productData} />
+      {/* <ProductDetail_Updated slug="bang-hieu-banh-cuon" /> */}
       <JsonLdWrapper data={schemaData} />
       <Footer />
     </>

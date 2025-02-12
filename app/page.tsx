@@ -82,8 +82,9 @@ export default function Home() {
       {/* Bảng hiệu */}
       <section className="" aria-label="Bảng hiệu">
         <ItemList
-          bgGradient="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
+          bgGradient="bg-red-700"
           title="BẢNG HIỆU"
+          linkXemThem="bang-hieu"
           items={bangHieuProducts}
         />
       </section>
@@ -91,8 +92,9 @@ export default function Home() {
       {/* Hộp đèn */}
       <section className="" aria-label="Hộp đèn">
         <ItemList
-          bgGradient="bg-gradient-to-l from-[#38bdf8] via-[#fb7185] to-[#84cc16]"
+          bgGradient="bg-red-700"
           title="HỘP ĐÈN"
+          linkXemThem="hop-den"
           items={hopDenProducts}
         />
       </section>
@@ -100,8 +102,9 @@ export default function Home() {
       {/* Chữ nổi */}
       <section aria-label="Chữ nổi">
         <ItemList
-          bgGradient="bg-gradient-to-bl from-[#86efac] via-[#fcd34d] to-[#f9a8d4]"
+          bgGradient="bg-red-700"
           title="CHỮ NỔI"
+          linkXemThem="chu-noi"
           items={chuNoiProducts}
         />
       </section>
@@ -109,8 +112,9 @@ export default function Home() {
       {/* LED */}
       <section aria-label="LED">
         <ItemList
-          bgGradient="bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-[#dc2626] via-[#f87171] to-[#fecaca]"
+          bgGradient="bg-red-700"
           title="LED"
+          linkXemThem="led"
           items={ledProducts}
         />
       </section>
@@ -119,7 +123,6 @@ export default function Home() {
       <section aria-label="Video về sản phẩm">
         <Testimonials />
       </section>
-
       <SocialButtons />
       <Footer />
     </div>

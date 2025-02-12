@@ -36,9 +36,10 @@ const categories = [
 const ExploreCategories: React.FC = () => {
   return (
     <div className="container mx-auto py-8">
-      <h2 className="mb-4 text-center text-3xl font-bold">
+      <h2 className="mb-4 p-3 text-center text-3xl font-bold text-black">
         SẢN PHẨM TIÊU BIỂU
       </h2>
+
       <p className="mb-8 text-center text-lg text-gray-600">
         Khám phá các sản phẩm và dịch vụ chất lượng cao của chúng tôi
       </p>

@@ -31,11 +31,10 @@ const ProductDetail_WithData = ({ slug }: ProductDetailProps) => {
     return <div>Product not found</div>;
   }
 
-  // Create gallery images array from the product image
+  // Create gallery images array from the product image - limit to 3 images
   const gallery = [
     product.image,
     // Add variations of the image for the gallery
-    product.image,
     product.image,
     product.image,
   ];
@@ -113,13 +112,14 @@ const ProductDetail_WithData = ({ slug }: ProductDetailProps) => {
       </nav>
 
       {/* Hero Section */}
-      <section className="py-8">
-        <div className="container mx-auto px-4 lg:px-28">
+      <section className="py-0">
+        <div className="container mx-auto px-1 lg:px-28">
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Left Column - Image Gallery */}
+
             <div className="relative space-y-4">
               {/* Main Image */}
-              <div className="relative h-[20vh] max-w-[100vw] overflow-hidden rounded-lg shadow-2xl">
+              <div className="lg:h-6/6 relative h-[50vw] max-w-[100vw] overflow-hidden rounded-lg shadow-2xl md:h-[40vw] xl:h-96">
                 <Image
                   src={gallery[currentImageIndex]}
                   alt={`${product.title} - Hình ảnh chính`}
@@ -156,12 +156,12 @@ const ProductDetail_WithData = ({ slug }: ProductDetailProps) => {
               </div>
 
               {/* Thumbnail Gallery */}
-              <div className="flex space-x-2 overflow-hidden pb-2">
-                {gallery.map((image, index) => (
-                  <button
+              <div className="flex justify-between space-x-2">
+                {gallery.slice(0, 3).map((image, index) => (
+                  <div
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-lg transition-all ${
+                    className={`relative h-[18vw] w-[27vw] rounded-lg transition-all lg:h-[14vh] ${
                       currentImageIndex === index
                         ? "ring-2 ring-blue-500 ring-offset-2"
                         : "opacity-70 hover:opacity-100"
@@ -173,8 +173,9 @@ const ProductDetail_WithData = ({ slug }: ProductDetailProps) => {
                       alt={`${product.title} - Hình thu nhỏ ${index + 1}`}
                       fill
                       className="object-cover"
+                      sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 20vw"
                     />
-                  </button>
+                  </div>
                 ))}
               </div>
             </div>

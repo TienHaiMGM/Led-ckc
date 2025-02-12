@@ -123,17 +123,17 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
 
       {/* Hero Section */}
       <section className="py-8">
-        <div className="container mx-auto px-28">
+        <div className="container mx-auto px-4 lg:px-28">
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Left Column - Image Gallery */}
             <div className="relative space-y-4">
               {/* Main Image */}
-              <div className="relative aspect-[5/3] overflow-hidden rounded-lg shadow-2xl">
+              <div className="relative h-[20vh] max-w-[100vw] overflow-hidden rounded-lg shadow-2xl">
                 <Image
                   src={product.gallery[currentImageIndex]}
                   alt={`${product.title} - Hình ảnh chính`}
                   fill
-                  className="object-cover"
+                  className="h-[20vh] w-full object-cover"
                   priority
                   loading="eager"
                   onClick={() =>

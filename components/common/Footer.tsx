@@ -4,7 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 py-8 text-white">
+    <footer className="bg-gray-900 py-4 text-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap items-center justify-between">
           <div className="mb-4 w-full md:mb-0 md:w-1/4">
@@ -56,7 +56,12 @@ const Footer = () => {
               </Link>
               <Link href="#">
                 <span className="cursor-pointer text-2xl text-gray-400 hover:text-white">
-                  <i className="fab fa-twitter"></i>
+                  <i className="fab fa-tiktok"></i>
+                </span>
+              </Link>
+              <Link href="#">
+                <span className="cursor-pointer text-2xl text-gray-400 hover:text-white">
+                  <i className="fab fa-youtube"></i>
                 </span>
               </Link>
               <Link href="#">
@@ -66,7 +71,7 @@ const Footer = () => {
               </Link>
               <Link href="#">
                 <span className="cursor-pointer text-2xl text-gray-400 hover:text-white">
-                  <i className="fab fa-linkedin-in"></i>
+                  <i className="fab fa-twitter"></i>
                 </span>
               </Link>
             </div>

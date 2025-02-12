@@ -2,7 +2,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 import Header from "components/common/Header";
 import Menu from "components/common/Menu";
 import Footer from "components/common/Footer";
@@ -27,9 +27,29 @@ const metadata: Metadata = {
 const ITEMS_PER_PAGE = 12;
 
 export default function SignPage() {
+  const [mounted, setMounted] = React.useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
   const [searchQuery, setSearchQuery] = useState("");
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <Menu />
+        <main className="flex-grow bg-gray-50">
+          <div className="container mx-auto px-4 py-8">
+            <div className="text-center">Loading...</div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   // Get unique categories
   const categories = [
@@ -230,7 +250,10 @@ export default function SignPage() {
                         <span className="font-semibold text-blue-600">
                           {product.price}
                         </span>
-                        <span className="text-sm text-gray-500">
+                        <span
+                          className="text-sm text-gray-500"
+                          suppressHydrationWarning
+                        >
                           {new Date(product.createdAt).toLocaleDateString(
                             "vi-VN",
                           )}

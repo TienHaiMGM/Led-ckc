@@ -6,9 +6,36 @@ import { menuItems } from "utils/menuItems";
 
 const Menu: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    // Return a simpler version during SSR to prevent hydration mismatch
+    return (
+      <nav className="sticky top-0 z-50 w-full bg-red-700 bg-gradient-to-r shadow-md">
+        <div className="hidden lg:block">
+          <ul className="flex justify-center gap-12 p-3">
+            {menuItems.map((item, index) => (
+              <li
+                key={index}
+                className="relative transform cursor-pointer transition-all duration-500"
+              >
+                <span className="text-lg font-semibold uppercase text-white">
+                  {item.label}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    );
+  }
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 shadow-md">
+    <nav className="sticky top-0 z-50 w-full bg-red-700 shadow-md">
       {/* Desktop Menu */}
       <div className="hidden lg:block">
         <ul className="flex justify-center gap-12 p-3">

@@ -2,11 +2,13 @@ import React from "react";
 
 const HowItWorks = () => {
   return (
-    <section className="bg-gray-100 py-12">
-      <div className="container mx-auto px-4">
-        <h2 className="mb-8 text-center text-3xl font-bold">
-          &quot;Siêu Thị bảng hiệu – Nâng tầm thương hiệu của bạn!&quot;
-        </h2>
+    <section className="bg-gray-100 py-8">
+      <div className="container mx-auto px-0">
+        <div className="flex justify-center">
+          <h2 className="mb-8 rounded-xl bg-red-700 p-2 text-center text-3xl font-bold text-white will-change-contents">
+            &quot;Siêu Thị bảng hiệu – Nâng tầm thương hiệu của bạn!&quot;
+          </h2>
+        </div>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="rounded-lg bg-white p-6 shadow-lg">
             <div className="mb-4 flex items-center justify-center">
