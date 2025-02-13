@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Head from "next/head";
-import DataManagement from "../../components/api/DataManagement";
+import ProductEditor from "../../components/api/ProductEditor";
 
 const AdminPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -105,7 +105,7 @@ const AdminPage = () => {
       </header>
       {/* Main Content */}
       <main className="container mx-auto py-6">
-        <DataManagement EditorContent={undefined} />
+        <ProductEditor EditorContent={undefined} />
       </main>
     </div>
   );
