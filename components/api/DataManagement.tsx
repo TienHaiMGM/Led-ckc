@@ -12,13 +12,13 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { FaEdit, FaTrash, FaPlus, FaSave, FaTimes } from "react-icons/fa";
+import Editor from "app/admin/product-content/editor";
 
 interface Product {
   id: string;
   title: string;
   description: string;
   image: string;
-  price?: number;
   category: string;
   createdAt: string;
 }
@@ -34,7 +34,6 @@ const DataManagement = () => {
     title: "",
     description: "",
     image: "",
-    price: 0,
     category: "",
   };
 
@@ -135,7 +134,6 @@ const DataManagement = () => {
       title: product.title,
       description: product.description,
       image: product.image,
-      price: product.price || 0,
       category: product.category,
     });
   };
@@ -202,17 +200,7 @@ const DataManagement = () => {
                   <option value="bienled">Biển LED</option>
                 </select>
               </div>
-              <div>
-                <label className="mb-2 block font-medium">Giá</label>
-                <input
-                  type="number"
-                  value={formData.price}
-                  onChange={(e) =>
-                    setFormData({ ...formData, price: Number(e.target.value) })
-                  }
-                  className="w-full rounded-lg border p-2"
-                />
-              </div>
+
               <div>
                 <label className="mb-2 block font-medium">Link hình ảnh</label>
                 <input
@@ -273,9 +261,7 @@ const DataManagement = () => {
               <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                 Danh mục
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                Giá
-              </th>
+
               <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                 Thao tác
               </th>
@@ -301,14 +287,7 @@ const DataManagement = () => {
                 <td className="whitespace-nowrap px-6 py-4 text-gray-500">
                   {product.category}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4 text-gray-500">
-                  {product.price
-                    ? new Intl.NumberFormat("vi-VN", {
-                        style: "currency",
-                        currency: "VND",
-                      }).format(product.price)
-                    : "Liên hệ"}
-                </td>
+
                 <td className="whitespace-nowrap px-6 py-4">
                   <div className="flex space-x-2">
                     <button

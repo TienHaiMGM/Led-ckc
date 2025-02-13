@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Editor from "./editor";
 import { EditorContent } from "../../../types/editor";
+import DataManagement from "@/components/api/DataManagement";
 
 export default function ProductContentPage() {
   const [savedContents, setSavedContents] = useState<EditorContent[]>([]);
@@ -47,6 +48,7 @@ export default function ProductContentPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <DataManagement />
       {/* Notification Toast */}
       {showNotification && (
         <div

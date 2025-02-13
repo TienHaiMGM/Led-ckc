@@ -13,23 +13,34 @@ import {
 import Head from "next/head";
 import Link from "next/link";
 import ProductContent from "./ProductContent";
-import { products } from "../../data/products";
 
-interface ProductDetailProps {
+interface Product {
+  title: string;
+  description?: string;
+  image: string;
+  price: number;
+  category: string;
   slug: string;
+  content: string;
+}
+interface FirestoreProduct extends Product {
+  id: string;
+  createdAt?: any;
+  updatedAt?: any;
 }
 
-const ProductDetail_WithData = ({ slug }: ProductDetailProps) => {
+interface ProductDetailProps {
+  product: FirestoreProduct; // Cập nhật để nhận toàn bộ product
+}
+
+const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showFullImage, setShowFullImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
 
-  // Find product by slug
-  const product = products.find((p) => p.slug === slug);
+  // Không cần tìm kiếm sản phẩm nữa, sử dụng trực tiếp từ props
 
-  if (!product) {
-    return <div>Product not found</div>;
-  }
+  // Không cần kiểm tra nữa vì đã đảm bảo product được truyền vào
 
   // Create gallery images array from the product image - limit to 3 images
   const gallery = [
@@ -158,7 +169,7 @@ const ProductDetail_WithData = ({ slug }: ProductDetailProps) => {
               {/* Title with decorative border */}
               <div className="relative pl-2">
                 <h1 className="text-2xl font-bold leading-tight text-red-500 lg:text-3xl">
-                  {product.title}
+                  {product.title} // Sử dụng dữ liệu từ product
                 </h1>
               </div>
               {/* Features with icons */}

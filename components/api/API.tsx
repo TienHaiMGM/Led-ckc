@@ -1,1 +1,0 @@
-export const API_KEY="AIzaSyAdgu__16X15pRx8kza-83S8mA1ZXR3Yx8"

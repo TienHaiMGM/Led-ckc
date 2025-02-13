@@ -1,20 +1,44 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import ProductDetail_WithData from "../../../components/specific/ProductDetail_WithData";
+import DatabaseService from "../../../components/api/DatabaseService"; // Import DatabaseService
 import Header from "components/common/Header";
 import Menu from "components/common/Menu";
 import Footer from "components/common/Footer";
 import JsonLdWrapper from "components/common/JsonLdWrapper";
-import { products } from "../../../data/products";
-import Breadcrumb from "@/components/common/Breadcrumb";
+import Breadcrumb from "components/common/Breadcrumb";
 
 export default function ProductPage() {
   const params = useParams();
   const slug = params?.slug as string;
 
-  // Find product for metadata
-  const product = products.find((p) => p.slug === slug);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const fetchedProduct = await DatabaseService.getProductBySlug(slug);
+        if (fetchedProduct) {
+          setProduct(fetchedProduct);
+        } else {
+          setError("Sản phẩm không tồn tại");
+        }
+      } catch (err) {
+        setError("Lỗi khi tải sản phẩm");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [slug]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   const schemaData = {
     "@context": "https://schema.org",
@@ -64,7 +88,7 @@ export default function ProductPage() {
       <Header />
       <Menu />
       <Breadcrumb />
-      <ProductDetail_WithData slug={slug} />
+      <ProductDetail_WithData product={product} />
       <JsonLdWrapper data={schemaData} />
       <Footer />
     </>

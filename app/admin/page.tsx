@@ -44,7 +44,6 @@ const AdminPage = () => {
           <title>Admin Login | Siêu Thị Bảng Hiệu</title>
           <meta name="robots" content="noindex, nofollow" />
         </Head>
-
         <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
           <h1 className="mb-6 text-center text-2xl font-bold text-gray-900">
             Đăng Nhập Admin
@@ -104,7 +103,6 @@ const AdminPage = () => {
           </button>
         </div>
       </header>
-
       {/* Main Content */}
       <main className="container mx-auto py-6">
         <DataManagement />

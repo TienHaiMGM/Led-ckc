@@ -244,9 +244,6 @@ export default function Editor({
   return (
     <>
       <div className="min-h-screen bg-gray-50">
-        <Header />
-        <Menu />
-
         <div className="container mx-auto px-4 py-8">
           <div className="rounded-lg bg-white shadow-lg">
             {/* Header */}
