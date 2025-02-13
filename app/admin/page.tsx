@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Head from "next/head";
 import ProductEditor from "../../components/api/ProductEditor";
+import ProductContentPage from "./product-content/product-content";
 
 const AdminPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -105,7 +106,7 @@ const AdminPage = () => {
       </header>
       {/* Main Content */}
       <main className="container mx-auto py-6">
-        <ProductEditor EditorContent={undefined} />
+        <ProductContentPage />
       </main>
     </div>
   );

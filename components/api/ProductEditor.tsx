@@ -1,11 +1,33 @@
 import React, { useState, useCallback } from "react";
-import { FaEdit, FaTrash, FaPlus, FaSave, FaTimes } from "react-icons/fa";
+import {
+  FaEdit,
+  FaTrash,
+  FaPlus,
+  FaSave,
+  FaTimes,
+  FaSearch,
+  FaSort,
+} from "react-icons/fa";
 import dynamic from "next/dynamic";
 import {
   EditorProps,
   Draft,
-  CATEGORY_OPTIONS,
+  ProductContent,
 } from "../../types/product-management";
+
+interface CategoryOption {
+  value: string;
+  label: string;
+}
+
+const categoryOptions: CategoryOption[] = [
+  { value: "banghieu", label: "Bảng hiệu" },
+  { value: "chunoi", label: "Chữ nổi" },
+  { value: "hopden", label: "Hộp đèn" },
+  { value: "bienbat", label: "Biển bạt" },
+  { value: "bienled", label: "Biển LED" },
+];
+
 import Preview from "app/admin/product-content/preview";
 import { FormField } from "../common/FormField";
 import { useProductEditor } from "./hooks/useProductEditor";
@@ -135,6 +157,12 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
   const [showDrafts, setShowDrafts] = useState(false);
   const [dataPreview, setDataPreview] = useState(EditorContent);
 
+  // States for search, sorting and filtering
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("date"); // 'date' or 'category'
+  const [sortDirection, setSortDirection] = useState("desc"); // 'asc' or 'desc'
+  const [selectedCategory, setSelectedCategory] = useState(""); // "" means all categories
+
   const handlePreview = useCallback(() => {
     setShowPreview(true);
     if (onPreview) {
@@ -154,6 +182,41 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
     setShowDrafts(true);
   };
 
+  // Filter, sort and categorize products
+  const filteredAndSortedProducts = products
+    .filter((product) => {
+      const searchLower = searchQuery.toLowerCase();
+      const matchesSearch =
+        product.title.toLowerCase().includes(searchLower) ||
+        product.description?.toLowerCase().includes(searchLower) ||
+        product.content?.toLowerCase().includes(searchLower);
+
+      // Apply category filter if a category is selected
+      const matchesCategory = selectedCategory
+        ? product.category === selectedCategory
+        : true;
+
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      if (sortBy === "date") {
+        const dateA = new Date(a.createdAt || 0).getTime();
+        const dateB = new Date(b.createdAt || 0).getTime();
+        return sortDirection === "asc" ? dateA - dateB : dateB - dateA;
+      } else if (sortBy === "category") {
+        const categoryA = a.category || "";
+        const categoryB = b.category || "";
+        return sortDirection === "asc"
+          ? categoryA.localeCompare(categoryB)
+          : categoryB.localeCompare(categoryA);
+      }
+      return 0;
+    });
+
+  const toggleSortDirection = () => {
+    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+  };
+
   const renderContentTab = () => (
     <div className="space-y-6">
       <FormField
@@ -168,7 +231,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
         type="select"
         value={formData.category}
         onChange={(value) => setFormData({ ...formData, category: value })}
-        options={CATEGORY_OPTIONS}
+        options={categoryOptions}
         required
       />
 
@@ -377,6 +440,69 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
         />
       )}
 
+      {/* Search, Filter and Sort Controls */}
+      <div className="mb-4 space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="relative max-w-md flex-1">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <FaSearch className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Tìm kiếm sản phẩm..."
+              className="block w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            />
+          </div>
+          <div className="flex items-center space-x-4">
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            >
+              <option value="date">Sắp xếp theo ngày</option>
+              <option value="category">Sắp xếp theo danh mục</option>
+            </select>
+            <button
+              onClick={toggleSortDirection}
+              className="flex items-center rounded-lg border border-gray-300 px-3 py-2 hover:bg-gray-50"
+            >
+              <FaSort
+                className={`h-5 w-5 ${sortDirection === "asc" ? "rotate-180 transform" : ""}`}
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* Category Filter */}
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => setSelectedCategory("")}
+            className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              selectedCategory === ""
+                ? "bg-blue-600 text-white"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
+          >
+            Tất cả
+          </button>
+          {categoryOptions.map((category) => (
+            <button
+              key={category.value}
+              onClick={() => setSelectedCategory(category.value)}
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                selectedCategory === category.value
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
+            >
+              {category.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="overflow-x-auto rounded-lg bg-white shadow-lg">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -388,12 +514,15 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
                 Danh mục
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                Ngày đăng
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                 Thao tác
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {products.map((product) => (
+            {filteredAndSortedProducts.map((product) => (
               <tr key={product.id}>
                 <td className="whitespace-nowrap px-6 py-4">
                   <div className="flex items-center">
@@ -411,6 +540,11 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
                 </td>
                 <td className="whitespace-nowrap px-6 py-4 text-gray-500">
                   {product.category}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4 text-gray-500">
+                  {new Date(product.createdAt || "").toLocaleDateString(
+                    "vi-VN",
+                  )}
                 </td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <div className="flex space-x-2">
