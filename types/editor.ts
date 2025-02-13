@@ -1,7 +1,7 @@
 export interface EditorContent {
   title: string;
   content: string;
-  images: string[];
+  images: string;
   category: string;
   slug: string;
   description: string;
@@ -14,8 +14,24 @@ export interface EditorContent {
   featuredImage?: string;
   thumbnail?: string; // New field for thumbnail
 }
-
+export const EditorContentInitial = {
+  title: "",
+  content: "",
+  images: "",
+  category: "",
+  slug: "",
+  description: "",
+  tags: "",
+  status: "",
+  createdAt: "",
+  updatedAt: "",
+  seoTitle: "",
+  seoDescription: "",
+  featuredImage: "",
+  thumbnail: "", // New field for thumbnail
+};
 export interface EditorProps {
+  EditorContent: EditorContent;
   initialContent?: EditorContent;
   onSave?: (content: EditorContent) => void;
   onPreview?: (content: EditorContent) => void;

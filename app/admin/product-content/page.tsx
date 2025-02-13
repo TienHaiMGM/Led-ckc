@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Editor from "./editor";
-import { EditorContent } from "../../../types/editor";
+import { EditorContent, EditorContentInitial } from "../../../types/editor";
 import DataManagement from "@/components/api/DataManagement";
 
 export default function ProductContentPage() {
@@ -48,7 +48,13 @@ export default function ProductContentPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <DataManagement />
+      <DataManagement
+        EditorContent={EditorContentInitial}
+        onSave={handleSave}
+        onDraft={handleDraft}
+        onPreview={handlePreview}
+      />
+
       {/* Notification Toast */}
       {showNotification && (
         <div
@@ -60,11 +66,11 @@ export default function ProductContentPage() {
         </div>
       )}
 
-      <Editor
+      {/* <Editor
         onSave={handleSave}
         onDraft={handleDraft}
         onPreview={handlePreview}
-      />
+      /> */}
 
       {/* Recent Drafts/Published Content */}
       {savedContents.length > 0 && (

@@ -13,8 +13,6 @@ import {
   EDITOR_TABS,
   EDITOR_STATUS,
 } from "../../../types/editor";
-import Header from "../../../components/common/Header";
-import Menu from "../../../components/common/Menu";
 import Preview from "./preview";
 
 const ReactQuill = dynamic(() => import("react-quill"), {
