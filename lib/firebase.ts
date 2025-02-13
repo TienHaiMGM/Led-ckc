@@ -1,20 +1,51 @@
-import { initializeApp, getApps } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+"use client";
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import {
+  getAuth,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
+
+console.log("Initializing Firebase...");
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAdgu__16X15pRx8kza-83S8mA1ZXR3Yx8",
+  apiKey: "AIzaSyBJGoGygwZ7j-LWpo7PL2_Ko9-zUcIYKsw",
   authDomain: "sieuthibanghieu-f033b.firebaseapp.com",
   projectId: "sieuthibanghieu-f033b",
-  storageBucket: "sieuthibanghieu-f033b.appspot.com",
+  storageBucket: "sieuthibanghieu-f033b.firebasestorage.app",
   messagingSenderId: "746324087310",
-  appId: "1:746324087310:web:a1b2c3d4e5f6g7h8i9j0k1",
-  measurementId: "G-XXXXXXXXXX"
+  appId: "1:746324087310:web:1143e04a5f1c1ea403a25f",
+  measurementId: "G-ZBYY5HEMW5",
 };
 
-// Initialize Firebase only if it hasn't been initialized already
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
-const auth = getAuth(app);
-const db = getFirestore(app);
+// Initialize Firebase
+let app;
+let auth;
+let db;
+
+if (typeof window !== "undefined") {
+  try {
+    // Get existing app if it exists, otherwise initialize
+    app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+
+    // Set persistence
+    setPersistence(auth, browserLocalPersistence)
+      .then(() => {
+        console.log("Firebase persistence set to LOCAL");
+      })
+      .catch((error) => {
+        console.error("Error setting persistence:", error);
+      });
+
+    console.log("Firebase initialized successfully");
+  } catch (error) {
+    console.error("Error initializing Firebase:", error);
+  }
+} else {
+  console.log("Firebase initialization skipped (server-side)");
+}
 
 export { app, auth, db };
