@@ -105,7 +105,7 @@ const AdminPage = () => {
       </header>
       {/* Main Content */}
       <main className="container mx-auto py-6">
-        <DataManagement />
+        <DataManagement EditorContent={undefined} />
       </main>
     </div>
   );

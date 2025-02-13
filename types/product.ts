@@ -1,13 +1,19 @@
 export interface Product {
   id: string;
   title: string;
-  image: string;
+  content: string;
+  images: string;
   category: string;
+  slug: string;
   description: string;
-  price: string; // Added price property
-  slug: string; // Added slug property
-  createdAt: Date;
-  updatedAt: Date;
+  tags: string[];
+  status: "draft" | "published";
+  createdAt: string;
+  updatedAt: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  featuredImage?: string;
+  thumbnail?: string;
 }
 
 export type ProductCategory =

@@ -1,16 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Editor from "./editor";
 import { EditorContent, EditorContentInitial } from "../../../types/editor";
 import DataManagement from "@/components/api/DataManagement";
 
 export default function ProductContentPage() {
   const [savedContents, setSavedContents] = useState<EditorContent[]>([]);
-  const [title, setTitle] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
-  const [seoTitle, setSeoTitle] = useState("");
-  const [seoDescription, setSeoDescription] = useState("");
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationType, setNotificationType] = useState<"success" | "error">(
@@ -65,12 +60,6 @@ export default function ProductContentPage() {
           {notificationMessage}
         </div>
       )}
-
-      {/* <Editor
-        onSave={handleSave}
-        onDraft={handleDraft}
-        onPreview={handlePreview}
-      /> */}
 
       {/* Recent Drafts/Published Content */}
       {savedContents.length > 0 && (

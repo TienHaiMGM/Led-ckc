@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import "../../app/admin/product-content/editor";
 import { db } from "./firebaseConfig";
 import {
   collection,
@@ -20,16 +19,8 @@ import {
   EDITOR_TABS,
   EDITOR_STATUS,
 } from "../../types/editor";
+import { Product } from "../../types/product";
 
-interface Product {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  category: string;
-  createdAt: string;
-  content: any;
-}
 import "react-quill/dist/quill.snow.css";
 import type { UnprivilegedEditor } from "react-quill";
 import dynamic from "next/dynamic";
@@ -121,42 +112,26 @@ const ReactQuill = dynamic(() => import("react-quill"), {
   loading: () => <p>Đang tải trình soạn thảo...</p>,
 });
 
-const DataManagement = ({
-  EditorContent,
-  onPreview,
-  onSave,
-  onDraft,
-}: EditorProps) => {
-  const [title, setTitle] = useState(EditorContent?.title || "");
-  const [content, setContent] = useState(EditorContent?.content || "");
-  const [category, setCategory] = useState(EditorContent?.category || "");
-  const [description, setDescription] = useState(
-    EditorContent?.description || "",
-  );
+const DataManagement = ({ EditorContent, onPreview, onDraft }: EditorProps) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState(EditorContent);
-  const [tags, setTags] = useState<string[]>(EditorContent?.tags || []);
-  const [thumbnail, setThumbnail] = useState(EditorContent?.thumbnail || "");
-  const [seoTitle, setSeoTitle] = useState(EditorContent?.seoTitle || "");
-  const [seoDescription, setSeoDescription] = useState(
-    EditorContent?.seoDescription || "",
-  );
-  const [status, setStatus] = useState<"draft" | "published">(
-    EditorContent?.status || "draft",
-  );
-  const [images, setImages] = useState<string>(EditorContent?.images);
-  const [featuredImage, setFeaturedImage] = useState(
-    EditorContent?.featuredImage || "",
-  );
-  const [slug, setSlug] = useState(EditorContent?.slug || "");
-
+  const [dataPreview, setDataPreview] = useState(EditorContent);
   //editor
   const [activeTab, setActiveTab] = useState("content");
   const [showPreview, setShowPreview] = useState(false);
+
+  const handlePreview = useCallback(() => {
+    setShowPreview(true);
+    if (onPreview) {
+      setDataPreview(formData);
+    }
+  }, [formData, showPreview, onPreview]);
+
+  console.log(`showPreview: ${showPreview}`);
   // Utility functions
   const generateSlug = useCallback((text: string) => {
     return text
@@ -167,49 +142,6 @@ const DataManagement = ({
       .replace(/[^a-z0-9\s]/g, "")
       .replace(/\s+/g, "-");
   }, []);
-
-  // Content management
-  const getCurrentContent = useCallback((): EditorContent => {
-    return {
-      title,
-      content,
-      category,
-      slug: slug || generateSlug(title),
-      description,
-      tags,
-      status,
-      images,
-      seoTitle,
-      seoDescription,
-      featuredImage,
-      thumbnail,
-      createdAt: EditorContent?.createdAt || new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-  }, [
-    formData.title,
-    formData.content,
-    formData.category,
-    formData.slug,
-    formData.description,
-    formData.tags,
-    formData.status,
-    formData.images,
-    formData.seoTitle,
-    formData.seoDescription,
-    formData.featuredImage,
-    formData.thumbnail,
-    EditorContent,
-    generateSlug,
-  ]);
-  console.log(`getCurrentContent:${onPreview(getCurrentContent())}`);
-  console.log(`asdad:${formData.title}`);
-  const handlePreview = useCallback(() => {
-    setShowPreview(true);
-    if (onPreview) {
-      onPreview(getCurrentContent());
-    }
-  }, [getCurrentContent, onPreview]);
 
   useEffect(() => {
     setFormData(EditorContent);
@@ -307,13 +239,21 @@ const DataManagement = ({
     setEditingProduct(product);
     setFormData({
       title: product.title,
-      description: product.description,
-      image: product.image,
-      category: product.category,
       content: product.content,
+      images: product.images,
+      category: product.category,
+      slug: product.slug,
+      description: product.description,
+      tags: product.tags,
+      status: product.status,
+      createdAt: product.createdAt,
+      updatedAt: product.updatedAt,
+      seoTitle: product.seoTitle,
+      seoDescription: product.seoDescription,
+      featuredImage: product.featuredImage,
+      thumbnail: product.thumbnail,
     });
   };
-
   const cancelEdit = () => {
     setEditingProduct(null);
     setFormData(EditorContent);
@@ -337,51 +277,7 @@ const DataManagement = ({
           {error}
         </div>
       )}
-      {/* Xem truoc  */}
-      <div className="border-b border-gray-200 p-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-800">
-            {/* {status === "draft" ? "Bản nháp: " : ""} */}
-            {/* {title || "Sản phẩm mới"} */}
-          </h1>
-          <div className="flex items-center space-x-4">
-            <span className={`rounded-full px-3 py-1 text-sm`}>
-              {/* {EDITOR_STATUS[status]} */}
-            </span>
-            <button
-              onClick={handlePreview}
-              className="rounded-lg bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-200"
-            >
-              Xem trước
-            </button>
-            <button
-              // onClick={() => handleSave(true)}
-              className="rounded-lg bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-200"
-            >
-              Lưu nháp
-            </button>
-            <button
-              type="submit"
-              className="flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-              disabled={loading}
-            >
-              <FaSave className="mr-2" />{" "}
-              {loading ? "Đang xử lý..." : "Xuất Bản"}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                cancelEdit();
-                setIsAdding(false);
-              }}
-              className="flex items-center rounded-lg border px-4 py-2 hover:bg-gray-100"
-              disabled={loading}
-            >
-              <FaTimes className="mr-2" /> Hủy
-            </button>
-          </div>
-        </div>
-      </div>
+
       {/* Add/Edit Form */}
       {(isAdding || editingProduct) && (
         <div className="mb-8 rounded-lg bg-white p-6 shadow-lg">
@@ -507,19 +403,17 @@ const DataManagement = ({
                     </h3>
                     <div className="overflow-hidden rounded-lg bg-white p-4 shadow-sm">
                       <div className="text-xl font-medium text-blue-600 hover:underline">
-                        {EditorContent.seoTitle || EditorContent.title}
+                        {formData.seoTitle || formData.title}
                       </div>
                       <div className="mt-1 flex items-center gap-1 text-sm text-green-700">
                         <span>🔒</span>
                         <span>
                           yourwebsite.com/
-                          {EditorContent.slug ||
-                            generateSlug(EditorContent.title)}
+                          {formData.slug || generateSlug(formData.title)}
                         </span>
                       </div>
                       <div className="mt-2 line-clamp-2 text-sm text-gray-600">
-                        {EditorContent.seoDescription ||
-                          EditorContent.description}
+                        {formData.seoDescription || formData.description}
                       </div>
                     </div>
                   </div>
@@ -531,8 +425,13 @@ const DataManagement = ({
                       </label>
                       <input
                         type="text"
-                        value={EditorContent.seoTitle}
-                        onChange={(e) => setSeoTitle(e.target.value)}
+                        value={formData.seoTitle}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            seoTitle: e.target.value,
+                          })
+                        }
                         className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none"
                         placeholder="Nhập tiêu đề SEO"
                       />
@@ -546,8 +445,13 @@ const DataManagement = ({
                         SEO Description
                       </label>
                       <textarea
-                        value={EditorContent.seoDescription}
-                        onChange={(e) => setSeoDescription(e.target.value)}
+                        value={formData.seoDescription}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            seoDescription: e.target.value,
+                          })
+                        }
                         className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none"
                         rows={4}
                         placeholder="Nhập mô tả SEO"
@@ -563,8 +467,13 @@ const DataManagement = ({
                       </label>
                       <input
                         type="text"
-                        value={EditorContent.thumbnail}
-                        onChange={(e) => setThumbnail(e.target.value)}
+                        value={formData.thumbnail}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            thumbnail: e.target.value,
+                          })
+                        }
                         className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none"
                         placeholder="Nhập đường dẫn thumbnail"
                       />
@@ -583,8 +492,13 @@ const DataManagement = ({
                         </span>
                         <input
                           type="text"
-                          value={EditorContent.slug}
-                          onChange={(e) => setSlug(e.target.value)}
+                          value={formData.slug}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              slug: e.target.value,
+                            })
+                          }
                           className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none"
                           placeholder="url-bai-viet"
                         />
@@ -600,10 +514,56 @@ const DataManagement = ({
             </div>
             {showPreview && (
               <Preview
-                content={getCurrentContent()}
+                content={dataPreview}
                 onClose={() => setShowPreview(false)}
               />
             )}
+            {/* Xem truoc  */}
+            <div className="border-b border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <h1 className="text-2xl font-bold text-gray-800">
+                  {/* {status === "draft" ? "Bản nháp: " : ""} */}
+                  {/* {title || "Sản phẩm mới"} */}
+                </h1>
+                <div className="flex items-center space-x-4">
+                  <span className={`rounded-full px-3 py-1 text-sm`}>
+                    {/* {EDITOR_STATUS[status]} */}
+                  </span>
+                  <button
+                    onClick={handlePreview}
+                    className="rounded-lg bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-200"
+                  >
+                    Xem trước
+                  </button>
+                  <button
+                    // onClick={() => handleSave(true)}
+                    className="rounded-lg bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-200"
+                  >
+                    Lưu nháp
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      cancelEdit();
+                      setIsAdding(false);
+                    }}
+                    className="flex items-center rounded-lg border px-4 py-2 hover:bg-gray-100"
+                    disabled={loading}
+                  >
+                    <FaTimes className="mr-2" /> Hủy
+                  </button>
+                </div>
+                <button
+                  type="submit"
+                  className="flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+                  disabled={loading}
+                >
+                  <FaSave className="mr-2" />{" "}
+                  {loading ? "Đang xử lý..." : "Lưu"}
+                </button>
+              </div>
+            </div>
           </form>
         </div>
       )}
@@ -631,7 +591,7 @@ const DataManagement = ({
                 <td className="whitespace-nowrap px-6 py-4">
                   <div className="flex items-center">
                     <img
-                      src={product.image}
+                      src={product.images}
                       alt={product.title}
                       className="h-10 w-10 rounded-full object-cover"
                     />
