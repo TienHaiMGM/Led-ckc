@@ -3,10 +3,10 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import Header from "components/common/Header";
-import Menu from "components/common/Menu";
-import Footer from "components/common/Footer";
-import SocialButtons from "components/common/SocialButtons";
+import Header from "@/components/common/Header";
+import Menu from "@/components/common/Menu";
+import Footer from "@/components/common/Footer";
+import SocialButtons from "@/components/common/SocialButtons";
 import { products } from "../../../data/products";
 import Breadcrumb from "@/components/common/Breadcrumb";
 

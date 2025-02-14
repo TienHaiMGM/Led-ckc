@@ -81,11 +81,9 @@ const BangHieuLed = () => {
     <div className="flex min-h-screen flex-col">
       <Header />
       <Menu />
-
+      <Breadcrumb />
       <main className="container mx-auto flex-grow px-4 py-8">
         <JsonLdScript type="Article" data={jsonLd} />
-        <Breadcrumb />
-
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* {TabarLeft} */}
           <TabarLeft />

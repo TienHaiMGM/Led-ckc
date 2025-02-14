@@ -181,3 +181,7 @@ export default {
     return querySnapshot.docs.map(convertToNewsArticle);
   }
 };
+
+export function getArticleBySlug(slug: string) {
+  throw new Error("Function not implemented.");
+}
