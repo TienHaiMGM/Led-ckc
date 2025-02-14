@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { menuItems } from "@/utils/menuItems";
 
 interface BreadcrumbItem {
   label: string;
@@ -13,44 +12,36 @@ const Breadcrumb = () => {
   const pathname = usePathname();
 
   const generateBreadcrumbs = (): BreadcrumbItem[] => {
+    // Split the pathname into segments and filter out empty strings
     const paths = pathname.split("/").filter(Boolean);
+
+    // Always start with home
     const breadcrumbs: BreadcrumbItem[] = [{ label: "Trang chủ", path: "/" }];
 
+    // Build breadcrumbs directly from URL segments
     let currentPath = "";
     paths.forEach((path) => {
       currentPath += `/${path}`;
 
-      // Try to find matching menu item for better labels
-      const menuItem = menuItems.find(
-        (item) =>
-          item.href === currentPath ||
-          item.items?.some((subItem) => subItem.href === currentPath),
-      );
+      // Format the path segment for display
+      const label = path
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
 
-      // If found in menu items, use that label
-      if (menuItem) {
-        breadcrumbs.push({
-          label: menuItem.label,
-          path: currentPath,
-        });
-      } else {
-        // Otherwise format the path segment
-        const label = path
-          .split("-")
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" ");
-
-        breadcrumbs.push({
-          label,
-          path: currentPath,
-        });
-      }
+      breadcrumbs.push({
+        label,
+        path: currentPath,
+      });
     });
 
     return breadcrumbs;
   };
 
   const breadcrumbs = generateBreadcrumbs();
+
+  // Don't render if we're on the homepage
+  if (pathname === "/") return null;
 
   return (
     <nav

@@ -35,6 +35,7 @@ const nextConfig = {
   // Add proper domains for images if you're using next/image
   images: {
     domains: ["firebasestorage.googleapis.com"],
+    domains: ["banghieuminhkhang.com"],
   },
 };
 
