@@ -4,24 +4,33 @@ import Footer from "components/common/Footer";
 import Menu from "components/common/Menu";
 import Header from "components/common/Header";
 import ProductCategory from "components/common/ProductCategory";
-import { products } from "../../../data/products";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 const EmbossedLetters = () => {
-  // Filter products for this category
-  const chuNoiProducts = products.filter(
-    (product) => product.category === "chu-noi",
-  );
-
   return (
     <div className="flex min-h-screen flex-col">
-      <main className="flex-grow">
-        <Header />
-        <Menu />
+      <Header />
+      <Menu />
+      <Breadcrumb />
+      <main className="flex-grow p-4 md:p-6 lg:p-8">
         <ProductCategory
-          title="Chữ nổi"
-          products={chuNoiProducts}
-          category="chu-noi"
-          description="Khám phá bộ sưu tập chữ nổi 3D với nhiều chất liệu đa dạng"
+          EditorContent={{
+            title: "Chữ nổi",
+            content: "",
+            images: "",
+            category: "chunoi",
+            slug: "chu-noi",
+            description: "Các mẫu Chữ nổi đẹp, chất lượng cao",
+            tags: ["Chữ nổi", "quảng cáo"],
+            status: "published",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+            seoTitle: "Chữ nổi - Siêu Thị Chữ nổi",
+            seoDescription:
+              "Chuyên thiết kế và thi công các loại Chữ nổi quảng cáo chất lượng cao",
+            featuredImage: "",
+            thumbnail: "",
+          }}
         />
       </main>
       <Footer />

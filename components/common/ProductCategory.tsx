@@ -9,29 +9,12 @@ import {
   FaGift,
 } from "react-icons/fa";
 import ItemCard from "./ItemCard";
+import { EditorProps } from "../../types/product-management";
+import { useProductEditor } from "../../components/api/hooks/useProductEditor";
 
-interface Product {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  price: string;
-  category: string;
-  slug: string;
-}
-
-interface ProductCategoryProps {
-  title: string;
-  description?: string;
-  products?: Product[];
-  showViewAll?: boolean;
-  category?: string;
-}
-
-const ProductCategory: React.FC<ProductCategoryProps> = ({
-  title,
-  products = [],
-}): React.ReactElement => {
+const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
+  const { products, loading, error, generateSlug } =
+    useProductEditor(EditorContent);
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -44,23 +27,25 @@ const ProductCategory: React.FC<ProductCategoryProps> = ({
       <div className="mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
         <div className="mb-6 sm:mb-8">
           <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">
-            {title}
+            {EditorContent.title}
           </h1>
           <div className="mt-2 h-1 w-16 bg-blue-500 sm:w-20"></div>
         </div>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3">
-          {products.map((product, index) => (
-            <div key={product.id} className="w-full">
-              <ItemCard
-                title={product.title}
-                description={product.description}
-                image={product.image}
-                slug={product.slug}
-                priority={index === 0}
-                index={index}
-              />
-            </div>
-          ))}
+          {products
+            .filter((product) => product.category == EditorContent.category)
+            .map((product, index) => (
+              <div key={product.id} className="w-full">
+                <ItemCard
+                  title={product.title}
+                  description={product.description}
+                  image={product.images}
+                  slug={product.slug}
+                  priority={index === 0}
+                  index={index}
+                />
+              </div>
+            ))}
         </div>
       </div>
     );
@@ -163,7 +148,7 @@ const ProductCategory: React.FC<ProductCategoryProps> = ({
       {/* SEO Title and Description */}
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">
-          {title}
+          {EditorContent.title}
         </h1>
         <div className="mt-2 h-1 w-16 bg-blue-500 sm:w-20"></div>
       </div>
@@ -180,18 +165,20 @@ const ProductCategory: React.FC<ProductCategoryProps> = ({
           {/* Products Grid - Mobile First with Progressive Enhancement */}
           {products.length > 0 ? (
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3">
-              {products.map((product, index) => (
-                <div key={product.id} className="w-full">
-                  <ItemCard
-                    title={product.title}
-                    description={product.description}
-                    image={product.image}
-                    slug={product.slug}
-                    priority={index === 0}
-                    index={index}
-                  />
-                </div>
-              ))}
+              {products
+                .filter((product) => product.category == EditorContent.category)
+                .map((product, index) => (
+                  <div key={product.id} className="w-full">
+                    <ItemCard
+                      title={product.title}
+                      description={product.description}
+                      image={product.images}
+                      slug={product.slug}
+                      priority={index === 0}
+                      index={index}
+                    />
+                  </div>
+                ))}
             </div>
           ) : (
             <div className="py-8 text-center">
