@@ -3,11 +3,11 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import Header from "components/common/Header";
-import Menu from "components/common/Menu";
-import Footer from "components/common/Footer";
-import SocialButtons from "components/common/SocialButtons";
-import ProductCollections from "components/common/ProductCollections";
+import Header from "@/components/common/Header";
+import Menu from "@/components/common/Menu";
+import Footer from "@/components/common/Footer";
+import SocialButtons from "@/components/common/SocialButtons";
+import ProductCollections from "@/components/common/ProductCollections";
 
 export default function SignPage() {
   const [currentPage, setCurrentPage] = useState(1);

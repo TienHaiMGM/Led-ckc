@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import About from "../../../components/specific/About";
-import Footer from "components/common/Footer";
-import Menu from "components/common/Menu";
-import Header from "components/common/Header";
-import JsonLdWrapper from "components/common/JsonLdWrapper";
+import Footer from "@/components/common/Footer";
+import Menu from "@/components/common/Menu";
+import Header from "@/components/common/Header";
+import JsonLdWrapper from "@/components/common/JsonLdWrapper";
 import SocialButtons from "@/components/common/SocialButtons";
 
 export const metadata: Metadata = {
