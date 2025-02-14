@@ -4,11 +4,11 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProductDetail_WithData from "../../../components/specific/ProductDetail_WithData";
 import DatabaseService from "../../../components/api/DatabaseService"; // Import DatabaseService
-import Header from "components/common/Header";
-import Menu from "components/common/Menu";
-import Footer from "components/common/Footer";
-import JsonLdWrapper from "components/common/JsonLdWrapper";
-import Breadcrumb from "components/common/Breadcrumb";
+import Header from "@/components/common/Header";
+import Menu from "@/components/common/Menu";
+import Footer from "@/components/common/Footer";
+import JsonLdWrapper from "@/components/common/JsonLdWrapper";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 export default function ProductPage() {
   const params = useParams();

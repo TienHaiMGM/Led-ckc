@@ -1,39 +1,43 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import Header from "components/common/Header";
-import Menu from "components/common/Menu";
-import Footer from "components/common/Footer";
-import SearchComponent from "components/common/SearchComponent";
+import Header from "@/components/common/Header";
+import Menu from "@/components/common/Menu";
+import Footer from "@/components/common/Footer";
+import UnifiedSearchComponent from "@/components/common/UnifiedSearchComponent";
 import { useProductEditor } from "../../components/api/hooks/useProductEditor";
 import { searchProducts } from "../../utils/searchUtils";
 import Image from "next/image";
 import Link from "next/link";
+import { ProductContent } from "../../types/product-management";
 
 const ITEMS_PER_PAGE = 12;
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams?.get("q") || "";
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<ProductContent[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const { products, loading } = useProductEditor(undefined);
 
   useEffect(() => {
-    if (initialQuery) {
-      handleSearch(initialQuery);
+    if (initialQuery && products) {
+      // Use searchProducts from searchUtils
+      const results = searchProducts(products, initialQuery);
+      setSearchResults(results);
+      setCurrentPage(1);
     }
   }, [initialQuery, products]);
 
-  const handleSearch = (query: string) => {
-    const results = searchProducts(products, query);
-    setSearchResults(results);
+  const handleSearch = (_query: string, results?: ProductContent[]) => {
+    if (results) {
+      setSearchResults(results);
+    } else if (_query && products) {
+      // Use searchProducts from searchUtils if results not provided
+      const searchResults = searchProducts(products, _query);
+      setSearchResults(searchResults);
+    }
     setCurrentPage(1);
-
-    // Update URL with search query
-    const url = new URL(window.location.href);
-    url.searchParams.set("q", query);
-    window.history.pushState({}, "", url.toString());
   };
 
   // Calculate pagination
@@ -52,11 +56,13 @@ export default function SearchPage() {
             <h1 className="mb-4 text-2xl font-bold text-gray-900">
               Tìm kiếm sản phẩm
             </h1>
-            <SearchComponent
+            <UnifiedSearchComponent
+              mode="direct"
               products={products}
               onSearch={handleSearch}
               placeholder="Nhập tên sản phẩm cần tìm..."
               className="max-w-2xl"
+              initialQuery={initialQuery}
             />
           </div>
 

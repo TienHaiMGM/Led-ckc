@@ -28,7 +28,7 @@ const categoryOptions: CategoryOption[] = [
   { value: "bienled", label: "Biển LED" },
 ];
 
-import Preview from "app/admin/product-content/preview";
+import Preview from "@/app/admin/product-content/preview";
 import { FormField } from "../common/FormField";
 import { useProductEditor } from "./hooks/useProductEditor";
 import { modules, formats } from "./editorConfig";
