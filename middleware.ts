@@ -1,55 +1,34 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 // Paths that require authentication
-const protectedPaths = [
-  '/admin',
-  '/admin/news-management',
-  '/admin/products',
-];
+const protectedPaths = ["/admin", "/admin/news-management", "/admin/products"];
 
 // Paths that should be accessible only to non-authenticated users
-const authPaths = [
-  '/admin/login',
-];
+const authPaths = ["/admin/login"];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Get authentication status from cookies
-  const authCookie = request.cookies.get('authenticated')?.value;
-  const isAuthenticated = authCookie === 'true';
-
   // Check if the path is protected
-  const isProtectedPath = protectedPaths.some(path => pathname.startsWith(path));
-  const isAuthPath = authPaths.some(path => pathname.startsWith(path));
-
-  // Redirect logic
-  if (isProtectedPath && !isAuthenticated) {
-    // Redirect to login if trying to access protected path while not authenticated
-    const url = new URL('/admin/login', request.url);
-    url.searchParams.set('from', pathname);
-    return NextResponse.redirect(url);
-  }
-
-  if (isAuthPath && isAuthenticated) {
-    // Redirect to admin dashboard if trying to access auth paths while authenticated
-    return NextResponse.redirect(new URL('/admin', request.url));
-  }
+  const isProtectedPath = protectedPaths.some((path) =>
+    pathname.startsWith(path),
+  );
+  const isAuthPath = authPaths.some((path) => pathname.startsWith(path));
 
   // Add security headers to all responses
   const response = NextResponse.next();
-  
+
   // Security headers
   const securityHeaders = {
-    'X-DNS-Prefetch-Control': 'on',
-    'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
-    'X-Frame-Options': 'SAMEORIGIN',
-    'X-Content-Type-Options': 'nosniff',
-    'X-XSS-Protection': '1; mode=block',
-    'Referrer-Policy': 'origin-when-cross-origin',
-    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-    'Content-Security-Policy': `
+    "X-DNS-Prefetch-Control": "on",
+    "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Content-Type-Options": "nosniff",
+    "X-XSS-Protection": "1; mode=block",
+    "Referrer-Policy": "origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+    "Content-Security-Policy": `
       default-src 'self';
       script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com;
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
@@ -60,7 +39,9 @@ export async function middleware(request: NextRequest) {
       form-action 'self';
       base-uri 'self';
       object-src 'none';
-    `.replace(/\s+/g, ' ').trim()
+    `
+      .replace(/\s+/g, " ")
+      .trim(),
   };
 
   // Add security headers to response
@@ -70,20 +51,35 @@ export async function middleware(request: NextRequest) {
 
   // Add cache control for static assets
   if (pathname.match(/\.(jpg|jpeg|gif|png|ico|svg|css|js)$/)) {
-    response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+    response.headers.set(
+      "Cache-Control",
+      "public, max-age=31536000, immutable",
+    );
   }
 
   // Prevent caching of HTML documents
   if (pathname.match(/\.(html?)$/)) {
-    response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    response.headers.set(
+      "Cache-Control",
+      "no-cache, no-store, must-revalidate",
+    );
   }
 
   // Add CORS headers for API routes
-  if (pathname.startsWith('/api/')) {
-    response.headers.set('Access-Control-Allow-Origin', process.env.NEXT_PUBLIC_SITE_URL || '*');
-    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    response.headers.set('Access-Control-Max-Age', '86400');
+  if (pathname.startsWith("/api/")) {
+    response.headers.set(
+      "Access-Control-Allow-Origin",
+      process.env.NEXT_PUBLIC_SITE_URL || "*",
+    );
+    response.headers.set(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS",
+    );
+    response.headers.set(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization",
+    );
+    response.headers.set("Access-Control-Max-Age", "86400");
   }
 
   return response;
@@ -97,6 +93,6 @@ export const config = {
     // - _next/image (image optimization files)
     // - favicon.ico (favicon file)
     // - public folder
-    '/((?!_next/static|_next/image|favicon.ico|public/).*)',
+    "/((?!_next/static|_next/image|favicon.ico|public/).*)",
   ],
 };
