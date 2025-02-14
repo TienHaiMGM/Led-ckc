@@ -1,51 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Main pages -->
   <url>
-    <loc>https://sieuthibanghieu.com</loc>
-    <lastmod>2024-02-20</lastmod>
+    <loc>https://sieuthibanghieu.vn</loc>
+    <lastmod>2023-10-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- News section -->
   <url>
-    <loc>https://sieuthibanghieu.com/pages/about</loc>
-    <lastmod>2024-02-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sieuthibanghieu.com/pages/contact</loc>
-    <lastmod>2024-02-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sieuthibanghieu.com/collections</loc>
-    <lastmod>2024-02-20</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://sieuthibanghieu.vn/tin-tuc</loc>
+    <lastmod>2023-10-01</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Siêu Thị Bảng Hiệu</news:name>
+        <news:language>vi</news:language>
+      </news:publication>
+      <news:publication_date>2023-10-01</news:publication_date>
+      <news:title>Tin Tức Mới Nhất Về Bảng Hiệu</news:title>
+    </news:news>
+  </url>
+
+  <!-- Collections -->
+  <url>
+    <loc>https://sieuthibanghieu.vn/collections</loc>
+    <lastmod>2023-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Products -->
+  <url>
+    <loc>https://sieuthibanghieu.vn/products</loc>
+    <lastmod>2023-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Pages -->
+  <url>
+    <loc>https://sieuthibanghieu.vn/pages/gioi-thieu</loc>
+    <lastmod>2023-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sieuthibanghieu.com/collections/signboard</loc>
-    <lastmod>2024-02-20</lastmod>
+    <loc>https://sieuthibanghieu.vn/pages/lien-he</loc>
+    <lastmod>2023-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sieuthibanghieu.vn/pages/kien-thuc</loc>
+    <lastmod>2023-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Product Categories -->
+  <url>
+    <loc>https://sieuthibanghieu.vn/collections/bang-hieu</loc>
+    <lastmod>2023-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sieuthibanghieu.vn/images/banghieu.jpg</image:loc>
+      <image:title>Bảng Hiệu Quảng Cáo</image:title>
+      <image:caption>Các mẫu bảng hiệu quảng cáo đẹp, chất lượng</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sieuthibanghieu.vn/collections/bang-led</loc>
+    <lastmod>2023-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sieuthibanghieu.com/collections/led</loc>
-    <lastmod>2024-02-20</lastmod>
+    <loc>https://sieuthibanghieu.vn/collections/chu-noi</loc>
+    <lastmod>2023-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sieuthibanghieu.com/collections/light-box</loc>
-    <lastmod>2024-02-20</lastmod>
+    <loc>https://sieuthibanghieu.vn/collections/hop-den</loc>
+    <lastmod>2023-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- Service Pages -->
   <url>
-    <loc>https://sieuthibanghieu.com/collections/raised-letters</loc>
-    <lastmod>2024-02-20</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://sieuthibanghieu.vn/pages/lam-bang-hieu/bang-hieu-alu</loc>
+    <lastmod>2023-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://sieuthibanghieu.vn/images/bang-hieu-alu.jpg</image:loc>
+      <image:title>Bảng Hiệu Alu</image:title>
+      <image:caption>Chuyên thiết kế và thi công bảng hiệu alu chất lượng cao</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sieuthibanghieu.vn/pages/lam-bang-hieu/bang-hieu-led</loc>
+    <lastmod>2023-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sieuthibanghieu.vn/pages/lam-bang-hieu/bang-hieu-mica</loc>
+    <lastmod>2023-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sieuthibanghieu.vn/pages/lam-bang-hieu/bang-hieu-inox</loc>
+    <lastmod>2023-10-01</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>

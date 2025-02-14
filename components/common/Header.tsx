@@ -186,7 +186,7 @@ const Header = () => {
                     </div>
                   ) : (
                     <Link
-                      href={item.href}
+                      href={item.href || "#"}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="block rounded-lg px-4 py-2 text-base font-semibold text-white transition-colors hover:bg-white/10"
                     >

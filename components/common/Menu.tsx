@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
-import { menuItems } from "utils/menuItems";
+import { menuItems } from "../../utils/menuItems";
 
 const Menu: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -77,7 +77,7 @@ const Menu: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <Link href={item.href}>
+                <Link href={item.href || "#"}>
                   <span className="text-lg font-semibold uppercase text-white transition-all duration-300 hover:text-yellow-300">
                     {item.label}
                   </span>

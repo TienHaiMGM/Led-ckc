@@ -14,7 +14,22 @@ export const menuItems = [
       { href: "/collections/logo", label: "Logo" },
     ],
   },
-  { href: "/pages/lam-bang-hieu", label: "Làm bảng hiệu" },
+  {
+    label: "Làm bảng hiệu",
+    isDropdown: true,
+    items: [
+      { href: "/pages/lam-bang-hieu/bang-hieu-alu", label: "Bảng hiệu Alu" },
+      { href: "/pages/lam-bang-hieu/bang-hieu-inox", label: "Bảng hiệu Inox" },
+      { href: "/pages/lam-bang-hieu/bang-hieu-mica", label: "Bảng hiệu Mica" },
+      { href: "/pages/lam-bang-hieu/bang-hieu-led", label: "Bảng hiệu Led" },
+      { href: "/pages/lam-bang-hieu/bang-hieu-go", label: "Bảng hiệu Gỗ" },
+      { href: "/pages/lam-bang-hieu/bang-hieu-deca", label: "Bảng hiệu Deca" },
+      {
+        href: "/pages/lam-bang-hieu/bang-hieu-hiflex",
+        label: "Bảng hiệu Hiflex",
+      },
+    ],
+  },
   {
     label: "Tin tức",
     isDropdown: true,

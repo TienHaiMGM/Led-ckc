@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from "components/common/Footer";
-import Menu from "components/common/Menu";
-import Header from "components/common/Header";
+import Footer from "@/components/common/Footer";
+import Menu from "@/components/common/Menu";
+import Header from "@/components/common/Header";
 import SocialButtons from "@/components/common/SocialButtons";
 import Breadcrumb from "@/components/common/Breadcrumb";
 

@@ -1,24 +1,54 @@
 # Allow all crawlers
 User-agent: *
-Allow: /
 
-# Sitemap location
-Sitemap: https://sieuthibanghieu.com/sitemap.xml
-
-# Prevent crawling of admin or private areas if they exist
+# Disallow admin and API routes
 Disallow: /admin/
-Disallow: /private/
 Disallow: /api/
 
-# Allow crawling of static assets
-Allow: /images/
-Allow: /videos/
-Allow: /*.js
-Allow: /*.css
-Allow: /*.png
-Allow: /*.jpg
-Allow: /*.gif
-Allow: /*.svg
+# Allow all other routes
+Allow: /
+Allow: /tin-tuc/
+Allow: /pages/
+Allow: /collections/
+Allow: /products/
+Allow: /bai-viet/
 
-# Crawl delay to prevent server overload
-Crawl-delay: 1
+# Sitemap location
+Sitemap: https://sieuthibanghieu.vn/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 10
+
+# Host
+Host: https://sieuthibanghieu.vn
+
+# Additional rules for specific bots
+User-agent: Googlebot
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.ico$
+Disallow: /*?*
+
+User-agent: Googlebot-Image
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.webp$
+Allow: /*.svg$
+Disallow: /
+
+User-agent: AdsBot-Google
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Bingbot
+Crawl-delay: 15
+
+User-agent: Yandex
+Disallow: /
