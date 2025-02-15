@@ -1,286 +1,293 @@
 "use client";
+import React, { useState, useCallback } from "react";
+import {
+  FaEdit,
+  FaTrash,
+  FaPlus,
+  FaSave,
+  FaTimes,
+  FaSearch,
+  FaSort,
+} from "react-icons/fa";
+import dynamic from "next/dynamic";
+import { News } from "../api/NewsService";
+import { FormField } from "../common/FormField";
+import { modules, formats } from "../api/editorConfig";
+import "react-quill/dist/quill.snow.css";
 
-import React, { useState } from "react";
-import { NewsArticle, NEWS_CATEGORIES } from "../../types/news-management";
-import { NewsService } from "../api/NewsService";
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => <p>Đang tải trình soạn thảo...</p>,
+});
 
-interface NewsEditorProps {
-  initialData?: NewsArticle;
-  onSave?: (data: NewsArticle) => void;
+interface CategoryOption {
+  value: string;
+  label: string;
 }
 
-const NewsEditor = ({ initialData, onSave }: NewsEditorProps) => {
-  const defaultArticle: NewsArticle = {
-    id: "",
-    title: "",
-    slug: "",
-    description: "",
-    content: "",
-    image: "",
-    category: NEWS_CATEGORIES[0].id,
-    tags: [],
-    author: "",
-    publishDate: new Date().toISOString(),
-    lastModified: new Date().toISOString(),
-    status: "draft",
-    seoTitle: "",
-    seoDescription: "",
-    seoKeywords: [],
-    views: 0,
-    featured: false,
-  };
+const categoryOptions: CategoryOption[] = [
+  { value: "tin-tuc", label: "Tin tức" },
+  { value: "khuyen-mai", label: "Khuyến mãi" },
+  { value: "huong-dan", label: "Hướng dẫn" },
+  { value: "kinh-nghiem", label: "Kinh nghiệm" },
+];
 
-  const [article, setArticle] = useState<NewsArticle>(
-    initialData || defaultArticle,
-  );
-  const [isSaving, setIsSaving] = useState(false);
+const emptyNews: News = {
+  title: "",
+  description: "",
+  content: "",
+  image: "",
+  slug: "",
+  category: "tin-tuc",
+  tags: [],
+  author: "",
+  status: "draft",
+};
+
+interface NewsEditorProps {
+  initialNews?: News;
+  onSave?: (news: News) => void;
+  onPreview?: (news: News) => void;
+}
+
+const NewsEditor: React.FC<NewsEditorProps> = ({
+  initialNews = emptyNews,
+  onSave,
+  onPreview,
+}) => {
+  const [formData, setFormData] = useState<News>(initialNews);
+  const [isAdding, setIsAdding] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const newsService = new NewsService();
+  const [activeTab, setActiveTab] = useState("content");
 
-  const handleChange = (field: keyof NewsArticle, value: any) => {
-    setArticle((prev) => ({
-      ...prev,
-      [field]: value,
-      lastModified: new Date().toISOString(),
-    }));
-  };
-
-  const generateSlug = (title: string) => {
-    return title
+  const generateSlug = useCallback((text: string) => {
+    return text
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
-  };
+      .replace(/[đĐ]/g, "d")
+      .replace(/[^a-z0-9\s]/g, "")
+      .replace(/\s+/g, "-");
+  }, []);
 
-  const handleSave = async (status: "draft" | "published" = "draft") => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.title || !formData.content) {
+      setError("Vui lòng điền đầy đủ thông tin bắt buộc");
+      return;
+    }
+
     try {
-      setIsSaving(true);
-      setError(null);
-
-      if (!article.slug && article.title) {
-        article.slug = generateSlug(article.title);
+      setLoading(true);
+      if (onSave) {
+        await onSave({
+          ...formData,
+          slug: formData.slug || generateSlug(formData.title),
+        });
       }
-
-      article.status = status;
-      const savedArticle = await newsService.saveArticle(article);
-      onSave?.(savedArticle);
+      setFormData(emptyNews);
+      setIsAdding(false);
+      setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to save article");
+      setError(err instanceof Error ? err.message : "Có lỗi xảy ra");
     } finally {
-      setIsSaving(false);
+      setLoading(false);
     }
   };
 
-  return (
-    <div className="space-y-6 rounded-lg bg-white p-6 shadow">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">
-          {initialData ? "Chỉnh Sửa Bài Viết" : "Tạo Bài Viết Mới"}
-        </h1>
-        <div className="space-x-4">
-          <button
-            onClick={() => handleSave("draft")}
-            disabled={isSaving}
-            className="rounded-lg bg-gray-600 px-4 py-2 text-white hover:bg-gray-700 disabled:opacity-50"
-          >
-            {isSaving ? "Đang lưu..." : "Lưu nháp"}
-          </button>
-          <button
-            onClick={() => handleSave("published")}
-            disabled={isSaving}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
-          >
-            {isSaving ? "Đang xuất bản..." : "Xuất bản"}
-          </button>
-        </div>
-      </div>
+  const renderContentTab = () => (
+    <div className="space-y-6">
+      <FormField
+        label="Tiêu đề"
+        value={formData.title}
+        onChange={(value) => {
+          setFormData({
+            ...formData,
+            title: value,
+            slug: generateSlug(value),
+          });
+        }}
+        required
+      />
 
-      {/* Error Message */}
-      {error && (
-        <div className="rounded-lg bg-red-50 p-4 text-red-600">{error}</div>
-      )}
+      <FormField
+        label="Danh mục"
+        type="select"
+        value={formData.category}
+        onChange={(value) => setFormData({ ...formData, category: value })}
+        options={categoryOptions}
+        required
+      />
 
-      {/* Form Grid */}
-      <div className="grid gap-6 md:grid-cols-2">
-        {/* Left Column */}
-        <div className="space-y-4">
-          {/* Title */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Tiêu đề
-            </label>
-            <input
-              type="text"
-              value={article.title}
-              onChange={(e) => handleChange("title", e.target.value)}
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
+      <FormField
+        label="Link hình ảnh"
+        type="url"
+        value={formData.image}
+        onChange={(value) => setFormData({ ...formData, image: value })}
+        required
+      />
 
-          {/* Description */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Mô tả ngắn
-            </label>
-            <textarea
-              value={article.description}
-              onChange={(e) => handleChange("description", e.target.value)}
-              rows={3}
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
+      <FormField
+        label="Mô tả ngắn"
+        type="textarea"
+        value={formData.description || ""}
+        onChange={(value) => setFormData({ ...formData, description: value })}
+        required
+      />
 
-          {/* Category */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Danh mục
-            </label>
-            <select
-              value={article.category}
-              onChange={(e) => handleChange("category", e.target.value)}
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-            >
-              {NEWS_CATEGORIES.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Tags */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Tags
-            </label>
-            <input
-              type="text"
-              value={article.tags.join(", ")}
-              onChange={(e) =>
-                handleChange(
-                  "tags",
-                  e.target.value.split(",").map((tag) => tag.trim()),
-                )
-              }
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              placeholder="Nhập tags, phân cách bằng dấu phẩy"
-            />
-          </div>
-
-          {/* Image URL */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              URL Hình ảnh
-            </label>
-            <input
-              type="text"
-              value={article.image}
-              onChange={(e) => handleChange("image", e.target.value)}
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-
-          {/* Featured */}
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={article.featured}
-              onChange={(e) => handleChange("featured", e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-            />
-            <label className="text-sm font-medium text-gray-700">
-              Bài viết nổi bật
-            </label>
-          </div>
-        </div>
-
-        {/* Right Column */}
-        <div className="space-y-4">
-          {/* SEO Title */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              SEO Title
-            </label>
-            <input
-              type="text"
-              value={article.seoTitle}
-              onChange={(e) => handleChange("seoTitle", e.target.value)}
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* SEO Description */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              SEO Description
-            </label>
-            <textarea
-              value={article.seoDescription}
-              onChange={(e) => handleChange("seoDescription", e.target.value)}
-              rows={3}
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* SEO Keywords */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              SEO Keywords
-            </label>
-            <input
-              type="text"
-              value={article.seoKeywords.join(", ")}
-              onChange={(e) =>
-                handleChange(
-                  "seoKeywords",
-                  e.target.value.split(",").map((keyword) => keyword.trim()),
-                )
-              }
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              placeholder="Nhập keywords, phân cách bằng dấu phẩy"
-            />
-          </div>
-
-          {/* Author */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Tác giả
-            </label>
-            <input
-              type="text"
-              value={article.author}
-              onChange={(e) => handleChange("author", e.target.value)}
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Content Editor */}
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="mb-2 block text-sm font-medium text-gray-700">
           Nội dung
         </label>
-        <textarea
-          value={article.content}
-          onChange={(e) => handleChange("content", e.target.value)}
-          rows={15}
-          className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 font-mono focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-          placeholder="Nội dung bài viết (hỗ trợ HTML)..."
-          required
-        />
-        <p className="mt-2 text-sm text-gray-500">
-          Tip: Bạn có thể sử dụng HTML để định dạng nội dung (ví dụ:{" "}
-          <b>in đậm</b>, <i>in nghiêng</i>)
-        </p>
+        <div className="editor-wrapper">
+          <ReactQuill
+            theme="snow"
+            value={formData.content}
+            onChange={(value) => setFormData({ ...formData, content: value })}
+            modules={modules}
+            formats={formats}
+            className="editor-content"
+          />
+        </div>
       </div>
+
+      <FormField
+        label="Tags (phân cách bằng dấu phẩy)"
+        value={formData.tags?.join(", ") || ""}
+        onChange={(value) =>
+          setFormData({
+            ...formData,
+            tags: value
+              .split(",")
+              .map((tag) => tag.trim())
+              .filter(Boolean),
+          })
+        }
+      />
+
+      <FormField
+        label="Tác giả"
+        value={formData.author || ""}
+        onChange={(value) => setFormData({ ...formData, author: value })}
+      />
+    </div>
+  );
+
+  const renderSeoTab = () => (
+    <div className="space-y-8">
+      <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+        <h3 className="mb-2 text-sm font-medium text-gray-900">SEO Preview</h3>
+        <div className="overflow-hidden rounded-lg bg-white p-4 shadow-sm">
+          <div className="text-xl font-medium text-blue-600 hover:underline">
+            {formData.title}
+          </div>
+          <div className="mt-1 flex items-center gap-1 text-sm text-green-700">
+            <span>🔒</span>
+            <span>
+              yourwebsite.com/tin-tuc/
+              {formData.slug || generateSlug(formData.title)}
+            </span>
+          </div>
+          <div className="mt-2 line-clamp-2 text-sm text-gray-600">
+            {formData.description}
+          </div>
+        </div>
+      </div>
+
+      <FormField
+        label="Slug URL"
+        value={formData.slug || ""}
+        onChange={(value) => setFormData({ ...formData, slug: value })}
+        description="Đường dẫn URL của bài viết. Để trống để tự động tạo từ tiêu đề."
+      />
+    </div>
+  );
+
+  return (
+    <div className="container mx-auto p-4">
+      <div className="mb-8 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Quản Lý Tin Tức</h1>
+        <button
+          onClick={() => setIsAdding(true)}
+          className="flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+          disabled={loading}
+        >
+          <FaPlus className="mr-2" /> Thêm Tin Tức
+        </button>
+      </div>
+
+      {error && (
+        <div className="mb-4 rounded-lg bg-red-100 p-4 text-red-700">
+          {error}
+        </div>
+      )}
+
+      {isAdding && (
+        <div className="mb-8 rounded-lg bg-white p-6 shadow-lg">
+          <h2 className="mb-4 text-xl font-semibold">Thêm Tin Tức Mới</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="border-b border-gray-200">
+              <nav className="flex px-6">
+                {["content", "seo"].map((tab) => (
+                  <button
+                    key={tab}
+                    type="button"
+                    onClick={() => setActiveTab(tab)}
+                    className={`border-b-2 px-4 py-3 text-sm font-medium ${
+                      activeTab === tab
+                        ? "border-blue-500 text-blue-600"
+                        : "border-transparent text-gray-500 hover:text-gray-700"
+                    }`}
+                  >
+                    {tab === "content" ? "Nội dung" : "SEO"}
+                  </button>
+                ))}
+              </nav>
+            </div>
+
+            <div className="p-6">
+              {activeTab === "content" ? renderContentTab() : renderSeoTab()}
+            </div>
+
+            <div className="flex items-center justify-between border-t border-gray-200 p-6">
+              <div className="flex items-center space-x-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (onPreview) onPreview(formData);
+                  }}
+                  className="flex items-center rounded-lg bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-200"
+                >
+                  <FaEdit className="mr-2" /> Xem trước
+                </button>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFormData(emptyNews);
+                    setIsAdding(false);
+                  }}
+                  className="flex items-center rounded-lg border px-4 py-2 hover:bg-gray-100"
+                  disabled={loading}
+                >
+                  <FaTimes className="mr-2" /> Hủy
+                </button>
+                <button
+                  type="submit"
+                  className="flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+                  disabled={loading}
+                >
+                  <FaSave className="mr-2" />{" "}
+                  {loading ? "Đang xử lý..." : "Lưu"}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

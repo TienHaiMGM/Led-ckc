@@ -1,187 +1,130 @@
+import { db } from "../../lib/firebase";
 import {
   collection,
-  doc,
-  getDoc,
-  getDocs,
   addDoc,
   updateDoc,
   deleteDoc,
+  doc,
+  getDocs,
   query,
-  where,
   orderBy,
-  limit,
-  increment,
-  Timestamp,
+  where,
+  Firestore,
   DocumentData,
-  QueryDocumentSnapshot
-} from 'firebase/firestore';
-import { db } from '../../lib/firebase';
-import { NewsArticle } from '../../types/news-management';
-import { COLLECTIONS } from '../../utils/constants';
+} from "firebase/firestore";
 
-function convertToNewsArticle(doc: QueryDocumentSnapshot<DocumentData>): NewsArticle {
-  const data = doc.data();
-  return {
-    id: doc.id,
-    title: data.title,
-    slug: data.slug,
-    description: data.description,
-    content: data.content,
-    image: data.image,
-    category: data.category,
-    tags: data.tags,
-    author: data.author,
-    publishDate: data.publishDate.toDate().toISOString(),
-    lastModified: data.lastModified.toDate().toISOString(),
-    status: data.status,
-    seoTitle: data.seoTitle,
-    seoDescription: data.seoDescription,
-    seoKeywords: data.seoKeywords,
-    views: data.views,
-    featured: data.featured,
-  };
+export interface News {
+  id?: string;
+  title: string;
+  description?: string;
+  content: string;
+  image: string;
+  slug: string;
+  category?: string;
+  tags?: string[];
+  author?: string;
+  createdAt?: any;
+  updatedAt?: any;
+  status?: "draft" | "published";
 }
 
-const newsCollection = collection(db, COLLECTIONS.news);
+export const addNews = async (newsData: Omit<News, "id">) => {
+  try {
+    const newsRef = collection(db as Firestore, "news");
+    const docRef = await addDoc(newsRef, {
+      ...newsData,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding news:", error);
+    throw error;
+  }
+};
 
-export default {
-  // Get all articles
-  async getAllArticles(): Promise<NewsArticle[]> {
-    const querySnapshot = await getDocs(newsCollection);
-    return querySnapshot.docs.map(convertToNewsArticle);
-  },
+export const updateNews = async (id: string, newsData: Partial<News>) => {
+  try {
+    const newsRef = doc(db as Firestore, "news", id);
+    await updateDoc(newsRef, {
+      ...newsData,
+      updatedAt: new Date().toISOString(),
+    });
+  } catch (error) {
+    console.error("Error updating news:", error);
+    throw error;
+  }
+};
 
-  // Get published articles
-  async getPublishedArticles(): Promise<NewsArticle[]> {
-    const q = query(
-      newsCollection,
-      where('status', '==', 'published'),
-      orderBy('publishDate', 'desc')
+export const deleteNews = async (id: string) => {
+  try {
+    const newsRef = doc(db as Firestore, "news", id);
+    await deleteDoc(newsRef);
+  } catch (error) {
+    console.error("Error deleting news:", error);
+    throw error;
+  }
+};
+
+export const getAllNews = async (): Promise<News[]> => {
+  try {
+    const newsRef = collection(db as Firestore, "news");
+    const q = query(newsRef, orderBy("createdAt", "desc"));
+    const querySnapshot = await getDocs(q);
+
+    return querySnapshot.docs.map(
+      (doc) =>
+        ({
+          id: doc.id,
+          ...doc.data(),
+        }) as News,
     );
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(convertToNewsArticle);
-  },
+  } catch (error) {
+    console.error("Error fetching news:", error);
+    throw error;
+  }
+};
 
-  // Get featured articles
-  async getFeaturedArticles(limitTo: number = 5): Promise<NewsArticle[]> {
-    const q = query(
-      newsCollection,
-      where('status', '==', 'published'),
-      where('featured', '==', true),
-      orderBy('publishDate', 'desc'),
-      limit(limitTo)
-    );
+export const getNewsBySlug = async (slug: string): Promise<News | null> => {
+  try {
+    const newsRef = collection(db as Firestore, "news");
+    const q = query(newsRef, where("slug", "==", slug));
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(convertToNewsArticle);
-  },
 
-  // Get articles by category
-  async getArticlesByCategory(category: string): Promise<NewsArticle[]> {
-    const q = query(
-      newsCollection,
-      where('status', '==', 'published'),
-      where('category', '==', category),
-      orderBy('publishDate', 'desc')
-    );
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(convertToNewsArticle);
-  },
-
-  // Get article by slug
-  async getArticleBySlug(slug: string): Promise<NewsArticle | null> {
-    const q = query(newsCollection, where('slug', '==', slug));
-    const querySnapshot = await getDocs(q);
-    
     if (querySnapshot.empty) {
       return null;
     }
 
-    return convertToNewsArticle(querySnapshot.docs[0]);
-  },
-
-  // Save article (create or update)
-  async saveArticle(article: NewsArticle): Promise<NewsArticle> {
-    const now = Timestamp.now();
-    const articleData = {
-      ...article,
-      lastModified: now,
-      publishDate: article.status === 'published' ? now : null,
-    };
-
-    let docRef;
-    if (article.id) {
-      // Update existing article
-      docRef = doc(newsCollection, article.id);
-      await updateDoc(docRef, articleData);
-    } else {
-      // Create new article
-      docRef = await addDoc(newsCollection, articleData);
-      articleData.id = docRef.id;
-    }
-
+    const doc = querySnapshot.docs[0];
     return {
-      ...articleData,
-      publishDate: articleData.publishDate?.toDate().toISOString() || '',
-      lastModified: articleData.lastModified.toDate().toISOString(),
-    };
-  },
-
-  // Delete article
-  async deleteArticle(id: string): Promise<void> {
-    await deleteDoc(doc(newsCollection, id));
-  },
-
-  // Increment views
-  async incrementViews(id: string): Promise<void> {
-    const docRef = doc(newsCollection, id);
-    await updateDoc(docRef, {
-      views: increment(1)
-    });
-  },
-
-  // Search articles
-  async searchArticles(searchQuery: string): Promise<NewsArticle[]> {
-    const q = searchQuery.toLowerCase();
-    const querySnapshot = await getDocs(newsCollection);
-    
-    return querySnapshot.docs
-      .map(convertToNewsArticle)
-      .filter(article => 
-        article.status === 'published' &&
-        (article.title.toLowerCase().includes(q) ||
-         article.description.toLowerCase().includes(q) ||
-         article.content.toLowerCase().includes(q) ||
-         article.tags.some(tag => tag.toLowerCase().includes(q)))
-      );
-  },
-
-  // Get related articles
-  async getRelatedArticles(article: NewsArticle, limitTo: number = 3): Promise<NewsArticle[]> {
-    const q = query(
-      newsCollection,
-      where('status', '==', 'published'),
-      where('category', '==', article.category),
-      where('id', '!=', article.id),
-      orderBy('publishDate', 'desc'),
-      limit(limitTo)
-    );
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(convertToNewsArticle);
-  },
-
-  // Get articles by tag
-  async getArticlesByTag(tag: string): Promise<NewsArticle[]> {
-    const q = query(
-      newsCollection,
-      where('status', '==', 'published'),
-      where('tags', 'array-contains', tag),
-      orderBy('publishDate', 'desc')
-    );
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(convertToNewsArticle);
+      id: doc.id,
+      ...doc.data(),
+    } as News;
+  } catch (error) {
+    console.error("Error fetching news by slug:", error);
+    throw error;
   }
 };
 
-export function getArticleBySlug(slug: string) {
-  throw new Error("Function not implemented.");
-}
+export const getNewsByCategory = async (category: string): Promise<News[]> => {
+  try {
+    const newsRef = collection(db as Firestore, "news");
+    const q = query(
+      newsRef,
+      where("category", "==", category),
+      orderBy("createdAt", "desc"),
+    );
+    const querySnapshot = await getDocs(q);
+
+    return querySnapshot.docs.map(
+      (doc) =>
+        ({
+          id: doc.id,
+          ...doc.data(),
+        }) as News,
+    );
+  } catch (error) {
+    console.error("Error fetching news by category:", error);
+    throw error;
+  }
+};
