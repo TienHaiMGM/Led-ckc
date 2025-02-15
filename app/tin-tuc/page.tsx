@@ -1,185 +1,124 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-// import { NewsArticle, NEWS_CATEGORIES } from "@/types/news-management";
-import NewsService from "../../components/api/NewsService";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import ProductDetail_WithData from "@/components/specific/ProductDetail_WithData";
+import { getProductBySlug, Product } from "@/components/api/ProductService";
 import Header from "@/components/common/Header";
-import Footer from "@/components/common/Footer";
 import Menu from "@/components/common/Menu";
+import Footer from "@/components/common/Footer";
+import JsonLdWrapper from "@/components/common/JsonLdWrapper";
 import Breadcrumb from "@/components/common/Breadcrumb";
 
-const NewsPage = () => {
-  const [articles, setArticles] = useState<NewsArticle[]>([]);
-  const [featuredArticles, setFeaturedArticles] = useState<NewsArticle[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [isLoading, setIsLoading] = useState(true);
+export default function ProductPage() {
+  const params = useParams();
+  const slug = params?.slug as string;
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    loadArticles();
-  }, [selectedCategory]);
+    const fetchProduct = async () => {
+      if (!slug) {
+        console.error("No slug provided");
+        setError("Không tìm thấy sản phẩm");
+        setLoading(false);
+        return;
+      }
 
-  const loadArticles = async () => {
-    try {
-      setIsLoading(true);
-      const [featured, regular] = await Promise.all([
-        newsService.getFeaturedArticles(),
-        selectedCategory === "all"
-          ? newsService.getPublishedArticles()
-          : newsService.getArticlesByCategory(selectedCategory),
-      ]);
-      setFeaturedArticles(featured);
-      setArticles(
-        regular.filter((article) => !featured.find((f) => f.id === article.id)),
-      );
-    } catch (error) {
-      console.error("Failed to load articles:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      try {
+        setLoading(true);
+        console.log("Fetching product with slug:", slug);
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("vi-VN", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
+        const fetchedProduct = await getProductBySlug(slug);
+        console.log("Fetched product:", fetchedProduct);
+
+        if (fetchedProduct) {
+          setProduct(fetchedProduct);
+          setError(null);
+        } else {
+          console.error("Product not found for slug:", slug);
+          setError("Không tìm thấy sản phẩm");
+        }
+      } catch (err) {
+        console.error("Error fetching product:", err);
+        setError(
+          err instanceof Error ? err.message : "Có lỗi xảy ra khi tải sản phẩm",
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+          <p className="text-gray-600">Đang tải sản phẩm...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="rounded-lg bg-red-50 p-6 text-center">
+          <p className="mb-2 text-red-600">{error}</p>
+          <p className="text-gray-600">Slug: {slug}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="rounded-lg bg-yellow-50 p-6 text-center">
+          <p className="mb-2 text-yellow-600">Không tìm thấy sản phẩm</p>
+          <p className="text-gray-600">Slug: {slug}</p>
+        </div>
+      </div>
+    );
+  }
+
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    image: [product.image],
+    description: product.description || "",
+    brand: {
+      "@type": "Brand",
+      name: "Siêu Thị Bảng Hiệu",
+    },
+    manufacturer: {
+      "@type": "Organization",
+      name: "Siêu Thị Bảng Hiệu",
+    },
+    offers: {
+      "@type": "AggregateOffer",
+      availability: "https://schema.org/InStock",
+      lowPrice: "1000000",
+      highPrice: "5000000",
+      priceCurrency: "VND",
+      offerCount: "5",
+      url: `https://sieuthibanghieu.com/products/${slug}`,
+    },
   };
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <>
       <Header />
       <Menu />
-
-      <main className="container mx-auto flex-grow px-4 py-8">
-        <Breadcrumb />
-
-        {/* Featured Articles */}
-        {featuredArticles.length > 0 && (
-          <section className="mb-12">
-            <h2 className="mb-6 text-2xl font-bold">Bài Viết Nổi Bật</h2>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {featuredArticles.map((article) => (
-                <Link
-                  key={article.id}
-                  href={`/tin-tuc/${article.slug}`}
-                  className="group block overflow-hidden rounded-lg bg-white shadow-lg transition hover:shadow-xl"
-                >
-                  <div className="relative h-48">
-                    <Image
-                      src={article.image}
-                      alt={article.title}
-                      fill
-                      className="object-cover transition group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <span className="mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800">
-                      {NEWS_CATEGORIES.find(
-                        (cat) => cat.id === article.category,
-                      )?.name || article.category}
-                    </span>
-                    <h3 className="mb-2 text-xl font-bold text-gray-900 group-hover:text-blue-600">
-                      {article.title}
-                    </h3>
-                    <p className="mb-4 line-clamp-2 text-gray-600">
-                      {article.description}
-                    </p>
-                    <div className="flex items-center justify-between text-sm text-gray-500">
-                      <span>{formatDate(article.publishDate)}</span>
-                      <span>{article.views} lượt xem</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Category Filter */}
-        <div className="mb-8">
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => setSelectedCategory("all")}
-              className={`rounded-full px-4 py-2 ${
-                selectedCategory === "all"
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              Tất cả
-            </button>
-            {NEWS_CATEGORIES.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`rounded-full px-4 py-2 ${
-                  selectedCategory === category.id
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Articles List */}
-        {isLoading ? (
-          <div className="py-12 text-center">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-r-transparent"></div>
-            <p className="mt-2 text-gray-600">Đang tải...</p>
-          </div>
-        ) : (
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
-              <Link
-                key={article.id}
-                href={`/tin-tuc/${article.slug}`}
-                className="group block overflow-hidden rounded-lg bg-white shadow transition hover:shadow-lg"
-              >
-                <div className="relative h-48">
-                  <Image
-                    src={article.image}
-                    alt={article.title}
-                    fill
-                    className="object-cover transition group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-6">
-                  <span className="mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800">
-                    {NEWS_CATEGORIES.find((cat) => cat.id === article.category)
-                      ?.name || article.category}
-                  </span>
-                  <h3 className="mb-2 text-xl font-bold text-gray-900 group-hover:text-blue-600">
-                    {article.title}
-                  </h3>
-                  <p className="mb-4 line-clamp-2 text-gray-600">
-                    {article.description}
-                  </p>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span>{formatDate(article.publishDate)}</span>
-                    <span>{article.views} lượt xem</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
-
-        {!isLoading && articles.length === 0 && (
-          <div className="py-12 text-center text-gray-500">
-            Không có bài viết nào trong danh mục này
-          </div>
-        )}
-      </main>
-
+      <Breadcrumb />
+      <ProductDetail_WithData product={product} />
+      <JsonLdWrapper data={schemaData} />
       <Footer />
-    </div>
+    </>
   );
-};
-
-export default NewsPage;
+}

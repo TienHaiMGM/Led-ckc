@@ -8,9 +8,9 @@ import Header from "@/components/common/Header";
 import Menu from "@/components/common/Menu";
 import Footer from "@/components/common/Footer";
 import SocialButtons from "@/components/common/SocialButtons";
-import { newsItems } from "../../../utils/newsItems";
-import type { NewsItem } from "../../../types/news";
 import Breadcrumb from "@/components/common/Breadcrumb";
+import { useProductEditorNew } from "@/components/api/hooks/useProductEditorNew";
+import { EditorProps } from "@/types/product-management";
 
 const metadata: Metadata = {
   title: "Tin Tức Mới Nhất Về Bảng Hiệu & Quảng Cáo | Siêu Thị Bảng Hiệu",
@@ -29,15 +29,17 @@ const metadata: Metadata = {
 
 const ITEMS_PER_PAGE = 12;
 
-export default function NewsPage() {
+const NewsPage: React.FC<EditorProps> = ({ EditorContent }) => {
+  const { newItems, loading, error, generateSlug } =
+    useProductEditorNew(EditorContent);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
 
   // Filter news items by category
   const filteredItems =
     selectedCategory === "Tất cả"
-      ? newsItems
-      : newsItems.filter((item) => item.category === selectedCategory);
+      ? newItems
+      : newItems.filter((item) => item.category === selectedCategory);
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
@@ -48,7 +50,7 @@ export default function NewsPage() {
   // Get unique categories
   const categories = [
     "Tất cả",
-    ...Array.from(new Set(newsItems.map((item) => item.category))),
+    ...Array.from(new Set(newItems.map((item) => item.category))),
   ];
 
   // Handle category change
@@ -126,7 +128,7 @@ export default function NewsPage() {
               <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
                 <div className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-md">
                   <div className="mb-1 text-3xl font-bold text-white">
-                    {newsItems.length}
+                    {newItems.length}
                   </div>
                   <div className="text-gray-200">Bài viết</div>
                 </div>
@@ -186,6 +188,7 @@ export default function NewsPage() {
         </section>
 
         <Breadcrumb />
+
         {/* News Grid */}
         <section className="bg-gray-50 py-8 md:py-12">
           <div className="container mx-auto px-4">
@@ -198,7 +201,7 @@ export default function NewsPage() {
                   <Link href={`/bai-viet/${item.slug}`} className="block">
                     <div className="relative h-48 w-full overflow-hidden rounded-t-lg md:h-56">
                       <Image
-                        src={item.image}
+                        src={item.images}
                         alt={item.title}
                         fill
                         className="object-cover transition-transform duration-300 hover:scale-105"
@@ -210,7 +213,7 @@ export default function NewsPage() {
                           {item.category}
                         </span>
                         <time className="text-xs text-gray-500 md:text-sm">
-                          {new Date(item.date).toLocaleDateString("vi-VN")}
+                          {new Date(item.createdAt).toLocaleDateString("vi-VN")}
                         </time>
                       </div>
                       <h2 className="mb-2 line-clamp-2 text-lg font-semibold text-gray-900 transition-colors hover:text-blue-600 md:text-xl">
@@ -342,4 +345,5 @@ export default function NewsPage() {
       <Footer />
     </div>
   );
-}
+};
+export default NewsPage;

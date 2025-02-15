@@ -17,6 +17,7 @@ export interface ProductContent extends BaseDocument {
   seoDescription?: string;
   featuredImage?: string;
   thumbnail?: string;
+  author?: string;
 }
 
 export interface Draft extends ProductContent {

@@ -7,7 +7,7 @@ import {
   EmptyProductContent,
   ProductContent,
 } from "@/types/product-management";
-import ProductEditorNew from "@/components/api/ProductEditorNew";
+import ProductEditorKnowledge from "@/components/api/ProductEditorKnowledge";
 
 export default function NewsContentPage() {
   const [savedContents, setSavedContents] = useState<ProductContent[]>([]);
@@ -43,7 +43,7 @@ export default function NewsContentPage() {
     <ProtectedRoute>
       <DashboardLayout>
         <div className="container mx-auto p-6">
-          <ProductEditorNew
+          <ProductEditorKnowledge
             EditorContent={EmptyProductContent}
             onSave={handleSave}
             onDraft={handleDraft}
