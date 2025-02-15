@@ -4,10 +4,12 @@ import { getFirestore, Firestore } from "firebase/firestore";
 import {
   getAuth,
   setPersistence,
-  browserLocalPersistence,
+  browserSessionPersistence,
   Auth,
+  signOut,
 } from "firebase/auth";
 
+// Firebase configuration using environment variables
 const firebaseConfig = {
   apiKey: "AIzaSyBJGoGygwZ7j-LWpo7PL2_Ko9-zUcIYKsw",
   authDomain: "sieuthibanghieu-f033b.firebaseapp.com",
@@ -18,7 +20,6 @@ const firebaseConfig = {
   measurementId: "G-ZBYY5HEMW5",
 };
 
-// Initialize Firebase
 let app: FirebaseApp;
 let auth: Auth;
 let db: Firestore;
@@ -30,16 +31,19 @@ if (typeof window !== "undefined") {
     auth = getAuth(app);
     db = getFirestore(app);
 
-    // Set persistence
-    setPersistence(auth, browserLocalPersistence)
+    // Set persistence to SESSION (cleared when browser/tab closes)
+    setPersistence(auth, browserSessionPersistence)
       .then(() => {
-        console.log("Firebase persistence set to LOCAL");
+        console.log("Firebase persistence set to SESSION");
       })
       .catch((error) => {
         console.error("Error setting persistence:", error);
       });
 
-    console.log("Firebase initialized successfully");
+    // Clear any existing auth state when the page loads
+    signOut(auth).catch((error) => {
+      console.error("Error clearing auth state:", error);
+    });
   } catch (error) {
     console.error("Error initializing Firebase:", error);
   }

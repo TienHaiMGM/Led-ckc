@@ -2,8 +2,8 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import ProductDetail_WithData from "../../../components/specific/ProductDetail_WithData";
-import DatabaseService from "../../../components/api/DatabaseService"; // Import DatabaseService
+import ProductDetail_WithData from "@/components/specific/ProductDetail_WithData";
+import { getProductBySlug, Product } from "@/components/api/ProductService";
 import Header from "@/components/common/Header";
 import Menu from "@/components/common/Menu";
 import Footer from "@/components/common/Footer";
@@ -13,22 +13,38 @@ import Breadcrumb from "@/components/common/Breadcrumb";
 export default function ProductPage() {
   const params = useParams();
   const slug = params?.slug as string;
-
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
+      if (!slug) {
+        console.error("No slug provided");
+        setError("Không tìm thấy sản phẩm");
+        setLoading(false);
+        return;
+      }
+
       try {
-        const fetchedProduct = await DatabaseService.getProductBySlug(slug);
+        setLoading(true);
+        console.log("Fetching product with slug:", slug);
+
+        const fetchedProduct = await getProductBySlug(slug);
+        console.log("Fetched product:", fetchedProduct);
+
         if (fetchedProduct) {
           setProduct(fetchedProduct);
+          setError(null);
         } else {
-          setError("Sản phẩm không tồn tại");
+          console.error("Product not found for slug:", slug);
+          setError("Không tìm thấy sản phẩm");
         }
       } catch (err) {
-        setError("Lỗi khi tải sản phẩm");
+        console.error("Error fetching product:", err);
+        setError(
+          err instanceof Error ? err.message : "Có lỗi xảy ra khi tải sản phẩm",
+        );
       } finally {
         setLoading(false);
       }
@@ -37,15 +53,45 @@ export default function ProductPage() {
     fetchProduct();
   }, [slug]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+          <p className="text-gray-600">Đang tải sản phẩm...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="rounded-lg bg-red-50 p-6 text-center">
+          <p className="mb-2 text-red-600">{error}</p>
+          <p className="text-gray-600">Slug: {slug}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="rounded-lg bg-yellow-50 p-6 text-center">
+          <p className="mb-2 text-yellow-600">Không tìm thấy sản phẩm</p>
+          <p className="text-gray-600">Slug: {slug}</p>
+        </div>
+      </div>
+    );
+  }
 
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: product?.title || "Sản phẩm",
-    image: [product?.image || "/images/default.jpg"],
-    description: product?.description || "",
+    name: product.title,
+    image: [product.image],
+    description: product.description || "",
     brand: {
       "@type": "Brand",
       name: "Siêu Thị Bảng Hiệu",
@@ -62,24 +108,6 @@ export default function ProductPage() {
       priceCurrency: "VND",
       offerCount: "5",
       url: `https://sieuthibanghieu.com/products/${slug}`,
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: "147",
-    },
-    review: {
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
-      },
-      author: {
-        "@type": "Person",
-        name: "Nguyễn Văn A",
-      },
-      reviewBody: "Chất lượng sản phẩm tuyệt vời, dịch vụ chuyên nghiệp",
     },
   };
 

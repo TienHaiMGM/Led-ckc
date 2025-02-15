@@ -1,83 +1,97 @@
-import { Metadata } from "next";
+"use client";
 
-import Header from "components/common/Header";
-import Menu from "components/common/Menu";
-import Footer from "components/common/Footer";
-import JsonLdWrapper from "components/common/JsonLdWrapper";
+import { useEffect, useState } from "react";
+import ProductDetail_WithData from "@/components/specific/ProductDetail_WithData";
+import { getProductBySlug, Product } from "@/components/api/ProductService";
+import Header from "@/components/common/Header";
+import Menu from "@/components/common/Menu";
+import Footer from "@/components/common/Footer";
+import JsonLdWrapper from "@/components/common/JsonLdWrapper";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
-export const metadata: Metadata = {
-  title:
-    "Bảng Hiệu Bánh Cuốn - Thiết Kế & Thi Công Bảng Hiệu Chuyên Nghiệp | Siêu Thị Bảng Hiệu",
-  description:
-    "Thiết kế và thi công bảng hiệu bánh cuốn chuyên nghiệp, sang trọng. Chất liệu cao cấp, đèn LED tiết kiệm điện, bảo hành dài hạn. Tư vấn miễn phí, giá cạnh tranh.",
-  keywords: [
-    "bảng hiệu bánh cuốn",
-    "làm bảng hiệu bánh cuốn",
-    "thiết kế bảng hiệu bánh cuốn",
-    "bảng hiệu quán bánh cuốn",
-    "bảng hiệu LED bánh cuốn",
-    "mẫu bảng hiệu bánh cuốn đẹp",
-    "giá bảng hiệu bánh cuốn",
-  ],
-  openGraph: {
-    title: "Bảng Hiệu Bánh Cuốn - Thiết Kế & Thi Công Chuyên Nghiệp",
-    description:
-      "Thiết kế và thi công bảng hiệu bánh cuốn chuyên nghiệp, sang trọng. Chất liệu cao cấp, đèn LED tiết kiệm điện, bảo hành dài hạn.",
-    images: ["/images/bang-hieu-banh-cuon-nong-1.jpg"],
-    type: "website",
-  },
-};
+export default function BangHieuBanhCuonPage() {
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-const schemaData = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  name: "Bảng Hiệu Bánh Cuốn",
-  image: ["https://sieuthibanghieu.com/images/bang-hieu-banh-cuon-nong-1.jpg"],
-  description:
-    "Thiết kế và thi công bảng hiệu bánh cuốn chuyên nghiệp, sang trọng. Chất liệu cao cấp, đèn LED tiết kiệm điện, bảo hành dài hạn.",
-  brand: {
-    "@type": "Brand",
-    name: "Siêu Thị Bảng Hiệu",
-  },
-  manufacturer: {
-    "@type": "Organization",
-    name: "Siêu Thị Bảng Hiệu",
-  },
-  offers: {
-    "@type": "AggregateOffer",
-    availability: "https://schema.org/InStock",
-    lowPrice: "1000000",
-    highPrice: "5000000",
-    priceCurrency: "VND",
-    offerCount: "5",
-    url: "https://sieuthibanghieu.com/products/bang-hieu-banh-cuon",
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.8",
-    reviewCount: "147",
-  },
-  review: {
-    "@type": "Review",
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: "5",
-      bestRating: "5",
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const fetchedProduct = await getProductBySlug("bang-hieu-banh-cuon");
+        if (fetchedProduct) {
+          setProduct(fetchedProduct);
+        } else {
+          setError("Sản phẩm không tồn tại");
+        }
+      } catch (err) {
+        console.error("Error fetching product:", err);
+        setError("Lỗi khi tải sản phẩm");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="rounded-lg bg-red-50 p-4 text-red-600">{error}</div>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="rounded-lg bg-yellow-50 p-4 text-yellow-600">
+          Không tìm thấy sản phẩm
+        </div>
+      </div>
+    );
+  }
+
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    image: [product.image],
+    description: product.description || "",
+    brand: {
+      "@type": "Brand",
+      name: "Siêu Thị Bảng Hiệu",
     },
-    author: {
-      "@type": "Person",
-      name: "Nguyễn Văn A",
+    manufacturer: {
+      "@type": "Organization",
+      name: "Siêu Thị Bảng Hiệu",
     },
-    reviewBody: "Chất lượng sản phẩm tuyệt vời, dịch vụ chuyên nghiệp",
-  },
-};
+    offers: {
+      "@type": "AggregateOffer",
+      availability: "https://schema.org/InStock",
+      lowPrice: "1000000",
+      highPrice: "5000000",
+      priceCurrency: "VND",
+      offerCount: "5",
+      url: "https://sieuthibanghieu.com/products/bang-hieu-banh-cuon",
+    },
+  };
 
-export default function ProductPage() {
   return (
     <>
       <Header />
       <Menu />
-      {/* <ProductDetail_Updated slug="bang-hieu-banh-cuon" /> */}
+      <Breadcrumb />
+      <ProductDetail_WithData product={product} />
       <JsonLdWrapper data={schemaData} />
       <Footer />
     </>

@@ -12,25 +12,10 @@ import {
 } from "react-icons/fa";
 import Head from "next/head";
 import Link from "next/link";
-import ProductContent from "./ProductContent";
-
-interface Product {
-  title: string;
-  description?: string;
-  image: string;
-  price: number;
-  category: string;
-  slug: string;
-  content: string;
-}
-interface FirestoreProduct extends Product {
-  id: string;
-  createdAt?: any;
-  updatedAt?: any;
-}
+import { Product } from "../api/ProductService";
 
 interface ProductDetailProps {
-  product: FirestoreProduct; // Cập nhật để nhận toàn bộ product
+  product: Product;
 }
 
 const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
@@ -38,17 +23,17 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
   const [showFullImage, setShowFullImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
 
-  // Không cần tìm kiếm sản phẩm nữa, sử dụng trực tiếp từ props
-
-  // Không cần kiểm tra nữa vì đã đảm bảo product được truyền vào
-
-  // Create gallery images array from the product image - limit to 3 images
-  const gallery = [
-    product.image,
-    // Add variations of the image for the gallery
-    product.image,
-    product.image,
-  ];
+  // Create gallery images array from the product image
+  const gallery = product.image ? [product.image] : [];
+  if (product.additionalImages) {
+    gallery.push(...product.additionalImages);
+  }
+  // If no additional images, duplicate main image for gallery effect
+  if (gallery.length < 3) {
+    while (gallery.length < 3) {
+      gallery.push(gallery[0]);
+    }
+  }
 
   const openFullImage = (image: string) => {
     setSelectedImage(image);
@@ -100,7 +85,6 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
         <div className="container mx-auto px-1 lg:px-28">
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Left Column - Image Gallery */}
-
             <div className="relative space-y-4">
               {/* Main Image */}
               <div className="lg:h-6/6 relative h-[50vw] max-w-[100vw] overflow-hidden rounded-lg shadow-2xl md:h-[40vw] xl:h-96">
@@ -169,9 +153,10 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
               {/* Title with decorative border */}
               <div className="relative pl-2">
                 <h1 className="text-2xl font-bold leading-tight text-red-500 lg:text-3xl">
-                  {product.title} // Sử dụng dữ liệu từ product
+                  {product.title}
                 </h1>
               </div>
+
               {/* Features with icons */}
               <div className="rounded-lg bg-white p-2 shadow-lg">
                 <h2 className="mb-2 mr-3 flex px-3 text-2xl font-semibold text-gray-900">
@@ -227,7 +212,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
                     <span>+84 123 456 789</span>
                   </a>
                   <Link
-                    href="/pages/contact"
+                    href="/pages/lien-he"
                     className="rounded-full border-2 border-white px-6 py-3 font-semibold text-white transition-all hover:bg-white hover:text-blue-600"
                   >
                     Gửi Yêu Cầu
@@ -238,6 +223,22 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
           </div>
         </div>
       </section>
+      {/* Product Content Section */}
+      {product.content && (
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold">Thông tin chi tiết</h2>
+              {product.description && (
+                <p className="mt-2 text-gray-600">{product.description}</p>
+              )}
+            </div>
+            <div className="prose mx-auto max-w-4xl">
+              <div dangerouslySetInnerHTML={{ __html: product.content }} />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Benefits Section */}
       <section className="py-16" aria-label="Lợi ích khi chọn dịch vụ">
@@ -280,7 +281,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/pages/contact"
+              href="/pages/lien-he"
               className="rounded-full bg-white px-8 py-3 font-semibold text-blue-600 transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
               aria-label="Chuyển đến trang liên hệ"
             >
