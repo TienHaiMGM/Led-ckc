@@ -8,7 +8,6 @@ import HowItWorks from "../components/specific/HowItWork";
 import Testimonials from "../components/specific/Testimonials";
 import SocialButtons from "../components/common/SocialButtons";
 import JsonLdScript from "../components/common/JsonLdScript";
-import { products } from "../data/products";
 
 // Homepage specific metadata
 export const metadata = {
@@ -50,20 +49,6 @@ export default function Home() {
       hasMap: "https://goo.gl/maps/your-location",
     },
   };
-
-  // Filter products by category
-  const bangHieuProducts = products.filter(
-    (product) => product.category === "bang-hieu",
-  );
-  const hopDenProducts = products.filter(
-    (product) => product.category === "hop-den",
-  );
-  const chuNoiProducts = products.filter(
-    (product) => product.category === "chu-noi",
-  );
-  const ledProducts = products.filter(
-    (product) => product.category === "bang-led",
-  );
 
   return (
     <div className="flex min-h-screen flex-col">

@@ -38,6 +38,7 @@ const nextConfig = {
     domains: ["banghieuminhkhang.com"],
     domains: ["ledsun.vn"],
     domains: ["banghieuminhkhang.com"],
+    domains: ["ledsun.vn"],
   },
 };
 
