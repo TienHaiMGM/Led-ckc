@@ -2,6 +2,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../../lib/firebase";
 import { User, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 interface AuthContextType {
   user: User | null;
@@ -15,26 +16,39 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-
-  console.log("AuthProvider rendering");
+  const router = useRouter();
 
   useEffect(() => {
-    console.log("Setting up auth listener");
+    // Clear any existing auth state when the component mounts
+    signOut(auth).catch((error) => {
+      console.error("Error clearing auth state:", error);
+    });
+
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log("Auth state changed:", user ? "User logged in" : "No user");
       setUser(user);
       setLoading(false);
+
+      // If user is logged out and trying to access admin pages, redirect to login
+      if (
+        !user &&
+        window.location.pathname.startsWith("/admin") &&
+        window.location.pathname !== "/admin"
+      ) {
+        router.push("/admin");
+      }
     });
 
     return () => {
-      console.log("Cleaning up auth listener");
       unsubscribe();
+      // Clear auth state when component unmounts
+      signOut(auth).catch((error) => {
+        console.error("Error clearing auth state:", error);
+      });
     };
-  }, []);
+  }, [router]);
 
   const login = async (email: string, password: string) => {
     try {
-      console.log("Attempting login with:", email);
       const result = await signInWithEmailAndPassword(auth, email, password);
       console.log("Login successful:", result.user.email);
     } catch (error) {
@@ -46,6 +60,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = async () => {
     try {
       await signOut(auth);
+      router.push("/admin");
       console.log("Logout successful");
     } catch (error) {
       console.error("Logout error:", error);
@@ -59,8 +74,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     login,
     logout,
   };
-
-  console.log("Current auth state:", { user: user?.email, loading });
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

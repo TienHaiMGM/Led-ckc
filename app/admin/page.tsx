@@ -10,6 +10,7 @@ export default function AdminPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { user, login, logout } = useAuth();
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -18,7 +19,7 @@ export default function AdminPage() {
     try {
       await login(email, password);
       console.log("Login successful");
-      router.push("/admin/product-content");
+      router.push("/admin/dashboard"); // Changed from product-content to dashboard
     } catch (error) {
       console.error("Login error:", error);
       if (error instanceof Error) {
@@ -31,9 +32,9 @@ export default function AdminPage() {
     }
   };
 
-  // If user is authenticated, redirect to product content page
+  // If user is authenticated, redirect to dashboard
   if (user) {
-    router.push("/admin/product-content");
+    router.push("/admin/dashboard"); // Changed from product-content to dashboard
     return null;
   }
 

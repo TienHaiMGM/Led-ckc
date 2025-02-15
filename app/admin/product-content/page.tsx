@@ -1,49 +1,70 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "../../../components/auth/AuthContext";
-import ProductContentPage from "./product-content";
+import React, { useState } from "react";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import DashboardLayout from "@/components/admin/DashboardLayout";
+import ProductEditor from "@/components/api/ProductEditor";
+import {
+  ProductContent,
+  EmptyProductContent,
+} from "@/types/product-management";
 
-export default function AdminProductContent() {
-  const router = useRouter();
-  const { user, logout } = useAuth();
+export default function ProductContentPage() {
+  const [savedContents, setSavedContents] = useState<ProductContent[]>([]);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationType, setNotificationType] = useState<"success" | "error">(
+    "success",
+  );
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      router.push("/admin");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
+  const showToast = (
+    message: string,
+    type: "success" | "error" = "success",
+  ) => {
+    setNotificationMessage(message);
+    setNotificationType(type);
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 3000);
   };
 
-  if (!user) {
-    router.push("/admin");
-    return null;
-  }
+  const handleSave = (content: ProductContent) => {
+    setSavedContents((prev) => [content, ...prev]);
+    showToast("Đã xuất bản nội dung thành công!");
+  };
+
+  const handleDraft = (content: ProductContent) => {
+    setSavedContents((prev) => [content, ...prev]);
+    showToast("Đã lưu bản nháp thành công!");
+  };
+
+  const handlePreview = (content: ProductContent) => {
+    console.log("Preview content:", content);
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow">
-        <div className="container mx-auto flex items-center justify-between px-4 py-4">
-          <h1 className="text-xl font-semibold text-gray-900">
-            Quản Lý Nội Dung
-          </h1>
-          <div className="flex items-center gap-4">
-            <span className="text-gray-600">{user.email}</span>
-            <button
-              onClick={handleLogout}
-              className="rounded-md bg-red-600 px-4 py-2 text-white hover:bg-red-700"
-            >
-              Đăng Xuất
-            </button>
-          </div>
-        </div>
-      </header>
+    <ProtectedRoute>
+      <DashboardLayout>
+        <div className="min-h-screen bg-gray-50">
+          <ProductEditor
+            EditorContent={EmptyProductContent}
+            onSave={handleSave}
+            onDraft={handleDraft}
+            onPreview={handlePreview}
+          />
 
-      <main className="container mx-auto py-6">
-        <ProductContentPage />
-      </main>
-    </div>
+          {/* Notification Toast */}
+          {showNotification && (
+            <div
+              className={`fixed right-4 top-4 z-50 rounded-lg px-6 py-3 shadow-lg ${
+                notificationType === "success" ? "bg-green-500" : "bg-red-500"
+              } translate-y-0 transform text-white transition-all duration-300`}
+              role="alert"
+              aria-live="polite"
+            >
+              {notificationMessage}
+            </div>
+          )}
+        </div>
+      </DashboardLayout>
+    </ProtectedRoute>
   );
 }
