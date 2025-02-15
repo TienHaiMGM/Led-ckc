@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaClock,
   FaShieldAlt,
@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import Head from "next/head";
 import Link from "next/link";
+import { extractImagesFromHtml } from "@/utils/imageExtractor";
 import { Product } from "../api/ProductService";
 
 interface ProductDetailProps {
@@ -22,18 +23,29 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showFullImage, setShowFullImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const [gallery, setGallery] = useState<string[]>([]);
 
-  // Create gallery images array from the product image
-  const gallery = product.image ? [product.image] : [];
-  if (product.additionalImages) {
-    gallery.push(...product.additionalImages);
-  }
-  // If no additional images, duplicate main image for gallery effect
-  if (gallery.length < 3) {
-    while (gallery.length < 3) {
-      gallery.push(gallery[0]);
-    }
-  }
+  useEffect(() => {
+    // Initialize gallery with main image and content images
+    const contentImages = extractImagesFromHtml(product.content);
+    const allImages = [
+      product.image || product.images, // Handle both image fields
+      ...(product.additionalImages || []),
+      ...contentImages,
+    ].filter(Boolean); // Remove any undefined/null values
+
+    // Remove duplicates and ensure we have at least 3 images
+    const uniqueImages = Array.from(new Set(allImages));
+    const finalGallery =
+      uniqueImages.length >= 3
+        ? uniqueImages
+        : [
+            ...uniqueImages,
+            ...Array(3 - uniqueImages.length).fill(uniqueImages[0]),
+          ];
+
+    setGallery(finalGallery);
+  }, [product]);
 
   const openFullImage = (image: string) => {
     setSelectedImage(image);
@@ -78,7 +90,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
       aria-label={`Chi tiết sản phẩm ${product.title}`}
     >
       <Head>
-        <link rel="preload" href={product.image} as="image" />
+        <link rel="preload" href={gallery[0]} as="image" />
       </Head>
       {/* Hero Section */}
       <section className="py-0">
@@ -90,7 +102,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
               <div className="lg:h-6/6 relative h-[50vw] max-w-[100vw] overflow-hidden rounded-lg shadow-2xl md:h-[40vw] xl:h-96">
                 <Image
                   src={gallery[currentImageIndex]}
-                  alt={`${product.title} - Hình ảnh chính`}
+                  alt={`${product.title} - Hình ảnh ${currentImageIndex + 1}`}
                   fill
                   className="h-[20vh] w-full object-cover"
                   priority
@@ -223,6 +235,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
           </div>
         </div>
       </section>
+
       {/* Product Content Section */}
       {product.content && (
         <section className="py-16">
