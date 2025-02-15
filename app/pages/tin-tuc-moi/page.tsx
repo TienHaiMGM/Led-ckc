@@ -30,16 +30,15 @@ const metadata: Metadata = {
 const ITEMS_PER_PAGE = 12;
 
 const NewsPage: React.FC<EditorProps> = ({ EditorContent }) => {
-  const { newItems, loading, error, generateSlug } =
-    useProductEditorNew(EditorContent);
+  const { products } = useProductEditorNew(EditorContent);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
 
   // Filter news items by category
   const filteredItems =
     selectedCategory === "Tất cả"
-      ? newItems
-      : newItems.filter((item) => item.category === selectedCategory);
+      ? products
+      : products.filter((item) => item.category === selectedCategory);
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
@@ -50,7 +49,7 @@ const NewsPage: React.FC<EditorProps> = ({ EditorContent }) => {
   // Get unique categories
   const categories = [
     "Tất cả",
-    ...Array.from(new Set(newItems.map((item) => item.category))),
+    ...Array.from(new Set(products.map((item) => item.category))),
   ];
 
   // Handle category change
@@ -128,7 +127,7 @@ const NewsPage: React.FC<EditorProps> = ({ EditorContent }) => {
               <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
                 <div className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-md">
                   <div className="mb-1 text-3xl font-bold text-white">
-                    {newItems.length}
+                    {products.length}
                   </div>
                   <div className="text-gray-200">Bài viết</div>
                 </div>

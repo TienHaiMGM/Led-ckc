@@ -30,7 +30,7 @@ const mapFirestoreDoc = <T extends { id?: string }>(
 export const useProductEditorNew = (
   initialContent: ProductContent = EmptyProductContent,
 ) => {
-  const [newItems, setNewItems] = useState<ProductContent[]>([]);
+  const [products, setProducts] = useState<ProductContent[]>([]);
   const [editingProduct, setEditingProduct] = useState<ProductContent | null>(
     null,
   );
@@ -50,15 +50,15 @@ export const useProductEditorNew = (
       .replace(/\s+/g, "-");
   }, []);
 
-  const fetchNewItems = async () => {
+  const fetchProducts = async () => {
     try {
       setLoading(true);
       const q = query(collection(db, "newItems"), orderBy("createdAt", "desc"));
       const querySnapshot = await getDocs(q);
-      const newItemsData = querySnapshot.docs.map((doc) =>
+      const productsData = querySnapshot.docs.map((doc) =>
         mapFirestoreDoc<ProductContent>(doc),
       );
-      setNewItems(newItems);
+      setProducts(productsData);
     } catch (err) {
       setError("Lỗi khi tải dữ liệu");
       console.error("Error fetching newItems:", err);
@@ -81,7 +81,7 @@ export const useProductEditorNew = (
       await addDoc(collection(db, "newItems"), newProduct);
       setFormData(initialContent);
       setIsAdding(false);
-      fetchNewItems();
+      fetchProducts();
     } catch (err) {
       setError("Lỗi khi thêm sản phẩm");
       console.error("Error adding newItems:", err);
@@ -105,7 +105,7 @@ export const useProductEditorNew = (
       await updateDoc(productRef, updateData);
       setEditingProduct(null);
       setFormData(initialContent);
-      fetchNewItems();
+      fetchProducts();
     } catch (err) {
       setError("Lỗi khi cập nhật sản phẩm");
       console.error("Error updating product:", err);
@@ -120,7 +120,7 @@ export const useProductEditorNew = (
     try {
       setLoading(true);
       await deleteDoc(doc(db, "newItems", id));
-      fetchNewItems();
+      fetchProducts();
     } catch (err) {
       setError("Lỗi khi xóa sản phẩm");
       console.error("Error deleting product:", err);
@@ -129,11 +129,11 @@ export const useProductEditorNew = (
     }
   };
 
-  const startEdit = (newItems: ProductContent) => {
-    setEditingProduct(newItems);
+  const startEdit = (products: ProductContent) => {
+    setEditingProduct(products);
     setFormData({
-      ...newItems,
-      tags: newItems.tags || [],
+      ...products,
+      tags: products.tags || [],
     });
   };
 
@@ -230,7 +230,7 @@ export const useProductEditorNew = (
   };
 
   useEffect(() => {
-    fetchNewItems();
+    fetchProducts();
   }, []);
 
   useEffect(() => {
@@ -239,7 +239,7 @@ export const useProductEditorNew = (
 
   return {
     drafts,
-    newItems,
+    products,
     editingProduct,
     isAdding,
     loading,

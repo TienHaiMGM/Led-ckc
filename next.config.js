@@ -36,6 +36,8 @@ const nextConfig = {
   images: {
     domains: ["firebasestorage.googleapis.com"],
     domains: ["banghieuminhkhang.com"],
+    domains: ["ledsun.vn"],
+    domains: ["banghieuminhkhang.com"],
   },
 };
 
