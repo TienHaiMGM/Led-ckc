@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Logo from "../ui/Logo";
 import {
   FaSearch,
@@ -10,13 +11,29 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { menuItems } from "@/utils/menuItems";
+import { menuItems } from "../../utils/menuItems"; // Corrected import path
 
-const Header = () => {
+interface HeaderProps {
+  showSearch?: boolean; // Optional prop to control search bar visibility
+}
+
+const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
+  // Default to true if not provided
   const [search, setSearch] = useState<string>("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (search.trim()) {
+      router.push(`/tim-kiem?q=${encodeURIComponent(search.trim())}`);
+      setSearch("");
+      setIsSearchOpen(false);
+    }
+  };
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     setActiveDropdown(null);
@@ -25,6 +42,7 @@ const Header = () => {
   const toggleDropdown = (label: string) => {
     setActiveDropdown(activeDropdown === label ? null : label);
   };
+
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
     if (isMobileMenuOpen) setIsMobileMenuOpen(false);
@@ -56,18 +74,25 @@ const Header = () => {
           </div>
 
           {/* Desktop Search Bar */}
-          <div className="mx-4 hidden max-w-xl flex-grow rounded-lg border-2 lg:block">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Tìm kiếm sản phẩm..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full rounded-lg px-4 py-2 pl-10 text-black focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-              <FaSearch className="text-black-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          {showSearch && (
+            <div className="mx-4 hidden max-w-xl flex-grow rounded-lg border-2 lg:block">
+              <form onSubmit={handleSearch} className="relative">
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm sản phẩm..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full rounded-lg px-4 py-2 pl-10 text-black focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+                <button
+                  type="submit"
+                  className="absolute left-3 top-1/2 -translate-y-1/2"
+                >
+                  <FaSearch className="text-black-500" />
+                </button>
+              </form>
             </div>
-          </div>
+          )}
 
           {/* Desktop Contact Info */}
           <div className="hidden items-center space-x-4 lg:flex">
@@ -87,34 +112,44 @@ const Header = () => {
           {/* Mobile Controls */}
           <div className="flex items-center space-x-2 py-2 lg:hidden">
             {/* Mobile Search Bar */}
-            <AnimatePresence>
-              {isSearchOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="mt-2 overflow-hidden rounded-lg border-2 lg:hidden"
+            {showSearch && (
+              <>
+                <AnimatePresence>
+                  {isSearchOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="mt-2 overflow-hidden rounded-lg border-2 lg:hidden"
+                    >
+                      <form onSubmit={handleSearch} className="relative">
+                        <input
+                          type="text"
+                          placeholder="Tìm kiếm..."
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                          className="w-[35vw] rounded-lg p-10 px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        />
+                        <button
+                          type="submit"
+                          className="absolute right-3 top-1/2 -translate-y-1/2"
+                        >
+                          <FaSearch className="text-black-500" />
+                        </button>
+                      </form>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                <button
+                  onClick={toggleSearch}
+                  className="hover:bg-black-700 rounded-lg p-2 transition-colors"
+                  aria-label="Tìm kiếm"
                 >
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Tìm kiếm..."
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      className="w-[35vw] rounded-lg p-10 px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            <button
-              onClick={toggleSearch}
-              className="hover:bg-black-700 rounded-lg p-2 transition-colors"
-              aria-label="Tìm kiếm"
-            >
-              <FaSearch className="text-xl" />
-            </button>
+                  <FaSearch className="text-xl" />
+                </button>
+              </>
+            )}
             <button
               onClick={toggleMobileMenu}
               className="text-black focus:outline-none"

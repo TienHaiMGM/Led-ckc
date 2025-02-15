@@ -10,10 +10,6 @@ export default function AdminPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { user, login, logout } = useAuth();
-
-  console.log("Admin page rendering");
-  console.log("User state:", user);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);

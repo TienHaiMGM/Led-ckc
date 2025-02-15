@@ -3,39 +3,28 @@ import React from "react";
 import ItemCard from "./ItemCard";
 import { FaChevronRight } from "react-icons/fa";
 import Link from "next/link";
+import { useProductEditor } from "../api/hooks/useProductEditor";
+import { EditorProps } from "../../types/product-management";
 
-interface Item {
-  image: string;
-  title: string;
-  description: string;
-  slug: string; // Added slug property
-  id: string;
-}
-
-interface ItemListProps {
-  title: string;
-  items: Item[];
-  bgGradient?: string;
-  linkXemThem: string;
-}
-
-const ItemList: React.FC<ItemListProps> = ({
-  title,
-  items,
-  linkXemThem,
-  bgGradient = "bg-red-700",
-}) => {
+const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
+  const { products, loading, error, generateSlug } =
+    useProductEditor(EditorContent);
+  console.log(
+    products
+      .filter((item) => item.category == EditorContent.category)
+      .map((item) => item),
+  );
   return (
     <section className="bg-gray-100 py-2">
       <div className="container mx-auto px-1">
         {/* Section Title */}
         <div className="mb-5 rounded-lg bg-white xl:mx-36">
           <div
-            className={`relative bg-gradient-to-r ${bgGradient} group w-[35vw] overflow-hidden rounded-lg shadow-lg transition-shadow duration-300 hover:w-[95vw] hover:shadow-xl md:w-[25vw] md:hover:w-[35vw] lg:w-[25vw] lg:hover:w-[35vw] xl:w-[15vw] xl:hover:w-[35vw]`}
+            className={`group relative w-[35vw] overflow-hidden rounded-lg bg-red-700 bg-gradient-to-r shadow-lg transition-shadow duration-300 hover:w-[95vw] hover:shadow-xl md:w-[25vw] md:hover:w-[35vw] lg:w-[25vw] lg:hover:w-[35vw] xl:w-[15vw] xl:hover:w-[35vw]`}
           >
             <div className="relative py-2">
               <h2 className="transform pl-7 text-left font-bold text-white transition-transform duration-300 group-hover:scale-105 md:text-2xl">
-                {title}
+                {EditorContent.title}
               </h2>
 
               {/* Decorative Circles */}
@@ -50,30 +39,33 @@ const ItemList: React.FC<ItemListProps> = ({
 
         {/* Cards Grid */}
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-4 xl:mx-36">
-          {items.slice(0, 8).map((item, index) => (
-            <div
-              key={item.id}
-              className="animate-fadeIn opacity-0"
-              style={{
-                animationDelay: `${index * 150}ms`,
-                animationFillMode: "forwards",
-              }}
-            >
-              <ItemCard
-                title={item.title}
-                description={item.description}
-                image={item.image}
-                slug={item.slug}
-                priority={index === 0} // First item gets priority loading
-                index={index} // Pass index for loading strategy
-              />
-            </div>
-          ))}
+          {products
+            .filter((item) => item.category == EditorContent.category)
+            .slice(0, 8) // Limit to 8 items
+            .map((item, index) => (
+              <div
+                key={item.id}
+                className="animate-fadeIn opacity-0"
+                style={{
+                  animationDelay: `${index * 150}ms`,
+                  animationFillMode: "forwards",
+                }}
+              >
+                <ItemCard
+                  title={item.title}
+                  description={item.description}
+                  image={item.images}
+                  slug={item.slug}
+                  priority={index === 0} // First item gets priority loading
+                  index={index} // Pass index for loading strategy
+                />
+              </div>
+            ))}
         </div>
         {/* Section Xem thêm */}
         <div className="mt-3 flex justify-center text-base font-bold text-blue-700">
           <Link
-            href={`/collections/${linkXemThem}`}
+            href={`/collections/${EditorContent.slug}`}
             className="flex cursor-pointer hover:scale-105"
           >
             <p className="">Xem thêm sản phẩm</p>

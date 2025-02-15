@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "@/components/common/Footer";
 import Menu from "@/components/common/Menu";
 import Header from "@/components/common/Header";
@@ -20,14 +20,14 @@ const SignBoard = () => {
             images: "",
             category: "banghieu",
             slug: "bang-hieu",
-            description: "Các mẫu bảng hiệu đẹp, chất lượng cao",
-            tags: ["bảng hiệu", "quảng cáo"],
+            description: "Các mẫu Bảng hiệu đẹp, chất lượng cao",
+            tags: ["Bảng Led", "quảng cáo"],
             status: "published",
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
-            seoTitle: "Bảng hiệu - Siêu Thị Bảng Hiệu",
+            seoTitle: "Bảng hiệu - Siêu Thị Bảng Led",
             seoDescription:
-              "Chuyên thiết kế và thi công các loại bảng hiệu quảng cáo chất lượng cao",
+              "Chuyên thiết kế và thi công các loại Bảng hiệu quảng cáo chất lượng cao",
             featuredImage: "",
             thumbnail: "",
           }}

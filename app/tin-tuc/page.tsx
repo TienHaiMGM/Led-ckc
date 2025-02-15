@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { NewsArticle, NEWS_CATEGORIES } from "../../types/news-management";
+// import { NewsArticle, NEWS_CATEGORIES } from "@/types/news-management";
 import NewsService from "../../components/api/NewsService";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
@@ -15,7 +15,6 @@ const NewsPage = () => {
   const [featuredArticles, setFeaturedArticles] = useState<NewsArticle[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [isLoading, setIsLoading] = useState(true);
-  const newsService = new NewsService();
 
   useEffect(() => {
     loadArticles();

@@ -1,13 +1,12 @@
 "use client";
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
+import { getFirestore, Firestore } from "firebase/firestore";
 import {
   getAuth,
   setPersistence,
   browserLocalPersistence,
+  Auth,
 } from "firebase/auth";
-
-console.log("Initializing Firebase...");
 
 const firebaseConfig = {
   apiKey: "AIzaSyBJGoGygwZ7j-LWpo7PL2_Ko9-zUcIYKsw",
@@ -20,9 +19,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let app;
-let auth;
-let db;
+let app: FirebaseApp;
+let auth: Auth;
+let db: Firestore;
 
 if (typeof window !== "undefined") {
   try {

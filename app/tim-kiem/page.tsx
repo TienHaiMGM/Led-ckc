@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import Header from "@/components/common/Header";
-import Menu from "@/components/common/Menu";
-import Footer from "@/components/common/Footer";
-import UnifiedSearchComponent from "@/components/common/UnifiedSearchComponent";
+import Header from "../../components/common/Header"; // Corrected import path
+import Menu from "../../components/common/Menu"; // Corrected import path
+import Footer from "../../components/common/Footer"; // Corrected import path
+import UnifiedSearchComponent from "../../components/common/UnifiedSearchComponent"; // Corrected import path
 import { useProductEditor } from "../../components/api/hooks/useProductEditor";
 import { searchProducts } from "../../utils/searchUtils";
 import Image from "next/image";
@@ -48,7 +48,7 @@ export default function SearchPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      <Header showSearch={false} />
       <Menu />
       <main className="flex-grow bg-gray-50 py-8">
         <div className="container mx-auto px-4">

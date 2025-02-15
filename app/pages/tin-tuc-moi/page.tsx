@@ -48,7 +48,7 @@ export default function NewsPage() {
   // Get unique categories
   const categories = [
     "Tất cả",
-    ...new Set(newsItems.map((item) => item.category)),
+    ...Array.from(new Set(newsItems.map((item) => item.category))),
   ];
 
   // Handle category change
@@ -86,7 +86,7 @@ export default function NewsPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      <Header showSearch={false} />
       <Menu />
 
       <main className="flex-grow">

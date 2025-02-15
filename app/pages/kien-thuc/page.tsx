@@ -36,7 +36,7 @@ export default function KnowledgePage() {
   // Get unique categories
   const categories = [
     "Tất cả",
-    ...new Set(knowledgeItems.map((item) => item.category)),
+    ...Array.from(new Set(knowledgeItems.map((item) => item.category))),
   ];
 
   // Filter articles by category and search query
@@ -90,7 +90,7 @@ export default function KnowledgePage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      <Header showSearch={false} />
       <Menu />
       <main className="flex-grow bg-gray-50">
         {/* Hero Section */}
