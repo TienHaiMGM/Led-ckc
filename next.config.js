@@ -34,11 +34,12 @@ const nextConfig = {
   },
   // Add proper domains for images if you're using next/image
   images: {
-    domains: ["firebasestorage.googleapis.com"],
-    domains: ["banghieuminhkhang.com"],
-    domains: ["ledsun.vn"],
-    domains: ["banghieuminhkhang.com"],
-    domains: ["ledsun.vn"],
+    domains: [
+      "firebasestorage.googleapis.com",
+      "banghieuminhkhang.com",
+      "ledsun.vn",
+      "fastly.picsum.photos",
+    ],
   },
 };
 
