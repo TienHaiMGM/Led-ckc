@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ProductContent,
   CATEGORY_OPTIONS,
@@ -21,59 +21,105 @@ interface EditorTabsProps {
   generateSlug: (text: string) => string;
 }
 
+interface CategoryOption {
+  value: string;
+  label: string;
+}
+
 const ContentTab: React.FC<{
   formData: ProductContent;
   setFormData: (data: ProductContent) => void;
-}> = ({ formData, setFormData }) => (
-  <div className="space-y-6">
-    <FormField
-      label="Tên sản phẩm"
-      value={formData.title}
-      onChange={(value) => setFormData({ ...formData, title: value })}
-      required
-    />
+}> = ({ formData, setFormData }) => {
+  const [htmlContent, setHtmlContent] = useState<string>("");
 
-    <FormField
-      label="Danh mục"
-      type="select"
-      value={formData.category}
-      onChange={(value) => setFormData({ ...formData, category: value })}
-      options={CATEGORY_OPTIONS}
-      required
-    />
+  const handleEditorChange = (content: string) => {
+    setFormData({ ...formData, content });
+    setHtmlContent(content);
+  };
 
-    <FormField
-      label="Link hình ảnh"
-      type="url"
-      value={formData.images}
-      onChange={(value) => setFormData({ ...formData, images: value })}
-      required
-    />
+  const copyHtmlToClipboard = () => {
+    const textarea = document.createElement("textarea");
+    textarea.value = htmlContent;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+    alert("HTML đã được sao chép vào clipboard!");
+  };
 
-    <FormField
-      label="Mô tả"
-      value={formData.description}
-      onChange={(value) => setFormData({ ...formData, description: value })}
-      required
-    />
+  // Convert readonly array to mutable array of CategoryOption
+  const categoryOptions: CategoryOption[] = [...CATEGORY_OPTIONS];
 
-    <div>
-      <label className="mb-2 block text-sm font-medium text-gray-700">
-        Nội dung
-      </label>
-      <div className="editor-wrapper">
-        <ReactQuill
-          theme="snow"
-          value={formData.content}
-          onChange={(value) => setFormData({ ...formData, content: value })}
-          modules={modules}
-          formats={formats}
-          className="editor-content"
-        />
+  return (
+    <div className="space-y-6">
+      <div className="mb-4 flex justify-end">
+        <button
+          onClick={copyHtmlToClipboard}
+          className="rounded bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
+        >
+          Sao chép HTML
+        </button>
+      </div>
+
+      <FormField
+        label="Tên sản phẩm"
+        value={formData.title}
+        onChange={(value) => setFormData({ ...formData, title: value })}
+        required
+      />
+
+      <FormField
+        label="Danh mục"
+        type="select"
+        value={formData.category}
+        onChange={(value) => setFormData({ ...formData, category: value })}
+        options={categoryOptions}
+        required
+      />
+
+      <FormField
+        label="Link hình ảnh"
+        type="url"
+        value={formData.images}
+        onChange={(value) => setFormData({ ...formData, images: value })}
+        required
+      />
+
+      <FormField
+        label="Mô tả"
+        value={formData.description}
+        onChange={(value) => setFormData({ ...formData, description: value })}
+        required
+      />
+
+      <div>
+        <label className="mb-2 block text-sm font-medium text-gray-700">
+          Nội dung
+        </label>
+        <div className="editor-wrapper">
+          <ReactQuill
+            theme="snow"
+            value={formData.content}
+            onChange={handleEditorChange}
+            modules={modules}
+            formats={formats}
+            className="editor-content"
+          />
+        </div>
+        <div className="mt-4">
+          <label className="mb-2 block text-sm font-medium text-gray-700">
+            HTML Preview
+          </label>
+          <div className="max-h-40 overflow-auto rounded border border-gray-200 bg-gray-50 p-4">
+            <pre className="whitespace-pre-wrap text-sm text-gray-700">
+              {htmlContent}
+            </pre>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const SeoTab: React.FC<{
   formData: ProductContent;
