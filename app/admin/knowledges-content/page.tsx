@@ -1,13 +1,30 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import NewsEditor from "@/components/editor/NewsEditor";
+import React, { useState, useCallback } from "react";
 import DashboardLayout from "@/components/admin/DashboardLayout";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import ProductEditorKnowledge from "@/components/api/ProductEditorKnowledge";
 import {
   EmptyProductContent,
   ProductContent,
 } from "@/types/product-management";
-import ProductEditorKnowledge from "@/components/api/ProductEditorKnowledge";
+
+// Component Toast riêng để hiển thị thông báo
+interface ToastProps {
+  message: string;
+  type: "success" | "error";
+}
+
+const Toast: React.FC<ToastProps> = ({ message, type }) => (
+  <div
+    className={`fixed right-4 top-4 z-50 rounded-lg px-6 py-3 shadow-lg ${
+      type === "success" ? "bg-green-500" : "bg-red-500"
+    } translate-y-0 transform text-white transition-all duration-300`}
+    role="alert"
+    aria-live="polite"
+  >
+    {message}
+  </div>
+);
 
 export default function NewsContentPage() {
   const [savedContents, setSavedContents] = useState<ProductContent[]>([]);
@@ -16,29 +33,38 @@ export default function NewsContentPage() {
   const [notificationType, setNotificationType] = useState<"success" | "error">(
     "success",
   );
-  const showToast = (
-    message: string,
-    type: "success" | "error" = "success",
-  ) => {
-    setNotificationMessage(message);
-    setNotificationType(type);
-    setShowNotification(true);
-    setTimeout(() => setShowNotification(false), 3000);
-  };
 
-  const handleSave = (content: ProductContent) => {
-    setSavedContents((prev) => [content, ...prev]);
-    showToast("Đã xuất bản nội dung thành công!");
-  };
+  const showToast = useCallback(
+    (message: string, type: "success" | "error" = "success") => {
+      setNotificationMessage(message);
+      setNotificationType(type);
+      setShowNotification(true);
+      const timer = setTimeout(() => setShowNotification(false), 3000);
+      return () => clearTimeout(timer);
+    },
+    [],
+  );
 
-  const handleDraft = (content: ProductContent) => {
-    setSavedContents((prev) => [content, ...prev]);
-    showToast("Đã lưu bản nháp thành công!");
-  };
+  const handleSave = useCallback(
+    (content: ProductContent) => {
+      setSavedContents((prev) => [content, ...prev]);
+      showToast("Đã xuất bản nội dung thành công!");
+    },
+    [showToast],
+  );
 
-  const handlePreview = (content: ProductContent) => {
+  const handleDraft = useCallback(
+    (content: ProductContent) => {
+      setSavedContents((prev) => [content, ...prev]);
+      showToast("Đã lưu bản nháp thành công!");
+    },
+    [showToast],
+  );
+
+  const handlePreview = useCallback((content: ProductContent) => {
     console.log("Preview content:", content);
-  };
+  }, []);
+
   return (
     <ProtectedRoute>
       <DashboardLayout>
@@ -49,17 +75,8 @@ export default function NewsContentPage() {
             onDraft={handleDraft}
             onPreview={handlePreview}
           />
-          {/* Notification Toast */}
           {showNotification && (
-            <div
-              className={`fixed right-4 top-4 z-50 rounded-lg px-6 py-3 shadow-lg ${
-                notificationType === "success" ? "bg-green-500" : "bg-red-500"
-              } translate-y-0 transform text-white transition-all duration-300`}
-              role="alert"
-              aria-live="polite"
-            >
-              {notificationMessage}
-            </div>
+            <Toast message={notificationMessage} type={notificationType} />
           )}
         </div>
       </DashboardLayout>

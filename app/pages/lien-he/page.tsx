@@ -10,7 +10,7 @@ import ContactForm from "../../../components/common/ContactForm";
 const Contact = () => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-100">
-      <Header showSearch={false} />
+      <Header />
       <Menu />
       <Breadcrumb />
       <main className="flex flex-grow items-center justify-center py-8">

@@ -1,51 +1,68 @@
-"use client";
+"use client"; // Đánh dấu rằng tệp này sử dụng trong môi trường client-side (Next.js)
+
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "../../components/auth/AuthContext";
+import { useRouter } from "next/navigation"; // Hook điều hướng của Next.js
+import { useAuth } from "../../components/auth/AuthContext"; // Hook xác thực người dùng
 
 export default function AdminPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-  const { user, login, logout } = useAuth();
+  // **State quản lý thông tin đăng nhập**
+  const [email, setEmail] = useState(""); // Email người dùng
+  const [password, setPassword] = useState(""); // Mật khẩu người dùng
+  const [error, setError] = useState(""); // Thông báo lỗi (nếu có)
+  const [isLoading, setIsLoading] = useState(false); // Trạng thái tải trong quá trình đăng nhập
 
+  const router = useRouter(); // Hook để điều hướng trang
+  const { user, login } = useAuth(); // Lấy thông tin người dùng và hàm `login` từ context xác thực
+
+  /**
+   * Hàm xử lý khi người dùng nhấn nút "Đăng Nhập".
+   * @param e - Sự kiện form submit
+   */
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
+    e.preventDefault(); // Ngăn chặn hành động mặc định của form
+    setIsLoading(true); // Hiển thị trạng thái tải
+    setError(""); // Xóa thông báo lỗi cũ
 
     try {
+      // Gọi hàm `login` để đăng nhập
       await login(email, password);
       console.log("Login successful");
-      router.push("/admin/dashboard"); // Changed from product-content to dashboard
+      router.push("/admin/dashboard"); // Chuyển hướng đến trang Dashboard sau khi đăng nhập thành công
     } catch (error) {
+      // Xử lý lỗi xảy ra trong quá trình đăng nhập
       console.error("Login error:", error);
       if (error instanceof Error) {
-        setError(error.message);
+        setError(error.message); // Hiển thị thông báo lỗi nếu error là đối tượng `Error`
       } else {
-        setError("Đăng nhập thất bại. Vui lòng thử lại.");
+        setError("Đăng nhập thất bại. Vui lòng thử lại."); // Thông báo lỗi mặc định
       }
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Kết thúc trạng thái tải
     }
   };
 
-  // If user is authenticated, redirect to dashboard
+  /**
+   * Kiểm tra nếu người dùng đã đăng nhập -> chuyển hướng đến dashboard
+   */
   if (user) {
-    router.push("/admin/dashboard"); // Changed from product-content to dashboard
-    return null;
+    router.push("/admin/dashboard");
+    return null; // Không hiển thị gì khi đang chuyển hướng
   }
 
-  // Show login form if not authenticated
+  /**
+   * Hiển thị giao diện đăng nhập nếu người dùng chưa đăng nhập
+   */
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <div className="mx-auto max-w-md rounded-lg bg-white p-8 shadow-lg">
+        {/* Tiêu đề của trang đăng nhập */}
         <h1 className="mb-6 text-center text-2xl font-bold text-gray-900">
           Đăng Nhập Admin
         </h1>
+
+        {/* Form đăng nhập */}
         <form onSubmit={handleLogin} className="space-y-4">
+          {/* Trường nhập Email */}
           <div>
             <label
               htmlFor="email"
@@ -56,15 +73,17 @@ export default function AdminPage() {
             <input
               id="email"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={email} // Giá trị email từ state
+              onChange={(e) => setEmail(e.target.value)} // Cập nhật state khi người dùng nhập
               className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
               required
-              disabled={isLoading}
+              disabled={isLoading} // Vô hiệu hóa nếu đang tải
               placeholder="Nhập email của bạn"
               autoComplete="email"
             />
           </div>
+
+          {/* Trường nhập Mật khẩu */}
           <div>
             <label
               htmlFor="password"
@@ -75,15 +94,17 @@ export default function AdminPage() {
             <input
               id="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={password} // Giá trị mật khẩu từ state
+              onChange={(e) => setPassword(e.target.value)} // Cập nhật state khi người dùng nhập
               className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
               required
-              disabled={isLoading}
+              disabled={isLoading} // Vô hiệu hóa nếu đang tải
               placeholder="Nhập mật khẩu của bạn"
               autoComplete="current-password"
             />
           </div>
+
+          {/* Hiển thị lỗi nếu có */}
           {error && (
             <div className="rounded-md bg-red-50 p-4">
               <div className="flex">
@@ -106,13 +127,16 @@ export default function AdminPage() {
               </div>
             </div>
           )}
+
+          {/* Nút Đăng Nhập */}
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading} // Vô hiệu hóa nếu đang tải
             className={`w-full rounded-md bg-blue-600 px-4 py-2 text-white transition duration-150 ease-in-out ${
               isLoading ? "cursor-not-allowed opacity-50" : "hover:bg-blue-700"
             }`}
           >
+            {/* Hiển thị trạng thái nút */}
             {isLoading ? (
               <span className="flex items-center justify-center">
                 <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">

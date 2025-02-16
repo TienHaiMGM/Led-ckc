@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { db } from "@/lib/firebase";
 import {
   collection,
@@ -15,6 +15,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { useAuth } from "@/components/auth/AuthContext";
 import DashboardLayout from "@/components/admin/DashboardLayout";
 
+// Interface to define the structure of a contact request
 interface ContactRequest {
   id: string;
   name: string;
@@ -27,95 +28,130 @@ interface ContactRequest {
   status: "new" | "read" | "responded";
 }
 
+// Component riêng cho một hàng của bảng
+interface ContactRowProps {
+  request: ContactRequest;
+  onUpdateStatus: (id: string, newStatus: "responded") => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
+  updating: boolean;
+}
+
+const ContactRow: React.FC<ContactRowProps> = ({
+  request,
+  onUpdateStatus,
+  onDelete,
+  updating,
+}) => {
+  return (
+    <tr className="hover:bg-gray-50">
+      <td>{request.createdAt?.toDate().toLocaleString("vi-VN")}</td>
+      <td>{request.name}</td>
+      <td>{request.email}</td>
+      <td>{request.phone}</td>
+      <td>{request.message}</td>
+      <td>
+        <span>{request.status === "new" ? "Mới" : request.status}</span>
+      </td>
+      <td>
+        <button
+          onClick={() => onUpdateStatus(request.id, "responded")}
+          disabled={updating}
+          className="mr-2 rounded bg-blue-500 px-2 py-1 text-white disabled:opacity-50"
+        >
+          {updating ? "Đang cập nhật..." : "Update"}
+        </button>
+        <button
+          onClick={() => onDelete(request.id)}
+          disabled={updating}
+          className="rounded bg-red-500 px-2 py-1 text-white disabled:opacity-50"
+        >
+          {updating ? "Đang xóa..." : "Delete"}
+        </button>
+      </td>
+    </tr>
+  );
+};
+
 function ContactRequestsContent() {
   const [requests, setRequests] = useState<ContactRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [updating, setUpdating] = useState<string | null>(null);
+  // Sử dụng object để theo dõi trạng thái updating của từng request
+  const [updatingIds, setUpdatingIds] = useState<Record<string, boolean>>({});
+
   const { user } = useAuth();
 
   useEffect(() => {
-    if (!user) return; // Don't fetch data if not authenticated
+    if (!user) return;
 
-    try {
-      const contactsRef = collection(db as Firestore, "contact-requests");
-      const q = query(contactsRef, orderBy("createdAt", "desc"));
+    const contactsRef = collection(db as Firestore, "contact-requests");
+    const q = query(contactsRef, orderBy("createdAt", "desc"));
 
-      const unsubscribe = onSnapshot(
-        q,
-        (snapshot) => {
-          const contactData: ContactRequest[] = [];
-          snapshot.forEach((doc) => {
-            const data = doc.data();
-            contactData.push({
-              id: doc.id,
-              name: data.name,
-              email: data.email,
-              phone: data.phone,
-              message: data.message,
-              createdAt: data.createdAt,
-              status: data.status || "new",
-            });
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const contactData: ContactRequest[] = [];
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          contactData.push({
+            id: doc.id,
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            message: data.message,
+            createdAt: data.createdAt,
+            status: data.status || "new",
           });
-          setRequests(contactData);
-          setLoading(false);
-        },
-        (error) => {
-          console.error("Error fetching contact requests:", error);
-          setError(error.message);
-          setLoading(false);
-        },
-      );
+        });
+        setRequests(contactData);
+        setLoading(false);
+      },
+      (err) => {
+        console.error("Error fetching contact requests:", err);
+        setError(err.message);
+        setLoading(false);
+      },
+    );
 
-      return () => unsubscribe();
-    } catch (error) {
-      console.error("Error setting up contact requests subscription:", error);
-      setError(
-        error instanceof Error ? error.message : "Unknown error occurred",
-      );
-      setLoading(false);
-      return () => {};
-    }
+    return () => unsubscribe();
   }, [user]);
 
-  const handleUpdateStatus = async (
-    requestId: string,
-    newStatus: "responded",
-  ) => {
-    if (!user) return; // Prevent actions if not authenticated
+  const handleUpdateStatus = useCallback(
+    async (requestId: string, newStatus: "responded") => {
+      if (!user) return;
 
-    try {
-      setUpdating(requestId);
+      setUpdatingIds((prev) => ({ ...prev, [requestId]: true }));
       const docRef = doc(db as Firestore, "contact-requests", requestId);
-      await updateDoc(docRef, {
-        status: newStatus,
-      });
-    } catch (error) {
-      console.error("Error updating status:", error);
-      alert("Có lỗi xảy ra khi cập nhật trạng thái");
-    } finally {
-      setUpdating(null);
-    }
-  };
+      try {
+        await updateDoc(docRef, { status: newStatus });
+      } catch (error: any) {
+        console.error("Error updating status:", error);
+        alert("Có lỗi xảy ra khi cập nhật trạng thái");
+      } finally {
+        setUpdatingIds((prev) => ({ ...prev, [requestId]: false }));
+      }
+    },
+    [user],
+  );
 
-  const handleDelete = async (requestId: string) => {
-    if (!user) return; // Prevent actions if not authenticated
+  const handleDelete = useCallback(
+    async (requestId: string) => {
+      if (!user) return;
+      if (!confirm("Bạn có chắc chắn muốn xóa yêu cầu này không?")) return;
 
-    if (!confirm("Bạn có chắc chắn muốn xóa yêu cầu này không?")) {
-      return;
-    }
-
-    try {
-      setUpdating(requestId);
+      setUpdatingIds((prev) => ({ ...prev, [requestId]: true }));
       const docRef = doc(db as Firestore, "contact-requests", requestId);
-      await deleteDoc(docRef);
-    } catch (error) {
-      console.error("Error deleting request:", error);
-      alert("Có lỗi xảy ra khi xóa yêu cầu");
-    } finally {
-      setUpdating(null);
-    }
-  };
+      try {
+        await deleteDoc(docRef);
+      } catch (error: any) {
+        console.error("Error deleting request:", error);
+        alert("Có lỗi xảy ra khi xóa yêu cầu");
+      } finally {
+        setUpdatingIds((prev) => ({ ...prev, [requestId]: false }));
+      }
+    },
+    [user],
+  );
 
   if (loading) {
     return (
@@ -141,93 +177,29 @@ function ContactRequestsContent() {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                Thời gian
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                Họ tên
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                Email
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                Số điện thoại
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                Nội dung
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                Trạng thái
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                Thao tác
-              </th>
+              <th className="px-4 py-2">Thời gian</th>
+              <th className="px-4 py-2">Họ tên</th>
+              <th className="px-4 py-2">Email</th>
+              <th className="px-4 py-2">Số điện thoại</th>
+              <th className="px-4 py-2">Nội dung</th>
+              <th className="px-4 py-2">Trạng thái</th>
+              <th className="px-4 py-2">Thao tác</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {requests.length > 0 ? (
               requests.map((request) => (
-                <tr key={request.id} className="hover:bg-gray-50">
-                  <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                    {request.createdAt?.toDate().toLocaleString("vi-VN")}
-                  </td>
-                  <td className="px-6 py-4 text-sm">{request.name}</td>
-                  <td className="px-6 py-4 text-sm">{request.email}</td>
-                  <td className="px-6 py-4 text-sm">{request.phone}</td>
-                  <td className="px-6 py-4">
-                    <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap text-sm">
-                      {request.message}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
-                        request.status === "new"
-                          ? "bg-yellow-100 text-yellow-800"
-                          : request.status === "read"
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-green-100 text-green-800"
-                      }`}
-                    >
-                      {request.status === "new"
-                        ? "Mới"
-                        : request.status === "read"
-                          ? "Đã đọc"
-                          : "Đã phản hồi"}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-sm">
-                    <div className="flex space-x-2">
-                      {request.status !== "responded" && (
-                        <button
-                          onClick={() =>
-                            handleUpdateStatus(request.id, "responded")
-                          }
-                          disabled={updating === request.id}
-                          className="rounded bg-green-500 px-3 py-1 text-white hover:bg-green-600 disabled:opacity-50"
-                        >
-                          {updating === request.id
-                            ? "Đang xử lý..."
-                            : "Đánh dấu đã phản hồi"}
-                        </button>
-                      )}
-                      <button
-                        onClick={() => handleDelete(request.id)}
-                        disabled={updating === request.id}
-                        className="rounded bg-red-500 px-3 py-1 text-white hover:bg-red-600 disabled:opacity-50"
-                      >
-                        {updating === request.id ? "Đang xử lý..." : "Xóa"}
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                <ContactRow
+                  key={request.id}
+                  request={request}
+                  onUpdateStatus={handleUpdateStatus}
+                  onDelete={handleDelete}
+                  updating={!!updatingIds[request.id]}
+                />
               ))
             ) : (
               <tr>
-                <td
-                  colSpan={7}
-                  className="px-6 py-4 text-center text-sm text-gray-500"
-                >
+                <td colSpan={7} className="p-4 text-center">
                   Chưa có yêu cầu liên hệ nào
                 </td>
               </tr>
