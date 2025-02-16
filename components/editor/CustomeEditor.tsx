@@ -125,6 +125,7 @@ const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
             <label>Position:</label>
             <div className="position-grid">
               <button
+                type="button"
                 className={`position-btn ${position === "top-left" ? "active" : ""}`}
                 onClick={() => setPosition("top-left")}
                 title="Top Left"
@@ -133,6 +134,7 @@ const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
               </button>
               <button
                 className={`position-btn ${position === "top-center" ? "active" : ""}`}
+                type="button"
                 onClick={() => setPosition("top-center")}
                 title="Top Center"
               >
@@ -140,6 +142,7 @@ const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
               </button>
               <button
                 className={`position-btn ${position === "top-right" ? "active" : ""}`}
+                type="button"
                 onClick={() => setPosition("top-right")}
                 title="Top Right"
               >
@@ -147,6 +150,7 @@ const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
               </button>
               <button
                 className={`position-btn ${position === "middle-left" ? "active" : ""}`}
+                type="button"
                 onClick={() => setPosition("middle-left")}
                 title="Middle Left"
               >
@@ -154,6 +158,7 @@ const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
               </button>
               <button
                 className={`position-btn ${position === "middle-center" ? "active" : ""}`}
+                type="button"
                 onClick={() => setPosition("middle-center")}
                 title="Middle Center"
               >
@@ -161,6 +166,7 @@ const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
               </button>
               <button
                 className={`position-btn ${position === "middle-right" ? "active" : ""}`}
+                type="button"
                 onClick={() => setPosition("middle-right")}
                 title="Middle Right"
               >
@@ -168,6 +174,7 @@ const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
               </button>
               <button
                 className={`position-btn ${position === "bottom-left" ? "active" : ""}`}
+                type="button"
                 onClick={() => setPosition("bottom-left")}
                 title="Bottom Left"
               >
@@ -175,6 +182,7 @@ const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
               </button>
               <button
                 className={`position-btn ${position === "bottom-center" ? "active" : ""}`}
+                type="button"
                 onClick={() => setPosition("bottom-center")}
                 title="Bottom Center"
               >
@@ -182,6 +190,7 @@ const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
               </button>
               <button
                 className={`position-btn ${position === "bottom-right" ? "active" : ""}`}
+                type="button"
                 onClick={() => setPosition("bottom-right")}
                 title="Bottom Right"
               >
@@ -200,10 +209,15 @@ const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
           </div>
         </div>
         <div className="modal-actions">
-          <button onClick={() => onApply({ width, height, position, caption })}>
+          <button
+            type="button"
+            onClick={() => onApply({ width, height, position, caption })}
+          >
             Apply
           </button>
-          <button onClick={onClose}>Cancel</button>
+          <button type="button" onClick={onClose}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>
@@ -230,7 +244,11 @@ const Dropdown: React.FC<DropdownProps> = ({ label, children }) => {
 
   return (
     <div className="toolbar-dropdown" ref={dropdownRef}>
-      <button className="toolbar-button" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        type="button"
+        className="toolbar-button"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {label} ▾
       </button>
       {isOpen && <div className="dropdown-menu">{children}</div>}
@@ -273,6 +291,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
   const handleInput = () => {
     if (editorRef.current) {
       const newContent = editorRef.current.innerHTML;
+      setContent(newContent); //****
       if (onChange) {
         onChange(newContent);
       }
@@ -378,17 +397,29 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
   }, []);
 
   useEffect(() => {
-    const handleImageClick = (e: MouseEvent) => {
+    const handleContentClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
+
+      // Handle image clicks
       if (target.tagName === "IMG" && !isSourceMode) {
         setSelectedImage(target as HTMLImageElement);
         setIsImageModalOpen(true);
       }
+
+      // Handle link clicks
+      if (target.tagName === "A") {
+        e.preventDefault();
+        const link = target as HTMLAnchorElement;
+        const url = link.getAttribute("href");
+        if (url) {
+          window.open(url, "_blank", "noopener,noreferrer");
+        }
+      }
     };
 
-    editorRef.current?.addEventListener("click", handleImageClick);
+    editorRef.current?.addEventListener("click", handleContentClick);
     return () => {
-      editorRef.current?.removeEventListener("click", handleImageClick);
+      editorRef.current?.removeEventListener("click", handleContentClick);
     };
   }, [isSourceMode]);
 
@@ -398,6 +429,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
         {/* View Mode Toggle */}
         <div className="toolbar-group">
           <button
+            type="button"
             onClick={toggleSourceMode}
             className={`toolbar-button ${isSourceMode ? "active" : ""}`}
             title="Toggle HTML Source"
@@ -411,6 +443,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             {/* History Controls */}
             <div className="toolbar-group">
               <button
+                type="button"
                 onClick={() => execCommand("undo")}
                 className="toolbar-button"
                 title="Undo"
@@ -418,6 +451,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
                 ↶
               </button>
               <button
+                type="button"
                 onClick={() => execCommand("redo")}
                 className="toolbar-button"
                 title="Redo"
@@ -429,19 +463,34 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             {/* Text Style Dropdown */}
             <div className="toolbar-group">
               <Dropdown label="Style">
-                <button onClick={() => execCommand("formatBlock", "p")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("formatBlock", "p")}
+                >
                   Paragraph
                 </button>
-                <button onClick={() => execCommand("formatBlock", "h1")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("formatBlock", "h1")}
+                >
                   Heading 1
                 </button>
-                <button onClick={() => execCommand("formatBlock", "h2")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("formatBlock", "h2")}
+                >
                   Heading 2
                 </button>
-                <button onClick={() => execCommand("formatBlock", "h3")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("formatBlock", "h3")}
+                >
                   Heading 3
                 </button>
-                <button onClick={() => execCommand("formatBlock", "pre")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("formatBlock", "pre")}
+                >
                   Code Block
                 </button>
               </Dropdown>
@@ -450,18 +499,28 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             {/* Text Formatting Dropdown */}
             <div className="toolbar-group">
               <Dropdown label="Format">
-                <button onClick={() => execCommand("bold")}>Bold</button>
-                <button onClick={() => execCommand("italic")}>Italic</button>
-                <button onClick={() => execCommand("underline")}>
+                <button type="button" onClick={() => execCommand("bold")}>
+                  Bold
+                </button>
+                <button type="button" onClick={() => execCommand("italic")}>
+                  Italic
+                </button>
+                <button type="button" onClick={() => execCommand("underline")}>
                   Underline
                 </button>
-                <button onClick={() => execCommand("strikeThrough")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("strikeThrough")}
+                >
                   Strike
                 </button>
-                <button onClick={() => execCommand("subscript")}>
+                <button type="button" onClick={() => execCommand("subscript")}>
                   Subscript
                 </button>
-                <button onClick={() => execCommand("superscript")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("superscript")}
+                >
                   Superscript
                 </button>
               </Dropdown>
@@ -470,20 +529,34 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             {/* Alignment Dropdown */}
             <div className="toolbar-group">
               <Dropdown label="Align">
-                <button onClick={() => execCommand("justifyLeft")}>Left</button>
-                <button onClick={() => execCommand("justifyCenter")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("justifyLeft")}
+                >
+                  Left
+                </button>
+                <button
+                  type="button"
+                  onClick={() => execCommand("justifyCenter")}
+                >
                   Center
                 </button>
-                <button onClick={() => execCommand("justifyRight")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("justifyRight")}
+                >
                   Right
                 </button>
-                <button onClick={() => execCommand("justifyFull")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("justifyFull")}
+                >
                   Justify
                 </button>
-                <button onClick={() => execCommand("indent")}>
+                <button type="button" onClick={() => execCommand("indent")}>
                   Increase Indent
                 </button>
-                <button onClick={() => execCommand("outdent")}>
+                <button type="button" onClick={() => execCommand("outdent")}>
                   Decrease Indent
                 </button>
               </Dropdown>
@@ -492,10 +565,16 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             {/* List Dropdown */}
             <div className="toolbar-group">
               <Dropdown label="List">
-                <button onClick={() => execCommand("insertUnorderedList")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("insertUnorderedList")}
+                >
                   Bullet List
                 </button>
-                <button onClick={() => execCommand("insertOrderedList")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("insertOrderedList")}
+                >
                   Numbered List
                 </button>
               </Dropdown>
@@ -504,7 +583,10 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             {/* Insert Controls */}
             <div className="toolbar-group">
               <Dropdown label="Insert">
-                <button onClick={() => execCommand("insertHorizontalRule")}>
+                <button
+                  type="button"
+                  onClick={() => execCommand("insertHorizontalRule")}
+                >
                   Horizontal Line
                 </button>
                 <label className="dropdown-item">
@@ -517,9 +599,55 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
                   />
                 </label>
                 <button
-                  onClick={() => {
+                  type="button"
+                  onClick={async () => {
                     const url = prompt("Enter link URL:");
-                    if (url) execCommand("createLink", url);
+                    if (url) {
+                      try {
+                        // Fetch webpage title
+                        const response = await fetch(url);
+                        const text = await response.text();
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(text, "text/html");
+                        const pageTitle =
+                          doc.querySelector("title")?.textContent || url;
+
+                        const range = selection?.getRangeAt(0);
+                        const selectedText = range ? range.toString() : "";
+
+                        if (selectedText) {
+                          // If text is selected, use it as the link text
+                          execCommand("createLink", url);
+                          const link = editorRef.current?.querySelector(
+                            `a[href="${url}"]`,
+                          ) as HTMLAnchorElement;
+                          if (link) {
+                            link.setAttribute("title", url);
+                            link.setAttribute("target", "_blank");
+                            link.setAttribute("rel", "noopener noreferrer");
+                          }
+                        } else {
+                          // If no text is selected, use the page title as text
+                          const link = document.createElement("a");
+                          link.href = url;
+                          link.textContent = pageTitle;
+                          link.setAttribute("title", url);
+                          link.setAttribute("target", "_blank");
+                          link.setAttribute("rel", "noopener noreferrer");
+
+                          const range = document.getSelection()?.getRangeAt(0);
+                          if (range) {
+                            range.insertNode(link);
+                          } else {
+                            editorRef.current?.appendChild(link);
+                          }
+                        }
+                        handleInput();
+                      } catch (error) {
+                        // Fallback to basic link creation
+                        execCommand("createLink", url);
+                      }
+                    }
                   }}
                 >
                   Link
@@ -552,6 +680,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             {/* Clear Formatting */}
             <div className="toolbar-group">
               <button
+                type="button"
                 onClick={() => execCommand("removeFormat")}
                 className="toolbar-button"
                 title="Clear Formatting"
