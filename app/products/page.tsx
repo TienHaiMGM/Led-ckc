@@ -20,7 +20,7 @@ export default function SignPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      <Header showSearch={false} />
       <Menu />
       <main className="flex-grow bg-gray-50">
         {/* Hero Section */}

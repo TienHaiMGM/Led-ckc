@@ -93,7 +93,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
         <link rel="preload" href={gallery[0]} as="image" />
       </Head>
       {/* Hero Section */}
-      <section className="py-0">
+      <section className="py-2">
         <div className="container mx-auto px-1 lg:px-28">
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Left Column - Image Gallery */}
@@ -238,15 +238,15 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
 
       {/* Product Content Section */}
       {product.content && (
-        <section className="py-16">
-          <div className="container mx-auto px-4">
+        <section className="py-8">
+          <div className="container mx-auto px-4 lg:px-28">
             <div className="mb-8">
               <h2 className="text-2xl font-bold">Thông tin chi tiết</h2>
               {product.description && (
                 <p className="mt-2 text-gray-600">{product.description}</p>
               )}
             </div>
-            <div className="prose mx-auto max-w-4xl">
+            <div className="prose mx-auto">
               <div dangerouslySetInnerHTML={{ __html: product.content }} />
             </div>
           </div>

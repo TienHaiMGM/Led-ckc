@@ -1,18 +1,66 @@
+"use client";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../lib/firebase";
+
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
 
 export const TabarLeft = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
+    email: "",
     phone: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setStatus({ type: null, message: "" });
+
+    try {
+      const contactsRef = collection(db, "contact-requests");
+      await addDoc(contactsRef, {
+        ...formData,
+        createdAt: serverTimestamp(),
+        status: "new",
+        source: "sidebar_form",
+      });
+
+      setStatus({
+        type: "success",
+        message: "Yêu cầu của bạn đã được gửi thành công!",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setStatus({
+        type: "error",
+        message: "Có lỗi xảy ra, vui lòng thử lại sau",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -86,6 +134,19 @@ export const TabarLeft = () => {
                 placeholder="Họ và tên"
                 className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                 required
+                disabled={isSubmitting}
+              />
+            </div>
+            <div>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                required
+                disabled={isSubmitting}
               />
             </div>
             <div>
@@ -97,6 +158,7 @@ export const TabarLeft = () => {
                 placeholder="Số điện thoại"
                 className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                 required
+                disabled={isSubmitting}
               />
             </div>
             <div>
@@ -108,13 +170,30 @@ export const TabarLeft = () => {
                 rows={3}
                 className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                 required
+                disabled={isSubmitting}
               ></textarea>
             </div>
+
+            {status.message && (
+              <div
+                className={`rounded-lg p-3 text-sm ${
+                  status.type === "success"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                }`}
+              >
+                {status.message}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="w-full rounded-lg bg-blue-600 px-4 py-2 font-bold text-white transition duration-300 hover:bg-blue-700"
+              disabled={isSubmitting}
+              className={`w-full rounded-lg bg-blue-600 px-4 py-2 font-bold text-white transition duration-300 hover:bg-blue-700 ${
+                isSubmitting ? "cursor-not-allowed opacity-50" : ""
+              }`}
             >
-              Gửi Yêu Cầu
+              {isSubmitting ? "Đang gửi..." : "Gửi Yêu Cầu"}
             </button>
           </form>
         </div>

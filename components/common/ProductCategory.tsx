@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   FaPhone,
   FaEnvelope,
@@ -11,11 +11,13 @@ import {
 import ItemCard from "./ItemCard";
 import { EditorProps } from "../../types/product-management";
 import { useProductEditor } from "../../components/api/hooks/useProductEditor";
+import PromotionPopup from "./PromotionPopup";
 
 const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
   const { products, loading, error, generateSlug } =
     useProductEditor(EditorContent);
   const [mounted, setMounted] = React.useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   React.useEffect(() => {
     setMounted(true);
@@ -50,6 +52,7 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
       </div>
     );
   }
+
   // Sidebar content component to avoid repetition
   const SidebarContent = (): React.ReactElement => (
     <div className="space-y-6">
@@ -84,12 +87,12 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
               </div>
             </div>
 
-            <a
-              href="tel:+84123456789"
-              className="mt-4 block rounded-lg bg-white px-4 py-2 text-center text-sm font-semibold text-red-600 transition-colors hover:bg-red-50 sm:text-base"
+            <button
+              onClick={() => setIsPopupOpen(true)}
+              className="mt-4 block w-full rounded-lg bg-white px-4 py-2 text-center text-sm font-semibold text-red-600 transition-colors hover:bg-red-50 sm:text-base"
             >
               Nhận Ưu Đãi Ngay
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -108,7 +111,7 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
             <span className="text-sm sm:text-base">0123 456 789</span>
           </a>
           <a
-            href="mailto:contact@example.com"
+            href="mailto:sieubthibanghieu@gmail.com?subject=Tư vấn khách hàng&body=Chào bạn, tôi cần từ vấn về..."
             className="flex items-center space-x-3 rounded-lg bg-white p-3 text-gray-700 transition-colors hover:bg-blue-500 hover:text-white"
           >
             <FaEnvelope className="h-5 w-5" />
@@ -145,6 +148,13 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
       className="mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8"
       suppressHydrationWarning
     >
+      {/* Promotion Popup */}
+      <PromotionPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        zaloLink="https://zalo.me/0962630679?text=Chào bạn mình muốn nhận ưu đãi"
+      />
+
       {/* SEO Title and Description */}
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">
