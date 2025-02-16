@@ -14,7 +14,18 @@ import {
   Draft,
   ProductContent,
 } from "../../types/product-management";
+import Preview from "../../app/admin/product-content/preview";
+import { FormField } from "../common/FormField";
+import { useProductEditorNew } from "./hooks/useProductEditorNew";
+import "../../app/admin/product-content/custom-editor.css";
 
+const CustomEditor = dynamic(
+  () => import("../../components/editor/CustomeEditor"),
+  {
+    ssr: false,
+    loading: () => <p>Đang tải trình soạn thảo...</p>,
+  },
+);
 interface CategoryOption {
   value: string;
   label: string;
@@ -27,13 +38,6 @@ const categoryOptions: CategoryOption[] = [
   { value: "bienbat", label: "Biển bạt" },
   { value: "bienled", label: "Biển LED" },
 ];
-
-import Preview from "@/app/admin/product-content/preview";
-import { FormField } from "../common/FormField";
-import { useProductEditorNew } from "./hooks/useProductEditorNew";
-import { modules, formats } from "./editorConfig";
-import "react-quill/dist/quill.snow.css";
-import "../../app/admin/product-content/editor.css";
 
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
@@ -279,13 +283,10 @@ const ProductEditorNew: React.FC<EditorProps> = ({
           Nội dung
         </label>
         <div className="editor-wrapper">
-          <ReactQuill
-            theme="snow"
-            value={formData.content}
+          <CustomEditor
+            initialValue={formData.content}
             onChange={(value) => setFormData({ ...formData, content: value })}
-            modules={modules}
-            formats={formats}
-            className="editor-content"
+            placeholder="Nhập nội dung sản phẩm..."
           />
         </div>
       </div>

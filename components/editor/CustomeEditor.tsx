@@ -12,6 +12,204 @@ interface DropdownProps {
   children: React.ReactNode;
 }
 
+interface ImageCustomizationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  imageElement: HTMLImageElement | null;
+  onApply: (props: ImageCustomizationProps) => void;
+}
+
+interface ImageCustomizationProps {
+  width: string;
+  height: string;
+  position:
+    | "top-left"
+    | "top-center"
+    | "top-right"
+    | "middle-left"
+    | "middle-center"
+    | "middle-right"
+    | "bottom-left"
+    | "bottom-center"
+    | "bottom-right";
+  caption: string;
+}
+
+const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
+  isOpen,
+  onClose,
+  imageElement,
+  onApply,
+}) => {
+  const [width, setWidth] = useState(imageElement?.style.width || "100%");
+  const [height, setHeight] = useState(imageElement?.style.height || "auto");
+  const [position, setPosition] = useState<ImageCustomizationProps["position"]>(
+    imageElement?.classList.contains("top-left")
+      ? "top-left"
+      : imageElement?.classList.contains("top-center")
+        ? "top-center"
+        : imageElement?.classList.contains("top-right")
+          ? "top-right"
+          : imageElement?.classList.contains("middle-left")
+            ? "middle-left"
+            : imageElement?.classList.contains("middle-right")
+              ? "middle-right"
+              : imageElement?.classList.contains("bottom-left")
+                ? "bottom-left"
+                : imageElement?.classList.contains("bottom-center")
+                  ? "bottom-center"
+                  : imageElement?.classList.contains("bottom-right")
+                    ? "bottom-right"
+                    : "middle-center",
+  );
+  const [caption, setCaption] = useState(
+    imageElement?.nextElementSibling?.textContent || "",
+  );
+
+  useEffect(() => {
+    if (imageElement) {
+      setWidth(imageElement.style.width || "100%");
+      setHeight(imageElement.style.height || "auto");
+      setPosition(
+        imageElement.classList.contains("top-left")
+          ? "top-left"
+          : imageElement.classList.contains("top-center")
+            ? "top-center"
+            : imageElement.classList.contains("top-right")
+              ? "top-right"
+              : imageElement.classList.contains("middle-left")
+                ? "middle-left"
+                : imageElement.classList.contains("middle-right")
+                  ? "middle-right"
+                  : imageElement.classList.contains("bottom-left")
+                    ? "bottom-left"
+                    : imageElement.classList.contains("bottom-center")
+                      ? "bottom-center"
+                      : imageElement.classList.contains("bottom-right")
+                        ? "bottom-right"
+                        : "middle-center",
+      );
+      const captionElement = imageElement.nextElementSibling;
+      if (captionElement?.classList.contains("image-caption")) {
+        setCaption(captionElement.textContent || "");
+      }
+    }
+  }, [imageElement]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="image-modal-overlay">
+      <div className="image-modal">
+        <h3>Image Properties</h3>
+        <div className="modal-content">
+          <div className="modal-field">
+            <label>Width:</label>
+            <input
+              type="text"
+              value={width}
+              onChange={(e) => setWidth(e.target.value)}
+              placeholder="e.g., 100%, 300px"
+            />
+          </div>
+          <div className="modal-field">
+            <label>Height:</label>
+            <input
+              type="text"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              placeholder="e.g., auto, 200px"
+            />
+          </div>
+          <div className="modal-field">
+            <label>Position:</label>
+            <div className="position-grid">
+              <button
+                className={`position-btn ${position === "top-left" ? "active" : ""}`}
+                onClick={() => setPosition("top-left")}
+                title="Top Left"
+              >
+                ↖
+              </button>
+              <button
+                className={`position-btn ${position === "top-center" ? "active" : ""}`}
+                onClick={() => setPosition("top-center")}
+                title="Top Center"
+              >
+                ↑
+              </button>
+              <button
+                className={`position-btn ${position === "top-right" ? "active" : ""}`}
+                onClick={() => setPosition("top-right")}
+                title="Top Right"
+              >
+                ↗
+              </button>
+              <button
+                className={`position-btn ${position === "middle-left" ? "active" : ""}`}
+                onClick={() => setPosition("middle-left")}
+                title="Middle Left"
+              >
+                ←
+              </button>
+              <button
+                className={`position-btn ${position === "middle-center" ? "active" : ""}`}
+                onClick={() => setPosition("middle-center")}
+                title="Middle Center"
+              >
+                ●
+              </button>
+              <button
+                className={`position-btn ${position === "middle-right" ? "active" : ""}`}
+                onClick={() => setPosition("middle-right")}
+                title="Middle Right"
+              >
+                →
+              </button>
+              <button
+                className={`position-btn ${position === "bottom-left" ? "active" : ""}`}
+                onClick={() => setPosition("bottom-left")}
+                title="Bottom Left"
+              >
+                ↙
+              </button>
+              <button
+                className={`position-btn ${position === "bottom-center" ? "active" : ""}`}
+                onClick={() => setPosition("bottom-center")}
+                title="Bottom Center"
+              >
+                ↓
+              </button>
+              <button
+                className={`position-btn ${position === "bottom-right" ? "active" : ""}`}
+                onClick={() => setPosition("bottom-right")}
+                title="Bottom Right"
+              >
+                ↘
+              </button>
+            </div>
+          </div>
+          <div className="modal-field">
+            <label>Caption:</label>
+            <input
+              type="text"
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
+              placeholder="Enter image caption"
+            />
+          </div>
+        </div>
+        <div className="modal-actions">
+          <button onClick={() => onApply({ width, height, position, caption })}>
+            Apply
+          </button>
+          <button onClick={onClose}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Dropdown: React.FC<DropdownProps> = ({ label, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -49,6 +247,10 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
   const [selection, setSelection] = useState<Selection | null>(null);
   const [isSourceMode, setIsSourceMode] = useState(false);
   const [content, setContent] = useState(initialValue);
+  const [selectedImage, setSelectedImage] = useState<HTMLImageElement | null>(
+    null,
+  );
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   useEffect(() => {
     if (editorRef.current && !isSourceMode) {
@@ -70,10 +272,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
 
   const handleInput = () => {
     if (editorRef.current) {
-      console.log(`editorRef.current`, editorRef.current.innerHTML);
       const newContent = editorRef.current.innerHTML;
-      // setContent(newContent);
-      console.log(`editorRef.current1`, newContent);
       if (onChange) {
         onChange(newContent);
       }
@@ -93,21 +292,78 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "image-wrapper";
+
         const img = document.createElement("img");
         img.src = event.target?.result as string;
-        img.style.maxWidth = "100%";
+        img.style.width = "100%";
         img.style.height = "auto";
+        img.className = "middle-center"; // Default position
+        img.addEventListener("click", () => {
+          setSelectedImage(img);
+          setIsImageModalOpen(true);
+        });
+
+        const captionDiv = document.createElement("div") as HTMLDivElement;
+        captionDiv.className = "image-caption";
+        captionDiv.setAttribute("contenteditable", "true");
+        captionDiv.textContent = "Add caption here...";
+
+        wrapper.appendChild(img);
+        wrapper.appendChild(captionDiv);
 
         const range = selection?.getRangeAt(0);
         if (range) {
-          range.insertNode(img);
+          range.insertNode(wrapper);
         } else {
-          editorRef.current?.appendChild(img);
+          editorRef.current?.appendChild(wrapper);
         }
         handleInput();
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleImageCustomization = (props: ImageCustomizationProps) => {
+    if (selectedImage) {
+      selectedImage.style.width = props.width;
+      selectedImage.style.height = props.height;
+
+      // Remove all position classes first
+      selectedImage.classList.remove(
+        "top-left",
+        "top-center",
+        "top-right",
+        "middle-left",
+        "middle-center",
+        "middle-right",
+        "bottom-left",
+        "bottom-center",
+        "bottom-right",
+      );
+
+      // Add new position class
+      selectedImage.classList.add(props.position);
+
+      const wrapper = selectedImage.parentElement;
+      if (wrapper?.classList.contains("image-wrapper")) {
+        wrapper.className = `image-wrapper position-${props.position}`;
+      }
+
+      const captionElement = selectedImage.nextElementSibling as HTMLDivElement;
+      if (captionElement?.classList.contains("image-caption")) {
+        captionElement.textContent = props.caption;
+      } else {
+        const newCaptionDiv = document.createElement("div") as HTMLDivElement;
+        newCaptionDiv.className = "image-caption";
+        newCaptionDiv.setAttribute("contenteditable", "true");
+        newCaptionDiv.textContent = props.caption;
+        selectedImage.parentElement?.appendChild(newCaptionDiv);
+      }
+    }
+    setIsImageModalOpen(false);
+    handleInput();
   };
 
   const toggleSourceMode = () => {
@@ -120,6 +376,21 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
       document.removeEventListener("selectionchange", handleSelectionChange);
     };
   }, []);
+
+  useEffect(() => {
+    const handleImageClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === "IMG" && !isSourceMode) {
+        setSelectedImage(target as HTMLImageElement);
+        setIsImageModalOpen(true);
+      }
+    };
+
+    editorRef.current?.addEventListener("click", handleImageClick);
+    return () => {
+      editorRef.current?.removeEventListener("click", handleImageClick);
+    };
+  }, [isSourceMode]);
 
   return (
     <div className="custom-editor">
@@ -311,6 +582,13 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
           suppressContentEditableWarning={true}
         />
       )}
+
+      <ImageCustomizationModal
+        isOpen={isImageModalOpen}
+        onClose={() => setIsImageModalOpen(false)}
+        imageElement={selectedImage}
+        onApply={handleImageCustomization}
+      />
     </div>
   );
 };
