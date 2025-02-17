@@ -80,6 +80,7 @@ export const useProductEditor = (
         updatedAt: new Date().toISOString(),
         status: "published",
         tags: formData.tags || [],
+        slug: formData.slug || generateSlug(formData.title),
       };
       await addDoc(collection(db, "collections"), newProduct);
       setFormData(initialContent);
@@ -104,6 +105,7 @@ export const useProductEditor = (
         ...formData,
         updatedAt: new Date().toISOString(),
         tags: formData.tags || [],
+        slug: formData.slug || generateSlug(formData.title),
       };
       await updateDoc(productRef, updateData);
       setEditingProduct(null);

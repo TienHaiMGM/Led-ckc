@@ -340,7 +340,7 @@ const ProductEditorNew: React.FC<EditorProps> = ({
 
         <FormField
           label="Slug URL"
-          value={formData.slug || ""}
+          value={formData.slug || generateSlug(formData.title)}
           onChange={(value) => setFormData({ ...formData, slug: value })}
           description="Đường dẫn URL của bài viết. Để trống để tự động tạo từ tiêu đề."
         />

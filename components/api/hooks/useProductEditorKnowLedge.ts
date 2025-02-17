@@ -80,6 +80,7 @@ export const useProductEditorKnowLedge = (
         updatedAt: new Date().toISOString(),
         status: "published",
         tags: formData.tags || [],
+        slug: formData.slug || generateSlug(formData.title),
       };
       await addDoc(collection(db, "knowledge"), newProduct);
       setFormData(initialContent);
@@ -104,6 +105,7 @@ export const useProductEditorKnowLedge = (
         ...formData,
         updatedAt: new Date().toISOString(),
         tags: formData.tags || [],
+        slug: formData.slug || generateSlug(formData.title),
       };
       await updateDoc(productRef, updateData);
       setEditingProduct(null);
