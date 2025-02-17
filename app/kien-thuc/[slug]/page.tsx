@@ -19,12 +19,10 @@ export default function KnowledgePage() {
   const [product, setProduct] = useState<Knowledge | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  console.log(slug);
 
   useEffect(() => {
     const fetchProduct = async () => {
       if (!slug) {
-        console.error("No slug provided");
         setError("Không tìm thấy sản phẩm");
         setLoading(false);
         return;

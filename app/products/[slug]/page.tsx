@@ -20,7 +20,6 @@ export default function ProductPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       if (!slug) {
-        console.error("No slug provided");
         setError("Không tìm thấy sản phẩm");
         setLoading(false);
         return;
@@ -28,20 +27,16 @@ export default function ProductPage() {
 
       try {
         setLoading(true);
-        console.log("Fetching product with slug:", slug);
 
         const fetchedProduct = await getProductBySlug(slug);
-        console.log("Fetched product:", fetchedProduct);
 
         if (fetchedProduct) {
           setProduct(fetchedProduct);
           setError(null);
         } else {
-          console.error("Product not found for slug:", slug);
           setError("Không tìm thấy sản phẩm");
         }
       } catch (err) {
-        console.error("Error fetching product:", err);
         setError(
           err instanceof Error ? err.message : "Có lỗi xảy ra khi tải sản phẩm",
         );

@@ -34,14 +34,11 @@ export const getProductBySlug = async (
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
-      console.log("No product found with slug:", slug);
       return null;
     }
 
     const doc = querySnapshot.docs[0];
     const data = doc.data() as DocumentData;
-
-    console.log("Found product data:", data); // Debug log
 
     return {
       id: doc.id,

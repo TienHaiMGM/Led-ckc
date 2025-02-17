@@ -1,7 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../lib/firebase";
 
 interface FormData {
   name: string;
@@ -41,16 +39,19 @@ const ContactForm = () => {
     setStatus({ type: null, message: "" });
 
     try {
-      // Get reference to the contact-requests collection
-      const contactsRef = collection(db, "contact-requests");
-
-      // Add document to Firestore
-      const docRef = await addDoc(contactsRef, {
-        ...formData,
-        createdAt: serverTimestamp(),
-        status: "new",
-        source: "website_form",
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Có lỗi xảy ra");
+      }
 
       setStatus({
         type: "success",
@@ -68,7 +69,10 @@ const ContactForm = () => {
       console.error("Error submitting form:", error);
       setStatus({
         type: "error",
-        message: "Có lỗi xảy ra, vui lòng thử lại sau",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Có lỗi xảy ra, vui lòng thử lại sau",
       });
     } finally {
       setIsSubmitting(false);

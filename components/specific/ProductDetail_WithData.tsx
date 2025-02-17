@@ -89,9 +89,11 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
       role="main"
       aria-label={`Chi tiết sản phẩm ${product.title}`}
     >
-      <Head>
-        <link rel="preload" href={gallery[0]} as="image" />
-      </Head>
+      {gallery[0] && (
+        <Head>
+          <link rel="" href={gallery[0]} as="image" />
+        </Head>
+      )}
       {/* Hero Section */}
       <section className="py-2">
         <div className="container mx-auto px-1 lg:px-28">

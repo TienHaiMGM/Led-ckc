@@ -139,6 +139,7 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
             src={product.images}
             alt={product.title}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-300 hover:scale-105"
           />
         </div>
@@ -174,10 +175,6 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
       </div>
     );
   }
-  console.log(
-    `products`,
-    products.map((product) => product.category),
-  );
   return (
     <div>
       <section className="py-8 md:py-12">

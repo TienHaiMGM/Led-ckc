@@ -1,5 +1,11 @@
-import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
-import { IMAGE_CONFIG } from './constants';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
+import { storage } from "../lib/firebase";
+import { IMAGE_CONFIG } from "./constants";
 
 interface UploadOptions {
   folder?: string;
@@ -36,11 +42,11 @@ function generateUniqueFilename(originalName: string): string {
 // Validate file
 async function validateFile(
   file: File,
-  options: UploadOptions = {}
+  options: UploadOptions = {},
 ): Promise<void> {
   const {
     maxSize = IMAGE_CONFIG.maxSize,
-    allowedTypes = IMAGE_CONFIG.acceptedTypes
+    allowedTypes = IMAGE_CONFIG.acceptedTypes,
   } = options;
 
   // Check file size
@@ -50,7 +56,9 @@ async function validateFile(
 
   // Check file type
   if (!allowedTypes.includes(file.type)) {
-    throw new Error(`File type ${file.type} not allowed. Allowed types: ${allowedTypes.join(', ')}`);
+    throw new Error(
+      `File type ${file.type} not allowed. Allowed types: ${allowedTypes.join(", ")}`,
+    );
   }
 }
 
@@ -61,11 +69,11 @@ function getImageDimensions(file: File): Promise<ImageDimensions> {
     img.onload = () => {
       resolve({
         width: img.width,
-        height: img.height
+        height: img.height,
       });
     };
     img.onerror = () => {
-      reject(new Error('Failed to load image'));
+      reject(new Error("Failed to load image"));
     };
     img.src = URL.createObjectURL(file);
   });
@@ -74,20 +82,18 @@ function getImageDimensions(file: File): Promise<ImageDimensions> {
 // Upload file to Firebase Storage
 export async function uploadFile(
   file: File,
-  options: UploadOptions = {}
+  options: UploadOptions = {},
 ): Promise<ProcessedImage> {
-  const {
-    folder = 'uploads',
-    generateUniqueName = true
-  } = options;
+  const { folder = "uploads", generateUniqueName = true } = options;
 
   try {
     // Validate file
     await validateFile(file, options);
 
     // Get storage reference
-    const storage = getStorage();
-    const filename = generateUniqueName ? generateUniqueFilename(file.name) : file.name;
+    const filename = generateUniqueName
+      ? generateUniqueFilename(file.name)
+      : file.name;
     const filePath = `${folder}/${filename}`;
     const storageRef = ref(storage, filePath);
 
@@ -99,7 +105,7 @@ export async function uploadFile(
 
     // Get image dimensions if it's an image
     let dimensions: ImageDimensions = { width: 0, height: 0 };
-    if (file.type.startsWith('image/')) {
+    if (file.type.startsWith("image/")) {
       dimensions = await getImageDimensions(file);
     }
 
@@ -107,10 +113,10 @@ export async function uploadFile(
       url,
       path: filePath,
       dimensions,
-      size: file.size
+      size: file.size,
     };
   } catch (error) {
-    console.error('Upload error:', error);
+    console.error("Upload error:", error);
     throw error;
   }
 }
@@ -118,11 +124,10 @@ export async function uploadFile(
 // Delete file from Firebase Storage
 export async function deleteFile(path: string): Promise<void> {
   try {
-    const storage = getStorage();
     const fileRef = ref(storage, path);
     await deleteObject(fileRef);
   } catch (error) {
-    console.error('Delete error:', error);
+    console.error("Delete error:", error);
     throw error;
   }
 }
@@ -130,9 +135,9 @@ export async function deleteFile(path: string): Promise<void> {
 // Upload multiple files
 export async function uploadMultipleFiles(
   files: File[],
-  options: UploadOptions = {}
+  options: UploadOptions = {},
 ): Promise<ProcessedImage[]> {
-  const uploadPromises = files.map(file => uploadFile(file, options));
+  const uploadPromises = files.map((file) => uploadFile(file, options));
   return Promise.all(uploadPromises);
 }
 
@@ -141,7 +146,7 @@ export async function processImage(
   file: File,
   maxWidth: number = IMAGE_CONFIG.dimensions.large.width,
   maxHeight: number = IMAGE_CONFIG.dimensions.large.height,
-  quality: number = 0.8
+  quality: number = 0.8,
 ): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -161,14 +166,14 @@ export async function processImage(
       }
 
       // Create canvas
-      const canvas = document.createElement('canvas');
+      const canvas = document.createElement("canvas");
       canvas.width = width;
       canvas.height = height;
 
       // Draw and compress image
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       if (!ctx) {
-        reject(new Error('Failed to get canvas context'));
+        reject(new Error("Failed to get canvas context"));
         return;
       }
 
@@ -180,16 +185,16 @@ export async function processImage(
           if (blob) {
             resolve(blob);
           } else {
-            reject(new Error('Failed to convert canvas to blob'));
+            reject(new Error("Failed to convert canvas to blob"));
           }
         },
-        'image/jpeg',
-        quality
+        "image/jpeg",
+        quality,
       );
     };
 
     img.onerror = () => {
-      reject(new Error('Failed to load image'));
+      reject(new Error("Failed to load image"));
     };
 
     img.src = URL.createObjectURL(file);
@@ -200,7 +205,7 @@ export async function processImage(
 export async function createThumbnail(
   file: File,
   width: number = IMAGE_CONFIG.dimensions.thumbnail.width,
-  height: number = IMAGE_CONFIG.dimensions.thumbnail.height
+  height: number = IMAGE_CONFIG.dimensions.thumbnail.height,
 ): Promise<Blob> {
   return processImage(file, width, height, 0.7);
 }
@@ -208,7 +213,6 @@ export async function createThumbnail(
 // Check if file exists in storage
 export async function fileExists(path: string): Promise<boolean> {
   try {
-    const storage = getStorage();
     const fileRef = ref(storage, path);
     await getDownloadURL(fileRef);
     return true;
@@ -230,7 +234,7 @@ export async function getFileMetadata(file: File): Promise<{
     lastModified: file.lastModified,
   };
 
-  if (file.type.startsWith('image/')) {
+  if (file.type.startsWith("image/")) {
     const dimensions = await getImageDimensions(file);
     return { ...metadata, dimensions };
   }

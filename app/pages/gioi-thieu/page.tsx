@@ -7,7 +7,6 @@ import Menu from "../../../components/common/Menu";
 import Header from "../../../components/common/Header";
 import JsonLdWrapper from "../../../components/common/JsonLdWrapper";
 import SocialButtons from "../../../components/common/SocialButtons";
-import { useEffect } from "react";
 
 const schemaData = {
   "@context": "https://schema.org",
@@ -23,11 +22,11 @@ const schemaData = {
       url: "https://sieuthibanghieu.vn/images/logo_sieuthibanghieu.png",
     },
     description: "Đơn vị thiết kế và thi công bảng hiệu hàng đầu tại Việt Nam",
-    foundingDate: "2013",
+    foundingDate: "2013-01-01", // Định dạng YYYY-MM-DD
     address: {
       "@type": "PostalAddress",
       addressCountry: "VN",
-      addressLocality: "Việt Nam",
+      addressLocality: "Hồ Chí Minh, Việt Nam",
     },
     sameAs: [
       "https://www.facebook.com/sieuthibanghieu",
@@ -41,24 +40,14 @@ const schemaData = {
       "Chuyên thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp",
     numberOfEmployees: {
       "@type": "QuantitativeValue",
-      value: "50+",
+      minValue: 50,
+      unitText: "employees",
     },
     award: "Đơn vị tiên phong trong lĩnh vực bảng hiệu quảng cáo",
   },
 };
 
 export default function AboutPage() {
-  // Add dynamic meta description based on viewport
-  useEffect(() => {
-    const viewport = document.querySelector('meta[name="viewport"]');
-    if (viewport) {
-      viewport.setAttribute(
-        "content",
-        "width=device-width, initial-scale=1.0, maximum-scale=5.0",
-      );
-    }
-  }, []);
-
   return (
     <>
       <Head>

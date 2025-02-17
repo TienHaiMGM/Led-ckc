@@ -1,6 +1,7 @@
 "use client";
 import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import { getFirestore, Firestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 import {
   getAuth,
   setPersistence,
@@ -23,6 +24,7 @@ const firebaseConfig = {
 let app: FirebaseApp;
 let auth: Auth;
 let db: Firestore;
+let storage: any;
 
 if (typeof window !== "undefined") {
   try {
@@ -30,6 +32,7 @@ if (typeof window !== "undefined") {
     app = getApps().length ? getApp() : initializeApp(firebaseConfig);
     auth = getAuth(app);
     db = getFirestore(app);
+    storage = getStorage(app);
 
     // Set persistence to SESSION (cleared when browser/tab closes)
     setPersistence(auth, browserSessionPersistence)
@@ -51,4 +54,4 @@ if (typeof window !== "undefined") {
   console.log("Firebase initialization skipped (server-side)");
 }
 
-export { app, auth, db };
+export { app, auth, db, storage };
