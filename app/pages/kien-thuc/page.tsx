@@ -344,7 +344,10 @@ const KnowledgePage: React.FC<EditorProps> = ({ EditorContent }) => {
                         key={item.id}
                         className="group rounded-lg bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                       >
-                        <Link href={`/bai-viet/${item.slug}`} className="block">
+                        <Link
+                          href={`/kien-thuc/${item.slug}`}
+                          className="block"
+                        >
                           <div className="relative aspect-video overflow-hidden rounded-t-lg">
                             <Image
                               src={item.images}

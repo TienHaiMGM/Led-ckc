@@ -2,20 +2,24 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import ProductDetail_WithData from "@/components/specific/ProductDetail_WithData";
-import { getProductBySlug, Product } from "@/components/api/ProductService";
 import Header from "@/components/common/Header";
 import Menu from "@/components/common/Menu";
 import Footer from "@/components/common/Footer";
 import JsonLdWrapper from "@/components/common/JsonLdWrapper";
 import Breadcrumb from "@/components/common/Breadcrumb";
+import Knowledge_WithData from "@/components/specific/Knowledge_WithData";
+import {
+  getKnowledgeBySlug,
+  Knowledge,
+} from "@/components/api/KnowledgeService";
 
-export default function ProductPage() {
+export default function KnowledgePage() {
   const params = useParams();
   const slug = params?.slug as string;
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<Knowledge | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  console.log(slug);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -28,20 +32,14 @@ export default function ProductPage() {
 
       try {
         setLoading(true);
-        console.log("Fetching product with slug:", slug);
-
-        const fetchedProduct = await getProductBySlug(slug);
-        console.log("Fetched product:", fetchedProduct);
-
+        const fetchedProduct = await getKnowledgeBySlug(slug);
         if (fetchedProduct) {
           setProduct(fetchedProduct);
           setError(null);
         } else {
-          console.error("Product not found for slug:", slug);
           setError("Không tìm thấy sản phẩm");
         }
       } catch (err) {
-        console.error("Error fetching product:", err);
         setError(
           err instanceof Error ? err.message : "Có lỗi xảy ra khi tải sản phẩm",
         );
@@ -116,7 +114,7 @@ export default function ProductPage() {
       <Header />
       <Menu />
       <Breadcrumb />
-      <ProductDetail_WithData product={product} />
+      <Knowledge_WithData Knowledge={product} />
       <JsonLdWrapper data={schemaData} />
       <Footer />
     </>

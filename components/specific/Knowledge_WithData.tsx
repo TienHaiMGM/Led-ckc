@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { News } from "../api/NewsService";
+import { Knowledge } from "../api/KnowledgeService";
 import { FaCalendarAlt, FaTag, FaShareAlt } from "react-icons/fa";
 
-interface NewsProps {
-  News: News;
+interface KnowledgeProps {
+  Knowledge: Knowledge;
 }
 
-const News_WithData = ({ News }: NewsProps) => {
+const Knowledge_WithData = ({ Knowledge }: KnowledgeProps) => {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("vi-VN", {
       day: "numeric",
@@ -22,7 +22,7 @@ const News_WithData = ({ News }: NewsProps) => {
     <article
       className="min-h-screen bg-white"
       role="main"
-      aria-label={`Bài viết: ${News.title}`}
+      aria-label={`Bài viết: ${Knowledge.title}`}
     >
       {/* Hero Section */}
       <header className="relative bg-gradient-to-r from-blue-600 to-blue-800 py-12 text-white">
@@ -30,17 +30,17 @@ const News_WithData = ({ News }: NewsProps) => {
           <div className="mx-auto max-w-4xl">
             {/* Category & Date */}
             <div className="mb-6 flex flex-wrap items-center gap-4 text-sm">
-              {News.category && (
+              {Knowledge.category && (
                 <span className="flex items-center gap-2">
                   <FaTag className="text-blue-300" />
-                  <span>{News.category}</span>
+                  <span>{Knowledge.category}</span>
                 </span>
               )}
-              {News.createdAt && (
+              {Knowledge.createdAt && (
                 <span className="flex items-center gap-2">
                   <FaCalendarAlt className="text-blue-300" />
-                  <time dateTime={News.createdAt}>
-                    {formatDate(News.createdAt)}
+                  <time dateTime={Knowledge.createdAt}>
+                    {formatDate(Knowledge.createdAt)}
                   </time>
                 </span>
               )}
@@ -48,13 +48,13 @@ const News_WithData = ({ News }: NewsProps) => {
 
             {/* Title */}
             <h1 className="mb-6 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-              {News.title}
+              {Knowledge.title}
             </h1>
 
             {/* Description */}
-            {News.description && (
+            {Knowledge.description && (
               <p className="text-lg text-blue-100 sm:text-xl">
-                {News.description}
+                {Knowledge.description}
               </p>
             )}
           </div>
@@ -62,12 +62,12 @@ const News_WithData = ({ News }: NewsProps) => {
       </header>
 
       {/* Featured Image */}
-      {News.image && (
+      {Knowledge.image && (
         <div className="relative mx-auto -mt-16 mb-12 max-w-4xl px-4">
           <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl">
             <Image
-              src={News.image}
-              alt={News.title}
+              src={Knowledge.image}
+              alt={Knowledge.title}
               fill
               className="object-cover"
               sizes="(max-width: 1200px) 100vw, 1200px"
@@ -108,15 +108,15 @@ const News_WithData = ({ News }: NewsProps) => {
 
           {/* Main Content */}
           <div className="prose prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-blue-600 prose-img:rounded-lg sm:prose-lg max-w-none">
-            <div dangerouslySetInnerHTML={{ __html: News.content }} />
+            <div dangerouslySetInnerHTML={{ __html: Knowledge.content }} />
           </div>
 
           {/* Tags */}
-          {News.tags && News.tags.length > 0 && (
+          {Knowledge.tags && Knowledge.tags.length > 0 && (
             <div className="mt-12 border-t border-gray-200 pt-8">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-gray-600">Tags:</span>
-                {News.tags.map((tag, index) => (
+                {Knowledge.tags.map((tag, index) => (
                   <Link
                     key={index}
                     href={`/tin-tuc?tag=${tag}`}
@@ -183,4 +183,4 @@ const News_WithData = ({ News }: NewsProps) => {
   );
 };
 
-export default News_WithData;
+export default Knowledge_WithData;
