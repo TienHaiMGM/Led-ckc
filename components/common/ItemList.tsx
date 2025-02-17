@@ -9,11 +9,7 @@ import { EditorProps } from "../../types/product-management";
 const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
   const { products, loading, error, generateSlug } =
     useProductEditor(EditorContent);
-  console.log(
-    products
-      .filter((item) => item.category == EditorContent.category)
-      .map((item) => item),
-  );
+
   return (
     <section className="bg-gray-100 py-2">
       <div className="container mx-auto px-1">

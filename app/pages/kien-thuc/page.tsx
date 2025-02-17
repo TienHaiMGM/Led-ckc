@@ -4,6 +4,7 @@ import "../../styles/gradient.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import NewsletterSubscription from "../../../components/common/NewsletterSubscription";
 import Header from "@/components/common/Header";
 import Menu from "@/components/common/Menu";
 import Footer from "@/components/common/Footer";
@@ -314,29 +315,7 @@ const KnowledgePage: React.FC<EditorProps> = ({ EditorContent }) => {
             )}
 
             {/* Newsletter Subscription */}
-            <div className="mt-12 rounded-xl bg-white p-6 shadow-sm md:mt-16 md:p-8">
-              <div className="mx-auto max-w-2xl text-center">
-                <h2 className="mb-4 text-xl font-bold md:text-2xl">
-                  Đăng ký nhận tin tức mới nhất
-                </h2>
-                <p className="mb-6 text-gray-600">
-                  Cập nhật những thông tin mới nhất về ngành bảng hiệu quảng cáo
-                </p>
-                <form className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
-                  <input
-                    type="email"
-                    placeholder="Nhập email của bạn"
-                    className="flex-grow rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <button
-                    type="submit"
-                    className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700"
-                  >
-                    Đăng ký
-                  </button>
-                </form>
-              </div>
-            </div>
+            <NewsletterSubscription />
           </div>
         </section>
       </main>
