@@ -10,7 +10,6 @@ import {
   orderBy,
   where,
   Firestore,
-  DocumentData,
 } from "firebase/firestore";
 
 export interface News {
@@ -30,7 +29,7 @@ export interface News {
 
 export const addNews = async (newsData: Omit<News, "id">) => {
   try {
-    const newsRef = collection(db as Firestore, "news");
+    const newsRef = collection(db as Firestore, "newItems");
     const docRef = await addDoc(newsRef, {
       ...newsData,
       createdAt: new Date().toISOString(),
@@ -45,7 +44,7 @@ export const addNews = async (newsData: Omit<News, "id">) => {
 
 export const updateNews = async (id: string, newsData: Partial<News>) => {
   try {
-    const newsRef = doc(db as Firestore, "news", id);
+    const newsRef = doc(db as Firestore, "newItems", id);
     await updateDoc(newsRef, {
       ...newsData,
       updatedAt: new Date().toISOString(),
@@ -58,7 +57,7 @@ export const updateNews = async (id: string, newsData: Partial<News>) => {
 
 export const deleteNews = async (id: string) => {
   try {
-    const newsRef = doc(db as Firestore, "news", id);
+    const newsRef = doc(db as Firestore, "newItems", id);
     await deleteDoc(newsRef);
   } catch (error) {
     console.error("Error deleting news:", error);
@@ -68,7 +67,7 @@ export const deleteNews = async (id: string) => {
 
 export const getAllNews = async (): Promise<News[]> => {
   try {
-    const newsRef = collection(db as Firestore, "news");
+    const newsRef = collection(db as Firestore, "newItems");
     const q = query(newsRef, orderBy("createdAt", "desc"));
     const querySnapshot = await getDocs(q);
 
@@ -87,7 +86,7 @@ export const getAllNews = async (): Promise<News[]> => {
 
 export const getNewsBySlug = async (slug: string): Promise<News | null> => {
   try {
-    const newsRef = collection(db as Firestore, "news");
+    const newsRef = collection(db as Firestore, "newItems");
     const q = query(newsRef, where("slug", "==", slug));
     const querySnapshot = await getDocs(q);
 
@@ -108,7 +107,7 @@ export const getNewsBySlug = async (slug: string): Promise<News | null> => {
 
 export const getNewsByCategory = async (category: string): Promise<News[]> => {
   try {
-    const newsRef = collection(db as Firestore, "news");
+    const newsRef = collection(db as Firestore, "newItems");
     const q = query(
       newsRef,
       where("category", "==", category),
