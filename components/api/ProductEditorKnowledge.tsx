@@ -9,11 +9,7 @@ import {
   FaSort,
 } from "react-icons/fa";
 import dynamic from "next/dynamic";
-import {
-  EditorProps,
-  Draft,
-  ProductContent,
-} from "../../types/product-management";
+import { EditorProps, Draft } from "../../types/product-management";
 import Preview from "../../app/admin/product-content/preview";
 import { FormField } from "../common/FormField";
 import { useProductEditorKnowLedge } from "./hooks/useProductEditorKnowLedge";
@@ -38,11 +34,6 @@ const categoryOptions: CategoryOption[] = [
   { value: "bienbat", label: "Biển bạt" },
   { value: "bienled", label: "Biển LED" },
 ];
-
-const ReactQuill = dynamic(() => import("react-quill"), {
-  ssr: false,
-  loading: () => <p>Đang tải trình soạn thảo...</p>,
-});
 
 interface DraftsModalProps {
   drafts: Draft[];
