@@ -6,7 +6,6 @@ import { getNewsBySlug, News } from "@/components/api/NewsService";
 import Header from "@/components/common/Header";
 import Menu from "@/components/common/Menu";
 import Footer from "@/components/common/Footer";
-import JsonLdWrapper from "@/components/common/JsonLdWrapper";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import News_WithData from "@/components/specific/News_WithData";
 
@@ -80,38 +79,13 @@ export default function NewsPage() {
     );
   }
 
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.title,
-    image: [product.image],
-    description: product.description || "",
-    brand: {
-      "@type": "Brand",
-      name: "Siêu Thị Bảng Hiệu",
-    },
-    manufacturer: {
-      "@type": "Organization",
-      name: "Siêu Thị Bảng Hiệu",
-    },
-    offers: {
-      "@type": "AggregateOffer",
-      availability: "https://schema.org/InStock",
-      lowPrice: "1000000",
-      highPrice: "5000000",
-      priceCurrency: "VND",
-      offerCount: "5",
-      url: `https://sieuthibanghieu.com/products/${slug}`,
-    },
-  };
-
   return (
     <>
       <Header />
       <Menu />
       <Breadcrumb />
       <News_WithData News={product} />
-      <JsonLdWrapper data={schemaData} />
+
       <Footer />
     </>
   );

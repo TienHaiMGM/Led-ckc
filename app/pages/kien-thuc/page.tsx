@@ -10,115 +10,10 @@ import Menu from "../../../components/common/Menu";
 import Footer from "../../../components/common/Footer";
 import SocialButtons from "../../../components/common/SocialButtons";
 import Breadcrumb from "../../../components/common/Breadcrumb";
-import JsonLdWrapper from "../../../components/common/JsonLdWrapper";
+
 import { EditorProps } from "../../../types/product-management";
 import { useProductEditorKnowLedge } from "../../../components/api/hooks/useProductEditorKnowLedge";
 import "../../styles/gradient.css";
-
-const getSchemaData = (articles: any[]) => ({
-  "@context": "https://schema.org",
-  "@type": "SpecialAnnouncement",
-  category: "https://www.wikidata.org/wiki/Q309845",
-  name: "Kiến Thức Bảng Hiệu & Quảng Cáo | Siêu Thị Bảng Hiệu",
-  text: "Tổng hợp kiến thức chuyên sâu về thiết kế, thi công bảng hiệu quảng cáo.",
-  announcementLocation: {
-    "@type": "LocalBusiness",
-    name: "Siêu Thị Bảng Hiệu",
-    "@id": "https://sieuthibanghieu.vn",
-    image: "https://sieuthibanghieu.vn/images/logo_sieuthibanghieu.png",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "VN",
-      addressLocality: "Hồ Chí Minh",
-    },
-    priceRange: "$$",
-  },
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": "https://sieuthibanghieu.vn/pages/kien-thuc",
-  },
-  subjectOf: {
-    "@type": "CreativeWork",
-    name: "Kiến thức chuyên ngành bảng hiệu",
-    abstract:
-      "Tổng hợp kiến thức chuyên sâu về thiết kế và thi công bảng hiệu quảng cáo",
-    author: {
-      "@type": "Organization",
-      name: "Siêu Thị Bảng Hiệu",
-    },
-  },
-  about: {
-    "@type": "Thing",
-    name: "Bảng hiệu quảng cáo",
-    description:
-      "Kiến thức chuyên sâu về thiết kế, thi công và công nghệ bảng hiệu",
-  },
-  hasPart: articles.map((article) => ({
-    "@type": "TechArticle",
-    headline: article.title,
-    description: article.description,
-    image: article.images,
-    datePublished: new Date(article.createdAt).toISOString(),
-    dateModified: new Date(
-      article.updatedAt || article.createdAt,
-    ).toISOString(),
-    author: {
-      "@type": "Organization",
-      name: "Siêu Thị Bảng Hiệu",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Siêu Thị Bảng Hiệu",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://sieuthibanghieu.vn/images/logo_sieuthibanghieu.png",
-      },
-    },
-    articleSection: article.category,
-    url: `https://sieuthibanghieu.vn/bai-viet/${article.slug}`,
-    keywords: [
-      "bảng hiệu",
-      "thiết kế",
-      "thi công",
-      "công nghệ LED",
-      article.category,
-    ],
-    inLanguage: "vi-VN",
-    isFamilyFriendly: true,
-    educationalLevel: "beginner",
-    audience: {
-      "@type": "BusinessAudience",
-      audienceType: "business owners",
-    },
-  })),
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Trang chủ",
-        item: "https://sieuthibanghieu.vn",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Kiến thức",
-        item: "https://sieuthibanghieu.vn/pages/kien-thuc",
-      },
-    ],
-  },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate:
-        "https://sieuthibanghieu.vn/pages/kien-thuc?search={search_term_string}",
-    },
-    "query-input": "required name=search_term_string",
-  },
-});
-
 const ITEMS_PER_PAGE = 12;
 
 const KnowledgePage: React.FC<EditorProps> = ({ EditorContent }) => {
@@ -476,7 +371,6 @@ const KnowledgePage: React.FC<EditorProps> = ({ EditorContent }) => {
           </section>
         </main>
 
-        <JsonLdWrapper data={getSchemaData(currentItems)} />
         <SocialButtons />
         <Footer />
       </div>

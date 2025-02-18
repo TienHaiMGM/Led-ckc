@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Header from "@/components/common/Header";
 import Menu from "@/components/common/Menu";
 import Footer from "@/components/common/Footer";
-import JsonLdWrapper from "@/components/common/JsonLdWrapper";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import Knowledge_WithData from "@/components/specific/Knowledge_WithData";
 import {
@@ -82,38 +81,12 @@ export default function KnowledgePage() {
     );
   }
 
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.title,
-    image: [product.image],
-    description: product.description || "",
-    brand: {
-      "@type": "Brand",
-      name: "Siêu Thị Bảng Hiệu",
-    },
-    manufacturer: {
-      "@type": "Organization",
-      name: "Siêu Thị Bảng Hiệu",
-    },
-    offers: {
-      "@type": "AggregateOffer",
-      availability: "https://schema.org/InStock",
-      lowPrice: "1000000",
-      highPrice: "5000000",
-      priceCurrency: "VND",
-      offerCount: "5",
-      url: `https://sieuthibanghieu.com/products/${slug}`,
-    },
-  };
-
   return (
     <>
       <Header />
       <Menu />
       <Breadcrumb />
       <Knowledge_WithData Knowledge={product} />
-      <JsonLdWrapper data={schemaData} />
       <Footer />
     </>
   );

@@ -8,8 +8,6 @@ import Header from "../../../components/common/Header";
 import SocialButtons from "../../../components/common/SocialButtons";
 import Breadcrumb from "../../../components/common/Breadcrumb";
 import ContactForm from "../../../components/common/ContactForm";
-import JsonLdWrapper from "../../../components/common/JsonLdWrapper";
-import { useEffect } from "react";
 import {
   FaPhoneAlt,
   FaEnvelope,
@@ -17,125 +15,7 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 
-// Comprehensive Schema.org JSON-LD for Contact Page
-const schemaData = {
-  "@context": "https://schema.org",
-  "@type": "ContactPage",
-  name: "Liên Hệ | Siêu Thị Bảng Hiệu",
-  description:
-    "Liên hệ với Siêu Thị Bảng Hiệu để được tư vấn và báo giá chi tiết về dịch vụ thiết kế, thi công bảng hiệu quảng cáo.",
-  url: "https://sieuthibanghieu.vn/pages/lien-he",
-  isPartOf: {
-    "@type": "WebSite",
-    name: "Siêu Thị Bảng Hiệu",
-    url: "https://sieuthibanghieu.vn",
-  },
-  mainEntity: {
-    "@type": "Organization",
-    name: "Siêu Thị Bảng Hiệu",
-    description:
-      "Chuyên thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp",
-    url: "https://sieuthibanghieu.vn",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://sieuthibanghieu.vn/images/logo_sieuthibanghieu.png",
-    },
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "129 Đường ABC",
-      addressLocality: "Quận XYZ",
-      addressRegion: "Hồ Chí Minh",
-      postalCode: "700000",
-      addressCountry: "VN",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: "10.781176959104327",
-      longitude: "106.63277367589112",
-    },
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        telephone: "(123) 456-7890",
-        contactType: "customer service",
-        areaServed: "VN",
-        availableLanguage: ["Vietnamese"],
-        contactOption: "TollFree",
-        hoursAvailable: {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-          ],
-          opens: "08:00",
-          closes: "17:00",
-        },
-      },
-      {
-        "@type": "ContactPoint",
-        contactType: "sales",
-        email: "contact@example.com",
-        areaServed: "VN",
-        availableLanguage: ["Vietnamese"],
-      },
-    ],
-    sameAs: [
-      "https://www.facebook.com/sieuthibanghieu",
-      "https://www.messenger.com/sieuthibanghieu",
-      "https://wa.me/sieuthibanghieu",
-      "skype:sieuthibanghieu?chat",
-    ],
-  },
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Trang chủ",
-        item: "https://sieuthibanghieu.vn",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Liên hệ",
-        item: "https://sieuthibanghieu.vn/pages/lien-he",
-      },
-    ],
-  },
-  potentialAction: {
-    "@type": "ContactAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: "https://sieuthibanghieu.vn/pages/lien-he",
-      inLanguage: "vi-VN",
-      actionPlatform: [
-        "http://schema.org/DesktopWebPlatform",
-        "http://schema.org/MobileWebPlatform",
-      ],
-    },
-    result: {
-      "@type": "Message",
-      description: "Yêu cầu tư vấn và báo giá",
-    },
-  },
-};
-
 const Contact = () => {
-  useEffect(() => {
-    const viewport = document.querySelector('meta[name="viewport"]');
-    if (viewport) {
-      viewport.setAttribute(
-        "content",
-        "width=device-width, initial-scale=1.0, maximum-scale=5.0",
-      );
-    }
-  }, []);
-
   return (
     <>
       <Head>
@@ -280,7 +160,6 @@ const Contact = () => {
           </div>
         </main>
 
-        <JsonLdWrapper data={schemaData} />
         <SocialButtons />
         <Footer />
       </div>

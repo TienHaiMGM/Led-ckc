@@ -8,141 +8,11 @@ import Menu from "../../components/common/Menu";
 import Footer from "../../components/common/Footer";
 import SocialButtons from "../../components/common/SocialButtons";
 import ProductCollections from "../../components/common/ProductCollections";
-import JsonLdWrapper from "../../components/common/JsonLdWrapper";
 import { FaSearch } from "react-icons/fa";
-
-// Comprehensive Schema.org JSON-LD for Collections Page
-const schemaData = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  name: "Bộ Sưu Tập Bảng Hiệu | Siêu Thị Bảng Hiệu",
-  description:
-    "Khám phá bộ sưu tập bảng hiệu đa dạng với thiết kế độc đáo và chất lượng cao.",
-  isPartOf: {
-    "@type": "WebSite",
-    name: "Siêu Thị Bảng Hiệu",
-    url: "https://sieuthibanghieu.vn",
-  },
-  mainEntity: {
-    "@type": "ItemList",
-    itemListOrder: "Descending",
-    numberOfItems: 6,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        item: {
-          "@type": "Product",
-          name: "Bảng Hiệu Alu",
-          description: "Bảng hiệu chất liệu Alu cao cấp, bền đẹp",
-          image: "https://sieuthibanghieu.vn/images/banghieu.jpg",
-          category: "Bảng Hiệu",
-          brand: {
-            "@type": "Brand",
-            name: "Siêu Thị Bảng Hiệu",
-          },
-          offers: {
-            "@type": "AggregateOffer",
-            availability: "https://schema.org/InStock",
-            priceCurrency: "VND",
-            priceValidUntil: "2024-12-31",
-            highPrice: "5000000",
-            lowPrice: "1000000",
-            offerCount: "10",
-          },
-        },
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        item: {
-          "@type": "Product",
-          name: "Bảng Hiệu LED",
-          description: "Bảng hiệu LED hiện đại, tiết kiệm điện",
-          image: "https://sieuthibanghieu.vn/images/bang-led.jpg",
-          category: "Bảng LED",
-          brand: {
-            "@type": "Brand",
-            name: "Siêu Thị Bảng Hiệu",
-          },
-          offers: {
-            "@type": "AggregateOffer",
-            availability: "https://schema.org/InStock",
-            priceCurrency: "VND",
-            priceValidUntil: "2024-12-31",
-            highPrice: "10000000",
-            lowPrice: "3000000",
-            offerCount: "8",
-          },
-        },
-      },
-    ],
-  },
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Trang chủ",
-        item: "https://sieuthibanghieu.vn",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Bộ sưu tập",
-        item: "https://sieuthibanghieu.vn/collections",
-      },
-    ],
-  },
-  provider: {
-    "@type": "Organization",
-    name: "Siêu Thị Bảng Hiệu",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://sieuthibanghieu.vn/images/logo_sieuthibanghieu.png",
-    },
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "129 Đường ABC",
-      addressLocality: "Quận XYZ",
-      addressRegion: "Hồ Chí Minh",
-      postalCode: "700000",
-      addressCountry: "VN",
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: "(123) 456-7890",
-      contactType: "sales",
-      areaServed: "VN",
-      availableLanguage: ["Vietnamese"],
-    },
-  },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate:
-        "https://sieuthibanghieu.vn/collections?search={search_term_string}",
-    },
-    "query-input": "required name=search_term_string",
-  },
-};
 
 export default function CollectionsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    const viewport = document.querySelector('meta[name="viewport"]');
-    if (viewport) {
-      viewport.setAttribute(
-        "content",
-        "width=device-width, initial-scale=1.0, maximum-scale=5.0",
-      );
-    }
-  }, []);
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
   };
@@ -240,8 +110,6 @@ export default function CollectionsPage() {
             setCurrentPage={setCurrentPage}
           />
         </main>
-
-        <JsonLdWrapper data={schemaData} />
         <SocialButtons />
         <Footer />
       </div>

@@ -1,89 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import Menu from "@/components/common/Menu";
 import Breadcrumb from "@/components/common/Breadcrumb";
-import JsonLdScript from "@/components/common/JsonLdScript";
 import SocialButtons from "@/components/common/SocialButtons";
 import TabarLeft from "@/components/common/TabarLeft";
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  headline: "Bảng Hiệu Gỗ - Giải Pháp Quảng Cáo Sang Trọng",
-  description:
-    "Tìm hiểu về bảng hiệu gỗ - giải pháp quảng cáo sang trọng, độc đáo và gần gũi với thiên nhiên cho doanh nghiệp của bạn.",
-  image: "/images/banghieu.jpg",
-  datePublished: new Date().toISOString(),
-  dateModified: new Date().toISOString(),
-  author: {
-    "@type": "Organization",
-    name: "Siêu Thị Bảng Hiệu",
-    url: "https://sieuthibanghieu.vn",
-    logo: "/images/sieuthibanghieulogo.png",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "Siêu Thị Bảng Hiệu",
-    url: "https://sieuthibanghieu.vn",
-    logo: {
-      "@type": "ImageObject",
-      url: "/images/sieuthibanghieulogo.png",
-    },
-  },
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": "https://sieuthibanghieu.vn/pages/lam-bang-hieu/bang-hieu-go",
-  },
-  about: {
-    "@type": "Product",
-    name: "Bảng Hiệu Gỗ",
-    description:
-      "Bảng hiệu được làm từ chất liệu gỗ tự nhiên cao cấp, mang đến vẻ đẹp sang trọng và gần gũi với thiên nhiên",
-    brand: {
-      "@type": "Brand",
-      name: "Siêu Thị Bảng Hiệu",
-    },
-    offers: {
-      "@type": "AggregateOffer",
-      priceCurrency: "VND",
-      availability: "https://schema.org/InStock",
-    },
-  },
-};
-
 const BangHieuGo = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    message: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
       <Menu />
       <Breadcrumb />
       <main className="container mx-auto flex-grow px-4 py-8">
-        <JsonLdScript type="Article" data={jsonLd} />
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* {TabarLeft} */}
           <TabarLeft />

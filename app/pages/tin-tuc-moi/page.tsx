@@ -10,87 +10,8 @@ import Menu from "../../../components/common/Menu";
 import Footer from "../../../components/common/Footer";
 import SocialButtons from "../../../components/common/SocialButtons";
 import Breadcrumb from "../../../components/common/Breadcrumb";
-import JsonLdWrapper from "../../../components/common/JsonLdWrapper";
 import { useProductEditorNew } from "../../../components/api/hooks/useProductEditorNew";
 import { EditorProps } from "../../../types/product-management";
-
-// Comprehensive Schema.org JSON-LD for News Page
-const getSchemaData = (articles: any[]) => ({
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  name: "Tin Tức Mới Nhất | Siêu Thị Bảng Hiệu",
-  description:
-    "Cập nhật tin tức mới nhất về bảng hiệu, biển quảng cáo, xu hướng thiết kế và công nghệ LED.",
-  isPartOf: {
-    "@type": "WebSite",
-    name: "Siêu Thị Bảng Hiệu",
-    url: "https://sieuthibanghieu.vn",
-  },
-  mainEntity: {
-    "@type": "ItemList",
-    itemListElement: articles.map((article, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "NewsArticle",
-        headline: article.title,
-        description: article.description,
-        image: article.images,
-        datePublished: new Date(article.createdAt).toISOString(),
-        dateModified: new Date(
-          article.updatedAt || article.createdAt,
-        ).toISOString(),
-        author: {
-          "@type": "Organization",
-          name: "Siêu Thị Bảng Hiệu",
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "Siêu Thị Bảng Hiệu",
-          logo: {
-            "@type": "ImageObject",
-            url: "https://sieuthibanghieu.vn/images/logo_sieuthibanghieu.png",
-          },
-        },
-        articleSection: article.category,
-        url: `https://sieuthibanghieu.vn/tin-tuc/${article.slug}`,
-      },
-    })),
-  },
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Trang chủ",
-        item: "https://sieuthibanghieu.vn",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tin tức mới",
-        item: "https://sieuthibanghieu.vn/pages/tin-tuc-moi",
-      },
-    ],
-  },
-  about: {
-    "@type": "Thing",
-    name: "Bảng hiệu và quảng cáo",
-    description:
-      "Thông tin về ngành bảng hiệu, xu hướng thiết kế và công nghệ LED mới nhất",
-  },
-  specialty: ["Bảng hiệu", "Quảng cáo", "Thiết kế", "Công nghệ LED"],
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate:
-        "https://sieuthibanghieu.vn/pages/tin-tuc-moi?search={search_term_string}",
-    },
-    "query-input": "required name=search_term_string",
-  },
-});
 
 const ITEMS_PER_PAGE = 12;
 
@@ -99,16 +20,6 @@ const NewsPage: React.FC<EditorProps> = ({ EditorContent }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
   const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    const viewport = document.querySelector('meta[name="viewport"]');
-    if (viewport) {
-      viewport.setAttribute(
-        "content",
-        "width=device-width, initial-scale=1.0, maximum-scale=5.0",
-      );
-    }
-  }, []);
 
   // Filter news items by category and search
   const filteredItems = products
@@ -425,7 +336,6 @@ const NewsPage: React.FC<EditorProps> = ({ EditorContent }) => {
           </section>
         </main>
 
-        <JsonLdWrapper data={getSchemaData(currentItems)} />
         <SocialButtons />
         <Footer />
       </div>

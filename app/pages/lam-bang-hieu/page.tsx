@@ -1,337 +1,299 @@
 "use client";
-import { Metadata } from "next";
+
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 import Header from "@/components/common/Header";
-import Menu from "@/components/common/Menu";
 import Footer from "@/components/common/Footer";
-import SocialButtons from "@/components/common/SocialButtons";
-import { products } from "../../../data/products";
+import Menu from "@/components/common/Menu";
 import Breadcrumb from "@/components/common/Breadcrumb";
+import SocialButtons from "@/components/common/SocialButtons";
+import TabarLeft from "@/components/common/TabarLeft";
 
-const metadata: Metadata = {
-  title: "Làm Bảng Hiệu Chuyên Nghiệp | Siêu Thị Bảng Hiệu",
-  description:
-    "Dịch vụ làm bảng hiệu chuyên nghiệp, đa dạng mẫu mã từ bảng hiệu LED, chữ nổi đến hộp đèn quảng cáo. Thiết kế và thi công theo yêu cầu.",
-  keywords:
-    "làm bảng hiệu, bảng hiệu quảng cáo, bảng hiệu LED, chữ nổi, hộp đèn",
-  openGraph: {
-    title: "Làm Bảng Hiệu Chuyên Nghiệp | Siêu Thị Bảng Hiệu",
-    description:
-      "Dịch vụ làm bảng hiệu chuyên nghiệp, đa dạng mẫu mã từ bảng hiệu LED đến hộp đèn quảng cáo.",
-    type: "website",
-    locale: "vi_VN",
-  },
-};
-
-const ITEMS_PER_PAGE = 9;
-
-export default function SignPage() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
-  const [searchQuery, setSearchQuery] = useState("");
-
-  // Get unique categories
-  const categories = [
-    "Tất cả",
-    ...new Set(
-      products.map((item) => {
-        switch (item.category) {
-          case "bang-hieu":
-            return "Bảng Hiệu";
-          case "bang-led":
-            return "Bảng LED";
-          case "hop-den":
-            return "Hộp Đèn";
-          case "chu-noi":
-            return "Chữ Nổi";
-          default:
-            return item.category;
-        }
-      }),
-    ),
-  ];
-
-  // Filter products
-  const filteredProducts = products
-    .filter((item) => {
-      if (selectedCategory === "Tất cả") return true;
-      const categoryMap = {
-        "Bảng Hiệu": "bang-hieu",
-        "Bảng LED": "bang-led",
-        "Hộp Đèn": "hop-den",
-        "Chữ Nổi": "chu-noi",
-      };
-      return item.category === categoryMap[selectedCategory];
-    })
-    .filter(
-      (item) =>
-        searchQuery === "" ||
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
-
-  // Calculate pagination
-  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentItems = filteredProducts.slice(startIndex, endIndex);
-
-  // Generate pagination array
-  const generatePaginationArray = () => {
-    const delta = 2;
-    const range = [];
-    for (
-      let i = Math.max(2, currentPage - delta);
-      i <= Math.min(totalPages - 1, currentPage + delta);
-      i++
-    ) {
-      range.push(i);
-    }
-
-    if (currentPage - delta > 2) {
-      range.unshift("...");
-    }
-    if (currentPage + delta < totalPages - 1) {
-      range.push("...");
-    }
-
-    range.unshift(1);
-    if (totalPages > 1) {
-      range.push(totalPages);
-    }
-
-    return range;
-  };
-
+const BangHieuMica = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
       <Menu />
-
-      <main className="flex-grow bg-gray-50">
-        {/* Hero Section */}
-        <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
-          <div className="absolute inset-0">
-            <Image
-              src="/images/banghieu.jpg"
-              alt="Làm bảng hiệu chuyên nghiệp"
-              fill
-              className="object-cover opacity-20"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900" />
-          </div>
-          <div className="container relative z-10 mx-auto px-4">
-            <div className="mx-auto max-w-4xl text-center">
-              <h1 className="mb-6 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                Làm Bảng Hiệu Chuyên Nghiệp
+      <Breadcrumb />
+      <main className="container mx-auto flex-grow px-4 py-8">
+        <div className="flex flex-col gap-8 lg:flex-row">
+          {/* {TabarLeft} */}
+          <TabarLeft />
+          {/* Main Content */}
+          <article className="prose max-w-none lg:w-3/4">
+            <div className="mb-8 rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
+              <h1 className="mb-4 text-3xl font-bold text-blue-800 lg:text-4xl">
+                Bảng Hiệu LED - Giải Pháp Quảng Cáo Hiện Đại
               </h1>
-              <p className="mb-8 text-lg text-gray-100 md:text-xl">
-                Thiết kế và thi công bảng hiệu theo yêu cầu với chất lượng cao
+              <p className="mb-6 text-lg text-gray-600">
+                Khám phá giải pháp bảng hiệu hiện đại với công nghệ LED tiên
+                tiến, thu hút mọi ánh nhìn và nổi bật trong mọi điều kiện ánh
+                sáng.
               </p>
-              <div className="mx-auto max-w-2xl">
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => {
-                      setSearchQuery(e.target.value);
-                      setCurrentPage(1);
-                    }}
-                    placeholder="Tìm kiếm sản phẩm..."
-                    className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  />
-                  <button className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white px-6 py-2 text-blue-600 transition-colors hover:bg-blue-50">
-                    Tìm kiếm
-                  </button>
+              <div className="grid grid-cols-3 gap-4 text-center">
+                <div className="rounded-lg bg-white p-4 shadow-sm">
+                  <div className="text-xl font-bold text-blue-600">20+</div>
+                  <div className="text-gray-600">Năm Kinh Nghiệm</div>
+                </div>
+                <div className="rounded-lg bg-white p-4 shadow-sm">
+                  <div className="text-xl font-bold text-blue-600">5000+</div>
+                  <div className="text-gray-600">Khách Hàng</div>
+                </div>
+                <div className="rounded-lg bg-white p-4 shadow-sm">
+                  <div className="text-xl font-bold text-blue-600">100%</div>
+                  <div className="text-gray-600">Hài Lòng</div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Categories */}
-        <section className="sticky top-0 z-20 border-b bg-white shadow-sm">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap gap-3 py-4">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => {
-                    setSelectedCategory(category);
-                    setCurrentPage(1);
-                  }}
-                  className={`rounded-full px-4 py-2 text-sm transition-colors md:text-base ${
-                    selectedCategory === category
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <Breadcrumb />
-        {/* Products Grid */}
-        <section className="py-8 md:py-12">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-              {currentItems.map((product) => (
-                <article
-                  key={product.id}
-                  className="rounded-xl bg-white shadow-sm transition-shadow duration-300 hover:shadow-md"
-                >
-                  <Link href={`/products/${product.slug}`} className="block">
-                    <div className="relative h-48 w-full overflow-hidden rounded-t-xl md:h-56">
-                      <Image
-                        src={product.image}
-                        alt={product.title}
-                        fill
-                        className="object-cover transition-transform duration-300 hover:scale-105"
-                      />
-                      <div className="absolute left-4 top-4">
-                        <span className="rounded-full bg-blue-600 px-3 py-1 text-sm text-white">
-                          {product.category === "bang-hieu"
-                            ? "Bảng Hiệu"
-                            : product.category === "bang-led"
-                              ? "Bảng LED"
-                              : product.category === "hop-den"
-                                ? "Hộp Đèn"
-                                : "Chữ Nổi"}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <h2 className="mb-3 line-clamp-2 text-xl font-semibold text-gray-900 transition-colors hover:text-blue-600">
-                        {product.title}
-                      </h2>
-                      <p className="mb-4 line-clamp-3 text-gray-600">
-                        {product.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="font-semibold text-blue-600">
-                          {product.price}
-                        </span>
-                        <span className="text-sm text-gray-500">
-                          {new Date(product.createdAt).toLocaleDateString(
-                            "vi-VN",
-                          )}
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </article>
-              ))}
-            </div>
-
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="mt-12 flex justify-center">
-                <nav
-                  className="flex items-center gap-2"
-                  aria-label="Phân trang"
-                >
-                  <button
-                    onClick={() =>
-                      setCurrentPage((prev) => Math.max(prev - 1, 1))
-                    }
-                    disabled={currentPage === 1}
-                    className={`rounded-lg p-2 ${
-                      currentPage === 1
-                        ? "cursor-not-allowed text-gray-400"
-                        : "text-blue-600 hover:bg-blue-50"
-                    }`}
-                    aria-label="Trang trước"
-                  >
-                    <svg
-                      className="h-5 w-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 19l-7-7 7-7"
-                      />
-                    </svg>
-                  </button>
-
-                  {generatePaginationArray().map((page, index) => (
-                    <button
-                      key={index}
-                      onClick={() =>
-                        typeof page === "number" && setCurrentPage(page)
-                      }
-                      className={`rounded-lg px-4 py-2 ${
-                        currentPage === page
-                          ? "bg-blue-600 text-white"
-                          : page === "..."
-                            ? "cursor-default text-gray-500"
-                            : "text-blue-600 hover:bg-blue-50"
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  ))}
-
-                  <button
-                    onClick={() =>
-                      setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                    }
-                    disabled={currentPage === totalPages}
-                    className={`rounded-lg p-2 ${
-                      currentPage === totalPages
-                        ? "cursor-not-allowed text-gray-400"
-                        : "text-blue-600 hover:bg-blue-50"
-                    }`}
-                    aria-label="Trang sau"
-                  >
-                    <svg
-                      className="h-5 w-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
-                </nav>
+            <div className="mb-12 grid gap-8 lg:grid-cols-2">
+              <div>
+                <Image
+                  src="/images/banghieu.jpg"
+                  alt="Bảng hiệu LED chuyên nghiệp"
+                  width={800}
+                  height={400}
+                  className="rounded-lg shadow-lg"
+                />
               </div>
-            )}
-
-            {/* Contact CTA */}
-            <div className="mt-16 rounded-xl bg-white p-8 shadow-sm">
-              <div className="mx-auto max-w-2xl text-center">
-                <h2 className="mb-4 text-2xl font-bold">Liên Hệ Tư Vấn</h2>
-                <p className="mb-6 text-gray-600">
-                  Nhận tư vấn miễn phí về thiết kế và báo giá làm bảng hiệu
+              <div className="space-y-4">
+                <h2 className="text-2xl font-bold text-gray-800">
+                  Bảng Hiệu LED Là Gì?
+                </h2>
+                <p className="text-gray-600">
+                  Bảng hiệu LED là loại bảng hiệu sử dụng công nghệ đèn LED tiên
+                  tiến, cho phép hiển thị nội dung một cách sinh động, thu hút
+                  và tiết kiệm điện năng.
                 </p>
-                <Link
-                  href="/lien-he"
-                  className="inline-block rounded-lg bg-blue-600 px-8 py-3 text-white transition-colors hover:bg-blue-700"
-                >
-                  Liên hệ ngay
-                </Link>
+                <ul className="space-y-2">
+                  <li className="flex items-center">
+                    <svg
+                      className="mr-2 h-5 w-5 text-green-500"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Hiển thị sinh động, nổi bật
+                  </li>
+                  <li className="flex items-center">
+                    <svg
+                      className="mr-2 h-5 w-5 text-green-500"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Tiết kiệm điện năng
+                  </li>
+                  <li className="flex items-center">
+                    <svg
+                      className="mr-2 h-5 w-5 text-green-500"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Tuổi thọ cao, dễ bảo trì
+                  </li>
+                </ul>
               </div>
             </div>
-          </div>
-        </section>
+
+            <div className="mb-12 rounded-lg bg-gray-50 p-8">
+              <h2 className="mb-6 text-2xl font-bold text-gray-800">
+                Ứng Dụng Của Bảng Hiệu LED
+              </h2>
+              <div className="grid gap-6 lg:grid-cols-3">
+                <div className="rounded-lg bg-white p-6 shadow-sm">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
+                    <svg
+                      className="h-6 w-6 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="mb-2 text-xl font-semibold">
+                    Trung Tâm Thương Mại
+                  </h3>
+                  <p className="text-gray-600">
+                    Thu hút khách hàng với bảng hiệu LED full màu cho trung tâm
+                    thương mại.
+                  </p>
+                </div>
+                <div className="rounded-lg bg-white p-6 shadow-sm">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
+                    <svg
+                      className="h-6 w-6 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="mb-2 text-xl font-semibold">Nhà Hàng & Bar</h3>
+                  <p className="text-gray-600">
+                    Tạo không gian sôi động với bảng hiệu LED ma trận cho nhà
+                    hàng và bar.
+                  </p>
+                </div>
+                <div className="rounded-lg bg-white p-6 shadow-sm">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
+                    <svg
+                      className="h-6 w-6 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="mb-2 text-xl font-semibold">Showroom</h3>
+                  <p className="text-gray-600">
+                    Nâng tầm thương hiệu với bảng hiệu LED chuyên nghiệp cho
+                    showroom.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-12">
+              <h2 className="mb-6 text-2xl font-bold text-gray-800">
+                Quy Trình Thi Công Chuyên Nghiệp
+              </h2>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4 rounded-lg bg-white p-6 shadow-sm">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-600 text-xl font-bold text-white">
+                    1
+                  </div>
+                  <div>
+                    <h3 className="mb-2 text-xl font-semibold">
+                      Khảo Sát & Tư Vấn
+                    </h3>
+                    <p className="text-gray-600">
+                      Đội ngũ chuyên viên sẽ khảo sát địa điểm, tư vấn kích
+                      thước và phương án thiết kế phù hợp nhất.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 rounded-lg bg-white p-6 shadow-sm">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-600 text-xl font-bold text-white">
+                    2
+                  </div>
+                  <div>
+                    <h3 className="mb-2 text-xl font-semibold">Thiết Kế Mẫu</h3>
+                    <p className="text-gray-600">
+                      Tạo bản thiết kế 3D chi tiết để khách hàng có cái nhìn
+                      tổng quan trước khi thi công.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 rounded-lg bg-white p-6 shadow-sm">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-600 text-xl font-bold text-white">
+                    3
+                  </div>
+                  <div>
+                    <h3 className="mb-2 text-xl font-semibold">
+                      Thi Công & Lắp Đặt
+                    </h3>
+                    <p className="text-gray-600">
+                      Triển khai thi công chuyên nghiệp với đội ngũ thợ lành
+                      nghề và trang thiết bị hiện đại.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-blue-50 p-8">
+              <h2 className="mb-6 text-2xl font-bold text-gray-800">
+                Báo Giá Bảng Hiệu LED
+              </h2>
+              <p className="mb-6 text-gray-600">
+                Giá thành bảng hiệu LED phụ thuộc vào nhiều yếu tố khác nhau.
+                Liên hệ ngay với chúng tôi để được:
+              </p>
+              <div className="grid gap-6 lg:grid-cols-3">
+                <div className="rounded-lg bg-white p-4 text-center">
+                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+                    <svg
+                      className="h-6 w-6 text-blue-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold">Tư Vấn Miễn Phí</h3>
+                </div>
+                <div className="rounded-lg bg-white p-4 text-center">
+                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+                    <svg
+                      className="h-6 w-6 text-blue-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold">Báo Giá Chi Tiết</h3>
+                </div>
+                <div className="rounded-lg bg-white p-4 text-center">
+                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+                    <svg
+                      className="h-6 w-6 text-blue-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold">Giá Cạnh Tranh</h3>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
       </main>
 
       <SocialButtons />
       <Footer />
     </div>
   );
-}
+};
+
+export default BangHieuMica;

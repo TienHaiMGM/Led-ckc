@@ -7,7 +7,6 @@ import { getProductBySlug, Product } from "@/components/api/ProductService";
 import Header from "@/components/common/Header";
 import Menu from "@/components/common/Menu";
 import Footer from "@/components/common/Footer";
-import JsonLdWrapper from "@/components/common/JsonLdWrapper";
 import Breadcrumb from "@/components/common/Breadcrumb";
 
 export default function ProductPage() {
@@ -81,38 +80,13 @@ export default function ProductPage() {
     );
   }
 
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.title,
-    image: [product.image],
-    description: product.description || "",
-    brand: {
-      "@type": "Brand",
-      name: "Siêu Thị Bảng Hiệu",
-    },
-    manufacturer: {
-      "@type": "Organization",
-      name: "Siêu Thị Bảng Hiệu",
-    },
-    offers: {
-      "@type": "AggregateOffer",
-      availability: "https://schema.org/InStock",
-      lowPrice: "1000000",
-      highPrice: "5000000",
-      priceCurrency: "VND",
-      offerCount: "5",
-      url: `https://sieuthibanghieu.com/products/${slug}`,
-    },
-  };
-
   return (
     <>
       <Header />
       <Menu />
       <Breadcrumb />
       <ProductDetail_WithData product={product} />
-      <JsonLdWrapper data={schemaData} />
+
       <Footer />
     </>
   );
