@@ -1,8 +1,7 @@
 "use client";
 
-import Head from "next/head";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../../components/common/Header";
 import Menu from "../../components/common/Menu";
 import Footer from "../../components/common/Footer";
@@ -19,34 +18,6 @@ export default function CollectionsPage() {
 
   return (
     <>
-      <Head>
-        <title>Bộ Sưu Tập Bảng Hiệu | Siêu Thị Bảng Hiệu</title>
-        <meta
-          name="description"
-          content="Khám phá bộ sưu tập bảng hiệu đa dạng với thiết kế độc đáo và chất lượng cao. Dịch vụ thiết kế và thi công bảng hiệu theo yêu cầu."
-        />
-        <meta
-          name="keywords"
-          content="bảng hiệu, làm bảng hiệu, thiết kế bảng hiệu, thi công bảng hiệu, bảng hiệu quảng cáo, bảng hiệu LED, bảng hiệu alu"
-        />
-        <meta
-          property="og:title"
-          content="Bộ Sưu Tập Bảng Hiệu | Siêu Thị Bảng Hiệu"
-        />
-        <meta
-          property="og:description"
-          content="Khám phá bộ sưu tập bảng hiệu đa dạng với thiết kế độc đáo và chất lượng cao."
-        />
-        <meta property="og:image" content="/images/banghieu.jpg" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
-        />
-        <link rel="canonical" href="https://sieuthibanghieu.vn/collections" />
-      </Head>
-
       <div className="flex min-h-screen flex-col">
         <Header showSearch={false} />
         <Menu />

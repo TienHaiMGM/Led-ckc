@@ -53,7 +53,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export const jsonLd = {
+const schema = {
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -119,7 +119,7 @@ const KnowledgePage: React.FC<EditorProps> = ({ EditorContent }) => {
       <Footer />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
     </div>
   );

@@ -10,14 +10,20 @@ const nextConfig = {
     config.optimization.splitChunks = {
       chunks: "all",
       cacheGroups: {
-        default: false,
-        vendors: false,
+        react: {
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          name: "react",
+          chunks: "all",
+          priority: 30,
+          enforce: true,
+        },
         // Vendor chunk
         vendor: {
           name: "vendor",
           chunks: "all",
           test: /node_modules/,
           priority: 20,
+          enforce: true,
         },
         // Common chunk
         common: {
@@ -30,6 +36,7 @@ const nextConfig = {
         },
       },
     };
+    config.optimization.runtimeChunk = "single"; // Ngăn lỗi CSS bị load như script
     return config;
   },
   // Add proper domains for images if you're using next/image
@@ -40,6 +47,7 @@ const nextConfig = {
       "ledsun.vn",
       "fastly.picsum.photos",
     ],
+    formats: ["image/webp", "image/avif"],
   },
 };
 

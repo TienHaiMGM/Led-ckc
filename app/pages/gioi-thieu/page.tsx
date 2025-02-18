@@ -8,19 +8,9 @@ import SocialButtons from "../../../components/common/SocialButtons";
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title:
-      "Giới Thiệu Siêu Thị Bảng Hiệu - Đơn Vị Thiết Kế & Thi Công Bảng Hiệu Hàng Đầu",
+      "Siêu Thị Bảng Hiệu - Dẫn Đầu Thiết Kế & Thi Công Bảng Hiệu Quảng Cáo",
     description:
-      "Với hơn 10 năm kinh nghiệm, Siêu Thị Bảng Hiệu là đơn vị tiên phong trong lĩnh vực thiết kế và thi công bảng hiệu quảng cáo tại Việt Nam. Chất lượng - Uy tín - Sáng tạo",
-    keywords: [
-      "giới thiệu công ty",
-      "về chúng tôi",
-      "lịch sử hình thành",
-      "thiết kế bảng hiệu",
-      "thi công bảng hiệu",
-      "bảng hiệu chuyên nghiệp",
-      "công ty bảng hiệu",
-      "dịch vụ bảng hiệu",
-    ],
+      "Hơn 10 năm kinh nghiệm thiết kế & thi công bảng hiệu quảng cáo chuyên nghiệp. Nhận tư vấn miễn phí - Báo giá nhanh chóng!",
     openGraph: {
       title:
         "Giới Thiệu Siêu Thị Bảng Hiệu - Đơn Vị Thiết Kế & Thi Công Bảng Hiệu Hàng Đầu",
@@ -52,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export const jsonLd = {
+const schema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Siêu Thị Bảng Hiệu CKC",
@@ -94,7 +84,7 @@ export default function AboutPage() {
       <Footer />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
     </>
   );

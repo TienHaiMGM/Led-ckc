@@ -53,12 +53,7 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
       {/* SEO Optimization */}
       <div className="hidden">
         <h1>Siêu Thị Bảng Hiệu - Chuyên cung cấp bảng hiệu chất lượng cao</h1>
-        <meta
-          name="description"
-          content="Siêu Thị Bảng Hiệu - Đơn vị hàng đầu trong lĩnh vực thiết kế và thi công bảng hiệu, biển quảng cáo tại Việt Nam"
-        />
       </div>
-
       {/* Main Header Content */}
       <div className="container mx-auto px-4 py-2 lg:px-8">
         <div className="flex flex-wrap items-center justify-between">
