@@ -1,48 +1,90 @@
-"use client";
-
-import Head from "next/head";
+import { Metadata } from "next";
 import About from "../../../components/specific/About";
 import Footer from "../../../components/common/Footer";
 import Menu from "../../../components/common/Menu";
 import Header from "../../../components/common/Header";
-
 import SocialButtons from "../../../components/common/SocialButtons";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title:
+      "Giới Thiệu Siêu Thị Bảng Hiệu - Đơn Vị Thiết Kế & Thi Công Bảng Hiệu Hàng Đầu",
+    description:
+      "Với hơn 10 năm kinh nghiệm, Siêu Thị Bảng Hiệu là đơn vị tiên phong trong lĩnh vực thiết kế và thi công bảng hiệu quảng cáo tại Việt Nam. Chất lượng - Uy tín - Sáng tạo",
+    keywords: [
+      "giới thiệu công ty",
+      "về chúng tôi",
+      "lịch sử hình thành",
+      "thiết kế bảng hiệu",
+      "thi công bảng hiệu",
+      "bảng hiệu chuyên nghiệp",
+      "công ty bảng hiệu",
+      "dịch vụ bảng hiệu",
+    ],
+    openGraph: {
+      title:
+        "Giới Thiệu Siêu Thị Bảng Hiệu - Đơn Vị Thiết Kế & Thi Công Bảng Hiệu Hàng Đầu",
+      description:
+        "Với hơn 10 năm kinh nghiệm, Siêu Thị Bảng Hiệu là đơn vị tiên phong trong lĩnh vực thiết kế và thi công bảng hiệu quảng cáo tại Việt Nam",
+      url: "https://sieuthibanghieu.com/pages/gioi-thieu",
+      siteName: "Siêu Thị Bảng Hiệu CKC",
+      images: [
+        {
+          url: "/images/sieuthibanghieu.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Giới thiệu Siêu Thị Bảng Hiệu",
+        },
+      ],
+      locale: "vi_VN",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Giới Thiệu Siêu Thị Bảng Hiệu",
+      description:
+        "Với hơn 10 năm kinh nghiệm, Siêu Thị Bảng Hiệu là đơn vị tiên phong trong lĩnh vực thiết kế và thi công bảng hiệu quảng cáo tại Việt Nam",
+      images: ["/images/sieuthibanghieu.jpg"],
+    },
+    alternates: {
+      canonical: "https://sieuthibanghieu.com/pages/gioi-thieu",
+    },
+  };
+}
+
+export const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Siêu Thị Bảng Hiệu CKC",
+  url: "https://sieuthibanghieu.com",
+  logo: "/images/sieuthibanghieu.jpg",
+  description:
+    "Chuyên thiết kế và thi công bảng hiệu, chữ nổi, hộp đèn, biển LED với 10+ năm kinh nghiệm.",
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+84962630679",
+    contactType: "customer service",
+    areaServed: "VN",
+    availableLanguage: ["Vietnamese"],
+  },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "129 Thoại Ngọc Hầu",
+    addressLocality: "Phường Hòa Thạnh, Quận Tân Phú",
+    addressRegion: "Hồ Chí Minh",
+    postalCode: "700000",
+    addressCountry: "VN",
+  },
+  sameAs: [
+    "https://facebook.com/sieuthibanghieu",
+    "https://twitter.com/sieuthibanghieu",
+    "https://instagram.com/sieuthibanghieu",
+  ],
+};
+
 export default function AboutPage() {
   return (
     <>
-      <Head>
-        <title>
-          Giới Thiệu Siêu Thị Bảng Hiệu - Đơn Vị Thiết Kế & Thi Công Bảng Hiệu
-          Hàng Đầu
-        </title>
-        <meta
-          name="description"
-          content="Với hơn 10 năm kinh nghiệm, Siêu Thị Bảng Hiệu là đơn vị tiên phong trong lĩnh vực thiết kế và thi công bảng hiệu quảng cáo tại Việt Nam. Chất lượng - Uy tín - Sáng tạo"
-        />
-        <meta
-          name="keywords"
-          content="giới thiệu công ty, về chúng tôi, lịch sử hình thành, thiết kế bảng hiệu, thi công bảng hiệu, bảng hiệu chuyên nghiệp, công ty bảng hiệu, dịch vụ bảng hiệu"
-        />
-        <meta
-          property="og:title"
-          content="Giới Thiệu Siêu Thị Bảng Hiệu - Đơn Vị Thiết Kế & Thi Công Bảng Hiệu Hàng Đầu"
-        />
-        <meta
-          property="og:description"
-          content="Với hơn 10 năm kinh nghiệm, Siêu Thị Bảng Hiệu là đơn vị tiên phong trong lĩnh vực thiết kế và thi công bảng hiệu quảng cáo tại Việt Nam"
-        />
-        <meta property="og:image" content="/images/sieuthibanghieu.jpg" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
-        />
-        <link
-          rel="canonical"
-          href="https://sieuthibanghieu.vn/pages/gioi-thieu"
-        />
-      </Head>
       <Header />
       <Menu />
       <main>
@@ -50,6 +92,10 @@ export default function AboutPage() {
       </main>
       <SocialButtons />
       <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     </>
   );
 }

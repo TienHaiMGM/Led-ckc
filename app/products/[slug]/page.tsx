@@ -86,7 +86,6 @@ export default function ProductPage() {
       <Menu />
       <Breadcrumb />
       <ProductDetail_WithData product={product} />
-
       <Footer />
     </>
   );

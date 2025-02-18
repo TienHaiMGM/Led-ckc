@@ -1,6 +1,103 @@
 import "./globals.css";
 import "./font.css";
 import { StrictMode } from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | Siêu Thị Bảng Hiệu",
+    default:
+      "Siêu Thị Bảng Hiệu - Chuyên Thiết Kế & Thi Công Bảng Hiệu Quảng Cáo",
+  },
+  description:
+    "Chuyên thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp, uy tín tại TP.HCM. Cung cấp đa dạng dịch vụ làm bảng hiệu, chữ nổi, hộp đèn quảng cáo.",
+  keywords: [
+    "bảng hiệu",
+    "quảng cáo",
+    "chữ nổi",
+    "hộp đèn",
+    "bảng led",
+    "thiết kế bảng hiệu",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: "Siêu Thị Bảng Hiệu",
+    locale: "vi_VN",
+    images: [
+      {
+        url: "https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Siêu Thị Bảng Hiệu",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg"],
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "verification_token",
+  },
+  alternates: {
+    canonical: "https://sieuthibanghieu.vn",
+  },
+};
+
+export const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://sieuthibanghieu.vn/#organization",
+      name: "Siêu Thị Bảng Hiệu",
+      url: "https://sieuthibanghieu.vn",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://sieuthibanghieu.vn/images/sieuthibanghieulogo.png",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+84-XXX-XXX-XXX",
+        contactType: "customer service",
+        areaServed: "VN",
+        availableLanguage: "Vietnamese",
+      },
+      sameAs: [
+        "https://facebook.com/sieuthibanghieu",
+        "https://twitter.com/sieuthibanghieu",
+        "https://instagram.com/sieuthibanghieu",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://sieuthibanghieu.vn/#website",
+      url: "https://sieuthibanghieu.vn",
+      name: "Siêu Thị Bảng Hiệu",
+      description:
+        "Chuyên thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp",
+      publisher: {
+        "@id": "https://sieuthibanghieu.vn/#organization",
+      },
+    },
+  ],
+};
 
 export default function RootLayout({
   children,
@@ -10,8 +107,6 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <style>
           {`
             .favicon-text {
@@ -29,18 +124,10 @@ export default function RootLayout({
             }
           `}
         </style>
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23ee3337'/><text x='16' y='22' fill='white' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle'>S</text></svg>"
-          type="image/svg+xml"
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#4f46e5" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="format-detection" content="address=no" />
       </head>
       <body className={`antialiased`}>
         <StrictMode>
