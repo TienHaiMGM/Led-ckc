@@ -1,53 +1,129 @@
+import { Metadata } from "next";
 import React from "react";
-import Footer from "@/components/common/Footer";
-import Menu from "@/components/common/Menu";
-import Header from "@/components/common/Header";
-import ProductCategory from "@/components/common/ProductCategory";
-import Breadcrumb from "@/components/common/Breadcrumb";
+import Footer from "../../../components/common/Footer";
+import Menu from "../../../components/common/Menu";
+import Header from "../../../components/common/Header";
+import ProductCategory from "../../../components/common/ProductCategory";
+import Breadcrumb from "../../../components/common/Breadcrumb";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Bảng Led - Siêu Thị Bảng Hiệu",
+    description:
+      "Khám phá các mẫu Bảng Led hiện đại, chất lượng cao cho quảng cáo.",
+    keywords: ["bảng led", "quảng cáo", "thiết kế bảng led"],
+    openGraph: {
+      title: "Bảng Led - Siêu Thị Bảng Hiệu",
+      description:
+        "Chuyên thiết kế và thi công các loại Bảng Led quảng cáo chất lượng cao.",
+      url: "https://sieuthibanghieu.vn/collections/bang-led",
+      siteName: "Siêu Thị Bảng Hiệu",
+      images: [
+        {
+          url: "https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Bảng Led - Siêu Thị Bảng Hiệu",
+        },
+      ],
+      locale: "vi_VN",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Bảng Led - Siêu Thị Bảng Hiệu",
+      description: "Khám phá các mẫu Bảng Led hiện đại, chất lượng cao.",
+      images: ["https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg"],
+    },
+    alternates: {
+      canonical: "https://sieuthibanghieu.vn/collections/bang-led",
+    },
+  };
+}
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://sieuthibanghieu.vn/collections/bang-led",
+      url: "https://sieuthibanghieu.vn/collections/bang-led",
+      name: "Bảng Led",
+      description:
+        "Khám phá các mẫu Bảng Led hiện đại, chất lượng cao cho quảng cáo.",
+      isPartOf: {
+        "@type": "WebSite",
+        "@id": "https://sieuthibanghieu.vn/#website",
+        url: "https://sieuthibanghieu.vn",
+        name: "Siêu Thị Bảng Hiệu",
+        description:
+          "Chuyên thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp",
+        publisher: {
+          "@id": "https://sieuthibanghieu.vn/#organization",
+        },
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://sieuthibanghieu.vn/collections/bang-led#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          item: {
+            "@type": "WebPage",
+            "@id": "https://sieuthibanghieu.vn/",
+            url: "https://sieuthibanghieu.vn/",
+            name: "Trang chủ",
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          item: {
+            "@type": "WebPage",
+            "@id": "https://sieuthibanghieu.vn/collections/bang-led",
+            url: "https://sieuthibanghieu.vn/collections/bang-led",
+            name: "Bảng Led",
+          },
+        },
+      ],
+    },
+  ],
+};
 
 const LEDSignBoard = () => {
   return (
-    <>
-      <div className="flex min-h-screen flex-col">
-        <Header />
-        <Menu />
-        <Breadcrumb />
-
-        <main className="flex-grow p-4 md:p-6 lg:p-8">
-          {/* Thêm H1 để nhấn mạnh nội dung chính của trang */}
-          <h1 className="mb-4 text-2xl font-bold">Bảng Led</h1>
-
-          {/* Đoạn giới thiệu ngắn (nếu muốn) để thêm từ khóa & thông tin hữu ích cho người dùng */}
-          <p className="mb-6">
-            Khám phá những mẫu <strong>Bảng Led</strong> hiện đại, độ bền cao,
-            giúp doanh nghiệp của bạn nổi bật với giải pháp quảng cáo ấn tượng.
-          </p>
-
-          {/* Component hiển thị danh mục “Bảng Led” */}
-          <ProductCategory
-            EditorContent={{
-              title: "Bảng Led",
-              content: "",
-              images: "",
-              category: "bangled",
-              slug: "bang-led",
-              description: "Các mẫu Bảng Led đẹp, chất lượng cao",
-              tags: ["Bảng Led", "quảng cáo"],
-              status: "published",
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-              seoTitle: "Bảng Led - Siêu Thị Bảng Led",
-              seoDescription:
-                "Chuyên thiết kế và thi công các loại Bảng Led quảng cáo chất lượng cao",
-              featuredImage: "",
-              thumbnail: "",
-            }}
-          />
-        </main>
-
-        <Footer />
-      </div>
-    </>
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <Menu />
+      <Breadcrumb />
+      <main className="flex-grow p-4 md:p-6 lg:p-8">
+        <ProductCategory
+          EditorContent={{
+            title: "Bảng Led",
+            content: "",
+            images: "",
+            category: "bangled",
+            slug: "bang-led",
+            description: "Các mẫu Bảng Led đẹp, chất lượng cao",
+            tags: ["Bảng Led", "quảng cáo"],
+            status: "published",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+            seoTitle: "Bảng Led - Siêu Thị Bảng Led",
+            seoDescription:
+              "Chuyên thiết kế và thi công các loại Bảng Led quảng cáo chất lượng cao",
+            featuredImage: "",
+            thumbnail: "",
+          }}
+        />
+      </main>
+      <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+    </div>
   );
 };
 

@@ -1,6 +1,3 @@
-"use client";
-
-import Head from "next/head";
 import React from "react";
 import Footer from "../../../components/common/Footer";
 import Menu from "../../../components/common/Menu";
@@ -15,37 +12,44 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 
+export const metadata = {
+  title: "Liên Hệ - Siêu Thị Bảng Hiệu",
+  description:
+    "Liên hệ với chúng tôi để tạo nên những tác phẩm quảng cáo ấn tượng.",
+  openGraph: {
+    title: "Liên Hệ - Siêu Thị Bảng Hiệu",
+    description:
+      "Liên hệ với chúng tôi để tạo nên những tác phẩm quảng cáo ấn tượng.",
+    url: "https://yourwebsite.com/lien-he",
+    type: "website",
+    images: [
+      {
+        url: "https://yourwebsite.com/path/to/image.jpg",
+        width: 800,
+        height: 600,
+        alt: "Liên Hệ",
+      },
+    ],
+  },
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Liên Hệ",
+    description:
+      "Liên hệ với chúng tôi để tạo nên những tác phẩm quảng cáo ấn tượng.",
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "(123) 456-7890",
+      contactType: "Customer Service",
+      areaServed: "VN",
+      availableLanguage: "Vietnamese",
+    },
+  },
+};
+
 const Contact = () => {
   return (
     <>
-      <Head>
-        <title>Liên Hệ | Siêu Thị Bảng Hiệu - Tư Vấn & Báo Giá</title>
-        <meta
-          name="description"
-          content="Liên hệ với Siêu Thị Bảng Hiệu để được tư vấn và báo giá chi tiết về dịch vụ thiết kế, thi công bảng hiệu quảng cáo. Đội ngũ chuyên nghiệp, nhiều năm kinh nghiệm."
-        />
-        <meta
-          name="keywords"
-          content="liên hệ, tư vấn bảng hiệu, báo giá bảng hiệu, thiết kế bảng hiệu, thi công bảng hiệu"
-        />
-        <meta
-          property="og:title"
-          content="Liên Hệ | Siêu Thị Bảng Hiệu - Tư Vấn & Báo Giá"
-        />
-        <meta
-          property="og:description"
-          content="Liên hệ với Siêu Thị Bảng Hiệu để được tư vấn và báo giá chi tiết về dịch vụ thiết kế, thi công bảng hiệu quảng cáo."
-        />
-        <meta property="og:image" content="/images/sieuthibanghieu.jpg" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
-        />
-        <link rel="canonical" href="https://sieuthibanghieu.vn/pages/lien-he" />
-      </Head>
-
       <div className="flex min-h-screen flex-col bg-gray-100">
         <Header />
         <Menu />
