@@ -9,7 +9,6 @@ import {
   FaSort,
 } from "react-icons/fa";
 import dynamic from "next/dynamic";
-import { uploadFile } from "../../utils/upload";
 import { EditorProps, Draft } from "../../types/product-management";
 import Preview from "../../app/admin/product-content/preview";
 import { FormField } from "../common/FormField";
@@ -269,37 +268,6 @@ const ProductEditorKnowledge: React.FC<EditorProps> = ({
             className="block w-full rounded-lg border border-gray-300 p-2.5 text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             placeholder="Nhập URL hình ảnh"
           />
-          <div className="flex-shrink-0">
-            <input
-              type="file"
-              id="imageUpload"
-              accept="image/*"
-              className="hidden"
-              onChange={async (e) => {
-                const file = e.target.files?.[0];
-                if (file) {
-                  try {
-                    const result = await uploadFile(file, {
-                      folder: "knowledge-images",
-                      generateUniqueName: true,
-                    });
-                    setFormData({ ...formData, images: result.url });
-                  } catch (error) {
-                    alert(
-                      "Lỗi khi tải lên hình ảnh: " + (error as Error).message,
-                    );
-                  }
-                }
-              }}
-            />
-            <button
-              type="button"
-              onClick={() => document.getElementById("imageUpload")?.click()}
-              className="flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-            >
-              <FaPlus className="mr-2" /> Tải lên
-            </button>
-          </div>
         </div>
       </div>
 

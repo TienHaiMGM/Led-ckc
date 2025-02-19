@@ -29,7 +29,6 @@ export default function SignPage() {
               alt="Làm bảng hiệu chuyên nghiệp"
               fill
               className="object-cover opacity-20"
-              priority
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0e7490] via-[#3b82f6] to-[#4f46e5]" />
           </div>

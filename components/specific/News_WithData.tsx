@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { News } from "../api/NewsService";
+import { getAllNews, News } from "../api/NewsService";
 import { FaCalendarAlt, FaTag, FaShareAlt } from "react-icons/fa";
-
+import RelatedArticles from "./RelatedArticles";
 interface NewsProps {
   News: News;
 }
@@ -25,7 +25,7 @@ const News_WithData = ({ News }: NewsProps) => {
       aria-label={`Bài viết: ${News.title}`}
     >
       {/* Hero Section */}
-      <header className="relative bg-gradient-to-r from-blue-600 to-blue-800 py-12 text-white">
+      <header className="relative bg-gradient-to-r from-[#0e7490] via-[#3b82f6] to-[#837eee] py-12 text-white">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl">
             {/* Category & Date */}
@@ -132,28 +132,11 @@ const News_WithData = ({ News }: NewsProps) => {
       </div>
 
       {/* Related Articles Section */}
-      <section className="bg-gray-50 py-12">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-4xl">
-            <h2 className="mb-8 text-2xl font-bold">Bài Viết Liên Quan</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Placeholder for related articles */}
-              {[1, 2, 3].map((_, index) => (
-                <div
-                  key={index}
-                  className="group rounded-lg bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
-                >
-                  <div className="relative mb-4 aspect-video overflow-hidden rounded-lg">
-                    <div className="absolute inset-0 animate-pulse bg-gray-200" />
-                  </div>
-                  <div className="h-6 w-3/4 animate-pulse rounded bg-gray-200" />
-                  <div className="mt-2 h-4 w-1/2 animate-pulse rounded bg-gray-200" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <RelatedArticles
+        fetchFunction={getAllNews}
+        currentId={News.id}
+        basePath={"/tin-tuc"}
+      />
 
       {/* Newsletter Section */}
       <section className="bg-blue-600 py-12 text-white">

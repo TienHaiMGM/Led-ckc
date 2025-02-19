@@ -151,7 +151,7 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
             {product.description}
           </p>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-500" suppressHydrationWarning>
+            <span className="text-sm text-gray-500">
               {new Date(product.createdAt).toLocaleDateString("vi-VN")}
             </span>
           </div>

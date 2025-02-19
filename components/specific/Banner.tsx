@@ -6,19 +6,22 @@ import Image from "next/image";
 const banners = [
   {
     id: 1,
-    image: "/images/Banner1.jpg",
+    image:
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1739938056/Banner3_agbop9.jpg",
     alt: "Siêu Thị Bảng Hiệu - Thiết kế và thi công bảng hiệu chuyên nghiệp tại TPHCM",
     title: "Bảng hiệu chuyên nghiệp",
   },
   {
     id: 2,
-    image: "/images/Banner2.jpg",
+    image:
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1739938056/Banner1_wzjbgx.jpg",
     alt: "Dịch vụ làm bảng hiệu LED, chữ nổi, hộp đèn quảng cáo chất lượng cao",
     title: "Bảng hiệu LED và chữ nổi",
   },
   {
     id: 3,
-    image: "/images/Banner3.jpg",
+    image:
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1739938056/Banner2_addvaw.jpg",
     alt: "Thi công bảng hiệu quảng cáo uy tín, giá tốt nhất thị trường",
     title: "Thi công bảng hiệu",
   },
@@ -60,7 +63,7 @@ const Banner = () => {
           className="group relative mb-2 mr-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 group-hover:from-purple-600 group-hover:to-blue-500 dark:text-white dark:focus:ring-blue-800"
           onClick={prevSlide}
         >
-          <span className="relative rounded-md bg-white px-2.5 py-1 transition-all duration-75 ease-in group-hover:bg-opacity-0 md:px-3.5 md:py-2 lg:px-5 lg:py-2.5 xl:px-5 xl:py-2.5 dark:bg-gray-900">
+          <span className="relative rounded-md bg-white px-2.5 py-1 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900 md:px-3.5 md:py-2 lg:px-5 lg:py-2.5 xl:px-5 xl:py-2.5">
             &lt;
           </span>
         </button>
@@ -69,7 +72,7 @@ const Banner = () => {
           onClick={nextSlide}
           className="group relative mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-green-400 to-blue-600 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-200 group-hover:from-green-400 group-hover:to-blue-600 dark:text-white dark:focus:ring-green-800"
         >
-          <span className="relative rounded-md bg-white px-2.5 py-1 transition-all duration-75 ease-in group-hover:bg-opacity-0 md:px-3.5 md:py-2 lg:px-5 lg:py-2.5 xl:px-5 xl:py-2.5 dark:bg-gray-900">
+          <span className="relative rounded-md bg-white px-2.5 py-1 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900 md:px-3.5 md:py-2 lg:px-5 lg:py-2.5 xl:px-5 xl:py-2.5">
             &gt;
           </span>
         </button>

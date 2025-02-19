@@ -104,7 +104,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi">
-      <head></head>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className={`antialiased`}>
         <StrictMode>
           <div className="flex min-h-screen flex-col">{children}</div>

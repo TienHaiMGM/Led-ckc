@@ -291,7 +291,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
   const handleInput = () => {
     if (editorRef.current) {
       const newContent = editorRef.current.innerHTML;
-      setContent(newContent); //****
+
       if (onChange) {
         onChange(newContent);
       }
