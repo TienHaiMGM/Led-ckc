@@ -94,7 +94,7 @@ const schema = {
   ],
 };
 
-const BangHieuAlu = () => {
+const BangHieuDecal = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -106,41 +106,37 @@ const BangHieuAlu = () => {
           <div className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
             <TabarLeft />
           </div>
+          {/* Main Content */}
           <article className="prose max-w-none lg:w-3/4">
             <div className="mb-8 rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
               <h1 className="mb-4 text-3xl font-bold text-blue-800 lg:text-4xl">
-                Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp
+                Bảng Hiệu Decal - Giải Pháp Quảng Cáo Chuyên Nghiệp
               </h1>
               <p className="mb-6 text-lg text-gray-600">
-                Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu cao
-                cấp, bền đẹp và tiết kiệm chi phí cho doanh nghiệp của bạn.
+                Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu decal
+                cao cấp, bền đẹp và tiết kiệm chi phí cho doanh nghiệp của bạn.
               </p>
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div className="rounded-lg bg-white p-4 shadow-sm">
-                  <div className="mb-1 text-2xl font-bold text-blue-600">
-                    10+
-                  </div>
-                  <div className="text-sm text-gray-600">Năm Kinh Nghiệm</div>
+                  <div className="text-xl font-bold text-blue-600">10+</div>
+                  <div className="text-gray-600">Năm Kinh Nghiệm</div>
                 </div>
                 <div className="rounded-lg bg-white p-4 shadow-sm">
-                  <div className="mb-1 text-2xl font-bold text-blue-600">
-                    2000+
-                  </div>
-                  <div className="text-sm text-gray-600">Khách Hàng</div>
+                  <div className="text-xl font-bold text-blue-600">2000+</div>
+                  <div className="text-gray-600">Khách Hàng</div>
                 </div>
                 <div className="rounded-lg bg-white p-4 shadow-sm">
-                  <div className="mb-1 text-2xl font-bold text-blue-600">
-                    100%
-                  </div>
-                  <div className="text-sm text-gray-600">Hài Lòng</div>
+                  <div className="text-xl font-bold text-blue-600">100%</div>
+                  <div className="text-gray-600">Hài Lòng</div>
                 </div>
               </div>
             </div>
+
             <div className="mb-12 grid gap-8 lg:grid-cols-2">
               <div>
                 <Image
                   src="/images/banghieu.jpg"
-                  alt="Bảng hiệu Alu chuyên nghiệp"
+                  alt="Bảng hiệu Deca chuyên nghiệp"
                   width={800}
                   height={400}
                   className="rounded-lg shadow-lg"
@@ -148,12 +144,12 @@ const BangHieuAlu = () => {
               </div>
               <div className="space-y-4">
                 <h2 className="text-2xl font-bold text-gray-800">
-                  Bảng Hiệu Alu Là Gì?
+                  Bảng Hiệu Decal Là Gì?
                 </h2>
                 <p className="text-gray-600">
-                  Bảng hiệu Alu là loại bảng hiệu được làm từ chất liệu nhựa PVC
-                  cao cấp, có độ bền cao, chống chịu tốt với thời tiết và có giá
-                  thành hợp lý.
+                  Bảng hiệu Decal là loại bảng hiệu được làm từ chất liệu nhựa
+                  PVC cao cấp, có độ bền cao, chống chịu tốt với thời tiết và có
+                  giá thành hợp lý.
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-center">
@@ -201,6 +197,10 @@ const BangHieuAlu = () => {
                 </ul>
               </div>
             </div>
+            {/* {TabarLeft} */}
+            <div className="block sm:block md:block lg:hidden xl:hidden">
+              <TabarLeft />
+            </div>
           </article>
         </div>
       </main>
@@ -214,4 +214,4 @@ const BangHieuAlu = () => {
   );
 };
 
-export default BangHieuAlu;
+export default BangHieuDecal;

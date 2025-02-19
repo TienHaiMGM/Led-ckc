@@ -1,7 +1,5 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 
@@ -73,13 +71,13 @@ export const TabarLeft = () => {
   };
 
   return (
-    <div className="space-y-6 lg:w-1/4">
+    <div className="space-y-6">
       {/* Left Sidebar */}
       <aside className="">
         {/* Action Call Section */}
-        <div className="rounded-lg bg-gradient-to-r from-red-600 to-red-400 p-6 text-white">
-          <h3 className="mb-4 text-xl font-bold">Nhận Báo Giá Ngay!</h3>
-          <ul className="space-y-4">
+        <div className="rounded-lg bg-gradient-to-r from-red-600 to-red-400 p-4 text-white">
+          <h3 className="mb-6 text-xl font-bold">Nhận Báo Giá Ngay!</h3>
+          <ul className="space-y-6">
             <li className="flex items-center">
               <svg
                 className="mr-2 h-5 w-5"
@@ -196,43 +194,6 @@ export const TabarLeft = () => {
               {isSubmitting ? "Đang gửi..." : "Gửi Yêu Cầu"}
             </button>
           </form>
-        </div>
-
-        {/* Related Articles */}
-        <div className="rounded-lg bg-gray-50 p-6">
-          <h3 className="mb-4 text-xl font-bold text-gray-800">
-            Bài Viết Liên Quan
-          </h3>
-          <div className="space-y-4">
-            <Link href="/bao-gia-bang-hieu-alu" className="group block">
-              <div className="flex gap-3 rounded-lg p-2 transition duration-300 hover:bg-gray-100">
-                <Image
-                  src="/images/bang-hieu-cua-hang-thuc-pham-6.jpg"
-                  alt="Báo giá bảng hiệu alu"
-                  width={80}
-                  height={60}
-                  className="rounded object-cover"
-                />
-                <p className="text-sm font-medium text-gray-700 group-hover:text-blue-600">
-                  Báo giá thi công bảng hiệu Alu mới nhất 2024
-                </p>
-              </div>
-            </Link>
-            <Link href="/mau-bang-hieu-alu" className="group block">
-              <div className="flex gap-3 rounded-lg p-2 transition duration-300 hover:bg-gray-100">
-                <Image
-                  src="/images/bang-hieu-dung-spa-5.jpg"
-                  alt="Mẫu bảng hiệu alu"
-                  width={80}
-                  height={60}
-                  className="rounded object-cover"
-                />
-                <p className="text-sm font-medium text-gray-700 group-hover:text-blue-600">
-                  Top 10 mẫu bảng hiệu Alu đẹp nhất 2024
-                </p>
-              </div>
-            </Link>
-          </div>
         </div>
       </aside>
     </div>

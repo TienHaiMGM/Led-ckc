@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import {
@@ -13,7 +12,8 @@ import {
 import Head from "next/head";
 import Link from "next/link";
 import { extractImagesFromHtml } from "@/utils/imageExtractor";
-import { Product } from "../api/ProductService";
+import { Product } from "../../types/product";
+import RelatedProducts from "./RelatedProducts";
 
 interface ProductDetailProps {
   product: Product;
@@ -29,8 +29,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
     // Initialize gallery with main image and content images
     const contentImages = extractImagesFromHtml(product.content);
     const allImages = [
-      product.image || product.images, // Handle both image fields
-      ...(product.additionalImages || []),
+      product.images, // Handle both image fields
       ...contentImages,
     ].filter(Boolean); // Remove any undefined/null values
 
@@ -96,12 +95,12 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
       )}
       {/* Hero Section */}
       <section className="py-2">
-        <div className="container mx-auto px-1 lg:px-28">
+        <div className="container mx-auto px-1 xl:px-36">
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Left Column - Image Gallery */}
             <div className="relative space-y-4">
               {/* Main Image */}
-              <div className="lg:h-6/6 relative h-[50vw] max-w-[100vw] overflow-hidden rounded-lg shadow-2xl md:h-[40vw] xl:h-96">
+              <div className="relative h-[50vw] max-w-[100vw] overflow-hidden rounded-lg shadow-2xl md:h-[40vw] lg:h-96 xl:h-96">
                 <Image
                   src={gallery[currentImageIndex]}
                   alt={`${product.title} - Hình ảnh ${currentImageIndex + 1}`}
@@ -138,7 +137,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
               </div>
 
               {/* Thumbnail Gallery */}
-              <div className="flex justify-between space-x-2">
+              <div className="flex justify-around space-x-2">
                 {gallery.slice(0, 3).map((image, index) => (
                   <div
                     key={index}
@@ -163,7 +162,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
             </div>
 
             {/* Right Column - Information */}
-            <div className="flex flex-col justify-center space-y-8">
+            <div className="flex flex-col justify-center space-y-6">
               {/* Title with decorative border */}
               <div className="relative pl-2">
                 <h1 className="text-2xl font-bold leading-tight text-red-500 lg:text-3xl">
@@ -218,7 +217,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
                     <FaAward className="h-8 w-8 text-white" />
                   </div>
                 </div>
-                <div className="mt-4 flex items-center space-x-2">
+                <div className="mt-2 flex items-center space-x-2">
                   <a
                     href="tel:+84123456789"
                     className="flex items-center space-x-2 rounded-full bg-white px-6 py-3 font-semibold text-blue-600 transition-all hover:bg-blue-50"
@@ -241,43 +240,25 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
       {/* Product Content Section */}
       {product.content && (
         <section className="py-8">
-          <div className="container mx-auto px-4 lg:px-28">
+          <div className="container mx-auto px-3 xl:px-36">
             <div className="mb-8">
               <h2 className="text-2xl font-bold">Thông tin chi tiết</h2>
               {product.description && (
                 <p className="mt-2 text-gray-600">{product.description}</p>
               )}
             </div>
-            <div className="prose mx-auto">
+            <div className="prose">
               <div dangerouslySetInnerHTML={{ __html: product.content }} />
             </div>
           </div>
         </section>
       )}
 
-      {/* Benefits Section */}
-      <section className="py-16" aria-label="Lợi ích khi chọn dịch vụ">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold">
-            Lợi Ích Khi Chọn Chúng Tôi
-          </h2>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {benefits.map((benefit, index) => (
-              <div
-                key={index}
-                className="group rounded-xl bg-white p-6 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl"
-              >
-                <div className="mb-4 text-3xl text-blue-600" aria-hidden="true">
-                  {benefit.icon === "FaTools" && <FaTools />}
-                  {benefit.icon === "FaClock" && <FaClock />}
-                  {benefit.icon === "FaShieldAlt" && <FaShieldAlt />}
-                  {benefit.icon === "FaAward" && <FaAward />}
-                </div>
-                <h3 className="mb-3 text-xl font-semibold">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.description}</p>
-              </div>
-            ))}
-          </div>
+      {/* Related Products Section */}
+      <section className="bg-gray-100 py-8">
+        <div className="container mx-auto px-3 xl:px-36">
+          <h2 className="mb-8 text-2xl font-bold">Sản phẩm liên quan</h2>
+          <RelatedProducts productId={product.id} category={product.category} />
         </div>
       </section>
 

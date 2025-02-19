@@ -8,28 +8,28 @@ const categories = [
     title: "BẢNG HIỆU",
     description: "Thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp",
     alt: "Bảng hiệu quảng cáo đẹp, chất lượng cao",
-    slug: "signboard",
+    slug: "bang-hieu",
   },
   {
     image: "/images/hopden.jpg",
     title: "HỘP ĐÈN",
     description: "Thiết kế hộp đèn quảng cáo sáng tạo, bắt mắt",
     alt: "Hộp đèn quảng cáo hiện đại, tiết kiệm điện",
-    slug: "light-box",
+    slug: "hop-den",
   },
   {
     image: "/images/chunoi.jpg",
     title: "CHỮ NỔI",
     description: "Gia công chữ nổi đẹp, độc đáo theo yêu cầu",
     alt: "Chữ nổi inox, mica chất lượng cao",
-    slug: "raised-letters",
+    slug: "chu-noi",
   },
   {
     image: "/images/bienquangcao.jpg",
     title: "LED",
     description: "Thiết kế và thi công biển LED hiện đại",
     alt: "Biển LED quảng cáo chuyên nghiệp",
-    slug: "led",
+    slug: "bang-led",
   },
 ];
 

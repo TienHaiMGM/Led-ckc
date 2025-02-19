@@ -23,7 +23,10 @@ export const menuItems = [
       { href: "/pages/lam-bang-hieu/bang-hieu-mica", label: "Bảng hiệu Mica" },
       { href: "/pages/lam-bang-hieu/bang-hieu-led", label: "Bảng hiệu Led" },
       { href: "/pages/lam-bang-hieu/bang-hieu-go", label: "Bảng hiệu Gỗ" },
-      { href: "/pages/lam-bang-hieu/bang-hieu-deca", label: "Bảng hiệu Deca" },
+      {
+        href: "/pages/lam-bang-hieu/bang-hieu-decal",
+        label: "Bảng hiệu Decal",
+      },
       {
         href: "/pages/lam-bang-hieu/bang-hieu-hiflex",
         label: "Bảng hiệu Hiflex",

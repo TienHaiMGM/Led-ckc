@@ -102,7 +102,9 @@ const BangHieuMica = () => {
       <main className="container mx-auto flex-grow px-4 py-8">
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* {TabarLeft} */}
-          <TabarLeft />
+          <div className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
+            <TabarLeft />
+          </div>
           {/* Main Content */}
           <article className="prose max-w-none lg:w-3/4">
             <div className="mb-8 rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
@@ -370,6 +372,10 @@ const BangHieuMica = () => {
                   <h3 className="font-semibold">Giá Cạnh Tranh</h3>
                 </div>
               </div>
+            </div>
+            {/* {TabarLeft} */}
+            <div className="block sm:block md:block lg:hidden xl:hidden">
+              <TabarLeft />
             </div>
           </article>
         </div>

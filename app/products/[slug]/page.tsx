@@ -3,7 +3,8 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProductDetail_WithData from "@/components/specific/ProductDetail_WithData";
-import { getProductBySlug, Product } from "@/components/api/ProductService";
+import { getProductBySlug } from "@/components/api/ProductService";
+import { Product } from "@/types/product";
 import Header from "@/components/common/Header";
 import Menu from "@/components/common/Menu";
 import Footer from "@/components/common/Footer";
