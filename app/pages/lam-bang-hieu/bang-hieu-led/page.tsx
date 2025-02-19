@@ -1,5 +1,4 @@
-"use client";
-
+import { Metadata } from "next";
 import Image from "next/image";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
@@ -8,6 +7,92 @@ import Breadcrumb from "@/components/common/Breadcrumb";
 import SocialButtons from "@/components/common/SocialButtons";
 import TabarLeft from "@/components/common/TabarLeft";
 
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
+    description:
+      "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu cao cấp, bền đẹp và tiết kiệm chi phí cho doanh nghiệp của bạn.",
+    keywords: ["bảng hiệu alu", "quảng cáo", "thiết kế bảng hiệu"],
+    openGraph: {
+      title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
+      description:
+        "Chuyên thiết kế và thi công các loại bảng hiệu Alu quảng cáo chất lượng cao.",
+      url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
+      siteName: "Siêu Thị Bảng Hiệu",
+      images: [
+        {
+          url: "https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Bảng Hiệu Alu - Siêu Thị Bảng Hiệu",
+        },
+      ],
+      locale: "vi_VN",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
+      description:
+        "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu.",
+      images: ["https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg"],
+    },
+    alternates: {
+      canonical: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
+    },
+  };
+}
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
+      url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
+      name: "Bảng Hiệu Alu",
+      description:
+        "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu cao cấp.",
+      isPartOf: {
+        "@type": "WebSite",
+        "@id": "https://sieuthibanghieu.vn/#website",
+        url: "https://sieuthibanghieu.vn",
+        name: "Siêu Thị Bảng Hiệu",
+        description:
+          "Chuyên thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp",
+        publisher: {
+          "@id": "https://sieuthibanghieu.vn/#organization",
+        },
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          item: {
+            "@type": "WebPage",
+            "@id": "https://sieuthibanghieu.vn/",
+            url: "https://sieuthibanghieu.vn/",
+            name: "Trang chủ",
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          item: {
+            "@type": "WebPage",
+            "@id": "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
+            url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
+            name: "Bảng Hiệu Alu",
+          },
+        },
+      ],
+    },
+  ],
+};
 const BangHieuLed = () => {
   return (
     <div className="flex min-h-screen flex-col">
@@ -289,9 +374,12 @@ const BangHieuLed = () => {
           </article>
         </div>
       </main>
-
       <SocialButtons />
       <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
     </div>
   );
 };

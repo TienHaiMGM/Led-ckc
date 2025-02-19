@@ -45,7 +45,7 @@ const Breadcrumb = () => {
   return (
     <>
       <nav
-        className="flex rounded-lg border border-gray-200 bg-gray-50 px-5 py-3 text-gray-700 dark:border-gray-700 dark:bg-gray-800"
+        className="flex rounded-lg border border-gray-200 bg-gray-50 px-5 py-3 text-gray-700"
         aria-label="Breadcrumb"
       >
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -72,8 +72,8 @@ const Breadcrumb = () => {
                 href={item.path}
                 className={`inline-flex items-center text-sm font-medium ${
                   index === breadcrumbs.length - 1
-                    ? "text-blue-600 dark:text-blue-500"
-                    : "text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+                    ? "text-blue-600"
+                    : "text-gray-700 hover:text-blue-600"
                 }`}
               >
                 {index === 0 && (

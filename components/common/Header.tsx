@@ -129,9 +129,7 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
                         <button
                           type="submit"
                           className="absolute right-3 top-1/2 -translate-y-1/2"
-                        >
-                          <FaSearch className="text-black-500" />
-                        </button>
+                        ></button>
                       </form>
                     </motion.div>
                   )}
@@ -177,7 +175,7 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
                     <div>
                       <button
                         onClick={() => toggleDropdown(item.label)}
-                        className="flex w-full items-center justify-between rounded-lg px-4 py-2 text-white transition-colors hover:bg-white/10"
+                        className="flex w-full items-center justify-between rounded-lg px-4 py-2 text-black transition-colors hover:bg-white/10"
                       >
                         <span className="text-base font-semibold">
                           {item.label}
@@ -205,7 +203,7 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
                                   setIsMobileMenuOpen(false);
                                   setActiveDropdown(null);
                                 }}
-                                className="block rounded-lg px-4 py-2 text-sm text-white transition-colors hover:bg-white/10"
+                                className="block rounded-lg px-4 py-2 text-sm text-black transition-colors hover:bg-white/10"
                               >
                                 {subItem.label}
                               </Link>
@@ -218,7 +216,7 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
                     <Link
                       href={item.href || "#"}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block rounded-lg px-4 py-2 text-base font-semibold text-white transition-colors hover:bg-white/10"
+                      className="block rounded-lg px-4 py-2 text-base font-semibold text-black transition-colors hover:bg-white/10"
                     >
                       {item.label}
                     </Link>
