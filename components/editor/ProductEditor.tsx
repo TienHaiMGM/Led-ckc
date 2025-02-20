@@ -4,7 +4,6 @@ import { EditorProps } from "../../types/product-management";
 import Preview from "../../app/admin/product-content/preview";
 import { useProductEditor } from "../api/hooks/useProductEditor";
 import { DraftsModal } from "./DraftsModal";
-import { EditorTabs } from "./EditorTabs";
 import { ProductTable } from "./ProductTable";
 
 const ProductEditor: React.FC<EditorProps> = ({
@@ -118,15 +117,6 @@ const ProductEditor: React.FC<EditorProps> = ({
                   </button>
                 ))}
               </nav>
-            </div>
-
-            <div className="p-6" role="tabpanel">
-              <EditorTabs
-                activeTab={activeTab}
-                formData={formData}
-                setFormData={setFormData}
-                generateSlug={generateSlug}
-              />
             </div>
 
             {showPreview && (

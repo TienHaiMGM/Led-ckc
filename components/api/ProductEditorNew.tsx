@@ -19,13 +19,10 @@ import { FormField } from "../common/FormField";
 import { useProductEditorNew } from "./hooks/useProductEditorNew";
 import "../../app/admin/product-content/custom-editor.css";
 
-const CustomEditor = dynamic(
-  () => import("../../components/editor/CustomeEditor"),
-  {
-    ssr: false,
-    loading: () => <p>Đang tải trình soạn thảo...</p>,
-  },
-);
+const CustomEditor = dynamic(() => import("../editor/CustomeEditor"), {
+  ssr: false,
+  loading: () => <p>Đang tải trình soạn thảo...</p>,
+});
 interface CategoryOption {
   value: string;
   label: string;

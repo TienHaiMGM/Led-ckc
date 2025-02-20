@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../../app/admin/product-content/custom-editor.css";
 
 interface CustomEditorProps {
   initialValue?: string;
@@ -16,213 +15,7 @@ interface ImageCustomizationModalProps {
   isOpen: boolean;
   onClose: () => void;
   imageElement: HTMLImageElement | null;
-  onApply: (props: ImageCustomizationProps) => void;
 }
-
-interface ImageCustomizationProps {
-  width: string;
-  height: string;
-  position:
-    | "top-left"
-    | "top-center"
-    | "top-right"
-    | "middle-left"
-    | "middle-center"
-    | "middle-right"
-    | "bottom-left"
-    | "bottom-center"
-    | "bottom-right";
-  caption: string;
-}
-
-const ImageCustomizationModal: React.FC<ImageCustomizationModalProps> = ({
-  isOpen,
-  onClose,
-  imageElement,
-  onApply,
-}) => {
-  const [width, setWidth] = useState(imageElement?.style.width || "100%");
-  const [height, setHeight] = useState(imageElement?.style.height || "auto");
-  const [position, setPosition] = useState<ImageCustomizationProps["position"]>(
-    imageElement?.classList.contains("top-left")
-      ? "top-left"
-      : imageElement?.classList.contains("top-center")
-        ? "top-center"
-        : imageElement?.classList.contains("top-right")
-          ? "top-right"
-          : imageElement?.classList.contains("middle-left")
-            ? "middle-left"
-            : imageElement?.classList.contains("middle-right")
-              ? "middle-right"
-              : imageElement?.classList.contains("bottom-left")
-                ? "bottom-left"
-                : imageElement?.classList.contains("bottom-center")
-                  ? "bottom-center"
-                  : imageElement?.classList.contains("bottom-right")
-                    ? "bottom-right"
-                    : "middle-center",
-  );
-  const [caption, setCaption] = useState(
-    imageElement?.nextElementSibling?.textContent || "",
-  );
-
-  useEffect(() => {
-    if (imageElement) {
-      setWidth(imageElement.style.width || "100%");
-      setHeight(imageElement.style.height || "auto");
-      setPosition(
-        imageElement.classList.contains("top-left")
-          ? "top-left"
-          : imageElement.classList.contains("top-center")
-            ? "top-center"
-            : imageElement.classList.contains("top-right")
-              ? "top-right"
-              : imageElement.classList.contains("middle-left")
-                ? "middle-left"
-                : imageElement.classList.contains("middle-right")
-                  ? "middle-right"
-                  : imageElement.classList.contains("bottom-left")
-                    ? "bottom-left"
-                    : imageElement.classList.contains("bottom-center")
-                      ? "bottom-center"
-                      : imageElement.classList.contains("bottom-right")
-                        ? "bottom-right"
-                        : "middle-center",
-      );
-      const captionElement = imageElement.nextElementSibling;
-      if (captionElement?.classList.contains("image-caption")) {
-        setCaption(captionElement.textContent || "");
-      }
-    }
-  }, [imageElement]);
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="image-modal-overlay">
-      <div className="image-modal">
-        <h3>Image Properties</h3>
-        <div className="modal-content">
-          <div className="modal-field">
-            <label>Width:</label>
-            <input
-              type="text"
-              value={width}
-              onChange={(e) => setWidth(e.target.value)}
-              placeholder="e.g., 100%, 300px"
-            />
-          </div>
-          <div className="modal-field">
-            <label>Height:</label>
-            <input
-              type="text"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-              placeholder="e.g., auto, 200px"
-            />
-          </div>
-          <div className="modal-field">
-            <label>Position:</label>
-            <div className="position-grid">
-              <button
-                type="button"
-                className={`position-btn ${position === "top-left" ? "active" : ""}`}
-                onClick={() => setPosition("top-left")}
-                title="Top Left"
-              >
-                ↖
-              </button>
-              <button
-                className={`position-btn ${position === "top-center" ? "active" : ""}`}
-                type="button"
-                onClick={() => setPosition("top-center")}
-                title="Top Center"
-              >
-                ↑
-              </button>
-              <button
-                className={`position-btn ${position === "top-right" ? "active" : ""}`}
-                type="button"
-                onClick={() => setPosition("top-right")}
-                title="Top Right"
-              >
-                ↗
-              </button>
-              <button
-                className={`position-btn ${position === "middle-left" ? "active" : ""}`}
-                type="button"
-                onClick={() => setPosition("middle-left")}
-                title="Middle Left"
-              >
-                ←
-              </button>
-              <button
-                className={`position-btn ${position === "middle-center" ? "active" : ""}`}
-                type="button"
-                onClick={() => setPosition("middle-center")}
-                title="Middle Center"
-              >
-                ●
-              </button>
-              <button
-                className={`position-btn ${position === "middle-right" ? "active" : ""}`}
-                type="button"
-                onClick={() => setPosition("middle-right")}
-                title="Middle Right"
-              >
-                →
-              </button>
-              <button
-                className={`position-btn ${position === "bottom-left" ? "active" : ""}`}
-                type="button"
-                onClick={() => setPosition("bottom-left")}
-                title="Bottom Left"
-              >
-                ↙
-              </button>
-              <button
-                className={`position-btn ${position === "bottom-center" ? "active" : ""}`}
-                type="button"
-                onClick={() => setPosition("bottom-center")}
-                title="Bottom Center"
-              >
-                ↓
-              </button>
-              <button
-                className={`position-btn ${position === "bottom-right" ? "active" : ""}`}
-                type="button"
-                onClick={() => setPosition("bottom-right")}
-                title="Bottom Right"
-              >
-                ↘
-              </button>
-            </div>
-          </div>
-          <div className="modal-field">
-            <label>Caption:</label>
-            <input
-              type="text"
-              value={caption}
-              onChange={(e) => setCaption(e.target.value)}
-              placeholder="Enter image caption"
-            />
-          </div>
-        </div>
-        <div className="modal-actions">
-          <button
-            type="button"
-            onClick={() => onApply({ width, height, position, caption })}
-          >
-            Apply
-          </button>
-          <button type="button" onClick={onClose}>
-            Cancel
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const Dropdown: React.FC<DropdownProps> = ({ label, children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -246,7 +39,7 @@ const Dropdown: React.FC<DropdownProps> = ({ label, children }) => {
     <div className="toolbar-dropdown" ref={dropdownRef}>
       <button
         type="button"
-        className="toolbar-button"
+        className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
         onClick={() => setIsOpen(!isOpen)}
       >
         {label} ▾
@@ -344,47 +137,6 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
     }
   };
 
-  const handleImageCustomization = (props: ImageCustomizationProps) => {
-    if (selectedImage) {
-      selectedImage.style.width = props.width;
-      selectedImage.style.height = props.height;
-
-      // Remove all position classes first
-      selectedImage.classList.remove(
-        "top-left",
-        "top-center",
-        "top-right",
-        "middle-left",
-        "middle-center",
-        "middle-right",
-        "bottom-left",
-        "bottom-center",
-        "bottom-right",
-      );
-
-      // Add new position class
-      selectedImage.classList.add(props.position);
-
-      const wrapper = selectedImage.parentElement;
-      if (wrapper?.classList.contains("image-wrapper")) {
-        wrapper.className = `image-wrapper position-${props.position}`;
-      }
-
-      const captionElement = selectedImage.nextElementSibling as HTMLDivElement;
-      if (captionElement?.classList.contains("image-caption")) {
-        captionElement.textContent = props.caption;
-      } else {
-        const newCaptionDiv = document.createElement("div") as HTMLDivElement;
-        newCaptionDiv.className = "image-caption";
-        newCaptionDiv.setAttribute("contenteditable", "true");
-        newCaptionDiv.textContent = props.caption;
-        selectedImage.parentElement?.appendChild(newCaptionDiv);
-      }
-    }
-    setIsImageModalOpen(false);
-    handleInput();
-  };
-
   const toggleSourceMode = () => {
     setIsSourceMode(!isSourceMode);
   };
@@ -423,15 +175,19 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
     };
   }, [isSourceMode]);
 
+  function applyFormat(arg0: string, arg1: string): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
-    <div className="custom-editor">
-      <div className="editor-toolbar">
+    <div className="rounded-sm border shadow-sm">
+      <div className="p-2flex sticky top-0 z-10 flex flex-wrap gap-1 rounded-t-lg border-b border-slate-200 bg-slate-50 p-2">
         {/* View Mode Toggle */}
-        <div className="toolbar-group">
+        <div className="relative flex gap-1">
           <button
             type="button"
             onClick={toggleSourceMode}
-            className={`toolbar-button ${isSourceMode ? "active" : ""}`}
+            className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${isSourceMode ? "active" : ""}`}
             title="Toggle HTML Source"
           >
             {isSourceMode ? "Visual" : "HTML"}
@@ -441,11 +197,11 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
         {!isSourceMode && (
           <>
             {/* History Controls */}
-            <div className="toolbar-group">
+            <div className="relative flex gap-1">
               <button
                 type="button"
                 onClick={() => execCommand("undo")}
-                className="toolbar-button"
+                className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
                 title="Undo"
               >
                 ↶
@@ -453,7 +209,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
               <button
                 type="button"
                 onClick={() => execCommand("redo")}
-                className="toolbar-button"
+                className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
                 title="Redo"
               >
                 ↷
@@ -461,17 +217,17 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             </div>
 
             {/* Text Style Dropdown */}
-            <div className="toolbar-group">
+            <div className="relative flex gap-1">
               <Dropdown label="Style">
                 <button
                   type="button"
-                  onClick={() => execCommand("formatBlock", "p")}
+                  onClick={() => applyFormat("Paragraph", "p")}
                 >
                   Paragraph
                 </button>
                 <button
                   type="button"
-                  onClick={() => execCommand("formatBlock", "h1")}
+                  onClick={() => applyFormat("Heading 1", "h1")}
                 >
                   Heading 1
                 </button>
@@ -497,7 +253,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             </div>
 
             {/* Text Formatting Dropdown */}
-            <div className="toolbar-group">
+            <div className="relative flex gap-1">
               <Dropdown label="Format">
                 <button type="button" onClick={() => execCommand("bold")}>
                   Bold
@@ -527,7 +283,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             </div>
 
             {/* Alignment Dropdown */}
-            <div className="toolbar-group">
+            <div className="relative flex gap-1">
               <Dropdown label="Align">
                 <button
                   type="button"
@@ -563,7 +319,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             </div>
 
             {/* List Dropdown */}
-            <div className="toolbar-group">
+            <div className="relative flex gap-1">
               <Dropdown label="List">
                 <button
                   type="button"
@@ -581,7 +337,7 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             </div>
 
             {/* Insert Controls */}
-            <div className="toolbar-group">
+            <div className="relative flex gap-1">
               <Dropdown label="Insert">
                 <button
                   type="button"
@@ -656,33 +412,33 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
             </div>
 
             {/* Color Controls */}
-            <div className="toolbar-group">
+            <div className="relative flex gap-1">
               <Dropdown label="Color">
-                <div className="color-picker-group">
+                <div className="flex items-center gap-2 p-2 px-3">
                   <label>Text Color</label>
                   <input
                     type="color"
                     onChange={(e) => execCommand("foreColor", e.target.value)}
-                    className="toolbar-color"
+                    className=""
                   />
                 </div>
-                <div className="color-picker-group">
+                <div className="flex items-center gap-2 p-2 px-3">
                   <label>Background</label>
                   <input
                     type="color"
                     onChange={(e) => execCommand("hiliteColor", e.target.value)}
-                    className="toolbar-color"
+                    className=""
                   />
                 </div>
               </Dropdown>
             </div>
 
             {/* Clear Formatting */}
-            <div className="toolbar-group">
+            <div className="relative flex gap-1">
               <button
                 type="button"
                 onClick={() => execCommand("removeFormat")}
-                className="toolbar-button"
+                className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
                 title="Clear Formatting"
               >
                 Clear Format
@@ -693,31 +449,24 @@ const CustomEditor: React.FC<CustomEditorProps> = ({
       </div>
 
       {isSourceMode ? (
-        <div className="editor-source-container">
+        <div className="relative min-h-[300px] rounded-b-lg bg-gray-900">
           <textarea
             value={content}
             onChange={handleSourceInput}
             placeholder="Enter HTML code here..."
             spellCheck={false}
-            className="editor-source"
+            className="p-3 text-base"
           />
         </div>
       ) : (
         <div
           ref={editorRef}
-          className="editor-content"
+          className="tab-[2] min-h-[300px] w-full resize-y border-none bg-transparent p-4 font-mono text-sm leading-6 text-black outline-none"
           onInput={handleInput}
           placeholder={placeholder}
           suppressContentEditableWarning={true}
         />
       )}
-
-      <ImageCustomizationModal
-        isOpen={isImageModalOpen}
-        onClose={() => setIsImageModalOpen(false)}
-        imageElement={selectedImage}
-        onApply={handleImageCustomization}
-      />
     </div>
   );
 };
