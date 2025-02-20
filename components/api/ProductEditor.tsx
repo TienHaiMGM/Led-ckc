@@ -18,6 +18,7 @@ import Preview from "../../app/admin/product-content/preview";
 import { FormField } from "../common/FormField";
 import { useProductEditor } from "./hooks/useProductEditor";
 import "../../app/admin/product-content/custom-editor.css";
+import RichTextEditor from "@/app/test/TextEditor";
 
 const CustomEditor = dynamic(() => import("../editor/CustomeEditor"), {
   ssr: false,
@@ -252,10 +253,19 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
           Nội dung
         </label>
         <div className="editor-wrapper">
-          <CustomEditor
+          {/* <CustomEditor
             initialValue={formData.content}
             onChange={(value) => setFormData({ ...formData, content: value })}
             placeholder="Nhập nội dung sản phẩm..."
+          /> */}
+          <RichTextEditor
+            initialValue={formData.content}
+            onChange={(value) =>
+              setFormData((prev) => ({
+                ...prev,
+                content: value,
+              }))
+            }
           />
         </div>
       </div>

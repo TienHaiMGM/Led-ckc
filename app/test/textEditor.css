@@ -24,3 +24,15 @@ h6 {
   font-size: 0.67em;
   font-weight: bold;
 }
+
+.ProseMirror img {
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 3px solid #3b82f6; /* Màu xanh khi focus */
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  border-radius: 8px;
+  scale: 105%;
+}

@@ -34,6 +34,7 @@ module.exports = {
     },
   },
   plugins: [
+    require("@tailwindcss/typography"),
     // Plugin to handle focus-visible polyfill
     function ({ addVariant }) {
       addVariant("focus-visible", [

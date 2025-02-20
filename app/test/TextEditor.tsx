@@ -1,331 +1,574 @@
-// components/AdvancedTiptapEditor.tsx
-import React, { useState } from "react";
+// components/RichTextEditor.tsx
+"use client";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Heading from "@tiptap/extension-heading";
-import TextStyle from "@tiptap/extension-text-style";
-import Color from "@tiptap/extension-color";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
-import Image from "@tiptap/extension-image";
-import Dropcursor from "@tiptap/extension-dropcursor";
+import TextAlign from "@tiptap/extension-text-align";
+import TextStyle from "@tiptap/extension-text-style";
+import Color from "@tiptap/extension-color";
+import Heading from "@tiptap/extension-heading";
+import { FC, useEffect, useRef, useState } from "react";
+import BulletList from "@tiptap/extension-bullet-list";
+import OrderedList from "@tiptap/extension-ordered-list";
+import ListItem from "@tiptap/extension-list-item";
+import Subscript from "@tiptap/extension-subscript";
+import Superscript from "@tiptap/extension-superscript";
+import Highlight from "@tiptap/extension-highlight";
+import Document from "@tiptap/extension-document";
+import Focus from "@tiptap/extension-focus";
+import Text from "@tiptap/extension-text";
+import { FontSize } from "@/lib/FontSize";
+import { ResizableImage } from "@/lib/ResizableImage_update";
 import "./textEditor.css";
-import Paragraph from "@tiptap/extension-paragraph";
 
-const AdvancedTiptapEditor = () => {
-  const [isHtmlView, setIsHtmlView] = useState(false);
-  const [htmlContent, setHtmlContent] = useState("");
+// Bảng màu
+const colorPalette = [
+  "#FF0000",
+  "#00FF00",
+  "#0000FF",
+  "#FFFF00",
+  "#FF00FF",
+  "#00FFFF",
+  "#000000",
+  "#FFFFFF",
+  "#808080",
+  "#FFA500",
+  "#800080",
+  "#008000",
+];
+// Font-size
+const fontSizes = ["16px", "18px", "20px", "24px", "30px", "36px"];
+
+interface RichTextEditorProps {
+  initialValue?: string;
+  onChange?: (content: string) => void;
+}
+const RichTextEditor: FC<RichTextEditorProps> = ({
+  onChange,
+  initialValue = "",
+}) => {
+  const [isFormattingDropdownOpen, setFormattingDropdownOpen] = useState(false);
+  const [isImageDropdownOpen, setImageDropdownOpen] = useState(false);
+  const [isStructureDropdownOpen, setStructureDropdownOpen] = useState(false);
+  const [isColorDropdownOpen, setColorDropdownOpen] = useState(false);
+  const [isFontSizeDropdownOpen, setFontSizeDropdownOpen] = useState(false);
+  const [isAlignmentDropdownOpen, setAlignmentDropdownOpen] = useState(false);
+  const [isItemDropdownOpen, setItemDropdownOpen] = useState(false);
+  const [showHtml, setShowHtml] = useState(false);
+  const [htmlContent, setHtmlContent] = useState(initialValue);
+  const [url, setUrl] = useState("");
+  const [alt, setAlt] = useState("");
+  const [width, setWidth] = useState("300px");
+  const [height, setHeight] = useState("auto");
+  const [caption, setCaption] = useState("");
+  const [alignment, setAlignment] = useState<"left" | "center" | "right">(
+    "center",
+  );
+  const editorRef = useRef<HTMLDivElement>(null);
+  const [content, setContent] = useState("");
 
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({ history: { depth: 100 } }),
-      Paragraph,
-      Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }),
-      TextStyle,
-      Color,
+      FontSize,
+      ResizableImage,
+      StarterKit,
+      Document,
+      Text,
       Underline,
-      Dropcursor,
+      TextStyle,
+      Subscript,
+      Superscript,
+      BulletList,
+      OrderedList,
+      ListItem,
+      Color.configure({ types: ["textStyle"] }),
+      Highlight.configure({ multicolor: true }),
       Link.configure({
+        linkOnPaste: false,
+        autolink: false,
         openOnClick: true,
-        autolink: true,
-        linkOnPaste: true,
-        HTMLAttributes: {
-          class: "text-blue-500 hover:underline cursor-pointer",
-        },
+        HTMLAttributes: { class: "text-blue-500 underline cursor-pointer" },
       }),
-      Image.configure({
-        allowBase64: true,
-        inline: false,
-        HTMLAttributes: {
-          class: "rounded-lg",
-        },
-      }).extend({
-        addAttributes() {
-          return {
-            ...this.parent?.(),
-            alt: {
-              default: null,
-              parseHTML: (element) => element.getAttribute("alt"),
-              renderHTML: (attributes) => {
-                if (!attributes.alt) return {};
-                return { alt: attributes.alt };
-              },
-            },
-            alignment: {
-              default: "center",
-              parseHTML: (element) => element.style.textAlign || "center",
-              renderHTML: (attributes) => {
-                return { style: `text-align: ${attributes.alignment}` };
-              },
-            },
-          };
-        },
-      }),
+      Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }),
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
+      Focus.configure({ className: "has-focus", mode: "all" }),
     ],
-    content: "<p>Bắt đầu viết nội dung tại đây...</p>",
+    autofocus: true,
+    content: htmlContent,
     editorProps: {
       attributes: {
-        class:
-          "h-96 w-full resize-none rounded-lg border p-4 focus:ring-2 focus:ring-blue-400 ",
+        class: "h-96 w-full resize-y rounded-lg p-4 overflow-scroll",
       },
     },
-    onUpdate: ({ editor }) => setHtmlContent(editor.getHTML()),
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      setHtmlContent(html); // Giữ state nội bộ
+      if (onChange) {
+        onChange(html); // Gửi dữ liệu ra ngoài component cha
+      }
+    },
+    onSelectionUpdate: ({ editor }) => {
+      const { node } = editor.state.selection as any;
+      if (node?.type?.name === "resizableImage") {
+        setWidth(node.attrs.width || "300px");
+        setHeight(node.attrs.height || "auto");
+        setAlignment(node.attrs.alignment || "center");
+        setAlt(node.attrs.alt || "");
+        setCaption(node.attrs.caption || "");
+      }
+    },
   });
 
-  const handleHeadingChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const level = parseInt(e.target.value);
-    if (level >= 1 && level <= 6) {
-      editor
-        ?.chain()
-        .focus()
-        .toggleHeading({ level: level as any })
-        .run();
-    }
-  };
+  if (!editor) return null;
 
-  const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const color = e.target.value;
-    editor?.chain().focus().setColor(color).run();
-  };
-
-  const isValidUrl = (url: string) => {
-    try {
-      new URL(url);
-      return true;
-    } catch (_) {
-      return false;
-    }
-  };
-
-  const isImageUrl = (url: string) => {
-    return /\.(jpeg|jpg|gif|png|webp|svg)$/i.test(url);
-  };
-
-  const insertImage = () => {
-    const url = prompt("Nhập URL hình ảnh:");
-    if (!url) return;
-
-    if (!isValidUrl(url)) {
-      alert(
-        "URL không hợp lệ. Vui lòng nhập URL đầy đủ (bao gồm http:// hoặc https://)",
-      );
+  const handleSetImage = () => {
+    if (!url.trim()) {
+      alert("Vui lòng nhập URL hình ảnh.");
       return;
     }
-
-    if (!isImageUrl(url)) {
-      alert(
-        "URL không phải là hình ảnh hợp lệ. Vui lòng sử dụng ảnh có đuôi .jpg, .png, .gif, .webp hoặc .svg",
-      );
-      return;
-    }
-
-    const alt = prompt("Nhập mô tả (alt text) cho hình ảnh:");
-    const alignment = prompt(
-      "Chọn căn chỉnh hình ảnh (left, center, right):",
-      "center",
-    );
-
-    if (!["left", "center", "right"].includes(alignment || "")) {
-      alert("Căn chỉnh không hợp lệ. Vui lòng chọn left, center hoặc right");
-      return;
-    }
-
-    // const pos = editor?.state.selection.from;
-    // .setNodeSelection(pos || 0)
     editor
       ?.chain()
       .focus()
-      .setImage({ src: url, alt: alt || "" })
-      .updateAttributes("image", { alignment: alignment || "center" })
+      .setImage({ src: url, alt, width, height, alignment, caption })
       .run();
+
+    setUrl("");
+    setAlt("");
+    setCaption("");
+    setWidth("300px");
+    setHeight("auto");
+    setAlignment("center");
+    setImageDropdownOpen(false);
   };
 
-  const insertLink = () => {
-    const url = prompt("Nhập URL liên kết:");
-    if (!url) return;
+  const handleUpdateImageAttrs = () => {
+    editor?.chain().focus().updateImageAttrs({ width, height, caption }).run();
+  };
 
-    if (!isValidUrl(url)) {
-      alert(
-        "URL không hợp lệ. Vui lòng nhập URL đầy đủ (bao gồm http:// hoặc https://)",
-      );
+  const handleAlignmentChange = (newAlignment: "left" | "center" | "right") => {
+    setAlignment(newAlignment);
+    editor?.chain().focus().updateImageAttrs({ alignment: newAlignment }).run();
+  };
+
+  const applyHeadingToSelection = (level: number) => {
+    const { from, to } = editor.state.selection;
+    if (from === to) {
+      alert("Please select text to apply the heading.");
       return;
     }
-
-    const text = prompt("Nhập văn bản hiển thị cho liên kết:");
-    if (!text) return;
-
-    editor
-      ?.chain()
-      .focus()
-      .insertContent(`<a href="${url}" target="_blank">${text}</a>`)
-      .run();
+    editor.chain().focus().toggleHeading({ level }).run();
   };
 
-  const alignImage = (alignment: string) => {
-    if (!editor) return;
+  const changeTextColor = (color: string) => {
+    editor.chain().focus().setColor(color).run();
+  };
 
-    const state = editor.state;
-    const { from, to } = state.selection;
-    state.doc.nodesBetween(from, to, (node: any, pos: number) => {
-      if (node.type.name === "image") {
-        editor
-          .chain()
-          .focus()
-          .command(({ tr }) => {
-            tr.setNodeMarkup(pos, undefined, { ...node.attrs, alignment });
-            return true;
-          })
-          .run();
+  const changeHighlightColor = (color: string) => {
+    editor.chain().focus().toggleHighlight({ color: color }).run();
+  };
+
+  const toggleHtmlView = () => {
+    if (showHtml && htmlContent !== editor.getHTML()) {
+      editor.commands.setContent(htmlContent, false);
+    }
+    setShowHtml(!showHtml);
+  };
+  const addLink = () => {
+    const previousUrl = editor.getAttributes("link").href;
+    const url = window.prompt("Enter the URL", previousUrl);
+    if (url === null) return;
+    if (url === "") {
+      editor.chain().focus().unsetLink().run();
+      return;
+    }
+    editor.chain().focus().setLink({ href: url }).run();
+  };
+  const handleFontSizeChange = (size: string) => {
+    if (editor) editor.chain().focus().setFontSize(size).run();
+  };
+
+  const handleInput = () => {
+    if (editorRef.current) {
+      const newContent = editorRef.current.innerHTML;
+
+      if (onChange) {
+        onChange(newContent);
       }
-    });
+    }
   };
 
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    const files = event.dataTransfer.files;
-    Array.from(files).forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const src = reader.result;
-        const alt = prompt("Nhập mô tả (alt text) cho hình ảnh:");
-        const alignment = prompt(
-          "Chọn căn chỉnh hình ảnh (left, center, right):",
-          "center",
-        );
-        if (typeof src === "string") {
-          const pos = editor?.state.selection.from;
-          editor
-            ?.chain()
-            .focus()
-            .setImage({ src, alt: alt || "" })
-            .setNodeSelection(pos || 0)
-            .updateAttributes("image", { alignment })
-            .run();
-        }
-      };
-      reader.readAsDataURL(file);
-    });
+  const handleSourceInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newContent = e.target.value;
+    setContent(newContent);
+    if (onChange) {
+      onChange(newContent);
+    }
   };
 
   return (
-    <div
-      className="mx-auto max-w-4xl space-y-4 rounded-2xl bg-white p-6 shadow-lg"
-      onDrop={handleDrop}
-      onDragOver={(e) => e.preventDefault()}
-    >
-      <div className="flex flex-wrap gap-4">
-        <select
-          onChange={handleHeadingChange}
-          className="rounded-lg border bg-gray-50 p-2 focus:ring-2 focus:ring-blue-400"
-        >
-          <option value="1" className="text-[2em]">
-            Heading 1
-          </option>
-          <option value="2" className="text-[1.5em]">
-            Heading 2
-          </option>
-          <option value="3" className="text-[1.17em]">
-            Heading 3
-          </option>
-          <option value="4" className="text-[1em]">
-            Heading 4
-          </option>
-          <option value="5" className="text-[0.83em]">
-            Heading 5
-          </option>
-          <option value="6" className="text-[0.67em]">
-            Heading 6
-          </option>
-        </select>
-        <button
-          className="rounded-lg border bg-gray-50 p-2 focus:ring-2 focus:ring-blue-400"
-          onClick={() => editor?.commands.setParagraph()}
-        >
-          Paragraph
-        </button>
-        <input
-          type="color"
-          onChange={handleColorChange}
-          className="h-10 w-12 rounded-lg border"
-          title="Chọn màu chữ"
-        />
+    <div className="rounded-sm border shadow-sm">
+      <div className="p-2flex sticky top-0 z-10 flex flex-wrap gap-1 rounded-t-lg border-b border-slate-200 bg-slate-50 p-2">
+        <div className="relative flex gap-1">
+          {/* Text Formatting */}
+          <div className="relative">
+            <div
+              onMouseEnter={() =>
+                setFormattingDropdownOpen(!isFormattingDropdownOpen)
+              }
+              className="h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white p-1 text-sm text-gray-700 transition-all duration-150 ease-in-out"
+              onMouseLeave={() => setFormattingDropdownOpen(false)}
+            >
+              Formatting ▼
+              {isFormattingDropdownOpen && (
+                <div className="absolute z-10 grid space-y-2 rounded-lg border bg-white p-2 shadow-lg">
+                  <button
+                    onClick={() => editor.chain().focus().toggleBold().run()}
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("bold") ? "bg-gray-300" : ""}`}
+                  >
+                    <b>Bold</b>
+                  </button>
+                  <button
+                    onClick={() => editor.chain().focus().toggleItalic().run()}
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("italic") ? "bg-gray-300" : ""}`}
+                  >
+                    <i>Italic</i>
+                  </button>
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().toggleUnderline().run()
+                    }
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("underline") ? "bg-gray-300" : ""}`}
+                  >
+                    <u>Underline</u>
+                  </button>
+                  <button
+                    onClick={() => editor.chain().focus().toggleStrike().run()}
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("strike") ? "bg-gray-300" : ""}`}
+                  >
+                    <s>Strike</s>
+                  </button>
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().toggleSubscript().run()
+                    }
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("subscript") ? "bg-gray-300" : ""}`}
+                  >
+                    <sub>Subscript</sub>
+                  </button>
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().toggleSuperscript().run()
+                    }
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("superscript") ? "bg-gray-300" : ""}`}
+                  >
+                    <sup>Superscript</sup>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+          {/* Font-size */}
+          <div className="relative">
+            <div
+              onMouseEnter={() =>
+                setFontSizeDropdownOpen(!isFontSizeDropdownOpen)
+              }
+              className="h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white p-1 text-sm text-gray-700 transition-all duration-150 ease-in-out"
+              onMouseLeave={() => setFontSizeDropdownOpen(false)}
+            >
+              Font Size ▼
+              {isFontSizeDropdownOpen && (
+                <div className="absolute z-10 grid rounded-lg border bg-white p-3 shadow-lg">
+                  {fontSizes.map((size) => (
+                    <button
+                      key={size}
+                      className="cursor-pointer rounded border p-2"
+                      onClick={() => handleFontSizeChange(size)}
+                      title={`Font-size: ${size}`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+          {/* Structure */}
+          <div className="relative">
+            <div
+              onMouseEnter={() =>
+                setStructureDropdownOpen(!isStructureDropdownOpen)
+              }
+              className="h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white p-1 text-sm text-gray-700 transition-all duration-150 ease-in-out"
+              onMouseLeave={() => setStructureDropdownOpen(false)}
+            >
+              Structure ▼
+              {isStructureDropdownOpen && (
+                <div className="absolute z-10 grid space-y-2 rounded-lg border bg-white p-2 shadow-lg">
+                  <button
+                    onClick={() => editor.chain().focus().setParagraph().run()}
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("paragraph") ? "bg-gray-300" : ""}`}
+                  >
+                    Paragraph
+                  </button>
+                  {[1, 2, 3, 4, 5, 6].map((level) => (
+                    <button
+                      key={level}
+                      onClick={() => applyHeadingToSelection(level)}
+                      className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("heading", { level }) ? "bg-gray-300" : ""}`}
+                    >
+                      H{level}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
 
-        <select
-          onChange={(e) => {
-            const option = e.target.value;
-            if (option === "bold") {
-              editor?.chain().focus().toggleBold().run();
-            } else if (option === "italic") {
-              editor?.chain().focus().toggleItalic().run();
-            } else if (option === "underline") {
-              editor?.chain().focus().toggleUnderline().run();
-            }
-          }}
-          className="rounded-lg border bg-gray-50 p-2 focus:ring-2 focus:ring-blue-400"
-        >
-          <option value="">Định dạng văn bản</option>
-          <option value="bold">In đậm</option>
-          <option value="italic">In nghiêng</option>
-          <option value="underline">Gạch chân</option>
-        </select>
-        <button
-          onClick={insertLink}
-          className="rounded-lg bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600"
-        >
-          Chèn liên kết
-        </button>
-        <button
-          onClick={insertImage}
-          className="rounded-lg bg-pink-500 px-4 py-2 text-white hover:bg-pink-600"
-        >
-          Thêm hình ảnh
-        </button>
-        <select
-          onChange={(e) => alignImage(e.target.value)}
-          className="rounded-lg border bg-gray-50 p-2 focus:ring-2 focus:ring-blue-400"
-        >
-          <option value="">Căn chỉnh</option>
-          <option value="left">Căn trái</option>
-          <option value="center">Căn giữa</option>
-          <option value="right">Căn phải</option>
-        </select>
-        <button
-          onClick={() => editor?.chain().focus().undo().run()}
-          className="rounded-lg bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
-        >
-          Undo
-        </button>
-        <button
-          onClick={() => editor?.chain().focus().redo().run()}
-          className="rounded-lg bg-gray-800 px-4 py-2 text-white hover:bg-gray-900"
-        >
-          Redo
-        </button>
-        <button
-          onClick={() => setIsHtmlView(!isHtmlView)}
-          className="rounded-lg bg-purple-500 px-4 py-2 text-white hover:bg-purple-600"
-        >
-          {isHtmlView ? "Chế độ chỉnh sửa" : "Chế độ xem HTML"}
-        </button>
+          {/* Colors */}
+          <div className="relative">
+            <div
+              onMouseEnter={() => setColorDropdownOpen(!isColorDropdownOpen)}
+              className="h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white p-1 text-sm text-gray-700 transition-all duration-150 ease-in-out"
+              onMouseLeave={() => setColorDropdownOpen(false)}
+            >
+              Colors ▼
+              {isColorDropdownOpen && (
+                <div className="absolute z-10 grid grid-cols-6 gap-5 rounded-lg border bg-white p-4 shadow-lg">
+                  {colorPalette.map((color) => (
+                    <div
+                      key={color}
+                      className="h-8 w-8 cursor-pointer rounded border"
+                      style={{ backgroundColor: color }}
+                      onClick={() => changeTextColor(color)}
+                      title={`Text color: ${color}`}
+                    />
+                  ))}
+                  <p className="col-span-6 mt-2 text-sm font-semibold">
+                    Highlight:
+                  </p>
+                  {colorPalette.map((color) => (
+                    <div
+                      key={`bg-${color}`}
+                      className="h-8 w-8 cursor-pointer rounded border"
+                      style={{ backgroundColor: color }}
+                      onClick={() => changeHighlightColor(color)}
+                      title={`Highlight: ${color}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Align Text */}
+          <div className="relative">
+            <div
+              onMouseEnter={() =>
+                setAlignmentDropdownOpen(!isAlignmentDropdownOpen)
+              }
+              className="h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white p-1 text-sm text-gray-700 transition-all duration-150 ease-in-out"
+              onMouseLeave={() => setAlignmentDropdownOpen(false)}
+            >
+              Align Text ▼
+              {isAlignmentDropdownOpen && (
+                <div className="absolute z-10 grid space-y-2 rounded-lg border bg-white p-2 shadow-lg">
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().setTextAlign("left").run()
+                    }
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("left") ? "bg-gray-300" : ""}`}
+                  >
+                    Left
+                  </button>
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().setTextAlign("center").run()
+                    }
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("center") ? "bg-gray-300" : ""}`}
+                  >
+                    Center
+                  </button>
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().setTextAlign("right").run()
+                    }
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("right") ? "bg-gray-300" : ""}`}
+                  >
+                    Right
+                  </button>
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().setTextAlign("justify").run()
+                    }
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("justify") ? "bg-gray-300" : ""}`}
+                  >
+                    Justify
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* List */}
+          <div className="relative">
+            <div
+              onMouseEnter={() => setItemDropdownOpen(!isItemDropdownOpen)}
+              className="h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white p-1 text-sm text-gray-700 transition-all duration-150 ease-in-out"
+              onMouseLeave={() => setItemDropdownOpen(false)}
+            >
+              List▼
+              {isItemDropdownOpen && (
+                <div className="absolute z-10 grid space-y-2 rounded-lg border bg-white p-2 shadow-lg">
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().toggleBulletList().run()
+                    }
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out${editor.isActive("bulletList") ? "is-active" : ""}`}
+                  >
+                    Bullet list
+                  </button>
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().toggleOrderedList().run()
+                    }
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out${editor.isActive("orderedList") ? "is-active" : ""}`}
+                  >
+                    Ordered list
+                  </button>
+                  <button
+                    onClick={() =>
+                      editor.chain().focus().splitListItem("listItem").run()
+                    }
+                    className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out${editor.isActive("listItem") ? "is-active" : ""}`}
+                  >
+                    List item
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+          {/* Link */}
+          <div className="relative">
+            <button
+              onClick={addLink}
+              className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
+            >
+              Link
+            </button>
+          </div>
+
+          {/* Switch to HTML */}
+          <div className="relative">
+            <button
+              onClick={toggleHtmlView}
+              className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
+            >
+              {showHtml ? "Switch to Editor" : "Switch to HTML"}
+            </button>
+          </div>
+          {/* Upload Image */}
+          <button
+            onClick={() => setImageDropdownOpen(!isImageDropdownOpen)}
+            className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
+          >
+            📷 Thêm hình ảnh
+          </button>
+
+          {isImageDropdownOpen && (
+            <div className="absolute left-3/4 top-3/4 w-80 rounded-lg border bg-white p-3 shadow">
+              <input
+                type="text"
+                placeholder="🔗 URL hình ảnh"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                className="mb-2 w-full rounded border p-1"
+              />
+              <input
+                type="text"
+                placeholder="Caption"
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
+                className="mb-2 w-full rounded border p-1"
+              />
+              <input
+                type="text"
+                placeholder="📝 Alt text"
+                value={alt}
+                onChange={(e) => setAlt(e.target.value)}
+                className="mb-2 w-full rounded border p-1"
+              />
+              <input
+                type="text"
+                placeholder="📏 Width (px/%)"
+                value={width}
+                onChange={(e) => setWidth(e.target.value)}
+                className="mb-2 w-full rounded border p-1"
+              />
+              <input
+                type="text"
+                placeholder="📐 Height (px/auto)"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+                className="mb-2 w-full rounded border p-1"
+              />
+
+              <div className="mb-3 flex justify-between">
+                {["left", "center", "right"].map((pos) => (
+                  <button
+                    key={pos}
+                    onClick={() =>
+                      handleAlignmentChange(pos as "left" | "center" | "right")
+                    }
+                    className={`rounded p-2 ${
+                      alignment === pos
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200"
+                    }`}
+                  >
+                    {pos === "left"
+                      ? "⬅️ Trái"
+                      : pos === "center"
+                        ? "🏳️ Giữa"
+                        : "➡️ Phải"}
+                  </button>
+                ))}
+              </div>
+              <button
+                onClick={handleSetImage}
+                className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
+              >
+                Thêm hình ảnh
+              </button>
+              <button
+                onClick={handleUpdateImageAttrs}
+                className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
+              >
+                Cập nhật hình ảnh
+              </button>
+            </div>
+          )}
+        </div>
       </div>
-
-      {isHtmlView ? (
+      {showHtml ? (
         <textarea
           value={htmlContent}
-          onChange={(e) => {
-            setHtmlContent(e.target.value);
-            editor?.commands.setContent(e.target.value, false);
-          }}
-          className="h-80 w-full rounded-lg border p-4 focus:ring-2 focus:ring-blue-400"
+          onChange={handleSourceInput}
+          onBlur={() => editor.commands.setContent(htmlContent, false)}
+          className="h-96 w-full resize-y overflow-scroll rounded-lg p-4"
         />
       ) : (
         <EditorContent
           editor={editor}
-          className="min-h-[300px] rounded-lg border p-4 focus:ring-2 focus:ring-blue-400"
+          ref={editorRef}
+          onInput={handleInput}
+          className=""
+          suppressContentEditableWarning={true}
         />
       )}
     </div>
   );
 };
 
-export default AdvancedTiptapEditor;
+export default RichTextEditor;
