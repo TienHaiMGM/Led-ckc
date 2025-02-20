@@ -54,11 +54,10 @@ const Contact = () => {
         <Header />
         <Menu />
         <Breadcrumb />
-
-        <main className="flex-grow py-8 sm:py-12 md:py-16">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <main className="flex-grow py-1">
+          <div className="container mx-auto px-1 sm:px-2 lg:px-8">
             {/* Hero Section */}
-            <div className="mb-12 text-center">
+            <div className="mb-2 text-center">
               <div className="mb-6 flex justify-center"></div>
               <h1 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl">
                 Liên Hệ Với Chúng Tôi
@@ -69,7 +68,7 @@ const Contact = () => {
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white p-4 shadow-lg sm:p-6 md:p-8">
+            <div className="rounded-2xl bg-white p-4 text-center shadow-lg sm:p-6 md:p-8">
               {/* Contact Info and Map Section */}
               <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
                 {/* Contact Info */}
@@ -79,56 +78,56 @@ const Contact = () => {
                   </h2>
                   <div className="space-y-6 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 p-6 shadow-md">
                     <div className="group flex items-center gap-4 rounded-lg bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-500 transition-colors group-hover:bg-blue-600 group-hover:text-white">
                         <FaPhoneAlt className="h-5 w-5" />
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-gray-900 sm:text-base">
                           Điện thoại
                         </p>
-                        <p className="text-base text-blue-600 sm:text-lg">
+                        <p className="text-base font-bold text-blue-500 sm:text-lg">
                           (123) 456-7890
                         </p>
                       </div>
                     </div>
 
                     <div className="group flex items-center gap-4 rounded-lg bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-500 transition-colors group-hover:bg-blue-600 group-hover:text-white">
                         <FaEnvelope className="h-5 w-5" />
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-gray-900 sm:text-base">
                           Email
                         </p>
-                        <p className="text-base text-blue-600 sm:text-lg">
+                        <p className="text-base font-bold text-blue-500 sm:text-lg">
                           contact@example.com
                         </p>
                       </div>
                     </div>
 
                     <div className="group flex items-center gap-4 rounded-lg bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-500 transition-colors group-hover:bg-blue-600 group-hover:text-white">
                         <FaClock className="h-5 w-5" />
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-gray-900 sm:text-base">
                           Giờ làm việc
                         </p>
-                        <p className="text-base text-blue-600 sm:text-lg">
+                        <p className="text-base font-bold text-blue-500 sm:text-lg">
                           8:00 - 17:00 (Thứ 2 - Thứ 7)
                         </p>
                       </div>
                     </div>
 
                     <div className="group flex items-center gap-4 rounded-lg bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-500 transition-colors group-hover:bg-blue-600 group-hover:text-white">
                         <FaMapMarkerAlt className="h-5 w-5" />
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-gray-900 sm:text-base">
                           Địa chỉ
                         </p>
-                        <p className="text-base text-blue-600 sm:text-lg">
+                        <p className="text-base font-bold text-blue-500 sm:text-lg">
                           129 Đường ABC, Quận XYZ
                         </p>
                       </div>

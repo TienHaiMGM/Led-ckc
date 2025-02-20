@@ -151,7 +151,7 @@ const News: React.FC<EditorProps> = ({ EditorContent }) => {
                     }}
                     className={`rounded-full px-4 py-2 text-sm transition-colors md:text-base ${
                       selectedCategory === category
-                        ? "bg-blue-600 text-white"
+                        ? "bg-red-600 text-white"
                         : "bg-white text-gray-700 hover:bg-gray-100"
                     }`}
                   >
@@ -184,16 +184,6 @@ const News: React.FC<EditorProps> = ({ EditorContent }) => {
                         />
                       </div>
                       <div className="p-4 md:p-6">
-                        <div className="mb-3 flex items-center gap-3">
-                          <span className="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-600 md:text-sm">
-                            {item.category}
-                          </span>
-                          <time className="text-xs text-gray-500 md:text-sm">
-                            {new Date(item.createdAt).toLocaleDateString(
-                              "vi-VN",
-                            )}
-                          </time>
-                        </div>
                         <h2 className="mb-2 line-clamp-2 text-lg font-semibold text-gray-900 transition-colors hover:text-blue-600 md:text-xl">
                           {item.title}
                         </h2>

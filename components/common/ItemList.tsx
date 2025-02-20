@@ -19,7 +19,7 @@ const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
             className={`group relative w-[35vw] overflow-hidden rounded-lg bg-red-700 bg-gradient-to-r shadow-lg transition-shadow duration-300 hover:w-[95vw] hover:shadow-xl md:w-[25vw] md:hover:w-[35vw] lg:w-[25vw] lg:hover:w-[35vw] xl:w-[15vw] xl:hover:w-[35vw]`}
           >
             <div className="relative py-2">
-              <h2 className="transform pl-7 text-left font-bold text-white transition-transform duration-300 group-hover:scale-105 md:text-2xl">
+              <h2 className="transform pl-7 text-left text-xl font-bold text-white transition-transform duration-300 group-hover:scale-105 md:text-2xl">
                 {EditorContent.title}
               </h2>
 

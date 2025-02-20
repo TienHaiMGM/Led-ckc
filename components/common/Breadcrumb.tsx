@@ -72,8 +72,8 @@ const Breadcrumb = () => {
                 href={item.path}
                 className={`inline-flex items-center text-sm font-medium ${
                   index === breadcrumbs.length - 1
-                    ? "text-blue-600"
-                    : "text-gray-700 hover:text-blue-600"
+                    ? "text-red-600"
+                    : "text-gray-700 hover:text-red-600"
                 }`}
               >
                 {index === 0 && (

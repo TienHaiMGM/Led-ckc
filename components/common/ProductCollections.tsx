@@ -150,11 +150,6 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
           <p className="mb-4 line-clamp-3 text-gray-600">
             {product.description}
           </p>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-500">
-              {new Date(product.createdAt).toLocaleDateString("vi-VN")}
-            </span>
-          </div>
         </div>
       </Link>
     </article>
@@ -189,7 +184,7 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
                     onClick={() => handleCategoryChange(category)}
                     className={`rounded-full px-4 py-2 text-sm transition-colors md:text-base ${
                       selectedCategory === category
-                        ? "bg-blue-600 text-white"
+                        ? "bg-red-600 text-white"
                         : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                     }`}
                   >
@@ -324,7 +319,7 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
               </p>
               <Link
                 href="/lien-he"
-                className="inline-block rounded-lg bg-blue-600 px-8 py-3 text-white transition-colors hover:bg-blue-700"
+                className="inline-block rounded-lg bg-red-600 px-8 py-3 text-white transition-colors hover:bg-red-700"
               >
                 Liên hệ ngay
               </Link>

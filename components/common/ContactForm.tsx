@@ -310,7 +310,7 @@ const ContactForm = () => {
       <button
         type="submit"
         disabled={isSubmitting || isLimitReached || !userIP}
-        className={`w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition-all hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+        className={`w-full rounded-lg bg-red-600 px-4 py-2 text-white transition-all hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
           isSubmitting || isLimitReached || !userIP
             ? "cursor-not-allowed opacity-50"
             : ""

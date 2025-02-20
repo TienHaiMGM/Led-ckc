@@ -155,7 +155,7 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
                   onClick={() => handleCategoryChange(category)}
                   className={`rounded-full px-3 py-1.5 text-sm transition-colors sm:px-4 sm:py-2 sm:text-base ${
                     selectedCategory === category
-                      ? "bg-blue-600 text-white"
+                      ? "bg-red-600 text-white"
                       : "bg-white text-gray-700 hover:bg-gray-100"
                   }`}
                 >
@@ -199,16 +199,6 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
                           />
                         </div>
                         <div className="p-4 sm:p-6">
-                          <div className="mb-3 flex items-center gap-3">
-                            <span className="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-600 sm:text-sm">
-                              {item.category}
-                            </span>
-                            <time className="text-xs text-gray-500 sm:text-sm">
-                              {new Date(item.createdAt).toLocaleDateString(
-                                "vi-VN",
-                              )}
-                            </time>
-                          </div>
                           <h2 className="mb-2 line-clamp-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-blue-600 sm:text-xl">
                             {item.title}
                           </h2>

@@ -98,7 +98,7 @@ const CompanyNameBoard = () => {
       <Header />
       <Menu />
       <Breadcrumb />
-      <main className="flex-grow p-4 md:p-6 lg:p-8">
+      <main className="flex-grow p-0">
         <ProductCategory
           EditorContent={{
             title: "Bảng tên công ty",

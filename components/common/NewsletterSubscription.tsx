@@ -48,12 +48,12 @@ export default function NewsletterSubscription() {
           <input
             type="email"
             placeholder="Nhập email của bạn"
-            className="flex-grow rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-grow rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
             required
           />
           <button
             type="submit"
-            className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700"
+            className="rounded-lg bg-red-600 px-6 py-2 text-white transition-colors hover:bg-red-700"
           >
             Đăng ký
           </button>

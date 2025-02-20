@@ -100,7 +100,7 @@ const BangHieuAlu = () => {
       <Header />
       <Menu />
       <Breadcrumb />
-      <main className="container mx-auto flex-grow px-4 py-8">
+      <main className="container mx-auto flex-grow px-0 py-0 lg:py-6 xl:py-6">
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* {TabarLeft} */}
           <div className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">

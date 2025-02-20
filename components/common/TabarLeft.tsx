@@ -130,7 +130,7 @@ export const TabarLeft = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Họ và tên"
-                className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
                 disabled={isSubmitting}
               />
@@ -142,7 +142,7 @@ export const TabarLeft = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Email"
-                className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
                 disabled={isSubmitting}
               />
@@ -154,7 +154,7 @@ export const TabarLeft = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Số điện thoại"
-                className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
                 disabled={isSubmitting}
               />
@@ -166,7 +166,7 @@ export const TabarLeft = () => {
                 onChange={handleChange}
                 placeholder="Nội dung cần tư vấn"
                 rows={3}
-                className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
                 disabled={isSubmitting}
               ></textarea>
@@ -187,7 +187,7 @@ export const TabarLeft = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full rounded-lg bg-blue-600 px-4 py-2 font-bold text-white transition duration-300 hover:bg-blue-700 ${
+              className={`w-full rounded-lg bg-red-600 px-4 py-2 font-bold text-white transition duration-300 hover:bg-red-700 ${
                 isSubmitting ? "cursor-not-allowed opacity-50" : ""
               }`}
             >
