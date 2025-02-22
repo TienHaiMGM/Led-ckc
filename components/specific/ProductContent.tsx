@@ -3,7 +3,6 @@ import React from "react";
 import { FaTag, FaInfoCircle, FaList, FaCheck } from "react-icons/fa";
 import Head from "next/head";
 import { Metadata } from "next";
-import { productData } from "@/components/data/productData";
 
 interface ProductContentProps {
   product: {
@@ -31,12 +30,6 @@ interface ProductContentProps {
   };
 }
 
-export const metadata: Metadata = {
-  title: productData.seoMeta.title,
-  description: productData.seoMeta.description,
-  keywords: productData.seoMeta.keywords,
-};
-
 const ProductContent: React.FC<ProductContentProps> = ({ product }) => {
   return (
     <>
@@ -50,7 +43,7 @@ const ProductContent: React.FC<ProductContentProps> = ({ product }) => {
         <meta property="og:type" content="product" />
       </Head>
 
-      <article className="prose prose-lg lg:prose-xl mx-auto max-w-4xl px-4 py-8">
+      <article className="prose prose-lg mx-auto max-w-4xl px-4 py-8 lg:prose-xl">
         {/* SEO-optimized heading structure */}
         <h2 className="mb-6 text-3xl font-bold text-gray-900 lg:text-4xl">
           {product.title}

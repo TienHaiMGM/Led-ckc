@@ -158,7 +158,7 @@ const RichTextEditor: FC<RichTextEditorProps> = ({
       alert("Please select text to apply the heading.");
       return;
     }
-    editor.chain().focus().toggleHeading({ level }).run();
+    editor.chain().focus().toggleHeading({ level: 1 }).run();
   };
 
   const changeTextColor = (color: string) => {

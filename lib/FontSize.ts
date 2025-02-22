@@ -52,7 +52,7 @@ export const FontSize = Extension.create<FontSizeOptions>({
     };
   },
 
-  addGlobalAttributes(): GlobalAttributes[] {
+  addGlobalAttributes(): GlobalAttributes {
     return [
       {
         types: this.options.types,

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Header from "../../components/common/Header"; // Corrected import path
 import Menu from "../../components/common/Menu"; // Corrected import path
@@ -13,7 +13,7 @@ import { ProductContent } from "../../types/product-management";
 
 const ITEMS_PER_PAGE = 12;
 
-export default function SearchPage() {
+function SearchComponent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams?.get("q") || "";
   const [searchResults, setSearchResults] = useState<ProductContent[]>([]);
@@ -157,5 +157,13 @@ export default function SearchPage() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Đang tải kết quả tìm kiếm...</div>}>
+      <SearchComponent />
+    </Suspense>
   );
 }

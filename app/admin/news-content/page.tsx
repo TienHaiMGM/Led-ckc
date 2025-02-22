@@ -1,7 +1,6 @@
 "use client"; // Đánh dấu file này được sử dụng trong môi trường client-side
 
 import React, { useState } from "react";
-import NewsEditor from "@/components/editor/NewsEditor";
 import DashboardLayout from "@/components/admin/DashboardLayout";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import {

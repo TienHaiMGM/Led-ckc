@@ -13,6 +13,7 @@ export interface EditorContent {
   seoDescription?: string;
   featuredImage?: string;
   thumbnail?: string; // New field for thumbnail
+  caption?: string; // Added caption property
 }
 export const EditorContentInitial = {
   title: "",

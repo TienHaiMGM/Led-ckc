@@ -2,7 +2,12 @@ import "./globals.css";
 import "./font.css";
 import { StrictMode } from "react";
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 export const metadata = {
+  metadataBase: new URL("https://sieuthibanghieu.com"),
   title: {
     template: "%s | Siêu Thị Bảng Hiệu",
     default:
@@ -27,11 +32,6 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     images: ["https://sieuthibanghieu.com/images/sieuthibanghieu.jpg"],
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
   },
   robots: {
     index: true,

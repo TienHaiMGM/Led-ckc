@@ -45,11 +45,6 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: "https://sieuthibanghieu.vn/pages/kien-thuc",
     },
-    viewport: {
-      width: "device-width",
-      initialScale: 1,
-      maximumScale: 5,
-    },
   };
 }
 
@@ -109,12 +104,30 @@ const schema = {
   ],
 };
 
-const KnowledgePage: React.FC<EditorProps> = ({ EditorContent }) => {
+const KnowledgePage = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <Header showSearch={false} />
       <Menu />
-      <Knowledge EditorContent={EditorContent} />
+      <Knowledge
+        EditorContent={{
+          title: "Bảng hiệu",
+          content: "",
+          images: "",
+          category: "banghieu",
+          slug: "bang-hieu",
+          description: "Các mẫu Bảng hiệu đẹp, chất lượng cao",
+          tags: ["Bảng Led", "quảng cáo"],
+          status: "published",
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          seoTitle: "Bảng hiệu - Siêu Thị Bảng Led",
+          seoDescription:
+            "Chuyên thiết kế và thi công các loại Bảng hiệu quảng cáo chất lượng cao",
+          featuredImage: "",
+          thumbnail: "",
+        }}
+      />
       <SocialButtons />
       <Footer />
       <script

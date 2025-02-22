@@ -44,11 +44,6 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: "https://sieuthibanghieu.vn/pages/tin-tuc-moi",
     },
-    viewport: {
-      width: "device-width",
-      initialScale: 1,
-      maximumScale: 5,
-    },
   };
 }
 
@@ -118,12 +113,30 @@ const schema = {
   ],
 };
 
-const NewsPage: React.FC<EditorProps> = ({ EditorContent }) => {
+const NewsPage = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <Header showSearch={false} />
       <Menu />
-      <News EditorContent={EditorContent} />
+      <News
+        EditorContent={{
+          title: "Bảng hiệu",
+          content: "",
+          images: "",
+          category: "banghieu",
+          slug: "bang-hieu",
+          description: "Các mẫu Bảng hiệu đẹp, chất lượng cao",
+          tags: ["Bảng Led", "quảng cáo"],
+          status: "published",
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          seoTitle: "Bảng hiệu - Siêu Thị Bảng Led",
+          seoDescription:
+            "Chuyên thiết kế và thi công các loại Bảng hiệu quảng cáo chất lượng cao",
+          featuredImage: "",
+          thumbnail: "",
+        }}
+      />
       <SocialButtons />
       <Footer />
       <script

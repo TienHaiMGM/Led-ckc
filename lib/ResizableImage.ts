@@ -16,11 +16,13 @@ declare module "@tiptap/core" {
         width?: string;
         height?: string;
         alignment?: "left" | "center" | "right";
+        caption?: string;
       }) => ReturnType;
       updateImageAttrs: (attrs: {
         width?: string;
         height?: string;
         alignment?: "left" | "center" | "right";
+        caption?: string;
       }) => ReturnType;
     };
   }
@@ -133,7 +135,9 @@ export const ResizableImage = Node.create<ResizableImageOptions>({
               pos + selection.node.nodeSize,
               node,
             );
-            dispatch(transaction);
+            if (dispatch) {
+              dispatch(transaction);
+            }
             return true;
           }
           return false;
