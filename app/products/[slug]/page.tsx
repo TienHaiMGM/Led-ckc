@@ -10,6 +10,19 @@ import Menu from "@/components/common/Menu";
 import Footer from "@/components/common/Footer";
 import Breadcrumb from "@/components/common/Breadcrumb";
 
+function SkeletonLoader() {
+  return (
+    <div className="animate-pulse space-y-4 p-6">
+      <div className="h-10 w-3/4 rounded bg-gray-300"></div>
+      <div className="h-6 w-1/2 rounded bg-gray-300"></div>
+      <div className="h-96 w-full rounded bg-gray-300"></div>
+      <div className="h-6 w-full rounded bg-gray-300"></div>
+      <div className="h-6 w-5/6 rounded bg-gray-300"></div>
+      <div className="h-6 w-4/6 rounded bg-gray-300"></div>
+    </div>
+  );
+}
+
 export default function ProductPage() {
   const params = useParams();
   const slug = params?.slug as string;
@@ -27,7 +40,6 @@ export default function ProductPage() {
 
       try {
         setLoading(true);
-
         const fetchedProduct = await getProductBySlug(slug);
 
         if (fetchedProduct) {
@@ -50,12 +62,15 @@ export default function ProductPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
-          <p className="text-gray-600">Đang tải sản phẩm...</p>
+      <>
+        <Header />
+        <Menu />
+        <Breadcrumb />
+        <div className="flex min-h-screen items-start justify-center">
+          <SkeletonLoader />
         </div>
-      </div>
+        <Footer />
+      </>
     );
   }
 

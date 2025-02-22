@@ -101,6 +101,7 @@ const RichTextEditor: FC<RichTextEditorProps> = ({
         class: "h-96 w-full resize-y rounded-lg p-4 overflow-scroll",
       },
     },
+    immediatelyRender: false,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       setHtmlContent(html); // Giữ state nội bộ

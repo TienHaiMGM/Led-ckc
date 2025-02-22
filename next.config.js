@@ -46,6 +46,7 @@ const nextConfig = {
       "banghieuminhkhang.com",
       "ledsun.vn",
       "fastly.picsum.photos",
+      "localhost",
       "res.cloudinary.com",
     ],
     formats: ["image/webp", "image/avif"],

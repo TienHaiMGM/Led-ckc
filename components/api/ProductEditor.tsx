@@ -260,12 +260,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
           /> */}
           <RichTextEditor
             initialValue={formData.content}
-            onChange={(value) =>
-              setFormData((prev) => ({
-                ...prev,
-                content: value,
-              }))
-            }
+            onChange={(value) => setFormData({ ...formData, content: value })}
           />
         </div>
       </div>

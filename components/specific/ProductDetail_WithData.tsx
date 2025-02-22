@@ -63,25 +63,6 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
     );
   };
 
-  const benefits = [
-    {
-      title: "Thiết Kế Chuyên Nghiệp",
-      description:
-        "Đội ngũ thiết kế giàu kinh nghiệm, sáng tạo mẫu theo yêu cầu",
-      icon: "FaTools",
-    },
-    {
-      title: "Thi Công Nhanh Chóng",
-      description: "Hoàn thành thi công và lắp đặt trong 3-5 ngày",
-      icon: "FaClock",
-    },
-    {
-      title: "Bảo Hành Tận Tâm",
-      description: "Chế độ bảo hành dài hạn, hỗ trợ kỹ thuật 24/7",
-      icon: "FaShieldAlt",
-    },
-  ];
-
   return (
     <main
       className="min-h-screen bg-gray-50"
@@ -244,10 +225,12 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
             <div className="mb-8">
               <h2 className="text-2xl font-bold">Thông tin chi tiết</h2>
               {product.description && (
-                <p className="mt-2 text-gray-600">{product.description}</p>
+                <p className="mt-2 text-base text-[#444444]">
+                  {product.description}
+                </p>
               )}
             </div>
-            <div className="prose">
+            <div className="text-base text-[#444444]">
               <div dangerouslySetInnerHTML={{ __html: product.content }} />
             </div>
           </div>
@@ -263,8 +246,9 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
       </section>
 
       {/* CTA Section */}
+      {/* CTA Section */}
       <section
-        className="bg-gradient-to-r from-blue-600 to-blue-800 py-16 text-white"
+        className="bg-gradient-to-r from-red-600 to-red-800 py-16 text-white"
         aria-label="Liên hệ"
       >
         <div className="container mx-auto px-4 text-center">
@@ -278,14 +262,14 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/pages/lien-he"
-              className="rounded-full bg-white px-8 py-3 font-semibold text-blue-600 transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
+              className="rounded-full bg-white px-8 py-3 font-semibold text-red-600 transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
               aria-label="Chuyển đến trang liên hệ"
             >
               Liên Hệ Ngay
             </Link>
             <a
               href="tel:+84123456789"
-              className="rounded-full border-2 border-white px-8 py-3 font-semibold text-white transition-colors hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-white"
+              className="rounded-full border-2 border-white px-8 py-3 font-semibold text-white transition-colors hover:bg-white hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-white"
               aria-label="Gọi điện thoại cho chúng tôi"
             >
               Gọi Điện Thoại

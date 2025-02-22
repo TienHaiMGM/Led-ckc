@@ -1,0 +1,19 @@
+.table-of-contents .is-active a {
+  color: var(--purple);
+  font-weight: bold;
+  border-left: 3px solid var(--purple);
+  padding-left: 0.5rem;
+  background-color: var(--gray-1);
+  transition: all 0.2s ease-in-out;
+}
+
+.table-of-contents a {
+  color: var(--black);
+  display: flex;
+  gap: 0.25rem;
+  text-decoration: none;
+}
+
+.table-of-contents a:hover {
+  background-color: var(--gray-2);
+}

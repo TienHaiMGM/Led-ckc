@@ -1,6 +1,6 @@
 "use client"; // Đánh dấu rằng tệp này sử dụng trong môi trường client-side (Next.js)
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // Hook điều hướng của Next.js
 import { useAuth } from "../../components/auth/AuthContext"; // Hook xác thực người dùng
 
@@ -44,10 +44,11 @@ export default function AdminPage() {
   /**
    * Kiểm tra nếu người dùng đã đăng nhập -> chuyển hướng đến dashboard
    */
-  if (user) {
-    router.push("/admin/dashboard");
-    return null; // Không hiển thị gì khi đang chuyển hướng
-  }
+  useEffect(() => {
+    if (user) {
+      router.push("/admin/dashboard");
+    }
+  }, [user, router]);
 
   /**
    * Hiển thị giao diện đăng nhập nếu người dùng chưa đăng nhập

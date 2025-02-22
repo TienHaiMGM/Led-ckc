@@ -82,7 +82,10 @@ function ContactRequestsContent() {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      setLoading(false); // Ensure loading is set to false if user is not defined
+      return;
+    }
 
     const contactsRef = collection(db as Firestore, "contact-requests");
     const q = query(contactsRef, orderBy("createdAt", "desc"));
