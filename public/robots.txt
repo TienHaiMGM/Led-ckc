@@ -14,13 +14,13 @@ Allow: /products/
 Allow: /bai-viet/
 
 # Sitemap location
-Sitemap: https://sieuthibanghieu.vn/sitemap.xml
+Sitemap: https://sieuthibanghieu.com/sitemap.xml
 
 # Crawl delay
 Crawl-delay: 10
 
 # Host
-Host: https://sieuthibanghieu.vn
+Host: https://sieuthibanghieu.com
 
 # Additional rules for specific bots
 User-agent: Googlebot
