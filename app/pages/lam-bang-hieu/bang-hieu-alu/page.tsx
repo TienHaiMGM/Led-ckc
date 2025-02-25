@@ -1,12 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Header from "@/components/common/Header";
-import Footer from "@/components/common/Footer";
-import Menu from "@/components/common/Menu";
 import Breadcrumb from "@/components/common/Breadcrumb";
-import SocialButtons from "@/components/common/SocialButtons";
 import TabarLeft from "@/components/common/TabarLeft";
-import ScrollToTopButton from "@/components/common/ScrollToTopButton";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
