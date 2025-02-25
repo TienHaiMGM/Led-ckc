@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import { app } from '@/lib/firebase';
-import { AuthProvider } from '@/components/auth/AuthContext';
+import { useEffect, useState } from "react";
+import { app } from "@/lib/firebase";
+import { AuthProvider } from "../auth/AuthContext";
 
 interface FirebaseProviderProps {
   children: React.ReactNode;
@@ -19,7 +19,7 @@ export default function FirebaseProvider({ children }: FirebaseProviderProps) {
           setIsInitialized(true);
         }
       } catch (error) {
-        console.error('Failed to initialize Firebase:', error);
+        console.error("Failed to initialize Firebase:", error);
       }
     };
 
@@ -28,9 +28,9 @@ export default function FirebaseProvider({ children }: FirebaseProviderProps) {
 
   if (!isInitialized) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-600 border-r-transparent"></div>
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-r-transparent"></div>
           <p className="mt-2 text-gray-600">Đang khởi tạo...</p>
         </div>
       </div>
@@ -42,7 +42,7 @@ export default function FirebaseProvider({ children }: FirebaseProviderProps) {
 
 // HOC for wrapping components that require Firebase
 export function withFirebase<P extends object>(
-  WrappedComponent: React.ComponentType<P>
+  WrappedComponent: React.ComponentType<P>,
 ) {
   return function WithFirebaseWrapper(props: P) {
     return (
@@ -64,7 +64,7 @@ export function useFirebase() {
           setIsAvailable(true);
         }
       } catch (error) {
-        console.error('Firebase not available:', error);
+        console.error("Firebase not available:", error);
       }
     };
 

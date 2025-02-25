@@ -1,16 +1,8 @@
-"use client";
-import { AuthProvider } from "../../components/auth/AuthContext";
-
-export default function AdminLayout({
+import { AuthProvider } from "@/components/admin/auth/AuthContext";
+export default function AdminRootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  console.log("Admin layout rendering");
-
-  return (
-    <div className="min-h-screen">
-      <AuthProvider>{children}</AuthProvider>
-    </div>
-  );
+  return <AuthProvider>{children}</AuthProvider>;
 }

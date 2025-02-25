@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
+
 import DashboardLayout from "@/components/admin/DashboardLayout";
 import ProductEditor from "@/components/api/ProductEditor";
 import {
   ProductContent,
   EmptyProductContent,
 } from "@/types/product-management";
+import ProtectedRoute from "@/components/admin/auth/ProtectedRoute";
 
 export default function ProductContentPage() {
   const [savedContents, setSavedContents] = useState<ProductContent[]>([]);

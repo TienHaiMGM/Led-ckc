@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "./auth/AuthContext";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -130,7 +130,7 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="z-50 min-h-screen bg-gray-100">
       {/* Sidebar */}
       <div className="fixed left-0 top-0 h-full w-64 bg-white shadow-lg">
         <div className="flex h-16 items-center justify-center border-b">
