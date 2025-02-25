@@ -2,10 +2,6 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-import Header from "../../components/common/Header";
-import Menu from "../../components/common/Menu";
-import Footer from "../../components/common/Footer";
-import SocialButtons from "../../components/common/SocialButtons";
 import ProductCollections from "../../components/common/ProductCollections";
 import { FaSearch } from "react-icons/fa";
 
@@ -19,9 +15,6 @@ export default function CollectionsPage() {
   return (
     <>
       <div className="flex min-h-screen flex-col">
-        <Header showSearch={false} />
-        <Menu />
-
         <main className="flex-grow bg-gray-50">
           {/* Hero Section */}
           <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
@@ -81,8 +74,6 @@ export default function CollectionsPage() {
             setCurrentPage={setCurrentPage}
           />
         </main>
-        <SocialButtons />
-        <Footer />
       </div>
     </>
   );

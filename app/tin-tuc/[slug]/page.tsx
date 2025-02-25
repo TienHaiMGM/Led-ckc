@@ -3,9 +3,6 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getNewsBySlug, News } from "@/components/api/NewsService";
-import Header from "@/components/common/Header";
-import Menu from "@/components/common/Menu";
-import Footer from "@/components/common/Footer";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import News_WithData from "@/components/specific/News_WithData";
 
@@ -81,12 +78,8 @@ export default function NewsPage() {
 
   return (
     <>
-      <Header />
-      <Menu />
       <Breadcrumb />
       <News_WithData News={product} />
-
-      <Footer />
     </>
   );
 }

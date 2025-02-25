@@ -1,9 +1,4 @@
 import { Metadata } from "next";
-import Header from "../../../components/common/Header";
-import Menu from "../../../components/common/Menu";
-import Footer from "../../../components/common/Footer";
-import SocialButtons from "../../../components/common/SocialButtons";
-import { EditorProps } from "../../../types/product-management";
 import News from "../../../components/specific/News";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -116,8 +111,6 @@ const schema = {
 const NewsPage = () => {
   return (
     <div className="flex min-h-screen flex-col">
-      <Header showSearch={false} />
-      <Menu />
       <News
         EditorContent={{
           title: "Bảng hiệu",
@@ -137,8 +130,6 @@ const NewsPage = () => {
           thumbnail: "",
         }}
       />
-      <SocialButtons />
-      <Footer />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

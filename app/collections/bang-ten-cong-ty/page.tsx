@@ -1,8 +1,5 @@
 import { Metadata } from "next";
 import React from "react";
-import Footer from "../../../components/common/Footer";
-import Menu from "../../../components/common/Menu";
-import Header from "../../../components/common/Header";
 import ProductCategory from "../../../components/common/ProductCategory";
 import Breadcrumb from "../../../components/common/Breadcrumb";
 
@@ -95,8 +92,6 @@ const schema = {
 const CompanyNameBoard = () => {
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
-      <Menu />
       <Breadcrumb />
       <main className="flex-grow p-0">
         <ProductCategory
@@ -119,7 +114,6 @@ const CompanyNameBoard = () => {
           }}
         />
       </main>
-      <Footer />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

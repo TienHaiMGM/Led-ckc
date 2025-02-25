@@ -63,13 +63,10 @@ export default function ProductPage() {
   if (loading) {
     return (
       <>
-        <Header />
-        <Menu />
         <Breadcrumb />
         <div className="flex min-h-screen items-start justify-center">
           <SkeletonLoader />
         </div>
-        <Footer />
       </>
     );
   }
@@ -98,11 +95,8 @@ export default function ProductPage() {
 
   return (
     <>
-      <Header />
-      <Menu />
       <Breadcrumb />
       <ProductDetail_WithData product={product} />
-      <Footer />
     </>
   );
 }

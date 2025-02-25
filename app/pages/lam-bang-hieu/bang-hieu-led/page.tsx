@@ -1,10 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Header from "@/components/common/Header";
-import Footer from "@/components/common/Footer";
-import Menu from "@/components/common/Menu";
 import Breadcrumb from "@/components/common/Breadcrumb";
-import SocialButtons from "@/components/common/SocialButtons";
 import TabarLeft from "@/components/common/TabarLeft";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -96,8 +92,6 @@ const schema = {
 const BangHieuLed = () => {
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
-      <Menu />
       <Breadcrumb />
       <main className="container mx-auto flex-grow px-0 py-0 lg:py-6 xl:py-6">
         <div className="flex flex-col gap-8 lg:flex-row">
@@ -204,8 +198,6 @@ const BangHieuLed = () => {
           </article>
         </div>
       </main>
-      <SocialButtons />
-      <Footer />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

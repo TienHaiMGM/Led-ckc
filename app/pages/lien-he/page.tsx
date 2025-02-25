@@ -1,8 +1,4 @@
 import React from "react";
-import Footer from "../../../components/common/Footer";
-import Menu from "../../../components/common/Menu";
-import Header from "../../../components/common/Header";
-import SocialButtons from "../../../components/common/SocialButtons";
 import Breadcrumb from "../../../components/common/Breadcrumb";
 import ContactForm from "../../../components/common/ContactForm";
 import {
@@ -51,8 +47,6 @@ const Contact = () => {
   return (
     <>
       <div className="flex min-h-screen flex-col bg-gray-100">
-        <Header />
-        <Menu />
         <Breadcrumb />
         <main className="flex-grow py-1">
           <div className="container mx-auto px-1 sm:px-2 lg:px-8">
@@ -162,9 +156,6 @@ const Contact = () => {
             </div>
           </div>
         </main>
-
-        <SocialButtons />
-        <Footer />
       </div>
     </>
   );

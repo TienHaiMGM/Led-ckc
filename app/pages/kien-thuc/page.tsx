@@ -1,9 +1,4 @@
 import { Metadata } from "next";
-import Header from "../../../components/common/Header";
-import Menu from "../../../components/common/Menu";
-import Footer from "../../../components/common/Footer";
-import SocialButtons from "../../../components/common/SocialButtons";
-import { EditorProps } from "../../../types/product-management";
 import Knowledge from "@/components/specific/Knowledge";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -107,8 +102,6 @@ const schema = {
 const KnowledgePage = () => {
   return (
     <div className="flex min-h-screen flex-col">
-      <Header showSearch={false} />
-      <Menu />
       <Knowledge
         EditorContent={{
           title: "Bảng hiệu",
@@ -128,8 +121,6 @@ const KnowledgePage = () => {
           thumbnail: "",
         }}
       />
-      <SocialButtons />
-      <Footer />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

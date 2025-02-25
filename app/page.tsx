@@ -1,18 +1,11 @@
-import Footer from "../components/common/Footer";
-import Menu from "../components/common/Menu";
-import Header from "../components/common/Header";
 import Banner from "../components/specific/Banner";
 import ExploreCategories from "../components/specific/ExploreCategories";
 import ItemList from "../components/common/ItemList";
 import HowItWorks from "../components/specific/HowItWork";
 import Testimonials from "../components/specific/Testimonials";
-import SocialButtons from "../components/common/SocialButtons";
-
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
-      <Menu />
       <main>
         <Banner />
         <section aria-label="Giới thiệu dịch vụ">
@@ -109,8 +102,6 @@ export default function Home() {
           <Testimonials />
         </section>
       </main>
-      <SocialButtons />
-      <Footer />
     </div>
   );
 }

@@ -1,6 +1,11 @@
 import "./globals.css";
 import "./font.css";
 import { StrictMode } from "react";
+import ScrollToTopButton from "@/components/common/ScrollToTopButton";
+import SocialButtons from "@/components/common/SocialButtons";
+import Footer from "@/components/common/Footer";
+import Menu from "@/components/common/Menu";
+import Header from "@/components/common/Header";
 
 export const viewport = {
   width: "device-width",
@@ -126,7 +131,14 @@ export default function RootLayout({
       </head>
       <body className={`antialiased`}>
         <StrictMode>
-          <div className="flex min-h-screen flex-col">{children}</div>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <Menu />
+            {children}
+            <SocialButtons />
+            <ScrollToTopButton />
+            <Footer />
+          </div>
         </StrictMode>
       </body>
     </html>

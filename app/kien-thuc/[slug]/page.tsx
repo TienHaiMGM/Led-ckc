@@ -2,9 +2,6 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Header from "@/components/common/Header";
-import Menu from "@/components/common/Menu";
-import Footer from "@/components/common/Footer";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import Knowledge_WithData from "@/components/specific/Knowledge_WithData";
 import {
@@ -83,11 +80,8 @@ export default function KnowledgePage() {
 
   return (
     <>
-      <Header />
-      <Menu />
       <Breadcrumb />
       <Knowledge_WithData Knowledge={product} />
-      <Footer />
     </>
   );
 }

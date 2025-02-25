@@ -1,9 +1,5 @@
 import { Metadata } from "next";
 import About from "../../../components/specific/About";
-import Footer from "../../../components/common/Footer";
-import Menu from "../../../components/common/Menu";
-import Header from "../../../components/common/Header";
-import SocialButtons from "../../../components/common/SocialButtons";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -75,13 +71,9 @@ const schema = {
 export default function AboutPage() {
   return (
     <>
-      <Header />
-      <Menu />
       <main>
         <About />
       </main>
-      <SocialButtons />
-      <Footer />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

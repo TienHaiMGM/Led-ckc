@@ -13,3 +13,6 @@
     display: none; /* Chrome, Safari and Opera */
   }
 }
+.custom-marker li::marker {
+  color: gray; /* Màu xanh ngọc */
+}
