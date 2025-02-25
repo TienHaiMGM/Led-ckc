@@ -46,7 +46,7 @@ const ExploreCategories: React.FC = () => {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
         {categories.map((category, index) => (
           <Link
-            href={`/collections/${category.slug}`}
+            href={`/san-pham/${category.slug}`}
             key={index}
             className="group overflow-hidden rounded-lg transition-shadow duration-300 hover:shadow-lg"
           >

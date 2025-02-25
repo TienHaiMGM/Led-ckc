@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import News from "../../../components/specific/News";
+import News from "@/components/specific/News";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

@@ -1,6 +1,6 @@
 import React from "react";
-import Breadcrumb from "../../../components/common/Breadcrumb";
-import ContactForm from "../../../components/common/ContactForm";
+import Breadcrumb from "@/components/common/Breadcrumb";
+import ContactForm from "@/components/common/ContactForm";
 import {
   FaPhoneAlt,
   FaEnvelope,

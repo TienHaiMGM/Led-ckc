@@ -53,9 +53,9 @@ const Menu: React.FC = () => {
                   <Link
                     href={
                       item.label === "Sản phẩm"
-                        ? "/collections"
+                        ? "/san-pham"
                         : item.label === "Tin tức"
-                          ? "/pages/tin-tuc-moi"
+                          ? "/tin-tuc-moi"
                           : "#"
                     }
                   >

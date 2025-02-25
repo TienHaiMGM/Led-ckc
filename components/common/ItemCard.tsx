@@ -30,7 +30,7 @@ const ItemCard = ({
     // Return a simpler version during SSR
     return (
       <div className="h-56 overflow-hidden rounded-lg bg-white sm:h-60 sm:rounded-xl md:h-72 lg:h-64 xl:h-72">
-        <Link href={`/products/${slug}`} className="block">
+        <Link href={`/chi-tiet-san-pham/${slug}`} className="block">
           <div className="relative h-[19vh] sm:h-[20vh] md:h-[25vh] lg:h-[20vh] xl:h-[25vh]">
             <Image
               src={image}
@@ -54,7 +54,7 @@ const ItemCard = ({
 
   return (
     <div className="h-56 overflow-hidden rounded-lg bg-white transition-all duration-500 ease-in-out sm:h-60 sm:rounded-xl md:h-72 lg:h-64 xl:h-72">
-      <Link href={`/products/${slug}`} className="block">
+      <Link href={`/chi-tiet-san-pham/${slug}`} className="block">
         <div className="relative h-[19vh] sm:h-[20vh] md:h-[25vh] lg:h-[20vh] xl:h-[25vh]">
           <Image
             src={image}

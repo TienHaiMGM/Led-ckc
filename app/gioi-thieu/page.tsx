@@ -8,7 +8,7 @@ import {
   FaTools,
   FaChartLine,
 } from "react-icons/fa";
-import Breadcrumb from "../../../components/common/Breadcrumb";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
