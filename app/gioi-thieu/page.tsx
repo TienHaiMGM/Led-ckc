@@ -85,50 +85,57 @@ export default function AboutPage() {
         <section className="relative h-1/3 w-full overflow-hidden lg:min-h-[80vh]">
           <div className="absolute inset-0">
             <Image
-              src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740065103/sieuthibanghieubanner_weqoda.jpg"
+              src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740559131/Led_ckc_lnc28g.jpg"
               alt="Siêu Thị Bảng Hiệu Background"
-              className="object-cover object-center brightness-50"
+              className="object-fill"
               fill
               priority
               sizes="100%"
-              quality={90}
             />
           </div>
-          <div className="flex items-center font-bold brightness-125 lg:min-h-[80vh]">
-            <div className="container mx-auto px-4 py-28 sm:px-6 lg:px-8">
-              <div className="">
-                <h1 className="mb-4 text-2xl font-bold leading-tight text-white sm:text-4xl md:mb-6 md:text-5xl lg:text-6xl">
-                  Kiến Tạo{" "}
-                  <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                    Thương Hiệu
-                  </span>
-                  <br />
-                  Định Hình{" "}
-                  <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-                    Tương Lai
-                  </span>
-                </h1>
-                <p className="mb-6 text-sm leading-relaxed text-gray-200 sm:text-lg md:mb-8 lg:text-xl">
-                  Hơn một thập kỷ kinh nghiệm, chúng tôi tự hào là đơn vị tiên
-                  phong trong việc sáng tạo những giải pháp quảng cáo độc đáo và
-                  ấn tượng.
-                </p>
-                <div className="flex flex-wrap gap-3 sm:gap-4">
-                  <div className="rounded-full bg-white/10 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
-                    <span className="text-white">10+ Năm Kinh Nghiệm</span>
-                  </div>
-                  <div className="rounded-full bg-white/10 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
-                    <span className="text-white">5000+ Dự Án</span>
-                  </div>
-                  <div className="rounded-full bg-white/10 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
-                    <span className="text-white">100% Khách Hàng Hài Lòng</span>
-                  </div>
+        </section>
+        <Breadcrumb />
+        <div className="flex items-center justify-center">
+          <div className="container p-4 lg:p-36">
+            <div className="">
+              <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-600 sm:text-4xl md:mb-6 md:text-5xl lg:text-6xl">
+                Kiến Tạo{" "}
+                <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                  Thương Hiệu
+                </span>
+                <br />
+                Định Hình{" "}
+                <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                  Tương Lai
+                </span>
+              </h1>
+              <p className="mb-6 text-base leading-relaxed text-gray-600 sm:mb-8 sm:text-lg">
+                Được thành lập với sứ mệnh mang đến những giải pháp quảng cáo
+                trực quan và hiệu quả,{" "}
+                <strong>
+                  <em>Siêu thị bảng hiệu</em>
+                </strong>{" "}
+                đã trở thành đơn vị tiên phong trong lĩnh vực thiết kế, sản xuất
+                và thi công bảng hiệu quảng cáo tại Việt Nam. Chúng tôi tự hào
+                cung cấp đa dạng các sản phẩm bảng hiệu với chất lượng vượt
+                trội, đáp ứng mọi nhu cầu quảng cáo của các doanh nghiệp từ nhỏ
+                đến lớn.
+              </p>
+              <div className="flex flex-wrap gap-3 sm:gap-4">
+                <div className="rounded-full bg-red-600 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
+                  <span className="text-white">5+ Năm Kinh Nghiệm</span>
+                </div>
+                <div className="rounded-full bg-blue-600 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
+                  <span className="text-white">1000+ Dự Án</span>
+                </div>
+                <div className="rounded-full bg-green-600 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
+                  <span className="text-white">100% Khách Hàng Hài Lòng</span>
                 </div>
               </div>
             </div>
           </div>
-        </section>
-        <Breadcrumb />
+        </div>
+
         {/* Innovation Section */}
         <section className="py-12 sm:py-16 md:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -136,23 +143,20 @@ export default function AboutPage() {
               <div className="relative order-2 md:order-1">
                 <div className="aspect-square overflow-hidden rounded-3xl">
                   <Image
-                    src="/images/banghieu.jpg"
+                    src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740560174/Led_ckc_1_zqp2bi.jpg"
                     alt="Sáng tạo trong thiết kế bảng hiệu"
-                    className="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
                     width={600}
-                    height={600}
+                    height={800}
+                    className="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    quality={90}
                   />
                 </div>
-                <div className="absolute -bottom-6 -right-6 h-32 w-32 rounded-3xl bg-blue-600 opacity-20 sm:h-48 sm:w-48"></div>
-                <div className="absolute -left-6 -top-6 h-32 w-32 rounded-3xl bg-purple-600 opacity-20 sm:h-48 sm:w-48"></div>
               </div>
               <div className="order-1 flex flex-col justify-center md:order-2">
-                <h2 className="mb-4 text-3xl font-bold sm:mb-6 sm:text-4xl">
+                <h2 className="mb-4 text-left text-3xl font-bold leading-tight sm:mb-12 sm:text-4xl md:mb-16">
                   Sáng Tạo
                 </h2>
-                <h2 className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-right text-3xl font-bold text-transparent sm:mb-6 sm:text-4xl">
+                <h2 className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-center text-3xl font-bold text-transparent sm:mb-12 sm:text-4xl md:mb-16">
                   Không Giới Hạn
                 </h2>
                 <p className="mb-6 text-base leading-relaxed text-gray-600 sm:mb-8 sm:text-lg">
@@ -205,19 +209,15 @@ export default function AboutPage() {
               {[
                 {
                   icon: (
-                    <FaTools className="text-3xl text-blue-400 sm:text-4xl" />
+                    <FaTools className="mb-3 text-2xl text-blue-400 sm:mb-4 sm:text-3xl" />
                   ),
                   title: "Thiết Kế Bảng Hiệu",
                   desc: "Sáng tạo không giới hạn, phong cách độc đáo",
-                  features: [
-                    "3D Rendering",
-                    "Thiết kế theo yêu cầu",
-                    "Tư vấn chuyên sâu",
-                  ],
+                  features: ["Thiết kế theo yêu cầu", "Tư vấn chuyên sâu"],
                 },
                 {
                   icon: (
-                    <FaUsers className="text-3xl text-purple-400 sm:text-4xl" />
+                    <FaUsers className="text-2xl text-purple-400 sm:mb-4 sm:text-3xl" />
                   ),
                   title: "Thi Công Chuyên Nghiệp",
                   desc: "Đội ngũ kỹ thuật giàu kinh nghiệm",
@@ -229,7 +229,7 @@ export default function AboutPage() {
                 },
                 {
                   icon: (
-                    <FaClock className="text-3xl text-pink-400 sm:text-4xl" />
+                    <FaClock className="text-2xl text-pink-400 sm:mb-4 sm:text-3xl" />
                   ),
                   title: "Bảo Trì & Nâng Cấp",
                   desc: "Dịch vụ hậu mãi chu đáo",
@@ -245,18 +245,13 @@ export default function AboutPage() {
                   className="group relative rounded-2xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:bg-white/20 sm:p-8"
                 >
                   <div className="mb-4 sm:mb-6">{service.icon}</div>
-                  <h3 className="mb-3 text-xl font-semibold sm:mb-4 sm:text-2xl">
+                  <h3 className="mb-2 text-lg font-semibold sm:text-xl">
                     {service.title}
                   </h3>
-                  <p className="mb-4 text-sm text-gray-300 sm:mb-6 sm:text-base">
-                    {service.desc}
-                  </p>
+                  <p className="mb-4 text-sm text-gray-300">{service.desc}</p>
                   <ul className="space-y-2">
                     {service.features.map((feature, idx) => (
-                      <li
-                        key={idx}
-                        className="flex items-center text-sm sm:text-base"
-                      >
+                      <li key={idx} className="flex items-center text-sm">
                         <span className="mr-2 text-blue-400">✓</span>
                         {feature}
                       </li>
@@ -283,22 +278,22 @@ export default function AboutPage() {
                   icon: (
                     <FaMedal className="text-4xl text-yellow-500 sm:text-5xl" />
                   ),
-                  title: "Chất Lượng",
-                  desc: "Cam kết chất lượng vượt trội trong từng sản phẩm",
+                  title: "SÁNG TẠO",
+                  desc: "Thiết kế mang tính sáng tạo",
                 },
                 {
                   icon: (
                     <FaHandshake className="text-4xl text-blue-500 sm:text-5xl" />
                   ),
-                  title: "Uy Tín",
-                  desc: "Xây dựng niềm tin với khách hàng là ưu tiên hàng đầu",
+                  title: "KHÁC BIỆT",
+                  desc: "Sản phẩm khác biệt",
                 },
                 {
                   icon: (
                     <FaChartLine className="text-4xl text-green-500 sm:text-5xl" />
                   ),
-                  title: "Phát Triển",
-                  desc: "Không ngừng đổi mới và nâng cao chất lượng dịch vụ",
+                  title: "CHUYÊN NGHIỆP",
+                  desc: "Thi công chuyên nghiệp",
                 },
               ].map((value, index) => (
                 <div
@@ -324,17 +319,7 @@ export default function AboutPage() {
         </section>
 
         {/* CTA Section with Dynamic Background */}
-        <section className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 py-12 text-white sm:py-16 md:py-20">
-          <div className="absolute inset-0">
-            <Image
-              src="/images/banghieu.jpg"
-              alt="Background pattern"
-              fill
-              className="object-cover opacity-10"
-              sizes="100vw"
-              quality={75}
-            />
-          </div>
+        <section className="relative overflow-hidden bg-gradient-to-r from-[#0e7490] via-[#3b82f6] to-[#4f46e5] py-12 text-white sm:py-16 md:py-20">
           <div className="container relative mx-auto px-4 text-center sm:px-6 lg:px-8">
             <h2 className="mb-4 text-2xl font-bold sm:mb-6 sm:text-3xl md:mb-8 md:text-4xl">
               Sẵn Sàng Cho Dự Án Tiếp Theo?
@@ -345,7 +330,7 @@ export default function AboutPage() {
             </p>
             <a
               href="/pages/lien-he"
-              className="group relative inline-flex items-center overflow-hidden rounded-full bg-white px-6 py-2 font-semibold text-blue-600 transition-all hover:bg-gray-100 sm:px-8 sm:py-3"
+              className="0 group relative inline-flex items-center overflow-hidden rounded-full bg-red-600 px-6 py-2 font-semibold text-white transition-all hover:bg-red-700 sm:px-8 sm:py-3"
             >
               <span className="relative">Liên Hệ Ngay</span>
               <span className="absolute -right-8 flex h-full w-8 translate-x-2 items-center justify-start text-white opacity-0 transition-all group-hover:translate-x-4 group-hover:opacity-100">

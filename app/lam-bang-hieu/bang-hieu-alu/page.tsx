@@ -8,7 +8,13 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
     description:
       "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu cao cấp, bền đẹp và tiết kiệm chi phí cho doanh nghiệp của bạn.",
-    keywords: ["bảng hiệu alu", "quảng cáo", "thiết kế bảng hiệu"],
+    keywords: [
+      "bảng hiệu alu",
+      "quảng cáo",
+      "thiết kế bảng hiệu",
+      "biển quảng cáo",
+      "quảng cáo ngoài trời",
+    ],
     openGraph: {
       title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
       description:
@@ -288,7 +294,7 @@ const BangHieuAlu = () => {
                   alt="Bảng hiệu Alu chuyên nghiệp"
                   width={800}
                   height={800}
-                  className="h-96 rounded-lg shadow-lg"
+                  className="rounded-lg shadow-lg"
                 />
               </div>
               <div className="space-y-1 leading-normal">
@@ -791,7 +797,7 @@ const BangHieuAlu = () => {
                   </strong>
                 </p>
                 <p className="mt-2">
-                  Hãy để <strong>chúng tôi</strong> giúp bạn mang đến giải pháp
+                  Hãy để <strong>chúng tôi</strong>giúp bạn mang đến giải pháp
                   hoàn hảo nhất cho thương hiệu của bạn!
                 </p>
                 <a

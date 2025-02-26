@@ -334,7 +334,7 @@ const BangHieuMica = () => {
                   alt="Logo-mica"
                   width={800}
                   height={800}
-                  className="h-96 rounded-lg shadow-lg"
+                  className="h-96 rounded-lg object-fill shadow-lg"
                 />
               </div>
               <div className="space-y-1 leading-normal">
