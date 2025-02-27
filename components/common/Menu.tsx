@@ -15,7 +15,10 @@ const Menu: React.FC = () => {
   if (!mounted) {
     // Return a simpler version during SSR to prevent hydration mismatch
     return (
-      <nav className="sticky top-0 z-50 w-full bg-red-700 bg-gradient-to-r shadow-md">
+      <nav
+        id="main-menu"
+        className="sticky top-0 z-50 w-full bg-red-700 bg-gradient-to-r shadow-md"
+      >
         <div className="hidden lg:block">
           <ul className="flex justify-center gap-12 p-3">
             {menuItems.map((item, index) => (
@@ -35,7 +38,10 @@ const Menu: React.FC = () => {
   }
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-red-700 shadow-md">
+    <nav
+      id="main-menu"
+      className="sticky top-0 z-50 w-full bg-red-700 shadow-md"
+    >
       {/* Desktop Menu */}
       <div className="hidden lg:block">
         <ul className="flex justify-center gap-12 p-3">

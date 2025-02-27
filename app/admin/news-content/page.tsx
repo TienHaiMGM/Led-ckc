@@ -2,12 +2,13 @@
 
 import React, { useState } from "react";
 import DashboardLayout from "@/components/admin/DashboardLayout";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
+
 import {
   EmptyProductContent,
   ProductContent,
 } from "@/types/product-management";
 import ProductEditorNew from "@/components/api/ProductEditorNew";
+import ProtectedRoute from "@/components/admin/auth/ProtectedRoute";
 
 export default function NewsContentPage() {
   // State để lưu trữ danh sách các nội dung đã lưu (bao gồm bản nháp và đã xuất bản)

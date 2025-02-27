@@ -21,7 +21,7 @@ import Text from "@tiptap/extension-text";
 import { FontSize } from "@/lib/FontSize";
 import { ResizableImage } from "@/lib/ResizableImage_update";
 import "./textEditor.css";
-
+import { HeadingID } from "./headingExtention";
 // Bảng màu
 const colorPalette = [
   "#FF0000",
@@ -67,6 +67,9 @@ const RichTextEditor: FC<RichTextEditorProps> = ({
   );
   const editorRef = useRef<HTMLDivElement>(null);
   const [content, setContent] = useState("");
+  const [headings, setHeadings] = useState<
+    { id: string; text: string; level: number }[]
+  >([]);
 
   const editor = useEditor({
     extensions: [
@@ -90,6 +93,7 @@ const RichTextEditor: FC<RichTextEditorProps> = ({
         openOnClick: true,
         HTMLAttributes: { class: "text-blue-500 underline cursor-pointer" },
       }),
+      HeadingID, // Thêm extension mới
       Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Focus.configure({ className: "has-focus", mode: "all" }),
@@ -103,6 +107,44 @@ const RichTextEditor: FC<RichTextEditorProps> = ({
     },
     immediatelyRender: false,
     onUpdate: ({ editor }) => {
+      // Lấy danh sách các heading đã có trong editor
+      const json = editor.getJSON();
+      const newHeadings: { id: string; text: string; level: number }[] = [];
+      let headingsChanged = false;
+
+      const extractHeadings = (node: any) => {
+        // Bỏ qua node TOC để không trích xuất TOC từ nội dung
+        if (node.type === "tableOfContent") return;
+        if (node.type === "heading") {
+          // Đảm bảo mỗi heading đã có ID, nếu chưa có thì tạo mới
+          if (!node.attrs.id) {
+            node.attrs.id = uuidv4();
+            headingsChanged = true;
+          }
+
+          const text = Array.isArray(node.content)
+            ? node.content.map((n: any) => n.text).join("")
+            : "";
+
+          newHeadings.push({
+            id: node.attrs.id,
+            text,
+            level: node.attrs.level,
+          });
+        }
+        if (Array.isArray(node.content)) node.content.forEach(extractHeadings);
+      };
+
+      if (Array.isArray(json.content)) json.content.forEach(extractHeadings);
+
+      // Nếu có heading nào chưa có ID và đã được gán ID mới
+      if (headingsChanged) {
+        // Cập nhật lại toàn bộ nội dung editor để áp dụng ID mới
+        editor.commands.setContent(json);
+      }
+
+      setHeadings(newHeadings);
+      onChange?.(editor.getHTML());
       const html = editor.getHTML();
       setHtmlContent(html); // Giữ state nội bộ
       if (onChange) {
@@ -573,3 +615,6 @@ const RichTextEditor: FC<RichTextEditorProps> = ({
 };
 
 export default RichTextEditor;
+function uuidv4(): any {
+  throw new Error("Function not implemented.");
+}

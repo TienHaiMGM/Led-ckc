@@ -11,9 +11,10 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
-import { useAuth } from "@/components/auth/AuthContext";
+
 import DashboardLayout from "@/components/admin/DashboardLayout";
+import { useAuth } from "@/components/admin/auth/AuthContext";
+import ProtectedRoute from "@/components/admin/auth/ProtectedRoute";
 
 // Interface to define the structure of a contact request
 interface ContactRequest {

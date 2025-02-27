@@ -1,9 +1,8 @@
 "use client";
-import React, { ReactElement } from "react";
+import React from "react";
 import DashboardLayout from "@/components/admin/DashboardLayout";
 import Link from "next/link";
 import ProtectedRoute from "@/components/admin/auth/ProtectedRoute";
-import AdminLayout from "../layout";
 
 interface DashboardCard {
   title: string;

@@ -170,3 +170,7 @@
 .toast-error {
   background-color: #ef4444;
 }
+#main-menu,
+#main-header {
+  display: none !important;
+}

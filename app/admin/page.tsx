@@ -1,9 +1,9 @@
 "use client"; // Đánh dấu rằng tệp này sử dụng trong môi trường client-side (Next.js)
 
-import { ReactElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // Hook điều hướng của Next.js
 import { useAuth } from "@/components/admin/auth/AuthContext";
-import AdminLayout from "./layout";
+import "./styles.css";
 // Hook xác thực người dùng
 
 export default function AdminPage() {

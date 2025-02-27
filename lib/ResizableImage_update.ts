@@ -47,7 +47,7 @@ export const ResizableImage = Node.create<ResizableImageOptions>({
     return {
       src: { default: null },
       alt: { default: null },
-      width: { default: "300px" },
+      width: { default: "800px" },
       height: { default: "auto" },
       caption: { default: "" },
       alignment: {

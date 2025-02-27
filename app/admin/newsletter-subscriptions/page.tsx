@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "../../../components/admin/DashboardLayout";
-import ProtectedRoute from "../../../components/auth/ProtectedRoute";
+
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../../../lib/firebase";
+import ProtectedRoute from "@/components/admin/auth/ProtectedRoute";
 
 interface Subscription {
   id: string;

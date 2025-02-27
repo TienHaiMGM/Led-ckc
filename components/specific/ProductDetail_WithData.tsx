@@ -14,6 +14,7 @@ import Link from "next/link";
 import { extractImagesFromHtml } from "@/utils/imageExtractor";
 import { Product } from "../../types/product";
 import RelatedProducts from "./RelatedProducts";
+import TableOfContent from "@/components/editor/Toc";
 
 interface ProductDetailProps {
   product: Product;
@@ -230,6 +231,8 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
                 </p>
               )}
             </div>
+            {/* Tabe of content */}
+            <TableOfContent content={product.content} />
             <div className="text-base text-[#444444]">
               <div dangerouslySetInnerHTML={{ __html: product.content }} />
             </div>

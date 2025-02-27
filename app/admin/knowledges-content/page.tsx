@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useCallback } from "react";
 import DashboardLayout from "@/components/admin/DashboardLayout";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
+
 import ProductEditorKnowledge from "@/components/api/ProductEditorKnowledge";
 import {
   EmptyProductContent,
   ProductContent,
 } from "@/types/product-management";
+import ProtectedRoute from "@/components/admin/auth/ProtectedRoute";
 
 // Component Toast riêng để hiển thị thông báo
 interface ToastProps {

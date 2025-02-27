@@ -8,17 +8,13 @@ import {
   FaSearch,
   FaSort,
 } from "react-icons/fa";
-import dynamic from "next/dynamic";
 import { EditorProps, Draft } from "../../types/product-management";
 import Preview from "../../app/admin/product-content/preview";
 import { FormField } from "../common/FormField";
 import { useProductEditorKnowLedge } from "./hooks/useProductEditorKnowLedge";
 import "../../app/admin/product-content/custom-editor.css";
+import RichTextEditor from "../editor/TextEditor";
 
-const CustomEditor = dynamic(() => import("../editor/CustomeEditor"), {
-  ssr: false,
-  loading: () => <p>Đang tải trình soạn thảo...</p>,
-});
 interface CategoryOption {
   value: string;
   label: string;
@@ -280,10 +276,9 @@ const ProductEditorKnowledge: React.FC<EditorProps> = ({
           Nội dung
         </label>
         <div className="editor-wrapper">
-          <CustomEditor
+          <RichTextEditor
             initialValue={formData.content}
             onChange={(value) => setFormData({ ...formData, content: value })}
-            placeholder="Nhập nội dung sản phẩm..."
           />
         </div>
       </div>

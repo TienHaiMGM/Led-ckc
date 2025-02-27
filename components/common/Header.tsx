@@ -49,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
   };
 
   return (
-    <header className="z-50 bg-white text-black shadow-lg">
+    <header id="main-header" className="z-50 bg-white text-black shadow-lg">
       {/* SEO Optimization */}
       <div className="hidden">
         <h1>Siêu Thị Bảng Hiệu - Chuyên cung cấp bảng hiệu chất lượng cao</h1>
