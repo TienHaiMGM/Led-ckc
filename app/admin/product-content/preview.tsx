@@ -1,8 +1,8 @@
 "use client";
 
+import TableOfContent from "@/components/editor/Toc";
 import { EditorContent } from "../../../types/editor";
 import Image from "next/image";
-import "./preview.css";
 
 interface PreviewProps {
   content: EditorContent;
@@ -11,8 +11,8 @@ interface PreviewProps {
 
 export default function Preview({ content, onClose }: PreviewProps) {
   return (
-    <div className="preview-overlay fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black bg-opacity-50 py-4">
-      <div className="preview-content mx-4 my-4 w-full max-w-4xl rounded-lg bg-white shadow-xl">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black bg-opacity-50 py-4 backdrop-blur-sm print:relative print:bg-white">
+      <div className="mx-4 my-4 w-full max-w-4xl rounded-lg bg-white shadow-xl transition-all duration-300 print:m-0 print:max-w-none print:shadow-none">
         {/* Preview Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white p-4">
           <div>
@@ -35,7 +35,7 @@ export default function Preview({ content, onClose }: PreviewProps) {
           <div className="flex items-center gap-3">
             <button
               onClick={() => window.print()}
-              className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+              className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 print:hidden"
               title="In"
             >
               <svg
@@ -54,7 +54,7 @@ export default function Preview({ content, onClose }: PreviewProps) {
             </button>
             <button
               onClick={onClose}
-              className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+              className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 print:hidden"
               title="Đóng"
             >
               <svg
@@ -88,65 +88,19 @@ export default function Preview({ content, onClose }: PreviewProps) {
         )}
 
         {/* Preview Content */}
-        <div className="preview-body space-y-6 p-6">
+        <div className="space-y-6 p-6 font-sans print:p-0">
           {/* Title & Meta */}
           <div className="space-y-4">
-            <h1 className="text-3xl font-bold text-gray-900">
-              {content.title}
-            </h1>
-
-            <div className="preview-meta">
-              {content.category && (
-                <div className="preview-meta-item">
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
-                    />
-                  </svg>
-                  <span>{content.category}</span>
-                </div>
-              )}
-              {content.tags && content.tags.length > 0 && (
-                <div className="preview-meta-item">
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
-                    />
-                  </svg>
-                  <div className="preview-tags">
-                    {content.tags.map((tag) => (
-                      <span key={tag} className="preview-tag">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
+            <h2 className="text-3xl font-bold text-gray-900">
+              Thông tin chi tiết
+            </h2>
             {content.description && (
               <div className="text-lg leading-relaxed text-gray-600">
                 {content.description}
               </div>
             )}
           </div>
-
+          <h2 className="mb-2 text-2xl font-semibold">📚 Mục Lục</h2>
           {/* Main Content */}
           <div
             className="prose max-w-none"
@@ -193,29 +147,12 @@ export default function Preview({ content, onClose }: PreviewProps) {
         <div className="sticky bottom-0 flex justify-end gap-4 border-t border-gray-200 bg-white p-4">
           <button
             onClick={onClose}
-            className="rounded-lg bg-gray-100 px-4 py-2 text-gray-700 transition-colors hover:bg-gray-200"
+            className="rounded-lg bg-gray-100 px-4 py-2 text-gray-700 transition-colors hover:bg-gray-200 print:hidden"
           >
             Đóng
           </button>
         </div>
       </div>
-
-      <style jsx global>{`
-        @media print {
-          .preview-overlay {
-            position: relative;
-            background: white;
-          }
-          .preview-content {
-            box-shadow: none;
-            margin: 0;
-            max-width: none;
-          }
-          button {
-            display: none;
-          }
-        }
-      `}</style>
     </div>
   );
 }

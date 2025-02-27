@@ -31,6 +31,13 @@ module.exports = {
       animation: {
         focusScale: "focusScale 200ms ease-out forwards",
       },
+      typography: {
+        custome: {
+          css: {
+            maxWidth: "100%",
+          },
+        },
+      },
     },
   },
   plugins: [

@@ -137,9 +137,10 @@ const News: React.FC<EditorProps> = ({ EditorContent }) => {
               </div>
             </div>
           </section>
-
+          {/* Breadcrumb */}
+          <Breadcrumb />
           {/* Categories */}
-          <section className="sticky top-0 z-10 border-b bg-gray-50 py-6 shadow-sm">
+          <section className="sticky top-0 z-10 border-b bg-gray-50 py-3 shadow-sm">
             <div className="container mx-auto px-4">
               <div className="flex flex-wrap justify-start gap-3">
                 {categories.map((category) => (
@@ -161,8 +162,6 @@ const News: React.FC<EditorProps> = ({ EditorContent }) => {
               </div>
             </div>
           </section>
-
-          <Breadcrumb />
 
           {/* News Grid */}
           <section className="bg-gray-50 py-8 md:py-12">

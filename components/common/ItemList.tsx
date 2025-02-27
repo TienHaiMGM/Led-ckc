@@ -61,7 +61,7 @@ const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
         {/* Section Xem thêm */}
         <div className="mt-3 flex justify-center text-base font-bold text-blue-700">
           <Link
-            href={`/collections/${EditorContent.slug}`}
+            href={`/san-pham/${EditorContent.slug}`}
             className="flex cursor-pointer hover:scale-105"
           >
             <p className="">Xem thêm sản phẩm</p>

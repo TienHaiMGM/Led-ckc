@@ -13,7 +13,6 @@ import { EditorProps, Draft } from "../../types/product-management";
 import Preview from "../../app/admin/product-content/preview";
 import { FormField } from "../common/FormField";
 import { useProductEditorNew } from "./hooks/useProductEditorNew";
-import "../../app/admin/product-content/custom-editor.css";
 import RichTextEditor from "../editor/TextEditor";
 
 interface CategoryOption {

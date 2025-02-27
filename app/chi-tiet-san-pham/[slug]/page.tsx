@@ -96,7 +96,6 @@ export default function ProductPage() {
   return (
     <>
       <Breadcrumb />
-
       <ProductDetail_WithData product={product} />
     </>
   );

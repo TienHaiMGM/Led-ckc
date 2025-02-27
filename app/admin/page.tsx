@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // Hook điều hướng của Next.js
 import { useAuth } from "@/components/admin/auth/AuthContext";
-import "./styles.css";
+
 // Hook xác thực người dùng
 
 export default function AdminPage() {

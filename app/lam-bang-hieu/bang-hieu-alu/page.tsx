@@ -106,7 +106,7 @@ const BangHieuAlu = () => {
           <div className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
             <TabarLeft />
           </div>
-          <article className="prose max-w-none lg:w-3/4">
+          <article className="prose-custome prose lg:w-3/4">
             <div className="rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
               <h1 className="text-3xl font-bold text-blue-800 lg:text-4xl">
                 Bảng Hiệu Alu - Giải Pháp Quảng Cáo Hiệu Quả, Bền Đẹp Và Tiết
