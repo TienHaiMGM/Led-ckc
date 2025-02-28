@@ -279,7 +279,6 @@ const News: React.FC<EditorProps> = ({ EditorContent }) => {
                   </nav>
                 </div>
               )}
-
               {/* Newsletter Subscription */}
               <NewsletterSubscription />
             </div>

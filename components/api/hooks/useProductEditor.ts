@@ -135,6 +135,7 @@ export const useProductEditor = (
   };
 
   const startEdit = (product: ProductContent) => {
+    console.log("product", product);
     setEditingProduct(product);
     setFormData({
       ...product,

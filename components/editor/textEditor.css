@@ -36,3 +36,24 @@ h6 {
   border-radius: 8px;
   scale: 105%;
 }
+
+/* Table-specific styling */
+#text-editor table {
+  border-collapse: collapse;
+  margin: auto;
+  overflow: hidden;
+  table-layout: fixed;
+  width: 100%;
+}
+#text-editor td,
+#text-editor th {
+  border: 1px solid gray;
+  box-sizing: border-box;
+  min-width: 1em;
+  padding: 2px 2px;
+  position: relative;
+  vertical-align: center;
+  > * {
+    margin-bottom: 0;
+  }
+}

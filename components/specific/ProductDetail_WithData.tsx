@@ -224,7 +224,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
         <section className="py-8">
           <div className="container mx-auto px-3 xl:px-36">
             <div className="mb-8">
-              <h2 className="text-2xl font-bold">Thông tin chi tiết</h2>
+              <h2 className="text-2xl font-bold">Giới thiệu</h2>
               {product.description && (
                 <p className="mt-2 text-base text-[#444444]">
                   {product.description}

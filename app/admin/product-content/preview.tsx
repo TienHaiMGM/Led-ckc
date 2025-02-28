@@ -1,6 +1,5 @@
 "use client";
 
-import TableOfContent from "@/components/editor/Toc";
 import { EditorContent } from "../../../types/editor";
 import Image from "next/image";
 

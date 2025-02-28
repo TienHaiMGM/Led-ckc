@@ -48,7 +48,7 @@ const TableOfContent: React.FC<TableOfContentProps> = ({ content }) => {
       case 1:
         return "ml-0";
       case 2:
-        return "ml-4";
+        return "ml-4 list-none";
       case 3:
         return "ml-8";
       case 4:
@@ -64,16 +64,16 @@ const TableOfContent: React.FC<TableOfContentProps> = ({ content }) => {
 
   return (
     <section className="grid gap-4">
-      <nav className="order-2 mb-6 rounded-lg bg-gray-100 p-4 leading-normal shadow-lg">
+      <nav className="prose prose-custome order-2 rounded-lg bg-gray-100 p-4 leading-normal shadow-lg">
         <div
           className="flex hover:cursor-pointer active:text-red-600"
           onClick={() => setIsToc(!isToc)}
         >
           <h2 className="mb-2 text-2xl font-semibold">📚 Mục Lục</h2>
           {isToc ? (
-            <FaArrowUp className="ml-4 mt-2 text-xl"></FaArrowUp>
+            <FaArrowUp className="relative left-2 top-[3.4rem] text-xl"></FaArrowUp>
           ) : (
-            <FaArrowDown className="ml-4 mt-2 text-xl"></FaArrowDown>
+            <FaArrowDown className="relative left-2 top-[3.4rem] text-xl"></FaArrowDown>
           )}
         </div>
         {isToc && (

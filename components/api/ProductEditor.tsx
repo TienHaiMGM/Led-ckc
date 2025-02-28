@@ -231,10 +231,12 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
       />
 
       <FormField
+        type="textarea"
         label="Mô tả"
         value={formData.description}
         onChange={(value) => setFormData({ ...formData, description: value })}
         required
+        className="resize-x"
       />
 
       <div>
@@ -349,11 +351,9 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
                 ))}
               </nav>
             </div>
-
             <div className="p-6">
               {activeTab === "content" ? renderContentTab() : renderSeoTab()}
             </div>
-
             {showPreview && (
               <Preview
                 content={dataPreview}
