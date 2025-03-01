@@ -27,9 +27,20 @@ module.exports = {
           "0%": { transform: "scale(1)" },
           "100%": { transform: "scale(1.05)" },
         },
+        glow: {
+          "0%": {
+            textShadow:
+              "0 0 5px #ff005e, 0 0 10px #ff005e, 0 0 20px #ff005e, 0 0 40px #ff005e, 0 0 80px #ff005e",
+          },
+          "100%": {
+            textShadow:
+              "0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 40px #00d4ff, 0 0 80px #00d4ff, 0 0 160px #00d4ff",
+          },
+        },
       },
       animation: {
         focusScale: "focusScale 200ms ease-out forwards",
+        glow: "glow 1.5s infinite alternate",
       },
       typography: {
         custome: {

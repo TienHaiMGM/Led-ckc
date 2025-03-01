@@ -52,7 +52,6 @@ const Contact = () => {
           <div className="container mx-auto px-1 sm:px-2 lg:px-8">
             {/* Hero Section */}
             <div className="mb-2 text-center">
-              <div className="mb-6 flex justify-center"></div>
               <h1 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl">
                 Liên Hệ Với Chúng Tôi
               </h1>
