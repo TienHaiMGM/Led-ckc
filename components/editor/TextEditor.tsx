@@ -163,6 +163,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
       ],
       autofocus: true,
       content: htmlContent,
+      immediatelyRender: false, // Giải quyết lỗi SSR
       editorProps: {
         attributes: {
           class: "h-96 w-full resize-y rounded-lg p-4 overflow-scroll",

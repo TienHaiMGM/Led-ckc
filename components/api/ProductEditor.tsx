@@ -25,6 +25,7 @@ const categoryOptions: CategoryOption[] = [
   { value: "hopden", label: "Hộp đèn" },
   { value: "bienbat", label: "Biển bạt" },
   { value: "bienled", label: "Biển LED" },
+  { value: "standee", label: "Standee" },
 ];
 
 interface DraftsModalProps {

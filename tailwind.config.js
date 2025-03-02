@@ -37,10 +37,22 @@ module.exports = {
               "0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 40px #00d4ff, 0 0 80px #00d4ff, 0 0 160px #00d4ff",
           },
         },
+        flicker: {
+          "0%": {
+            opacity: "0.9",
+          },
+          "50%": {
+            opacity: "0.7",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
       },
       animation: {
         focusScale: "focusScale 200ms ease-out forwards",
         glow: "glow 1.5s infinite alternate",
+        flicker: "flicker 1.5s infinite alternate",
       },
       typography: {
         custome: {

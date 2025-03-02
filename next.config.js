@@ -2,9 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    appDir: true,
-  },
+
   webpack: (config, { isServer }) => {
     // Fix for chunk load errors
     config.optimization.splitChunks = {

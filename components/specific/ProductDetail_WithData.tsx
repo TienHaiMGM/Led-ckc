@@ -84,10 +84,14 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
               {/* Main Image */}
               <div className="relative h-[50vw] max-w-[100vw] overflow-hidden rounded-lg shadow-2xl md:h-[40vw] lg:h-96 xl:h-96">
                 <Image
-                  src={gallery[currentImageIndex]}
+                  src={
+                    gallery[currentImageIndex] ||
+                    "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798280/Led_ckc_bkwijt.jpg"
+                  }
                   alt={`${product.title} - Hình ảnh ${currentImageIndex + 1}`}
                   fill
-                  className="h-[20vh] w-full object-cover"
+                  sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 20vw"
+                  className="h-[20vh] w-full object-fill"
                   priority
                   loading="eager"
                   onClick={() => openFullImage(gallery[currentImageIndex])}
@@ -233,7 +237,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
             </div>
             {/* Tabe of content */}
             <TableOfContent content={product.content} />
-            <div className="prose-custome prose text-base">
+            <div className="prose prose-custome text-base">
               <div dangerouslySetInnerHTML={{ __html: product.content }} />
             </div>
           </div>

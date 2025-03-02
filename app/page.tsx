@@ -3,6 +3,7 @@ import ExploreCategories from "../components/specific/ExploreCategories";
 import ItemList from "../components/common/ItemList";
 import HowItWorks from "../components/specific/HowItWork";
 import Testimonials from "../components/specific/Testimonials";
+import NeonLogo from "./test/page";
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
@@ -12,7 +13,8 @@ export default function Home() {
           <HowItWorks />
         </section>
         <section className="bg-gray-50" aria-label="Danh mục sản phẩm">
-          <ExploreCategories />
+          {/* <ExploreCategories /> */}
+          <NeonLogo />
         </section>
         <section aria-label="Bảng hiệu">
           <ItemList
@@ -80,19 +82,19 @@ export default function Home() {
         <section className="bg-gray-50" aria-label="LED">
           <ItemList
             EditorContent={{
-              title: "Bảng Led",
+              title: "Standee",
               content: "",
               images: "",
-              category: "bangled",
-              slug: "bang-led",
-              description: "Các mẫu bảng LED đẹp, chất lượng cao",
-              tags: ["bảng-led", "quảng cáo"],
+              category: "standee",
+              slug: "standee",
+              description: "Các mẫu bảng Standee đẹp, chất lượng cao",
+              tags: ["standee", "quảng cáo"],
               status: "published",
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString(),
-              seoTitle: "Bảng Led - Siêu Thị Bảng Hiệu",
+              seoTitle: "Standee- Siêu Thị Bảng Hiệu",
               seoDescription:
-                "Chuyên thiết kế và thi công các loại bảng LED quảng cáo chất lượng cao",
+                "Chuyên thiết kế và thi công các loại bảng Standee quảng cáo chất lượng cao",
               featuredImage: "path/to/image.jpg",
               thumbnail: "path/to/thumbnail.jpg",
             }}

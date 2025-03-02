@@ -6,90 +6,125 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 py-4 text-white">
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap items-center justify-between">
-          <div className="mb-4 w-full md:mb-0 md:w-1/4">
-            <h2 className="text-xl font-bold">Sieu Thi Bang Hieu</h2>
-            <p className="text-gray-400">
-              Siêu Thị Bảng Hiệu – Tạo dấu ấn, vươn tầm thương hiệu! 🚀
+        <div className="flex flex-wrap items-center justify-between gap-5">
+          <div className="mb-4 w-full text-gray-300 md:mb-0 md:w-1/4">
+            <div>
+              <img
+                src="./images/sieuthibanghieulogo.png"
+                alt="logo sieuthibanghieu"
+                className="w-48"
+              />
+            </div>
+            <h3 className="mt-3 text-gray-200">
+              CÔNG TY TNNH SIÊU THỊ BẢNG HIỆU
+            </h3>
+            <p>
+              <strong>Địa chỉ: </strong> 129 Thoại Ngọc Hầu, Hoà Thanh, Tân Phú,
+              Hồ Chí Minh
+            </p>
+            <p>
+              <strong>Số điện thoại: </strong> 0962630679
+            </p>
+            <p>
+              <strong>Gmail: </strong> sieuthibanghieu@gmail.com
+            </p>
+            <p>
+              <strong>Thời gian hoạt động: </strong> 8h - 20h
             </p>
           </div>
-          <div className="mb-4 w-full md:mb-0 md:w-1/4">
-            <h3 className="text-lg font-semibold">Menu Hỗ Trợ</h3>
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold">MENU HỖ TRỢ</h3>
             <ul>
               <li>
-                <Link href="/">
-                  <span className="cursor-pointer text-gray-400 hover:text-white">
+                <Link href="/gioi-thieu">
+                  <span className="cursor-pointer text-gray-300 hover:text-white">
                     Giới thiệu
                   </span>
                 </Link>
               </li>
               <li>
-                <Link href="/about">
-                  <span className="cursor-pointer text-gray-400 hover:text-white">
-                    Chính sách
+                <Link href="/san-pham">
+                  <span className="cursor-pointer text-gray-300 hover:text-white">
+                    Sản phẩm
                   </span>
                 </Link>
               </li>
               <li>
-                <Link href="/services">
-                  <span className="cursor-pointer text-gray-400 hover:text-white">
+                <Link href="/san-pham">
+                  <span className="cursor-pointer text-gray-300 hover:text-white">
+                    Làm bảng hiệu
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/tin-tuc-moi">
+                  <span className="cursor-pointer text-gray-300 hover:text-white">
+                    Tin tức
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/lien-he">
+                  <span className="cursor-pointer text-gray-300 hover:text-white">
                     Liên hệ
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact">
-                  <span className="cursor-pointer text-gray-400 hover:text-white">
-                    Câu hỏi thường gặp
                   </span>
                 </Link>
               </li>
             </ul>
           </div>
-          <div className="mb-4 w-full md:mb-0 md:w-1/4">
+          <div>
+            <img
+              src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740824063/qr-zalo-me-zalo-me-0987902715_k1vs0h.png"
+              alt="qr code cho zalo"
+              className="w-48"
+            />
+          </div>
+          <div className="mb-4">
             <h3 className="text-lg font-semibold">Theo Dõi Chúng Tôi</h3>
             <div className="flex space-x-4">
               <Link href="#">
-                <span className="cursor-pointer text-2xl text-gray-400 hover:text-white">
+                <span className="cursor-pointer text-2xl text-gray-300 hover:text-white">
                   <i className="fab fa-facebook-f"></i>
                 </span>
               </Link>
               <Link href="#">
-                <span className="cursor-pointer text-2xl text-gray-400 hover:text-white">
+                <span className="cursor-pointer text-2xl text-gray-300 hover:text-white">
                   <i className="fab fa-tiktok"></i>
                 </span>
               </Link>
               <Link href="#">
-                <span className="cursor-pointer text-2xl text-gray-400 hover:text-white">
+                <span className="cursor-pointer text-2xl text-gray-300 hover:text-white">
                   <i className="fab fa-youtube"></i>
                 </span>
               </Link>
               <Link href="#">
-                <span className="cursor-pointer text-2xl text-gray-400 hover:text-white">
+                <span className="cursor-pointer text-2xl text-gray-300 hover:text-white">
                   <i className="fab fa-instagram"></i>
                 </span>
               </Link>
               <Link href="#">
-                <span className="cursor-pointer text-2xl text-gray-400 hover:text-white">
+                <span className="cursor-pointer text-2xl text-gray-300 hover:text-white">
                   <i className="fab fa-twitter"></i>
                 </span>
               </Link>
             </div>
           </div>
-          <div className="w-full md:w-1/4">
+          <div className="w-full xl:w-1/4">
             <h3 className="text-lg font-semibold">Vị Trí Cửa Hàng</h3>
             <div className="mb-4 h-64 overflow-hidden rounded-lg bg-gray-200">
+              {" "}
               <iframe
                 className="h-full w-full"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7838.786135175627!2d106.63277367589112!3d10.781176959104327!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f112bd74627%3A0xb85cda85682f9202!2zU2nDqnUgVGjhu4sgQuG6o25nIEhp4buHdQ!5e0!3m2!1sen!2sus!4v1738910558517!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDhg4nn5MmpjlyOjJCs6cdreduS3ne1ENI&q=Siêu+Thị+Bảng+Hiệu,129+Thoại+Ngọc+Hầu,Tân+Phú,Hồ+Chí+Minh"
                 style={{ border: 0 }}
                 allowFullScreen={false}
+                referrerPolicy="no-referrer-when-downgrade"
                 loading="lazy"
               ></iframe>
             </div>
           </div>
         </div>
-        <div className="mt-8 text-center text-gray-400">
+        <div className="mt-8 text-center text-gray-300">
           &copy; 2025 Siêu Thị Bảng Hiệu. Designed by AceMegamind.
         </div>
       </div>
