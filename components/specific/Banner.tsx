@@ -6,22 +6,24 @@ import Image from "next/image";
 const banners = [
   {
     id: 1,
+
     image:
-      "https://res.cloudinary.com/dsyidnrat/image/upload/v1739938056/Banner3_agbop9.jpg",
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740895180/Brown_and_White_Modern_Digital_Marketing_Agency_Twitter_Post_2_hbxhxv.gif",
     alt: "Siêu Thị Bảng Hiệu - Thiết kế và thi công bảng hiệu chuyên nghiệp tại TPHCM",
     title: "Bảng hiệu chuyên nghiệp",
   },
   {
     id: 2,
     image:
-      "https://res.cloudinary.com/dsyidnrat/image/upload/v1739938056/Banner1_wzjbgx.jpg",
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740886636/Red_and_Black_Geometric_Coming_Soon_Banner_tdbcjq.gif",
     alt: "Dịch vụ làm bảng hiệu LED, chữ nổi, hộp đèn quảng cáo chất lượng cao",
     title: "Bảng hiệu LED và chữ nổi",
   },
   {
     id: 3,
     image:
-      "https://res.cloudinary.com/dsyidnrat/image/upload/v1739938056/Banner2_addvaw.jpg",
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740890253/Gaming_Twitch_Banner_in_Neon_Green_Grey_Player_One_Style_1_nwajle.gif",
+
     alt: "Thi công bảng hiệu quảng cáo uy tín, giá tốt nhất thị trường",
     title: "Thi công bảng hiệu",
   },
@@ -55,26 +57,50 @@ const Banner = () => {
   return (
     <section
       aria-label="Banner chính"
-      className="relative z-0 mx-auto my-4 h-[50vw] w-full max-w-7xl overflow-hidden xl:h-[60vh]"
+      className="relative z-0 mx-auto my-4 h-[55vw] w-full max-w-7xl overflow-hidden xl:h-[80vh]"
     >
       <div className="absolute inset-0 z-10 flex items-center justify-between">
         <button
-          aria-label="Slide trước"
-          className="group relative mb-2 mr-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 group-hover:from-purple-600 group-hover:to-blue-500 dark:text-white dark:focus:ring-blue-800"
+          className="group relative h-14 w-14 cursor-pointer overflow-hidden border-0 bg-transparent outline-none"
           onClick={prevSlide}
+          aria-label="Slide trước"
         >
-          <span className="relative rounded-md bg-white px-2.5 py-1 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900 md:px-3.5 md:py-2 lg:px-5 lg:py-2.5 xl:px-5 xl:py-2.5">
-            &lt;
-          </span>
+          <span className="absolute inset-2.5 rounded-full border-4 border-gray-200 transition-all duration-500 ease-in-out group-hover:scale-75 group-hover:opacity-0"></span>
+          <span className="absolute inset-2.5 scale-125 rounded-full border-4 border-blue-300 opacity-0 transition-all duration-500 ease-in-out group-hover:scale-100 group-hover:opacity-100"></span>
+
+          <div className="duration-400 absolute left-0 top-0 flex transition-transform ease-in-out group-hover:-translate-x-14">
+            <span className="mx-4 mt-4 block h-5 w-5 rotate-180 fill-gray-200">
+              <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+                <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+              </svg>
+            </span>
+            <span className="mx-4 mt-4 block h-5 w-5 rotate-180 fill-gray-200">
+              <svg viewBox="0 0 46 40">
+                <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+              </svg>
+            </span>
+          </div>
         </button>
         <button
-          aria-label="Slide tiếp theo"
+          className="group relative h-14 w-14 cursor-pointer overflow-hidden border-0 bg-transparent outline-none"
           onClick={nextSlide}
-          className="group relative mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-green-400 to-blue-600 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-200 group-hover:from-green-400 group-hover:to-blue-600 dark:text-white dark:focus:ring-green-800"
+          aria-label="Slide tiếp theo"
         >
-          <span className="relative rounded-md bg-white px-2.5 py-1 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900 md:px-3.5 md:py-2 lg:px-5 lg:py-2.5 xl:px-5 xl:py-2.5">
-            &gt;
-          </span>
+          <span className="absolute inset-2.5 rounded-full border-4 border-gray-200 transition-all duration-500 ease-in-out group-hover:scale-75 group-hover:opacity-0"></span>
+          <span className="absolute inset-2.5 scale-125 rounded-full border-4 border-blue-300 opacity-0 transition-all duration-500 ease-in-out group-hover:scale-100 group-hover:opacity-100"></span>
+
+          <div className="duration-400 absolute left-0 top-0 flex transition-transform ease-in-out group-hover:-translate-x-14">
+            <span className="mx-4 mt-4 block h-5 w-5 fill-gray-200">
+              <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+                <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+              </svg>
+            </span>
+            <span className="mx-4 mt-4 block h-5 w-5 fill-gray-200">
+              <svg viewBox="0 0 46 40">
+                <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+              </svg>
+            </span>
+          </div>
         </button>
       </div>
       <div className="relative h-full w-full">

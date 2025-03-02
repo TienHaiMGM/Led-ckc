@@ -3,7 +3,8 @@ import ExploreCategories from "../components/specific/ExploreCategories";
 import ItemList from "../components/common/ItemList";
 import HowItWorks from "../components/specific/HowItWork";
 import Testimonials from "../components/specific/Testimonials";
-import NeonLogo from "./test/page";
+import NeonLogo from "@/components/specific/NeonLogo";
+
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">

@@ -83,18 +83,8 @@ export default function AboutPage() {
       <main className="bg-gradient-to-b from-gray-50 to-white text-gray-800">
         {/* Hero Section with Parallax Effect */}
         <section className="relative h-1/3 w-full overflow-hidden lg:min-h-[80vh]">
-          {/* <div className="absolute inset-0">
-            <Image
-              src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740559131/Led_ckc_lnc28g.jpg"
-              alt="Siêu Thị Bảng Hiệu Background"
-              className="object-fill"
-              fill
-              priority
-              sizes="100%"
-            />
-          </div> */}
           <div className="flex h-[80vh] items-center justify-center overflow-hidden bg-black">
-            <h1 className="animate-glow text-center font-sans text-9xl uppercase leading-snug text-white">
+            <h1 className="animate-glow text-center font-sans text-9xl font-bold uppercase leading-snug text-white">
               Siêu Thị Bảng Hiệu
             </h1>
           </div>

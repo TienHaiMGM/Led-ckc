@@ -1,32 +1,23 @@
-"use client";
-import { useState } from "react";
-import { motion } from "framer-motion";
-
-const NeonBox = ({ letter, color }: { letter: string; color: string }) => {
+export default function TestPage() {
   return (
-    <motion.div
-      className={`animate-flicker flex h-32 w-60 -rotate-2 cursor-pointer items-center justify-center rounded-md border-4 p-1 text-8xl font-bold hover:scale-105 xl:h-80 xl:w-80 xl:text-[12rem] border-[${color}] bg-black transition-all duration-300 ease-in-out`}
-      style={{
-        textShadow: `0 0 10px ${color}, 0 0 20px ${color}, 0 0 40px ${color}, 0 0 80px ${color}`,
-        filter: `drop-shadow(0 0 15px ${color})`,
-        color: color,
-      }}
-      whileHover={{
-        scale: 1.05,
-      }}
-    >
-      {letter}
-    </motion.div>
-  );
-};
+    <div className="video-container">
+      <button className="relative h-14 w-14 cursor-pointer overflow-hidden border-0 bg-transparent outline-none">
+        <div className="duration-400 absolute inset-[7px] rounded-full border-4 border-[#f0eeef] transition-opacity ease-in-out hover:scale-75 hover:opacity-0 focus:scale-75 focus:opacity-0"></div>
+        <div className="scale-130 duration-400 absolute inset-[7px] rounded-full border-4 border-[#96daf0] opacity-0 transition-opacity ease-in-out hover:scale-100 hover:opacity-100 focus:scale-100 focus:opacity-100"></div>
 
-export default function NeonLogo() {
-  return (
-    <div className="flex justify-center space-x-6 bg-gray-900 p-16">
-      <NeonBox letter="S" color="#00FFFF" />
-      <NeonBox letter="T" color="#FF1493" />
-      <NeonBox letter="B" color="#FF4500" />
-      <NeonBox letter="H" color="#FFD700" />
+        <div className="duration-400 absolute left-0 top-0 flex transition-transform ease-in-out hover:-translate-x-14 focus:-translate-x-14">
+          <span className="ml-[18px] mt-[17px] block h-5 w-5 rotate-180 fill-[#f0eeef]">
+            <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+              <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+            </svg>
+          </span>
+          <span className="ml-[18px] mt-[17px] block h-5 w-5 rotate-180 fill-[#f0eeef]">
+            <svg viewBox="0 0 46 40">
+              <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+            </svg>
+          </span>
+        </div>
+      </button>
     </div>
   );
 }
