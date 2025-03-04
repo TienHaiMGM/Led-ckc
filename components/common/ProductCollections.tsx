@@ -133,7 +133,7 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
   // Product card component
   const ProductCard = ({ product }: { product: (typeof products)[0] }) => (
     <article className="rounded-xl bg-white shadow-sm transition-shadow duration-300 hover:shadow-md">
-      <Link href={`/products/${product.slug}`} className="block">
+      <Link href={`chi-tiet-san-pham/${product.slug}`} className="block">
         <div className="relative h-[60vw] w-full overflow-hidden rounded-t-xl md:h-56">
           <Image
             src={product.images}

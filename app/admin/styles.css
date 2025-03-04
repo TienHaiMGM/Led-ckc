@@ -21,6 +21,8 @@
   background-color: #ef4444;
 }
 #main-menu,
-#main-header {
+#main-header,
+#SocialButtons,
+#Footer {
   display: none !important;
 }

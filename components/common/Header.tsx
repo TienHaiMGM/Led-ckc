@@ -91,14 +91,14 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
 
           {/* Desktop Contact Info */}
           <div className="hidden items-center space-x-4 lg:flex">
-            <div className="flex items-center rounded-lg px-4 py-2 text-xl transition-colors hover:scale-105">
+            <div className="flex items-center rounded-lg px-4 py-2 text-xl text-blue-700 transition-colors hover:scale-105 hover:text-blue-800">
               <FaPhoneAlt className="mr-2" />
               <div>
                 <a
                   href="tel:0123456789"
-                  className="transition-colors- font-bold hover:text-neutral-800"
+                  className="font-bold text-blue-700 transition-colors hover:text-blue-800"
                 >
-                  0123-456-789
+                  0962630679
                 </a>
               </div>
             </div>

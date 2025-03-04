@@ -79,7 +79,7 @@ const Contact = () => {
                           Điện thoại
                         </p>
                         <p className="text-base font-bold text-blue-500 sm:text-lg">
-                          (123) 456-7890
+                          0962 630 679
                         </p>
                       </div>
                     </div>
@@ -93,7 +93,7 @@ const Contact = () => {
                           Email
                         </p>
                         <p className="text-base font-bold text-blue-500 sm:text-lg">
-                          contact@example.com
+                          sieuthibanghieu@gmail.com
                         </p>
                       </div>
                     </div>
@@ -107,7 +107,7 @@ const Contact = () => {
                           Giờ làm việc
                         </p>
                         <p className="text-base font-bold text-blue-500 sm:text-lg">
-                          8:00 - 17:00 (Thứ 2 - Thứ 7)
+                          8:00 - 22:00 (Thứ 2 - Thứ 8)
                         </p>
                       </div>
                     </div>
@@ -121,7 +121,7 @@ const Contact = () => {
                           Địa chỉ
                         </p>
                         <p className="text-base font-bold text-blue-500 sm:text-lg">
-                          129 Đường ABC, Quận XYZ
+                          129 Thoại Ngọc Hầu, Phú Thạnh, Tân Phú, Hồ Chí Minh
                         </p>
                       </div>
                     </div>

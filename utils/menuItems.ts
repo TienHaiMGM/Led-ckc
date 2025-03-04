@@ -8,6 +8,7 @@ export const menuItems = [
       { href: "/san-pham/bang-hieu", label: "Bảng hiệu" },
       { href: "/san-pham/chu-noi", label: "Chữ nổi" },
       { href: "/san-pham/hop-den", label: "Hộp đèn" },
+      { href: "/san-pham/standee", label: "Standee" },
       { href: "/san-pham/bang-led", label: "LED" },
       { href: "/san-pham/bang-so-nha", label: "Bảng số nhà" },
       { href: "/san-pham/bang-ten-cong-ty", label: "Bảng tên công ty" },

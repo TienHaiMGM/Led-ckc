@@ -93,7 +93,7 @@ export default function AboutPage() {
         <div className="flex items-center justify-center">
           <div className="container p-4 lg:p-36">
             <div className="">
-              <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-600 sm:text-4xl md:mb-6 md:text-5xl lg:text-6xl">
+              <h2 className="mb-4 text-3xl font-bold leading-tight text-gray-600 sm:text-4xl md:mb-6 md:text-5xl lg:text-6xl">
                 Kiến Tạo{" "}
                 <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
                   Thương Hiệu
@@ -103,7 +103,7 @@ export default function AboutPage() {
                 <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
                   Tương Lai
                 </span>
-              </h1>
+              </h2>
               <p className="mb-6 text-base leading-relaxed text-gray-600 sm:mb-8 sm:text-lg">
                 Được thành lập với sứ mệnh mang đến những giải pháp quảng cáo
                 trực quan và hiệu quả,{" "}
@@ -324,7 +324,7 @@ export default function AboutPage() {
               tượng và độc đáo
             </p>
             <a
-              href="/pages/lien-he"
+              href="/lien-he"
               className="0 group relative inline-flex items-center overflow-hidden rounded-full bg-red-600 px-6 py-2 font-semibold text-white transition-all hover:bg-red-700 sm:px-8 sm:py-3"
             >
               <span className="relative">Liên Hệ Ngay</span>

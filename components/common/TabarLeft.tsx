@@ -113,7 +113,7 @@ export const TabarLeft = () => {
             href="tel:0123456789"
             className="mt-6 block rounded-lg bg-white px-4 py-2 text-center font-bold text-blue-600 transition duration-300 hover:bg-blue-50"
           >
-            Gọi Ngay: 0123.456.789
+            Gọi Ngay: 0962.630.679
           </a>
         </div>
 

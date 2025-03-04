@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
+import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -99,7 +100,7 @@ const BangHieuInox = () => {
           <div className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
             <TabarLeft />
           </div>
-          <article className="prose-custome prose lg:w-3/4">
+          <article className="prose prose-custome lg:w-3/4">
             <div className="rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
               <h1 className="text-3xl font-bold text-blue-800 lg:text-4xl">
                 Bảng Hiệu Inox: Giải Pháp Sang Trọng và Bền Vững Cho Doanh
@@ -604,25 +605,8 @@ const BangHieuInox = () => {
                   </figcaption>
                 </figure>
               </div>
-              <div className="mt-6 rounded-lg border-l-4 border-blue-500 bg-blue-100 p-4">
-                <p className="text-lg font-semibold">
-                  📞{" "}
-                  <strong>
-                    Bạn đang tìm kiếm đơn vị thi công bảng hiệu alu uy tín, chất
-                    lượng?
-                  </strong>
-                </p>
-                <p className="mt-2">
-                  Hãy để <strong>chúng tôi</strong> giúp bạn mang đến giải pháp
-                  hoàn hảo nhất cho thương hiệu của bạn!
-                </p>
-                <a
-                  href="/pages/lien-he"
-                  className="mt-4 inline-block rounded-lg bg-red-500 px-6 py-3 text-white no-underline shadow transition hover:bg-red-600"
-                >
-                  Liên Hệ Ngay
-                </a>
-              </div>
+              {/* ACTIONCALL */}
+              <ActionCallButtonLamBangHieu />
             </section>
           </article>
         </div>

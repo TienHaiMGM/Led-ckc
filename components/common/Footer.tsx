@@ -4,7 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 py-4 text-white">
+    <footer id="Footer" className="bg-gray-900 py-4 text-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap items-center justify-between gap-5">
           <div className="mb-4 w-full text-gray-300 md:mb-0 md:w-1/4">
@@ -19,7 +19,7 @@ const Footer = () => {
               CÔNG TY TNNH SIÊU THỊ BẢNG HIỆU
             </h3>
             <p>
-              <strong>Địa chỉ: </strong> 129 Thoại Ngọc Hầu, Hoà Thanh, Tân Phú,
+              <strong>Địa chỉ: </strong> 129 Thoại Ngọc Hầu, Phú Thạnh, Tân Phú,
               Hồ Chí Minh
             </p>
             <p>

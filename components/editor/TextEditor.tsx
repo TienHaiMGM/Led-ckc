@@ -8,7 +8,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 import Heading from "@tiptap/extension-heading";
-import { FC, useRef, useState, useCallback } from "react";
+import { FC, useRef, useState, useCallback, useEffect } from "react";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
@@ -24,6 +24,7 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import { FontSize } from "@/lib/FontSize";
 import { ResizableImage } from "@/lib/ResizableImage_update";
+import Placeholder from "@tiptap/extension-placeholder";
 import "./textEditor.css";
 import { HeadingID } from "./headingExtention";
 import React from "react";
@@ -75,7 +76,7 @@ type DropdownState = {
 };
 
 const RichTextEditor: FC<RichTextEditorProps> = React.memo(
-  ({ onChange, initialValue }) => {
+  ({ onChange, initialValue = "" }) => {
     // Consolidated dropdown state
     const [dropdowns, setDropdowns] = useState<DropdownState>({
       formatting: false,
@@ -161,7 +162,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
         TextAlign.configure({ types: ["heading", "paragraph"] }),
         Focus.configure({ className: "has-focus", mode: "all" }),
       ],
-      autofocus: true,
+      autofocus: false,
       content: htmlContent,
       immediatelyRender: false, // Giải quyết lỗi SSR
       editorProps: {
@@ -223,7 +224,6 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
         }
       },
     });
-
     // Memoized handlers
     const handleSetImage = useCallback(() => {
       if (!editor || !imageAttrs.url.trim()) {
@@ -333,6 +333,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
 
     const handleSourceInput = useCallback(
       (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        e.preventDefault();
         const newContent = e.target.value;
         setHtmlContent(newContent);
 
@@ -384,12 +385,14 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                 {dropdowns.formatting && (
                   <div className="absolute z-10 grid space-y-2 rounded-lg border bg-white p-2 shadow-lg">
                     <button
+                      type="button"
                       onClick={() => editor.chain().focus().toggleBold().run()}
                       className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("bold") ? "bg-gray-300" : ""}`}
                     >
                       <b>Bold</b>
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().toggleItalic().run()
                       }
@@ -398,6 +401,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       <i>Italic</i>
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().toggleUnderline().run()
                       }
@@ -406,6 +410,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       <u>Underline</u>
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().toggleStrike().run()
                       }
@@ -414,6 +419,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       <s>Strike</s>
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().toggleSubscript().run()
                       }
@@ -422,6 +428,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       <sub>Subscript</sub>
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().toggleSuperscript().run()
                       }
@@ -446,6 +453,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                   <div className="absolute z-10 grid rounded-lg border bg-white p-3 shadow-lg">
                     {fontSizes.map((size) => (
                       <button
+                        type="button"
                         key={size}
                         className="cursor-pointer rounded border p-2"
                         onClick={() => handleFontSizeChange(size)}
@@ -470,6 +478,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                 {dropdowns.structure && (
                   <div className="absolute z-10 grid space-y-2 rounded-lg border bg-white p-2 shadow-lg">
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().setParagraph().run()
                       }
@@ -479,6 +488,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                     </button>
                     {[1, 2, 3, 4, 5, 6].map((level) => (
                       <button
+                        type="button"
                         key={level}
                         onClick={() => applyHeadingToSelection(level)}
                         className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("heading", { level }) ? "bg-gray-300" : ""}`}
@@ -538,6 +548,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                 {dropdowns.alignment && (
                   <div className="absolute z-10 grid space-y-2 rounded-lg border bg-white p-2 shadow-lg">
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().setTextAlign("left").run()
                       }
@@ -546,6 +557,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       Left
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().setTextAlign("center").run()
                       }
@@ -554,6 +566,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       Center
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().setTextAlign("right").run()
                       }
@@ -562,6 +575,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       Right
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().setTextAlign("justify").run()
                       }
@@ -585,6 +599,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                 {dropdowns.item && (
                   <div className="absolute z-10 grid space-y-2 rounded-lg border bg-white p-2 shadow-lg">
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().toggleBulletList().run()
                       }
@@ -593,6 +608,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       Bullet list
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().toggleOrderedList().run()
                       }
@@ -601,6 +617,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       Ordered list
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().splitListItem("listItem").run()
                       }
@@ -624,6 +641,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                 {dropdowns.table && (
                   <div className="absolute z-10 grid space-y-2 rounded-lg border bg-white p-2 shadow-lg">
                     <button
+                      type="button"
                       onClick={() =>
                         editor
                           .chain()
@@ -640,12 +658,14 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       Add Table
                     </button>
                     <button
+                      type="button"
                       onClick={() => editor.chain().focus().addRowAfter().run()}
                       className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out${editor.isActive("orderedList") ? "is-active" : ""}`}
                     >
                       Insert Row
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().addColumnAfter().run()
                       }
@@ -654,6 +674,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       Insert Col
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor.chain().focus().deleteColumn().run()
                       }
@@ -662,12 +683,14 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       Delete Col
                     </button>
                     <button
+                      type="button"
                       onClick={() => editor.chain().focus().deleteRow().run()}
                       className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out${editor.isActive("listItem") ? "is-active" : ""}`}
                     >
                       Delete Row
                     </button>
                     <button
+                      type="button"
                       onClick={() => editor.chain().focus().deleteTable().run()}
                       className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out${editor.isActive("listItem") ? "is-active" : ""}`}
                     >
@@ -680,6 +703,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
             {/* Link */}
             <div className="relative">
               <button
+                type="button"
                 onClick={() => toggleDropdown("link")}
                 className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
               >
@@ -695,6 +719,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                     onChange={(e) => setUrl(e.target.value)}
                   />
                   <button
+                    type="button"
                     onClick={setLink}
                     className="rounded-md bg-blue-500 px-4 py-2 text-white transition hover:bg-blue-600"
                   >
@@ -707,6 +732,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
             {/* Switch to HTML */}
             <div className="relative">
               <button
+                type="button"
                 onClick={toggleHtmlView}
                 className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
               >
@@ -716,6 +742,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
 
             {/* Upload Image */}
             <button
+              type="button"
               onClick={() => toggleDropdown("image")}
               className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
             >
@@ -763,6 +790,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                 <div className="mb-3 flex justify-between">
                   {["left", "center", "right"].map((pos) => (
                     <button
+                      type="button"
                       key={pos}
                       onClick={() =>
                         handleAlignmentChange(
@@ -784,12 +812,14 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                   ))}
                 </div>
                 <button
+                  type="button"
                   onClick={handleSetImage}
                   className="mr-2 inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
                 >
                   Thêm hình ảnh
                 </button>
                 <button
+                  type="button"
                   onClick={handleUpdateImageAttrs}
                   className="inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out"
                 >
@@ -803,7 +833,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
         {showHtml ? (
           <textarea
             value={htmlContent}
-            onChange={handleSourceInput}
+            onChange={(e) => handleSourceInput(e)}
             onBlur={() =>
               htmlContent && editor.commands.setContent(htmlContent, false)
             }
@@ -813,7 +843,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
           <EditorContent
             editor={editor}
             ref={editorRef}
-            className="ProseMirror prose prose-custome" // Add a class for consistent styling
+            className="ProseMirror prose prose-custome italic" // Add a class for consistent styling
           />
         )}
       </div>
@@ -822,6 +852,3 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
 );
 
 export default RichTextEditor;
-function setError(arg0: string) {
-  throw new Error("Function not implemented.");
-}

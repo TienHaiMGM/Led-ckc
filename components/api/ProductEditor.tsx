@@ -24,8 +24,10 @@ const categoryOptions: CategoryOption[] = [
   { value: "chunoi", label: "Chữ nổi" },
   { value: "hopden", label: "Hộp đèn" },
   { value: "bienbat", label: "Biển bạt" },
-  { value: "bienled", label: "Biển LED" },
+  { value: "bangled", label: "Bảng LED" },
   { value: "standee", label: "Standee" },
+  { value: "bangsonha", label: "Bảng số nhà" },
+  { value: "bangtencongty", label: "Bảng tên công ty" },
 ];
 
 interface DraftsModalProps {
@@ -46,7 +48,11 @@ const DraftsModal: React.FC<DraftsModalProps> = ({
       <div className="border-b p-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">Danh sách bản nháp</h2>
-          <button onClick={onClose} className="rounded p-1 hover:bg-gray-100">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded p-1 hover:bg-gray-100"
+          >
             <FaTimes className="h-5 w-5 text-gray-500" />
           </button>
         </div>
@@ -74,6 +80,7 @@ const DraftsModal: React.FC<DraftsModalProps> = ({
                   </div>
                   <div className="flex space-x-2">
                     <button
+                      type="button"
                       onClick={async () => {
                         if (draft.id) {
                           const success = await onLoadDraft(draft.id);
@@ -87,6 +94,7 @@ const DraftsModal: React.FC<DraftsModalProps> = ({
                       <FaEdit className="mr-1.5 h-4 w-4" /> Tải
                     </button>
                     <button
+                      type="button"
                       onClick={async () => {
                         if (
                           draft.id &&
@@ -209,6 +217,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
     <div className="space-y-6">
       <FormField
         label="Tên sản phẩm"
+        textLength={formData.title.length}
         value={formData.title}
         onChange={(value) => setFormData({ ...formData, title: value })}
         required
@@ -234,6 +243,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
       <FormField
         type="textarea"
         label="Mô tả"
+        textLength={formData.description.length}
         value={formData.description}
         onChange={(value) => setFormData({ ...formData, description: value })}
         required
@@ -277,6 +287,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
       <div className="space-y-6">
         <FormField
           label="SEO Title"
+          textLength={formData.seoTitle?.length || 0}
           value={formData.seoTitle || ""}
           onChange={(value) => setFormData({ ...formData, seoTitle: value })}
           description="Tiêu đề hiển thị trên kết quả tìm kiếm. Để trống để sử dụng tiêu đề chính."
@@ -284,6 +295,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
 
         <FormField
           label="SEO Description"
+          textLength={(formData.seoDescription ?? "").length}
           type="textarea"
           value={formData.seoDescription || ""}
           onChange={(value) =>
@@ -314,6 +326,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Quản Lý Sản Phẩm</h1>
         <button
+          type="button"
           onClick={() => setIsAdding(true)}
           className="flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
           disabled={loading}
@@ -449,6 +462,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
               <option value="category">Sắp xếp theo danh mục</option>
             </select>
             <button
+              type="button"
               onClick={toggleSortDirection}
               className="flex items-center rounded-lg border border-gray-300 px-3 py-2 hover:bg-gray-50"
             >
@@ -462,6 +476,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
         {/* Category Filter */}
         <div className="flex flex-wrap gap-2">
           <button
+            type="button"
             onClick={() => setSelectedCategory("")}
             className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
               selectedCategory === ""
@@ -473,6 +488,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
           </button>
           {categoryOptions.map((category) => (
             <button
+              type="button"
               key={category.value}
               onClick={() => setSelectedCategory(category.value)}
               className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
@@ -533,12 +549,14 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
                 <td className="whitespace-nowrap px-6 py-4">
                   <div className="flex space-x-2">
                     <button
+                      type="button"
                       onClick={() => startEdit(product)}
                       className="text-blue-600 hover:text-blue-900"
                     >
                       <FaEdit className="h-5 w-5" />
                     </button>
                     <button
+                      type="button"
                       onClick={() => handleDelete(product.id!)}
                       className="text-red-600 hover:text-red-900"
                     >

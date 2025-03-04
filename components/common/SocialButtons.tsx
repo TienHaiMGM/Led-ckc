@@ -2,7 +2,10 @@ import React from "react";
 
 const SocialButtons = () => {
   return (
-    <div className="space fixed right-4 top-[80vh] z-50 -translate-y-1/2 transform">
+    <div
+      id="SocialButtons"
+      className="space fixed right-4 top-[80vh] z-50 -translate-y-1/2 transform"
+    >
       <div className="flex flex-col gap-2">
         {/* Zalo */}
         <a

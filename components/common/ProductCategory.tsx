@@ -14,8 +14,7 @@ import { useProductEditor } from "../../components/api/hooks/useProductEditor";
 import PromotionPopup from "./PromotionPopup";
 
 const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
-  const { products, loading, error, generateSlug } =
-    useProductEditor(EditorContent);
+  const { products } = useProductEditor(EditorContent);
   const [mounted, setMounted] = React.useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -104,11 +103,11 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
         </h2>
         <div className="space-y-3">
           <a
-            href="tel:+84123456789"
+            href="tel:+0962630679"
             className="flex items-center space-x-3 rounded-lg bg-white p-3 text-gray-700 transition-colors hover:bg-blue-500 hover:text-white"
           >
             <FaPhone className="h-5 w-5" />
-            <span className="text-sm sm:text-base">0123 456 789</span>
+            <span className="text-sm sm:text-base">0962 630 679</span>
           </a>
           <a
             href="mailto:sieubthibanghieu@gmail.com?subject=Tư vấn khách hàng&body=Chào bạn, tôi cần từ vấn về..."
@@ -118,12 +117,14 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
             <span className="text-sm sm:text-base">Gửi Email</span>
           </a>
           <div className="flex items-center space-x-3 rounded-lg bg-white p-3 text-gray-700">
-            <FaMapMarkerAlt className="h-5 w-5" />
-            <span className="text-sm sm:text-base">TP. Hồ Chí Minh</span>
+            <FaMapMarkerAlt className="h-5 w-5 lg:w-10 xl:w-10" />
+            <span className="text-sm sm:text-base">
+              129 Thoại Ngọc Hầu, Phú Thạnh, Tân Phú, Hồ Chí Minh
+            </span>
           </div>
           <div className="flex items-center space-x-3 rounded-lg bg-white p-3 text-gray-700">
             <FaClock className="h-5 w-5" />
-            <span className="text-sm sm:text-base">8:00 - 17:30</span>
+            <span className="text-sm sm:text-base">8:00 - 22:00</span>
           </div>
         </div>
       </div>
