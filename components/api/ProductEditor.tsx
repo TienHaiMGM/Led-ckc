@@ -207,7 +207,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
           : categoryB.localeCompare(categoryA);
       } else if (sortBy === "hotness") {
         const levelA = a.hotness || 0;
-        const leveLB = a.hotness || 0;
+        const leveLB = b.hotness || 0;
         return sortDirection === "asc"
           ? Number(levelA) - Number(leveLB)
           : Number(leveLB) - Number(levelA);
