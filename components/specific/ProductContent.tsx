@@ -2,7 +2,6 @@
 import React from "react";
 import { FaTag, FaInfoCircle, FaList, FaCheck } from "react-icons/fa";
 import Head from "next/head";
-import { Metadata } from "next";
 
 interface ProductContentProps {
   product: {

@@ -14,6 +14,7 @@ export interface EditorContent {
   featuredImage?: string;
   thumbnail?: string; // New field for thumbnail
   caption?: string; // Added caption property
+  hotness?: string;
 }
 export const EditorContentInitial = {
   title: "",
@@ -30,6 +31,7 @@ export const EditorContentInitial = {
   seoDescription: "",
   featuredImage: "",
   thumbnail: "", // New field for thumbnail
+  hotness: "0",
 };
 export interface EditorProps {
   EditorContent: EditorContent;

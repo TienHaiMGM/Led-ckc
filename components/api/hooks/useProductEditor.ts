@@ -55,7 +55,7 @@ export const useProductEditor = (
       setLoading(true);
       const q = query(
         collection(db, "collections"),
-        orderBy("createdAt", "desc"),
+        orderBy("hotness", "desc"),
       );
       const querySnapshot = await getDocs(q);
       const productsData = querySnapshot.docs.map((doc) =>

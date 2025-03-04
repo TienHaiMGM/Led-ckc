@@ -205,6 +205,12 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
         return sortDirection === "asc"
           ? categoryA.localeCompare(categoryB)
           : categoryB.localeCompare(categoryA);
+      } else if (sortBy === "hotness") {
+        const levelA = a.hotness || 0;
+        const leveLB = a.hotness || 0;
+        return sortDirection === "asc"
+          ? Number(levelA) - Number(leveLB)
+          : Number(leveLB) - Number(levelA);
       }
       return 0;
     });
@@ -231,7 +237,14 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
         options={categoryOptions}
         required
       />
-
+      <FormField
+        label="Độ hot"
+        type="range"
+        value={formData.hotness || ""}
+        onChange={(value) => setFormData({ ...formData, hotness: value })}
+        options={categoryOptions}
+        required
+      />
       <FormField
         label="Link hình ảnh"
         type="url"
@@ -460,6 +473,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
             >
               <option value="date">Sắp xếp theo ngày</option>
               <option value="category">Sắp xếp theo danh mục</option>
+              <option value="hotness">Sắp xếp theo độ hot</option>
             </select>
             <button
               type="button"
@@ -485,6 +499,11 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
             }`}
           >
             Tất cả
+            <span>
+              {" ( "}
+              {products.length}
+              {" )"}
+            </span>
           </button>
           {categoryOptions.map((category) => (
             <button
@@ -497,7 +516,16 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              {category.label}
+              {category.label}{" "}
+              <span aria-label="Hien thi so theo category">
+                {"( "}
+                {
+                  products.filter(
+                    (product) => product.category == category.value,
+                  ).length
+                }
+                {" )"}
+              </span>
             </button>
           ))}
         </div>

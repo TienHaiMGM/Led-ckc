@@ -18,6 +18,7 @@ export interface ProductContent extends BaseDocument {
   featuredImage?: string;
   thumbnail?: string;
   author?: string;
+  hotness?: string;
 }
 
 export interface Draft extends ProductContent {
@@ -40,6 +41,7 @@ export const EmptyProductContent: ProductContent = {
   seoDescription: "",
   featuredImage: "",
   thumbnail: "",
+  hotness: "0",
 };
 
 export interface EditorProps {
