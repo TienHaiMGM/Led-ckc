@@ -248,7 +248,11 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
       <section className="bg-gray-100 py-8">
         <div className="container mx-auto px-3 text-center xl:px-36">
           <h2 className="mb-8 text-2xl font-bold">Sản phẩm liên quan</h2>
-          <RelatedProducts productId={product.id} category={product.category} />
+          <RelatedProducts
+            productId={product.id}
+            category={product.category}
+            maxResults={3}
+          />
         </div>
       </section>
 

@@ -1,129 +1,59 @@
-import { db } from "../../lib/firebase";
+import { db } from "@/lib/firebase";
 import {
   collection,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-  getDocs,
   query,
-  orderBy,
   where,
-  Firestore,
+  getDocs,
+  DocumentData,
+  QueryDocumentSnapshot,
+  limit,
 } from "firebase/firestore";
+import { News } from "@/types/news";
+// Map Firestore document to local TypeScript type
+const mapFirestoreDoc = <T extends { id?: string }>(
+  doc: QueryDocumentSnapshot<DocumentData>,
+): T => ({ id: doc.id, ...doc.data() }) as T;
 
-export interface News {
-  id?: string;
-  title: string;
-  description?: string;
-  content: string;
-  image: string;
-  slug: string;
-  category?: string;
-  tags?: string[];
-  author?: string;
-  createdAt?: any;
-  updatedAt?: any;
-  status?: "draft" | "published";
-}
-
-export const addNews = async (newsData: Omit<News, "id">) => {
-  try {
-    const newsRef = collection(db as Firestore, "newItems");
-    const docRef = await addDoc(newsRef, {
-      ...newsData,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    });
-    return docRef.id;
-  } catch (error) {
-    console.error("Error adding news:", error);
-    throw error;
-  }
-};
-
-export const updateNews = async (id: string, newsData: Partial<News>) => {
-  try {
-    const newsRef = doc(db as Firestore, "newItems", id);
-    await updateDoc(newsRef, {
-      ...newsData,
-      updatedAt: new Date().toISOString(),
-    });
-  } catch (error) {
-    console.error("Error updating news:", error);
-    throw error;
-  }
-};
-
-export const deleteNews = async (id: string) => {
-  try {
-    const newsRef = doc(db as Firestore, "newItems", id);
-    await deleteDoc(newsRef);
-  } catch (error) {
-    console.error("Error deleting news:", error);
-    throw error;
-  }
-};
-
-export const getAllNews = async (): Promise<News[]> => {
-  try {
-    const newsRef = collection(db as Firestore, "newItems");
-    const q = query(newsRef, orderBy("createdAt", "desc"));
-    const querySnapshot = await getDocs(q);
-
-    return querySnapshot.docs.map(
-      (doc) =>
-        ({
-          id: doc.id,
-          ...doc.data(),
-        }) as News,
-    );
-  } catch (error) {
-    console.error("Error fetching news:", error);
-    throw error;
-  }
-};
-
+/**
+ * Fetch a single new by slug.
+ */
 export const getNewsBySlug = async (slug: string): Promise<News | null> => {
   try {
-    const newsRef = collection(db as Firestore, "newItems");
+    const newsRef = collection(db, "newItems");
     const q = query(newsRef, where("slug", "==", slug));
     const querySnapshot = await getDocs(q);
 
-    if (querySnapshot.empty) {
-      return null;
-    }
-
-    const doc = querySnapshot.docs[0];
-    return {
-      id: doc.id,
-      ...doc.data(),
-    } as News;
+    return querySnapshot.empty
+      ? null
+      : mapFirestoreDoc<News>(querySnapshot.docs[0]);
   } catch (error) {
-    console.error("Error fetching news by slug:", error);
-    throw error;
+    console.error("Error fetching news:", error);
+    throw new Error("Failed to fetch news");
   }
 };
 
-export const getNewsByCategory = async (category: string): Promise<News[]> => {
+/**
+ * Fetch related news based on category, excluding the current new.
+ */
+export const getRelatedNews = async (
+  newsId: string,
+  category: string,
+  maxResults: number = 3,
+): Promise<News[]> => {
   try {
-    const newsRef = collection(db as Firestore, "newItems");
+    const newsRef = collection(db, "newItems");
     const q = query(
       newsRef,
       where("category", "==", category),
-      orderBy("createdAt", "desc"),
+      limit(maxResults),
     );
     const querySnapshot = await getDocs(q);
 
-    return querySnapshot.docs.map(
-      (doc) =>
-        ({
-          id: doc.id,
-          ...doc.data(),
-        }) as News,
-    );
+    return querySnapshot.docs
+      .filter((doc) => doc.id !== newsId) // Lọc trên client-side
+      .map((doc) => mapFirestoreDoc<News>(doc));
   } catch (error) {
-    console.error("Error fetching news by category:", error);
-    throw error;
+    console.error("Error fetching related news:", error);
+    throw new Error("Failed to fetch related news");
   }
 };

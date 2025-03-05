@@ -1,23 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getRelatedKnowledge } from "@/components/api/KnowledgeService";
+import { getRelatedNews } from "@/components/api/NewsService";
 import Link from "next/link";
 import Image from "next/image";
-import { Knowledge } from "@/types/knowledge";
+import { News } from "@/types/news";
 
 interface RelatedArticlesProps {
-  KnowledgeID: string;
+  NewsID: string;
   category: string;
   maxResults: number;
 }
 
 const RelatedArticles = ({
-  KnowledgeID,
+  NewsID,
   category,
   maxResults,
 }: RelatedArticlesProps) => {
-  const [relatedArticles, setRelatedArticles] = useState<Knowledge[]>([]);
+  const [relatedArticles, setRelatedArticles] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,7 +27,7 @@ const RelatedArticles = ({
       setError(null);
 
       try {
-        const articles = await getRelatedKnowledge(KnowledgeID, category);
+        const articles = await getRelatedNews(NewsID, category);
         setRelatedArticles(articles.slice(0, maxResults));
       } catch (error) {
         console.error("Error fetching related articles:", error);
@@ -38,7 +38,7 @@ const RelatedArticles = ({
     };
 
     fetchRelatedArticles();
-  }, [KnowledgeID, category, maxResults]);
+  }, [NewsID, category, maxResults]);
 
   if (loading)
     return <p className="text-center">Đang tải sản phẩm liên quan...</p>;
@@ -48,20 +48,17 @@ const RelatedArticles = ({
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {relatedArticles.map((knowledge) => (
+      {relatedArticles.map((news) => (
         <div
           className="col-span-1 rounded-xl shadow-2xl transition-all hover:scale-105"
-          key={knowledge.id}
+          key={news.id}
         >
           <div className="h-56 overflow-hidden rounded-lg bg-white transition-all duration-500 ease-in-out sm:h-60 sm:rounded-xl md:h-72 lg:h-64 xl:h-72">
-            <Link
-              href={`/chi-tiet-san-pham/${knowledge.slug}`}
-              className="block"
-            >
+            <Link href={`/chi-tiet-san-pham/${news.slug}`} className="block">
               <div className="relative h-[19vh] sm:h-[20vh] md:h-[25vh] lg:h-[20vh] xl:h-[25vh]">
                 <Image
-                  src={knowledge.images || "/images/default-product.jpg"}
-                  alt={knowledge.title}
+                  src={news.images || "/images/default-product.jpg"}
+                  alt={news.title}
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
@@ -71,7 +68,7 @@ const RelatedArticles = ({
               </div>
               <div className="p-2 sm:p-3">
                 <h3 className="text-center text-xs font-bold uppercase text-slate-600 sm:text-sm">
-                  {knowledge.title}
+                  {news.title}
                 </h3>
               </div>
             </Link>

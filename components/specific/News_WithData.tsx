@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { getAllNews, News } from "../api/NewsService";
 import { FaCalendarAlt, FaTag, FaShareAlt } from "react-icons/fa";
 import RelatedArticles from "./RelatedArticles";
+import { News } from "@/types/news";
+import RelatedNews from "./RelatedNews";
 interface NewsProps {
   News: News;
 }
@@ -62,11 +63,11 @@ const News_WithData = ({ News }: NewsProps) => {
       </header>
 
       {/* Featured Image */}
-      {News.image && (
+      {News.images && (
         <div className="relative mx-auto -mt-16 mb-12 max-w-4xl px-4">
           <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl">
             <Image
-              src={News.image}
+              src={News.images}
               alt={News.title}
               fill
               className="object-cover"
@@ -107,7 +108,7 @@ const News_WithData = ({ News }: NewsProps) => {
           </div>
 
           {/* Main Content */}
-          <div className="prose prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-blue-600 prose-img:rounded-lg sm:prose-lg max-w-none">
+          <div className="prose max-w-none sm:prose-lg prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-blue-600 prose-img:rounded-lg">
             <div dangerouslySetInnerHTML={{ __html: News.content }} />
           </div>
 
@@ -130,13 +131,17 @@ const News_WithData = ({ News }: NewsProps) => {
           )}
         </div>
       </div>
-
-      {/* Related Articles Section */}
-      <RelatedArticles
-        fetchFunction={getAllNews}
-        currentId={News.id}
-        basePath={"/tin-tuc"}
-      />
+      {/* Related News Section */}
+      <section className="bg-gray-100 py-8">
+        <div className="container mx-auto px-3 text-center xl:px-36">
+          <h2 className="mb-8 text-2xl font-bold">Tin tức liên quan</h2>
+          <RelatedNews
+            NewsID={News.id || ""}
+            category={News.category || ""}
+            maxResults={3}
+          />
+        </div>
+      </section>
 
       {/* Newsletter Section */}
       <section className="bg-blue-600 py-12 text-white">

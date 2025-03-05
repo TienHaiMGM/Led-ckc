@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaPhone,
   FaEnvelope,
@@ -10,15 +10,39 @@ import {
 } from "react-icons/fa";
 import ItemCard from "./ItemCard";
 import { EditorProps } from "../../types/product-management";
-import { useProductEditor } from "../../components/api/hooks/useProductEditor";
 import PromotionPopup from "./PromotionPopup";
+import { Product } from "@/types/product";
+import { getProductByCategory } from "../api/ProductService";
+import { LIMITRESULTTRANGSANPHAM } from "@/utils/constants";
 
 const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
-  const { products } = useProductEditor(EditorContent);
   const [mounted, setMounted] = React.useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [productsByCategory, setProductsByCategory] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  console.log("products", products);
+  useEffect(() => {
+    const fetchProductByCategory = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const products = await getProductByCategory(
+          EditorContent.category,
+          LIMITRESULTTRANGSANPHAM,
+        );
+        setProductsByCategory(products);
+      } catch (error) {
+        console.error("Error fetching related products:", error);
+        setError("Không thể tải sản phẩm liên quan.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductByCategory();
+  }, [EditorContent.category]);
+
   React.useEffect(() => {
     setMounted(true);
   }, []);
@@ -34,20 +58,18 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
           <div className="mt-2 h-1 w-16 bg-blue-500 sm:w-20"></div>
         </div>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3">
-          {products
-            .filter((product) => product.category == EditorContent.category)
-            .map((product, index) => (
-              <div key={product.id} className="w-full">
-                <ItemCard
-                  title={product.title}
-                  description={product.description}
-                  image={product.images}
-                  slug={product.slug}
-                  priority={index === 0}
-                  index={index}
-                />
-              </div>
-            ))}
+          {productsByCategory.map((product, index) => (
+            <div key={product.id} className="w-full">
+              <ItemCard
+                title={product.title}
+                description={product.description}
+                image={product.images}
+                slug={product.slug}
+                priority={index === 0}
+                index={index}
+              />
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -175,22 +197,20 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
 
         <div className="flex-grow">
           {/* Products Grid - Mobile First with Progressive Enhancement */}
-          {products.length > 0 ? (
+          {productsByCategory.length > 0 ? (
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3">
-              {products
-                .filter((product) => product.category == EditorContent.category)
-                .map((product, index) => (
-                  <div key={product.id} className="w-full">
-                    <ItemCard
-                      title={product.title}
-                      description={product.description}
-                      image={product.images}
-                      slug={product.slug}
-                      priority={index === 0}
-                      index={index}
-                    />
-                  </div>
-                ))}
+              {productsByCategory.map((product, index) => (
+                <div key={product.id} className="w-full">
+                  <ItemCard
+                    title={product.title}
+                    description={product.description}
+                    image={product.images}
+                    slug={product.slug}
+                    priority={index === 0}
+                    index={index}
+                  />
+                </div>
+              ))}
             </div>
           ) : (
             <div className="py-8 text-center">

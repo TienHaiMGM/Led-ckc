@@ -28,11 +28,6 @@ const categoryOptions: CategoryOption[] = [
   { value: "bienled", label: "Biển LED" },
 ];
 
-const ReactQuill = dynamic(() => import("react-quill"), {
-  ssr: false,
-  loading: () => <p>Đang tải trình soạn thảo...</p>,
-});
-
 interface DraftsModalProps {
   drafts: Draft[];
   onClose: () => void;

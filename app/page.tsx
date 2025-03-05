@@ -1,5 +1,4 @@
 import Banner from "../components/specific/Banner";
-import ExploreCategories from "../components/specific/ExploreCategories";
 import ItemList from "../components/common/ItemList";
 import HowItWorks from "../components/specific/HowItWork";
 import Testimonials from "../components/specific/Testimonials";
@@ -36,6 +35,7 @@ export default function Home() {
               featuredImage: "path/to/image.jpg",
               thumbnail: "path/to/thumbnail.jpg",
             }}
+            maxResults=""
           />
         </section>
         <section className="bg-gray-50" aria-label="Hộp đèn">

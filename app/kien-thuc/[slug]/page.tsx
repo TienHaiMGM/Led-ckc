@@ -4,20 +4,18 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import Knowledge_WithData from "@/components/specific/Knowledge_WithData";
-import {
-  getKnowledgeBySlug,
-  Knowledge,
-} from "@/components/api/KnowledgeService";
+import { getKnowledgeBySlug } from "@/components/api/KnowledgeService";
+import { Knowledge } from "@/types/knowledge";
 
 export default function KnowledgePage() {
   const params = useParams();
   const slug = params?.slug as string;
-  const [product, setProduct] = useState<Knowledge | null>(null);
+  const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchKnowledge = async () => {
       if (!slug) {
         setError("Không tìm thấy sản phẩm");
         setLoading(false);
@@ -28,7 +26,7 @@ export default function KnowledgePage() {
         setLoading(true);
         const fetchedProduct = await getKnowledgeBySlug(slug);
         if (fetchedProduct) {
-          setProduct(fetchedProduct);
+          setKnowledge(fetchedProduct);
           setError(null);
         } else {
           setError("Không tìm thấy sản phẩm");
@@ -42,7 +40,7 @@ export default function KnowledgePage() {
       }
     };
 
-    fetchProduct();
+    fetchKnowledge();
   }, [slug]);
 
   if (loading) {
@@ -67,7 +65,7 @@ export default function KnowledgePage() {
     );
   }
 
-  if (!product) {
+  if (!knowledge) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="rounded-lg bg-yellow-50 p-6 text-center">
@@ -81,7 +79,7 @@ export default function KnowledgePage() {
   return (
     <>
       <Breadcrumb />
-      <Knowledge_WithData Knowledge={product} />
+      <Knowledge_WithData Knowledge={knowledge} />
     </>
   );
 }

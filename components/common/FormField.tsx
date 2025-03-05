@@ -151,13 +151,6 @@ export const FormField: React.FC<FormFieldProps> = ({
   };
   return (
     <div className={`space-y-2 ${className}`}>
-      {/* <label className="block text-sm font-medium text-gray-700">
-        {label}{" "}
-        <span className="ml-10 text-gray-400">
-          {" "}
-          Độ dài text 55-60: {textLength}
-        </span>
-      </label> */}
       {renderTextLength()}
       {renderInput()}
       {description && <p className="text-sm text-gray-500">{description}</p>}

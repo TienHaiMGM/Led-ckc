@@ -1,14 +1,39 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 import { FaChevronRight } from "react-icons/fa";
 import Link from "next/link";
-import { useProductEditor } from "../api/hooks/useProductEditor";
 import { EditorProps } from "../../types/product-management";
+import { getProductByCategory } from "@/components/api/ProductService";
+import { Product } from "@/types/product";
+import { LIMITRESULTTRANGCHU } from "@/utils/constants";
 
 const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
-  const { products, loading, error, generateSlug } =
-    useProductEditor(EditorContent);
+  const [productsByCategory, setProductsByCategory] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProductByCategory = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const products = await getProductByCategory(
+          EditorContent.category,
+          LIMITRESULTTRANGCHU,
+        );
+        setProductsByCategory(products);
+      } catch (error) {
+        console.error("Error fetching related products:", error);
+        setError("Không thể tải sản phẩm liên quan.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductByCategory();
+  }, [EditorContent.category]);
 
   return (
     <section className="bg-gray-100 py-2">
@@ -35,28 +60,25 @@ const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
 
         {/* Cards Grid */}
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-4 xl:mx-36">
-          {products
-            .filter((item) => item.category == EditorContent.category)
-            .slice(0, 8) // Limit to 8 items
-            .map((item, index) => (
-              <div
-                key={item.id}
-                className="animate-fadeIn opacity-0"
-                style={{
-                  animationDelay: `${index * 150}ms`,
-                  animationFillMode: "forwards",
-                }}
-              >
-                <ItemCard
-                  title={item.title}
-                  description={item.description}
-                  image={item.images}
-                  slug={item.slug}
-                  priority={index === 0} // First item gets priority loading
-                  index={index} // Pass index for loading strategy
-                />
-              </div>
-            ))}
+          {productsByCategory.map((item, index) => (
+            <div
+              key={item.id}
+              className="animate-fadeIn opacity-0"
+              style={{
+                animationDelay: `${index * 150}ms`,
+                animationFillMode: "forwards",
+              }}
+            >
+              <ItemCard
+                title={item.title}
+                description={item.description}
+                image={item.images}
+                slug={item.slug}
+                priority={index === 0} // First item gets priority loading
+                index={index} // Pass index for loading strategy
+              />
+            </div>
+          ))}
         </div>
         {/* Section Xem thêm */}
         <div className="mt-3 flex justify-center text-base font-bold text-blue-700">

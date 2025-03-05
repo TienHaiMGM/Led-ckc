@@ -1,118 +1,81 @@
-import { db } from "../../lib/firebase";
-import { Product } from "../../types/product";
+import { db } from "@/lib/firebase";
 import {
   collection,
   query,
   where,
   getDocs,
-  Firestore,
   DocumentData,
+  QueryDocumentSnapshot,
+  orderBy,
+  limit,
 } from "firebase/firestore";
+import { Product } from "@/types/product";
+// Map Firestore document to local TypeScript type
+const mapFirestoreDoc = <T extends { id?: string }>(
+  doc: QueryDocumentSnapshot<DocumentData>,
+): T => ({ id: doc.id, ...doc.data() }) as T;
 
+/**
+ * Fetch a single product by slug.
+ */
 export const getProductBySlug = async (
   slug: string,
 ): Promise<Product | null> => {
   try {
-    const productsRef = collection(db as Firestore, "collections");
+    const productsRef = collection(db, "collections");
     const q = query(productsRef, where("slug", "==", slug));
     const querySnapshot = await getDocs(q);
 
-    if (querySnapshot.empty) {
-      return null;
-    }
-
-    const doc = querySnapshot.docs[0];
-    const data = doc.data() as DocumentData;
-
-    return {
-      id: doc.id,
-      title: data.title,
-      description: data.description,
-      content: data.content,
-      images: data.images || data.image,
-      category: data.category,
-      slug: data.slug,
-      tags: data.tags || [],
-      status: data.status,
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt,
-      seoTitle: data.seoTitle,
-      seoDescription: data.seoDescription,
-      featuredImage: data.featuredImage,
-      thumbnail: data.thumbnail,
-    };
+    return querySnapshot.empty
+      ? null
+      : mapFirestoreDoc<Product>(querySnapshot.docs[0]);
   } catch (error) {
     console.error("Error fetching product:", error);
-    throw error;
+    throw new Error("Failed to fetch product");
   }
 };
 
-export const getAllProducts = async (): Promise<Product[]> => {
-  try {
-    const productsRef = collection(db as Firestore, "collections");
-    const querySnapshot = await getDocs(productsRef);
-
-    return querySnapshot.docs.map((doc) => {
-      const data = doc.data() as DocumentData;
-      return {
-        id: doc.id,
-        title: data.title,
-        description: data.description,
-        content: data.content,
-        images: data.images || data.image,
-        category: data.category,
-        slug: data.slug,
-        tags: data.tags || [],
-        status: data.status,
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt,
-        seoTitle: data.seoTitle,
-        seoDescription: data.seoDescription,
-        featuredImage: data.featuredImage,
-        thumbnail: data.thumbnail,
-      };
-    });
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    throw error;
-  }
-};
-
-export const getRelatedProducts = async (
-  productId: string,
+export const getProductByCategory = async (
   category: string,
+  maxResults: number = 8,
 ): Promise<Product[]> => {
   try {
-    const productsRef = collection(db as Firestore, "collections");
+    const productsRef = collection(db, "collections");
     const q = query(
       productsRef,
       where("category", "==", category),
-      where("__name__", "!=", productId),
+      limit(maxResults),
     );
     const querySnapshot = await getDocs(q);
 
-    return querySnapshot.docs.map((doc) => {
-      const data = doc.data() as DocumentData;
-      return {
-        id: doc.id,
-        title: data.title,
-        description: data.description,
-        content: data.content,
-        images: data.images || data.image,
-        category: data.category,
-        slug: data.slug,
-        tags: data.tags || [],
-        status: data.status,
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt,
-        seoTitle: data.seoTitle,
-        seoDescription: data.seoDescription,
-        featuredImage: data.featuredImage,
-        thumbnail: data.thumbnail,
-      };
-    });
+    return querySnapshot.docs.map((doc) => mapFirestoreDoc<Product>(doc));
   } catch (error) {
     console.error("Error fetching related products:", error);
-    throw error;
+    throw new Error("Failed to fetch related products");
+  }
+};
+/**
+ * Fetch related products based on category, excluding the current product.
+ */
+export const getRelatedProducts = async (
+  productId: string,
+  category: string,
+  maxResults: number = 3,
+): Promise<Product[]> => {
+  try {
+    const productsRef = collection(db, "collections");
+    const q = query(
+      productsRef,
+      where("category", "==", category),
+      limit(maxResults),
+    );
+    const querySnapshot = await getDocs(q);
+
+    return querySnapshot.docs
+      .filter((doc) => doc.id !== productId) // Lọc trên client-side
+      .map((doc) => mapFirestoreDoc<Product>(doc));
+  } catch (error) {
+    console.error("Error fetching related products:", error);
+    throw new Error("Failed to fetch related products");
   }
 };

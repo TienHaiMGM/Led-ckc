@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { getAllKnowledge, Knowledge } from "../api/KnowledgeService";
 import { FaCalendarAlt, FaTag, FaShareAlt } from "react-icons/fa";
 import RelatedArticles from "./RelatedArticles";
+import { Knowledge } from "@/types/knowledge";
 
 interface KnowledgeProps {
   Knowledge: Knowledge;
@@ -63,11 +63,11 @@ const Knowledge_WithData = ({ Knowledge }: KnowledgeProps) => {
       </header>
 
       {/* Featured Image */}
-      {Knowledge.image && (
+      {Knowledge.images && (
         <div className="relative mx-auto -mt-16 mb-12 max-w-4xl px-4">
           <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl">
             <Image
-              src={Knowledge.image}
+              src={Knowledge.images}
               alt={Knowledge.title}
               fill
               className="object-cover"
@@ -108,7 +108,7 @@ const Knowledge_WithData = ({ Knowledge }: KnowledgeProps) => {
           </div>
 
           {/* Main Content */}
-          <div className="prose prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-blue-600 prose-img:rounded-lg sm:prose-lg max-w-none">
+          <div className="prose max-w-none sm:prose-lg prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-blue-600 prose-img:rounded-lg">
             <div dangerouslySetInnerHTML={{ __html: Knowledge.content }} />
           </div>
 
@@ -132,12 +132,16 @@ const Knowledge_WithData = ({ Knowledge }: KnowledgeProps) => {
         </div>
       </div>
 
-      {/* Related Articles Section */}
-      <RelatedArticles
-        fetchFunction={getAllKnowledge}
-        currentId={Knowledge.id}
-        basePath={"/kien-thuc"}
-      />
+      <section className="bg-gray-100 py-8">
+        <div className="container mx-auto px-3 text-center xl:px-36">
+          <h2 className="mb-8 text-2xl font-bold">Bài viết liên quan</h2>
+          <RelatedArticles
+            KnowledgeID={Knowledge.id || ""}
+            category={Knowledge.category || ""}
+            maxResults={3}
+          />
+        </div>
+      </section>
 
       {/* Newsletter Section */}
       <section className="bg-blue-600 py-12 text-white">
