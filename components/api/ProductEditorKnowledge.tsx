@@ -199,6 +199,12 @@ const ProductEditorKnowledge: React.FC<EditorProps> = ({
         return sortDirection === "asc"
           ? categoryA.localeCompare(categoryB)
           : categoryB.localeCompare(categoryA);
+      } else if (sortBy === "hotness") {
+        const levelA = a.hotness || 0;
+        const leveLB = b.hotness || 0;
+        return sortDirection === "asc"
+          ? Number(levelA) - Number(leveLB)
+          : Number(leveLB) - Number(levelA);
       }
       return 0;
     });
@@ -479,6 +485,7 @@ const ProductEditorKnowledge: React.FC<EditorProps> = ({
             >
               <option value="date">Sắp xếp theo ngày</option>
               <option value="category">Sắp xếp theo danh mục</option>
+              <option value="hotness">Sắp xếp theo độ hot</option>
             </select>
             <button
               onClick={toggleSortDirection}
@@ -502,6 +509,11 @@ const ProductEditorKnowledge: React.FC<EditorProps> = ({
             }`}
           >
             Tất cả
+            <span>
+              {" ( "}
+              {products.length}
+              {" )"}
+            </span>
           </button>
           {categoryOptions.map((category) => (
             <button
@@ -513,7 +525,16 @@ const ProductEditorKnowledge: React.FC<EditorProps> = ({
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              {category.label}
+              {category.label}{" "}
+              <span aria-label="Hien thi so theo category">
+                {"( "}
+                {
+                  products.filter(
+                    (product) => product.category == category.value,
+                  ).length
+                }
+                {" )"}
+              </span>
             </button>
           ))}
         </div>

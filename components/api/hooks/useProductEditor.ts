@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
-import { db } from "../firebaseConfig";
+import { db } from "../../../lib/firebase";
 import {
   collection,
   addDoc,
   updateDoc,
   deleteDoc,
   doc,
+  setDoc,
   getDocs,
   getDoc,
   query,
@@ -119,11 +120,12 @@ export const useProductEditor = (
     }
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string, product: ProductContent) => {
     if (!window.confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) return;
-
     try {
       setLoading(true);
+      // Chuyen du lieu vao thung rac
+      await setDoc(doc(db, "deletedProducts", id), product);
       await deleteDoc(doc(db, "collections", id));
       fetchProducts();
     } catch (err) {

@@ -80,7 +80,7 @@ export default function Home() {
             }}
           />
         </section>
-        <section className="bg-gray-50" aria-label="LED">
+        <section className="bg-gray-50" aria-label="Standee">
           <ItemList
             EditorContent={{
               title: "Standee",
@@ -88,14 +88,35 @@ export default function Home() {
               images: "",
               category: "standee",
               slug: "standee",
-              description: "Các mẫu bảng Standee đẹp, chất lượng cao",
+              description: "Các mẫu bảng standee đẹp, chất lượng cao",
               tags: ["standee", "quảng cáo"],
               status: "published",
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString(),
-              seoTitle: "Standee- Siêu Thị Bảng Hiệu",
+              seoTitle: "standee- Siêu Thị Bảng Hiệu",
               seoDescription:
-                "Chuyên thiết kế và thi công các loại bảng Standee quảng cáo chất lượng cao",
+                "Chuyên thiết kế và thi công các loại bảng standee quảng cáo chất lượng cao",
+              featuredImage: "path/to/image.jpg",
+              thumbnail: "path/to/thumbnail.jpg",
+            }}
+          />
+        </section>
+        <section className="bg-gray-50" aria-label="Biển Bạt">
+          <ItemList
+            EditorContent={{
+              title: "Biển Bạt",
+              content: "",
+              images: "",
+              category: "bienbat",
+              slug: "bien-bat",
+              description: "Các mẫu bảng Biển Bạt đẹp, chất lượng cao",
+              tags: ["biển Bạt", "quảng cáo"],
+              status: "published",
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+              seoTitle: "Biển Bạt- Siêu Thị Bảng Hiệu",
+              seoDescription:
+                "Chuyên thiết kế và thi công các loại bảng Biển Bạt quảng cáo chất lượng cao",
               featuredImage: "path/to/image.jpg",
               thumbnail: "path/to/thumbnail.jpg",
             }}

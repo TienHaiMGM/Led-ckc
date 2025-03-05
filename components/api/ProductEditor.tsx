@@ -585,7 +585,7 @@ const ProductEditor: React.FC<EditorProps> = ({ EditorContent, onPreview }) => {
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleDelete(product.id!)}
+                      onClick={() => handleDelete(product.id!, product)}
                       className="text-red-600 hover:text-red-900"
                     >
                       <FaTrash className="h-5 w-5" />

@@ -176,7 +176,7 @@ function ContactRequestsContent() {
   return (
     <div className="container mx-auto p-6">
       <h1 className="mb-6 text-2xl font-bold">Danh sách yêu cầu liên hệ</h1>
-      <div className="overflow-x-auto rounded-lg bg-white shadow">
+      <div className="overflow-x-auto rounded-lg bg-white p-4 shadow">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>

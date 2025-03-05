@@ -113,6 +113,15 @@ export const FormField: React.FC<FormFieldProps> = ({
           </label>
         );
       case "SEO Description":
+        return (
+          <label className="block text-sm font-medium text-gray-700">
+            {label}{" "}
+            <span className="ml-10 text-gray-400">
+              {" "}
+              Độ dài text 150 - 160: {textLength}
+            </span>
+          </label>
+        );
       case "Mô tả":
         return (
           <label className="block text-sm font-medium text-gray-700">
