@@ -2,7 +2,8 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import UnifiedSearchComponent from "../../components/common/UnifiedSearchComponent"; // Corrected import path
-import { useProductEditor } from "../../components/api/hooks/useProductEditor";
+// import { useProductEditor } from "../../components/api/hooks/useProductEditor";
+import { useProductEditor } from "../api/hooks/useProductEditorUpdate";
 import { searchProducts } from "../../utils/searchUtils";
 import Image from "next/image";
 import Link from "next/link";

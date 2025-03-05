@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { db } from "../firebaseConfig";
+import { db } from "@/lib/firebase";
 import {
   collection,
   addDoc,
@@ -17,15 +17,12 @@ import {
   ProductContent,
   Draft,
   EmptyProductContent,
-} from "../../../types/product-management";
+} from "@/types/product-management";
 
+// Map Firestore document to local TypeScript type
 const mapFirestoreDoc = <T extends { id?: string }>(
   doc: QueryDocumentSnapshot<DocumentData>,
-): T =>
-  ({
-    id: doc.id,
-    ...doc.data(),
-  }) as T;
+): T => ({ id: doc.id, ...doc.data() }) as T;
 
 export const useProductEditorKnowLedge = (
   initialContent: ProductContent = EmptyProductContent,
@@ -50,7 +47,8 @@ export const useProductEditorKnowLedge = (
       .replace(/\s+/g, "-");
   }, []);
 
-  const fetchProducts = async () => {
+  // Fetch knowledge articles from Firestore
+  const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
       const q = query(
@@ -58,17 +56,21 @@ export const useProductEditorKnowLedge = (
         orderBy("createdAt", "desc"),
       );
       const querySnapshot = await getDocs(q);
-      const productsData = querySnapshot.docs.map((doc) =>
-        mapFirestoreDoc<ProductContent>(doc),
+      setProducts(
+        querySnapshot.docs.map((doc) => mapFirestoreDoc<ProductContent>(doc)),
       );
-      setProducts(productsData);
     } catch (err) {
       setError("Lỗi khi tải dữ liệu");
       console.error("Error fetching products:", err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  // Fetch data when component mounts
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,12 +84,12 @@ export const useProductEditorKnowLedge = (
         tags: formData.tags || [],
         slug: formData.slug || generateSlug(formData.title),
       };
-      await addDoc(collection(db, "knowledge"), newProduct);
+      const docRef = await addDoc(collection(db, "knowledge"), newProduct);
+      setProducts((prev) => [{ id: docRef.id, ...newProduct }, ...prev]);
       setFormData(initialContent);
       setIsAdding(false);
-      fetchProducts();
     } catch (err) {
-      setError("Lỗi khi thêm sản phẩm");
+      setError("Lỗi khi thêm bài viết");
       console.error("Error adding product:", err);
     } finally {
       setLoading(false);
@@ -97,7 +99,6 @@ export const useProductEditorKnowLedge = (
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingProduct?.id) return;
-
     try {
       setLoading(true);
       const productRef = doc(db, "knowledge", editingProduct.id);
@@ -108,11 +109,15 @@ export const useProductEditorKnowLedge = (
         slug: formData.slug || generateSlug(formData.title),
       };
       await updateDoc(productRef, updateData);
+      setProducts((prev) =>
+        prev.map((p) =>
+          p.id === editingProduct.id ? { ...p, ...updateData } : p,
+        ),
+      );
       setEditingProduct(null);
       setFormData(initialContent);
-      fetchProducts();
     } catch (err) {
-      setError("Lỗi khi cập nhật sản phẩm");
+      setError("Lỗi khi cập nhật bài viết");
       console.error("Error updating product:", err);
     } finally {
       setLoading(false);
@@ -120,14 +125,13 @@ export const useProductEditorKnowLedge = (
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) return;
-
+    if (!window.confirm("Bạn có chắc chắn muốn xóa bài viết này?")) return;
     try {
       setLoading(true);
       await deleteDoc(doc(db, "knowledge", id));
-      fetchProducts();
+      setProducts((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {
-      setError("Lỗi khi xóa sản phẩm");
+      setError("Lỗi khi xóa bài viết");
       console.error("Error deleting product:", err);
     } finally {
       setLoading(false);
@@ -136,10 +140,7 @@ export const useProductEditorKnowLedge = (
 
   const startEdit = (product: ProductContent) => {
     setEditingProduct(product);
-    setFormData({
-      ...product,
-      tags: product.tags || [],
-    });
+    setFormData({ ...product, tags: product.tags || [] });
   };
 
   const cancelEdit = () => {
@@ -147,7 +148,7 @@ export const useProductEditorKnowLedge = (
     setFormData(initialContent);
   };
 
-  // Draft functionality
+  // Save as draft
   const saveDraft = async () => {
     try {
       setLoading(true);
@@ -160,9 +161,8 @@ export const useProductEditorKnowLedge = (
         tags: formData.tags || [],
         originalProductId: editingProduct?.id || null,
       };
-
-      await addDoc(collection(db, "drafts"), draftData);
-      setError(null);
+      const docRef = await addDoc(collection(db, "drafts"), draftData);
+      setDrafts((prev) => [{ id: docRef.id, ...draftData }, ...prev]);
       return true;
     } catch (err) {
       setError("Lỗi khi lưu bản nháp");
@@ -181,10 +181,7 @@ export const useProductEditorKnowLedge = (
         orderBy("lastModified", "desc"),
       );
       const querySnapshot = await getDocs(q);
-      const draftsData = querySnapshot.docs.map((doc) =>
-        mapFirestoreDoc<Draft>(doc),
-      );
-      setDrafts(draftsData);
+      setDrafts(querySnapshot.docs.map((doc) => mapFirestoreDoc<Draft>(doc)));
     } catch (err) {
       setError("Lỗi khi tải bản nháp");
       console.error("Error loading drafts:", err);
@@ -203,10 +200,7 @@ export const useProductEditorKnowLedge = (
           id: draftId,
           ...(draftSnap.data() as Omit<Draft, "id">),
         };
-        setFormData({
-          ...draftData,
-          tags: draftData.tags || [],
-        });
+        setFormData({ ...draftData, tags: draftData.tags || [] });
         return true;
       }
       return false;
@@ -233,14 +227,6 @@ export const useProductEditorKnowLedge = (
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    setFormData(initialContent);
-  }, [initialContent]);
 
   return {
     drafts,

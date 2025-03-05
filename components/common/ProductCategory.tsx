@@ -18,6 +18,7 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
   const [mounted, setMounted] = React.useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  console.log("products", products);
   React.useEffect(() => {
     setMounted(true);
   }, []);

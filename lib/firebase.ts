@@ -1,4 +1,3 @@
-"use client";
 import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import { getFirestore, Firestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
@@ -7,51 +6,30 @@ import {
   setPersistence,
   browserSessionPersistence,
   Auth,
-  signOut,
 } from "firebase/auth";
 
-// Firebase configuration using environment variables
+// Sử dụng biến môi trường để bảo mật API Key
 const firebaseConfig = {
-  apiKey: "AIzaSyBJGoGygwZ7j-LWpo7PL2_Ko9-zUcIYKsw",
-  authDomain: "sieuthibanghieu-f033b.firebaseapp.com",
-  projectId: "sieuthibanghieu-f033b",
-  storageBucket: "sieuthibanghieu-f033b.firebasestorage.app",
-  messagingSenderId: "746324087310",
-  appId: "1:746324087310:web:1143e04a5f1c1ea403a25f",
-  measurementId: "G-ZBYY5HEMW5",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-let app: FirebaseApp;
-let auth: Auth;
-let db: Firestore;
-let storage: any;
+// Chỉ khởi tạo Firebase nếu chưa tồn tại app nào
+const app: FirebaseApp = getApps().length
+  ? getApp()
+  : initializeApp(firebaseConfig);
+const auth: Auth = getAuth(app);
+const db: Firestore = getFirestore(app);
+const storage = getStorage(app);
 
-if (typeof window !== "undefined") {
-  try {
-    // Get existing app if it exists, otherwise initialize
-    app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
-    storage = getStorage(app);
-
-    // Set persistence to SESSION (cleared when browser/tab closes)
-    setPersistence(auth, browserSessionPersistence)
-      .then(() => {
-        console.log("Firebase persistence set to SESSION");
-      })
-      .catch((error) => {
-        console.error("Error setting persistence:", error);
-      });
-
-    // Clear any existing auth state when the page loads
-    signOut(auth).catch((error) => {
-      console.error("Error clearing auth state:", error);
-    });
-  } catch (error) {
-    console.error("Error initializing Firebase:", error);
-  }
-} else {
-  console.log("Firebase initialization skipped (server-side)");
-}
+// Thiết lập session persistence
+setPersistence(auth, browserSessionPersistence)
+  .then(() => console.log("Firebase persistence set to SESSION"))
+  .catch((error) => console.error("Error setting persistence:", error));
 
 export { app, auth, db, storage };

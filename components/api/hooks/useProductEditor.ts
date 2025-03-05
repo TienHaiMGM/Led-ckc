@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { db } from "../../../lib/firebase";
+import { db } from "@/lib/firebase";
 import {
   collection,
   addDoc,
@@ -18,15 +18,12 @@ import {
   ProductContent,
   Draft,
   EmptyProductContent,
-} from "../../../types/product-management";
+} from "@/types/product-management";
 
+// Map Firestore document to local TypeScript type
 const mapFirestoreDoc = <T extends { id?: string }>(
   doc: QueryDocumentSnapshot<DocumentData>,
-): T =>
-  ({
-    id: doc.id,
-    ...doc.data(),
-  }) as T;
+): T => ({ id: doc.id, ...doc.data() }) as T;
 
 export const useProductEditor = (
   initialContent: ProductContent = EmptyProductContent,
@@ -51,7 +48,8 @@ export const useProductEditor = (
       .replace(/\s+/g, "-");
   }, []);
 
-  const fetchProducts = async () => {
+  // Fetch products from Firestore
+  const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
       const q = query(
@@ -59,17 +57,21 @@ export const useProductEditor = (
         orderBy("hotness", "desc"),
       );
       const querySnapshot = await getDocs(q);
-      const productsData = querySnapshot.docs.map((doc) =>
-        mapFirestoreDoc<ProductContent>(doc),
+      setProducts(
+        querySnapshot.docs.map((doc) => mapFirestoreDoc<ProductContent>(doc)),
       );
-      setProducts(productsData);
     } catch (err) {
       setError("Lỗi khi tải dữ liệu");
       console.error("Error fetching products:", err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  // Fetch products when the component mounts
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,10 +85,10 @@ export const useProductEditor = (
         tags: formData.tags || [],
         slug: formData.slug || generateSlug(formData.title),
       };
-      await addDoc(collection(db, "collections"), newProduct);
+      const docRef = await addDoc(collection(db, "collections"), newProduct);
+      setProducts((prev) => [{ id: docRef.id, ...newProduct }, ...prev]);
       setFormData(initialContent);
       setIsAdding(false);
-      fetchProducts();
     } catch (err) {
       setError("Lỗi khi thêm sản phẩm");
       console.error("Error adding product:", err);
@@ -98,7 +100,6 @@ export const useProductEditor = (
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingProduct?.id) return;
-
     try {
       setLoading(true);
       const productRef = doc(db, "collections", editingProduct.id);
@@ -109,9 +110,13 @@ export const useProductEditor = (
         slug: formData.slug || generateSlug(formData.title),
       };
       await updateDoc(productRef, updateData);
+      setProducts((prev) =>
+        prev.map((p) =>
+          p.id === editingProduct.id ? { ...p, ...updateData } : p,
+        ),
+      );
       setEditingProduct(null);
       setFormData(initialContent);
-      fetchProducts();
     } catch (err) {
       setError("Lỗi khi cập nhật sản phẩm");
       console.error("Error updating product:", err);
@@ -124,10 +129,9 @@ export const useProductEditor = (
     if (!window.confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) return;
     try {
       setLoading(true);
-      // Chuyen du lieu vao thung rac
       await setDoc(doc(db, "deletedProducts", id), product);
       await deleteDoc(doc(db, "collections", id));
-      fetchProducts();
+      setProducts((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {
       setError("Lỗi khi xóa sản phẩm");
       console.error("Error deleting product:", err);
@@ -137,12 +141,8 @@ export const useProductEditor = (
   };
 
   const startEdit = (product: ProductContent) => {
-    console.log("product", product);
     setEditingProduct(product);
-    setFormData({
-      ...product,
-      tags: product.tags || [],
-    });
+    setFormData({ ...product, tags: product.tags || [] });
   };
 
   const cancelEdit = () => {
@@ -150,7 +150,7 @@ export const useProductEditor = (
     setFormData(initialContent);
   };
 
-  // Draft functionality
+  // Save a product as a draft
   const saveDraft = async () => {
     try {
       setLoading(true);
@@ -163,9 +163,8 @@ export const useProductEditor = (
         tags: formData.tags || [],
         originalProductId: editingProduct?.id || null,
       };
-
-      await addDoc(collection(db, "drafts"), draftData);
-      setError(null);
+      const docRef = await addDoc(collection(db, "drafts"), draftData);
+      setDrafts((prev) => [{ id: docRef.id, ...draftData }, ...prev]);
       return true;
     } catch (err) {
       setError("Lỗi khi lưu bản nháp");
@@ -184,10 +183,7 @@ export const useProductEditor = (
         orderBy("lastModified", "desc"),
       );
       const querySnapshot = await getDocs(q);
-      const draftsData = querySnapshot.docs.map((doc) =>
-        mapFirestoreDoc<Draft>(doc),
-      );
-      setDrafts(draftsData);
+      setDrafts(querySnapshot.docs.map((doc) => mapFirestoreDoc<Draft>(doc)));
     } catch (err) {
       setError("Lỗi khi tải bản nháp");
       console.error("Error loading drafts:", err);
@@ -206,10 +202,7 @@ export const useProductEditor = (
           id: draftId,
           ...(draftSnap.data() as Omit<Draft, "id">),
         };
-        setFormData({
-          ...draftData,
-          tags: draftData.tags || [],
-        });
+        setFormData({ ...draftData, tags: draftData.tags || [] });
         return true;
       }
       return false;
@@ -221,7 +214,6 @@ export const useProductEditor = (
       setLoading(false);
     }
   };
-
   const deleteDraft = async (draftId: string) => {
     try {
       setLoading(true);
@@ -236,14 +228,6 @@ export const useProductEditor = (
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    setFormData(initialContent);
-  }, [initialContent]);
 
   return {
     drafts,
