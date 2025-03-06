@@ -97,11 +97,11 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
         </h2>
         <div className="space-y-3">
           <a
-            href="tel:+0962630679"
+            href="tel:+0827024567"
             className="flex items-center space-x-3 rounded-lg bg-white p-3 text-gray-700 transition-colors hover:bg-blue-500 hover:text-white"
           >
             <FaPhone className="h-5 w-5" />
-            <span className="text-sm sm:text-base">0962 630 679</span>
+            <span className="text-sm sm:text-base">082 702 4567</span>
           </a>
           <a
             href="mailto:sieubthibanghieu@gmail.com?subject=Tư vấn khách hàng&body=Chào bạn, tôi cần từ vấn về..."
@@ -147,7 +147,7 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
       <PromotionPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
-        zaloLink="https://zalo.me/0962630679?text=Chào bạn mình muốn nhận ưu đãi"
+        zaloLink="https://zalo.me/0827024567?text=Chào bạn mình muốn nhận ưu đãi"
       />
 
       {/* SEO Title and Description */}

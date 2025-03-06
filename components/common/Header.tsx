@@ -101,7 +101,7 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
                   href="tel:0123456789"
                   className="font-bold text-blue-700 transition-colors hover:text-blue-800"
                 >
-                  0962630679
+                  0962 630 679
                 </a>
               </div>
             </div>

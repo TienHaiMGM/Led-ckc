@@ -9,7 +9,7 @@ const SocialButtons = () => {
       <div className="flex flex-col gap-2">
         {/* Zalo */}
         <a
-          href="https://zalo.me/0987902715"
+          href="https://zalo.me/0827024567"
           target="_blank"
           rel="noopener noreferrer"
           className=""
@@ -23,7 +23,7 @@ const SocialButtons = () => {
           />
         </a>
         {/* PHONE */}
-        <a href="tell:0987902715" rel="noopener noreferrer" className="ml-2">
+        <a href="tell:0827024567" rel="noopener noreferrer" className="ml-2">
           <i className="fab fa-whatsapp rounded-full bg-green-500 p-3 text-xl text-white transition duration-300 hover:bg-green-600"></i>
         </a>
 

@@ -23,7 +23,7 @@ const Footer = () => {
               Hồ Chí Minh
             </p>
             <p>
-              <strong>Số điện thoại: </strong> 0962630679
+              <strong>Số điện thoại: </strong> 0827024567
             </p>
             <p>
               <strong>Gmail: </strong> sieuthibanghieu@gmail.com

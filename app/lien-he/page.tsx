@@ -79,7 +79,7 @@ const Contact = () => {
                           Điện thoại
                         </p>
                         <p className="text-base font-bold text-blue-500 sm:text-lg">
-                          0962 630 679
+                          082 702 4567
                         </p>
                       </div>
                     </div>
