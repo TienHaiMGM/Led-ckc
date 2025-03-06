@@ -130,14 +130,12 @@ export default function RootLayout({
       </head>
       <body className={`antialiased`}>
         <StrictMode>
-          {/* <div className="flex min-h-screen flex-col"> */}
           <Header />
           <Menu />
           {children}
           <SocialButtons />
           <ScrollToTopButton />
           <Footer />
-          {/* </div> */}
         </StrictMode>
       </body>
     </html>

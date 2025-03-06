@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="mb-4 w-full text-gray-300 md:mb-0 md:w-1/4">
             <div>
               <img
-                src="./images/sieuthibanghieulogo.png"
+                src="https://res.cloudinary.com/dsyidnrat/image/upload/v1741234963/sieuthibanghieulogo_hki2df.png"
                 alt="logo sieuthibanghieu"
                 className="w-48"
               />

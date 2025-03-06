@@ -1,13 +1,13 @@
 "use client";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import UnifiedSearchComponent from "../../components/common/UnifiedSearchComponent"; // Corrected import path
-// import { useProductEditor } from "../../components/api/hooks/useProductEditor";
-import { useProductEditor } from "../api/hooks/useProductEditorUpdate";
 import { searchProducts } from "../../utils/searchUtils";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductContent } from "../../types/product-management";
+import { useProductEditor } from "@/components/api/hooks/useProductEditor";
+import { motion } from "framer-motion";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -17,6 +17,7 @@ function SearchComponent() {
   const [searchResults, setSearchResults] = useState<ProductContent[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const { products, loading } = useProductEditor(undefined);
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
 
   useEffect(() => {
     if (initialQuery && products) {
@@ -43,7 +44,23 @@ function SearchComponent() {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const currentItems = searchResults.slice(startIndex, endIndex);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    scrollToTop();
+  };
+
+  useEffect(() => {
+    const history = JSON.parse(localStorage.getItem("searchHistory") || "[]");
+    setSearchHistory(history);
+  }, []);
+
+  const SkeletonCard = () => (
+    <div className="h-56 w-full animate-pulse rounded-lg bg-gray-200"></div>
+  );
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-grow bg-gray-50 py-8">
@@ -63,18 +80,25 @@ function SearchComponent() {
           </div>
 
           {loading ? (
-            <div className="py-8 text-center">
-              <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
-              <p className="mt-4 text-gray-600">Đang tải...</p>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {[...Array(12)].map((_, i) => (
+                <SkeletonCard key={i} />
+              ))}
             </div>
           ) : (
             <>
               {/* Search Results */}
               {searchResults.length > 0 ? (
                 <div>
-                  <h2 className="mb-4 text-lg font-semibold text-gray-900">
-                    Kết quả tìm kiếm ({searchResults.length} sản phẩm)
-                  </h2>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <h2 className="mb-4 text-lg font-semibold text-gray-900">
+                      Kết quả tìm kiếm ({searchResults.length} sản phẩm)
+                    </h2>
+                  </motion.div>
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4">
                     {currentItems.map((product) => (
                       <article
@@ -82,7 +106,7 @@ function SearchComponent() {
                         className="rounded-xl bg-white shadow-sm transition-shadow duration-300 hover:shadow-md"
                       >
                         <Link
-                          href={`/products/${product.slug}`}
+                          href={`/chi-tiet-san-pham/${product.slug}`}
                           className="block"
                         >
                           <div className="relative h-[60vw] w-full overflow-hidden rounded-t-xl md:h-56">
@@ -113,7 +137,6 @@ function SearchComponent() {
                       </article>
                     ))}
                   </div>
-
                   {/* Pagination */}
                   {totalPages > 1 && (
                     <div className="mt-8 flex justify-center">
@@ -124,8 +147,8 @@ function SearchComponent() {
                         ).map((page) => (
                           <button
                             key={page}
-                            onClick={() => setCurrentPage(page)}
-                            className={`rounded-lg px-4 py-2 ${
+                            onClick={() => handlePageChange(page)}
+                            className={`rounded-lg px-4 py-2 transition-all ${
                               currentPage === page
                                 ? "bg-blue-600 text-white"
                                 : "bg-white text-gray-700 hover:bg-gray-100"

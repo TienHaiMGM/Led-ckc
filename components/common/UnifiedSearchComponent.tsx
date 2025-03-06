@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { FaSearch, FaHistory, FaTimes } from "react-icons/fa";
-import Link from "next/link";
 import Image from "next/image";
 import {
   getSearchHistory,

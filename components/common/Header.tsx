@@ -70,7 +70,10 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
 
           {/* Desktop Search Bar */}
           {showSearch && (
-            <div className="mx-4 hidden max-w-xl flex-grow rounded-lg border-2 lg:block">
+            <div
+              id="thanh-tim-kiem"
+              className="mx-4 hidden max-w-xl flex-grow rounded-lg border-2 lg:block"
+            >
               <form onSubmit={handleSearch} className="relative">
                 <input
                   type="text"
@@ -105,7 +108,10 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
           </div>
 
           {/* Mobile Controls */}
-          <div className="flex items-center space-x-2 py-2 lg:hidden">
+          <div
+            id="thanh-tim-kiem-mo-mobile"
+            className="flex items-center space-x-2 py-2 lg:hidden"
+          >
             {/* Mobile Search Bar */}
             {showSearch && (
               <>
