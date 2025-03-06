@@ -5,18 +5,14 @@ import { Product } from "../../types/product";
 import { getRelatedProducts } from "../api/ProductService";
 import Link from "next/link";
 import Image from "next/image";
+import { LIMITSANPHAMLIENQUAN, SLICESANPHAMLIENQUAN } from "@/utils/constants";
 
 interface RelatedProductsProps {
   productId: string;
   category: string;
-  maxResults: number;
 }
 
-const RelatedProducts = ({
-  productId,
-  category,
-  maxResults,
-}: RelatedProductsProps) => {
+const RelatedProducts = ({ productId, category }: RelatedProductsProps) => {
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,8 +23,12 @@ const RelatedProducts = ({
       setError(null);
 
       try {
-        const products = await getRelatedProducts(productId, category);
-        setRelatedProducts(products.slice(0, maxResults));
+        const products = await getRelatedProducts(
+          productId,
+          category,
+          LIMITSANPHAMLIENQUAN,
+        );
+        setRelatedProducts(products.slice(0, SLICESANPHAMLIENQUAN));
       } catch (error) {
         console.error("Error fetching related products:", error);
         setError("Không thể tải sản phẩm liên quan.");
@@ -38,7 +38,7 @@ const RelatedProducts = ({
     };
 
     fetchRelatedProducts();
-  }, [productId, category, maxResults]);
+  }, [productId, category]);
 
   if (loading)
     return <p className="text-center">Đang tải sản phẩm liên quan...</p>;
@@ -62,8 +62,6 @@ const RelatedProducts = ({
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/..."
                 />
               </div>
               <div className="p-2 sm:p-3">

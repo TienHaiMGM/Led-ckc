@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaCalendarAlt, FaTag, FaShareAlt } from "react-icons/fa";
-import RelatedArticles from "./RelatedArticles";
 import { News } from "@/types/news";
 import RelatedNews from "./RelatedNews";
 interface NewsProps {
@@ -135,11 +134,7 @@ const News_WithData = ({ News }: NewsProps) => {
       <section className="bg-gray-100 py-8">
         <div className="container mx-auto px-3 text-center xl:px-36">
           <h2 className="mb-8 text-2xl font-bold">Tin tức liên quan</h2>
-          <RelatedNews
-            NewsID={News.id || ""}
-            category={News.category || ""}
-            maxResults={3}
-          />
+          <RelatedNews NewsID={News.id || ""} category={News.category || ""} />
         </div>
       </section>
 

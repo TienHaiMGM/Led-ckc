@@ -41,11 +41,35 @@ module.exports = {
           "0%": {
             opacity: "0.9",
           },
+          "25%": {
+            opacity: "0.8",
+          },
           "50%": {
-            opacity: "0.7",
+            opacity: "1",
+          },
+          "75%": {
+            opacity: "0.8",
           },
           "100%": {
             opacity: "1",
+          },
+        },
+        fadeIn: {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(20px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        shimmer: {
+          "0%": {
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            transform: "translateX(100%)",
           },
         },
       },
@@ -53,6 +77,8 @@ module.exports = {
         focusScale: "focusScale 200ms ease-out forwards",
         glow: "glow 1.5s infinite alternate",
         flicker: "flicker 1.5s infinite alternate",
+        fadeIn: "fadeIn 0.5s ease-out",
+        shimmer: "shimmer 2s infinite",
       },
       typography: {
         custome: {

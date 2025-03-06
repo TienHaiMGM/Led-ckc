@@ -35,7 +35,6 @@ export default function Home() {
               featuredImage: "path/to/image.jpg",
               thumbnail: "path/to/thumbnail.jpg",
             }}
-            maxResults=""
           />
         </section>
         <section className="bg-gray-50" aria-label="Hộp đèn">

@@ -5,18 +5,14 @@ import { getRelatedNews } from "@/components/api/NewsService";
 import Link from "next/link";
 import Image from "next/image";
 import { News } from "@/types/news";
+import { LIMITTINTUCLIENQUAN, SLICETINTUCLIENQUAN } from "@/utils/constants";
 
 interface RelatedArticlesProps {
   NewsID: string;
   category: string;
-  maxResults: number;
 }
 
-const RelatedArticles = ({
-  NewsID,
-  category,
-  maxResults,
-}: RelatedArticlesProps) => {
+const RelatedArticles = ({ NewsID, category }: RelatedArticlesProps) => {
   const [relatedArticles, setRelatedArticles] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,8 +23,12 @@ const RelatedArticles = ({
       setError(null);
 
       try {
-        const articles = await getRelatedNews(NewsID, category);
-        setRelatedArticles(articles.slice(0, maxResults));
+        const articles = await getRelatedNews(
+          NewsID,
+          category,
+          LIMITTINTUCLIENQUAN,
+        );
+        setRelatedArticles(articles.slice(0, SLICETINTUCLIENQUAN));
       } catch (error) {
         console.error("Error fetching related articles:", error);
         setError("Không thể tải sản phẩm liên quan.");
@@ -38,7 +38,7 @@ const RelatedArticles = ({
     };
 
     fetchRelatedArticles();
-  }, [NewsID, category, maxResults]);
+  }, [NewsID, category]);
 
   if (loading)
     return <p className="text-center">Đang tải sản phẩm liên quan...</p>;

@@ -2,6 +2,17 @@
 export const LIMITRESULTTRANGCHU = 8;
 //Limit sản phẩm cho trang sản phẩm
 export const LIMITRESULTTRANGSANPHAM = 24;
+//Limit sản phẩm liên quan
+export const LIMITSANPHAMLIENQUAN = 4; //Lấy 4 sp để ngoại trừ trường hợp id hiện tại trùng với id trong sp lấy về: -1sp
+export const SLICESANPHAMLIENQUAN = 3; // Dùng slice để cho trường hợp id không trùng thì nó lại lấy 4 sp
+
+//Limit tin tức liên quan
+export const LIMITTINTUCLIENQUAN = 4; //Lấy 4 sp để ngoại trừ trường hợp id hiện tại trùng với id trong sp lấy về: -1sp
+export const SLICETINTUCLIENQUAN = 3; // Dùng slice để cho trường hợp id không trùng thì nó lại lấy 4 sp
+
+//Limit kiến thức liên quan
+export const LIMITKIENHUCLIENQUAN = 4; //Lấy 4 sp để ngoại trừ trường hợp id hiện tại trùng với id trong sp lấy về: -1sp
+export const SLICEKIENTHUCLIENQUAN = 3; // Dùng slice để cho trường hợp id không trùng thì nó lại lấy 4 sp
 
 // Site Configuration
 export const SITE_CONFIG = {

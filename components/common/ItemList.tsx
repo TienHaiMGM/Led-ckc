@@ -63,7 +63,7 @@ const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
           {productsByCategory.map((item, index) => (
             <div
               key={item.id}
-              className="animate-fadeIn opacity-0"
+              className="animate-fadeIn transition"
               style={{
                 animationDelay: `${index * 150}ms`,
                 animationFillMode: "forwards",
@@ -74,8 +74,6 @@ const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
                 description={item.description}
                 image={item.images}
                 slug={item.slug}
-                priority={index === 0} // First item gets priority loading
-                index={index} // Pass index for loading strategy
               />
             </div>
           ))}
@@ -91,37 +89,6 @@ const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
           </Link>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          0% {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fadeIn {
-          animation: fadeIn 0.5s ease-out;
-        }
-
-        /* Shimmer effect */
-        @keyframes shimmer {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-
-        .group:hover .shimmer {
-          animation: shimmer 2s infinite;
-        }
-      `}</style>
     </section>
   );
 };

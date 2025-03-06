@@ -60,7 +60,7 @@ export const getProductByCategory = async (
 export const getRelatedProducts = async (
   productId: string,
   category: string,
-  maxResults: number = 3,
+  maxResults: number = 4,
 ): Promise<Product[]> => {
   try {
     const productsRef = collection(db, "collections");

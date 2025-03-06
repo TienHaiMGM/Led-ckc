@@ -5,21 +5,24 @@ import { useEffect, useState } from "react";
 import ProductDetail_WithData from "@/components/specific/ProductDetail_WithData";
 import { getProductBySlug } from "@/components/api/ProductService";
 import { Product } from "@/types/product";
-import Header from "@/components/common/Header";
-import Menu from "@/components/common/Menu";
-import Footer from "@/components/common/Footer";
 import Breadcrumb from "@/components/common/Breadcrumb";
+import { motion } from "framer-motion";
 
 function SkeletonLoader() {
   return (
-    <div className="animate-pulse space-y-4 p-6">
+    <motion.div
+      initial={{ opacity: 0.5 }}
+      animate={{ opacity: 1 }}
+      transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
+      className="space-y-4 p-6"
+    >
       <div className="h-10 w-3/4 rounded bg-gray-300"></div>
       <div className="h-6 w-1/2 rounded bg-gray-300"></div>
       <div className="h-96 w-full rounded bg-gray-300"></div>
       <div className="h-6 w-full rounded bg-gray-300"></div>
       <div className="h-6 w-5/6 rounded bg-gray-300"></div>
       <div className="h-6 w-4/6 rounded bg-gray-300"></div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -96,7 +99,13 @@ export default function ProductPage() {
   return (
     <>
       <Breadcrumb />
-      <ProductDetail_WithData product={product} />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <ProductDetail_WithData product={product} />
+      </motion.div>
     </>
   );
 }

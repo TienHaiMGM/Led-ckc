@@ -14,9 +14,9 @@ import PromotionPopup from "./PromotionPopup";
 import { Product } from "@/types/product";
 import { getProductByCategory } from "../api/ProductService";
 import { LIMITRESULTTRANGSANPHAM } from "@/utils/constants";
+import { motion } from "framer-motion";
 
 const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
-  const [mounted, setMounted] = React.useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [productsByCategory, setProductsByCategory] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -43,38 +43,9 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
     fetchProductByCategory();
   }, [EditorContent.category]);
 
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Return a simpler version during SSR
-  if (!mounted) {
-    return (
-      <div className="mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">
-            {EditorContent.title}
-          </h1>
-          <div className="mt-2 h-1 w-16 bg-blue-500 sm:w-20"></div>
-        </div>
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3">
-          {productsByCategory.map((product, index) => (
-            <div key={product.id} className="w-full">
-              <ItemCard
-                title={product.title}
-                description={product.description}
-                image={product.images}
-                slug={product.slug}
-                priority={index === 0}
-                index={index}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
+  const SkeletonCard = () => (
+    <div className="h-56 w-full animate-pulse rounded-lg bg-gray-200 sm:h-72 lg:h-64"></div>
+  );
   // Sidebar content component to avoid repetition
   const SidebarContent = (): React.ReactElement => (
     <div className="space-y-6">
@@ -191,27 +162,48 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
         {/* Left Sidebar - Visible only on lg and up */}
         <div className="hidden lg:block lg:w-64 lg:shrink-0">
           <div className="sticky top-4">
-            <SidebarContent />
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="sticky top-4">
+                <SidebarContent />
+              </div>
+            </motion.div>
           </div>
         </div>
 
         <div className="flex-grow">
-          {/* Products Grid - Mobile First with Progressive Enhancement */}
-          {productsByCategory.length > 0 ? (
+          {loading ? (
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3">
+              {[...Array(LIMITRESULTTRANGSANPHAM)].map((_, index) => (
+                <SkeletonCard key={index} />
+              ))}
+            </div>
+          ) : productsByCategory.length > 0 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3"
+            >
               {productsByCategory.map((product, index) => (
-                <div key={product.id} className="w-full">
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
                   <ItemCard
                     title={product.title}
                     description={product.description}
                     image={product.images}
                     slug={product.slug}
-                    priority={index === 0}
-                    index={index}
                   />
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           ) : (
             <div className="py-8 text-center">
               <p className="text-gray-500">
@@ -222,7 +214,15 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
 
           {/* Sidebar Content - Visible only on mobile */}
           <div className="mt-8 lg:hidden">
-            <SidebarContent />
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="sticky top-4">
+                <SidebarContent />
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

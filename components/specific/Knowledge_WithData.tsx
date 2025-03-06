@@ -138,7 +138,6 @@ const Knowledge_WithData = ({ Knowledge }: KnowledgeProps) => {
           <RelatedArticles
             KnowledgeID={Knowledge.id || ""}
             category={Knowledge.category || ""}
-            maxResults={3}
           />
         </div>
       </section>

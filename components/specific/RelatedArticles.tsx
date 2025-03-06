@@ -5,18 +5,14 @@ import { getRelatedKnowledge } from "@/components/api/KnowledgeService";
 import Link from "next/link";
 import Image from "next/image";
 import { Knowledge } from "@/types/knowledge";
+import { LIMITKIENHUCLIENQUAN, SLICEKIENTHUCLIENQUAN } from "@/utils/constants";
 
 interface RelatedArticlesProps {
   KnowledgeID: string;
   category: string;
-  maxResults: number;
 }
 
-const RelatedArticles = ({
-  KnowledgeID,
-  category,
-  maxResults,
-}: RelatedArticlesProps) => {
+const RelatedArticles = ({ KnowledgeID, category }: RelatedArticlesProps) => {
   const [relatedArticles, setRelatedArticles] = useState<Knowledge[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,8 +23,12 @@ const RelatedArticles = ({
       setError(null);
 
       try {
-        const articles = await getRelatedKnowledge(KnowledgeID, category);
-        setRelatedArticles(articles.slice(0, maxResults));
+        const articles = await getRelatedKnowledge(
+          KnowledgeID,
+          category,
+          LIMITKIENHUCLIENQUAN,
+        );
+        setRelatedArticles(articles.slice(0, SLICEKIENTHUCLIENQUAN));
       } catch (error) {
         console.error("Error fetching related articles:", error);
         setError("Không thể tải sản phẩm liên quan.");

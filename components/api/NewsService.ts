@@ -38,7 +38,7 @@ export const getNewsBySlug = async (slug: string): Promise<News | null> => {
 export const getRelatedNews = async (
   newsId: string,
   category: string,
-  maxResults: number = 3,
+  maxResults: number = 4,
 ): Promise<News[]> => {
   try {
     const newsRef = collection(db, "newItems");

@@ -8,6 +8,7 @@ import {
   FaAward,
   FaChevronLeft,
   FaChevronRight,
+  FaTimes,
 } from "react-icons/fa";
 import Head from "next/head";
 import Link from "next/link";
@@ -15,6 +16,7 @@ import { extractImagesFromHtml } from "@/utils/imageExtractor";
 import { Product } from "../../types/product";
 import RelatedProducts from "./RelatedProducts";
 import TableOfContent from "@/components/editor/Toc";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface ProductDetailProps {
   product: Product;
@@ -24,6 +26,8 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showFullImage, setShowFullImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const [fullScreenIndex, setFullScreenIndex] = useState(0);
+
   const [gallery, setGallery] = useState<string[]>([]);
 
   useEffect(() => {
@@ -47,10 +51,40 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
     setGallery(finalGallery);
   }, [product]);
 
-  const openFullImage = (image: string) => {
-    setSelectedImage(image);
+  const openFullImage = (index: number) => {
+    setSelectedImage(gallery[index]);
+    setFullScreenIndex(index);
+
     setShowFullImage(true);
   };
+
+  // Đóng full-screen
+  const closeFullImage = () => {
+    setShowFullImage(false);
+  };
+  // Chuyển ảnh tiếp theo
+  const nextFullScreenImage = () => {
+    const nextIndex = (fullScreenIndex + 1) % gallery.length;
+    setFullScreenIndex(nextIndex);
+    setSelectedImage(gallery[nextIndex]);
+  };
+
+  // Chuyển ảnh trước
+  const prevFullScreenImage = () => {
+    const prevIndex = (fullScreenIndex - 1 + gallery.length) % gallery.length;
+    setFullScreenIndex(prevIndex);
+    setSelectedImage(gallery[prevIndex]);
+  };
+  // Đóng full-screen khi nhấn ESC
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeFullImage();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) =>
@@ -83,19 +117,27 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
             <div className="relative space-y-4">
               {/* Main Image */}
               <div className="relative h-[50vw] max-w-[100vw] overflow-hidden rounded-lg shadow-2xl md:h-[40vw] lg:h-96 xl:h-96">
-                <Image
-                  src={
-                    gallery[currentImageIndex] ||
-                    "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798280/Led_ckc_bkwijt.jpg"
-                  }
-                  alt={`${product.title} - Hình ảnh ${currentImageIndex + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 20vw"
-                  className="h-[20vh] w-full object-fill"
-                  priority
-                  loading="eager"
-                  onClick={() => openFullImage(gallery[currentImageIndex])}
-                />
+                <motion.div
+                  key={currentImageIndex}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="relative h-[50vw] max-w-[100vw] overflow-hidden rounded-lg shadow-2xl md:h-[40vw] lg:h-96 xl:h-96"
+                >
+                  <Image
+                    src={
+                      gallery[currentImageIndex] ||
+                      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798280/Led_ckc_bkwijt.jpg"
+                    }
+                    alt={`${product.title} - Hình ảnh ${currentImageIndex + 1}`}
+                    fill
+                    sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 20vw"
+                    className="h-[20vh] w-full object-fill"
+                    priority
+                    loading="eager"
+                    onClick={() => openFullImage(currentImageIndex)}
+                  />
+                </motion.div>
                 {/* Navigation Buttons */}
                 <button
                   onClick={(e) => {
@@ -131,7 +173,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
                     className={`relative h-[18vw] w-[27vw] rounded-lg transition-all lg:h-[14vh] ${
                       currentImageIndex === index
                         ? "ring-2 ring-blue-500 ring-offset-2"
-                        : "opacity-70 hover:opacity-100"
+                        : "opacity-70 hover:scale-105 hover:opacity-100"
                     }`}
                     aria-label={`Xem hình ảnh ${index + 1}`}
                   >
@@ -139,7 +181,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
                       src={image}
                       alt={`${product.title} - Hình thu nhỏ ${index + 1}`}
                       fill
-                      className="object-cover"
+                      className="rounded-lg object-cover"
                       sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 20vw"
                     />
                   </div>
@@ -248,15 +290,10 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
       <section className="bg-gray-100 py-8">
         <div className="container mx-auto px-3 text-center xl:px-36">
           <h2 className="mb-8 text-2xl font-bold">Sản phẩm liên quan</h2>
-          <RelatedProducts
-            productId={product.id}
-            category={product.category}
-            maxResults={3}
-          />
+          <RelatedProducts productId={product.id} category={product.category} />
         </div>
       </section>
 
-      {/* CTA Section */}
       {/* CTA Section */}
       <section
         className="bg-gradient-to-r from-red-600 to-red-800 py-16 text-white"
@@ -288,6 +325,60 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
           </div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {showFullImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+            onClick={closeFullImage} // Click ra ngoài để đóng
+          >
+            {/* Wrapper để ngăn click trên ảnh cũng đóng modal */}
+            <motion.div
+              onClick={(e) => e.stopPropagation()} // Ngăn việc click vào ảnh cũng đóng modal
+            >
+              {/* Hình ảnh full */}
+              <motion.img
+                key={selectedImage}
+                src={selectedImage}
+                alt="Ảnh sản phẩm full-screen"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                className="max-h-[90vh] max-w-[90vw] object-contain"
+              />
+
+              {/* Nút đóng */}
+              <button
+                onClick={closeFullImage}
+                className="absolute right-4 top-4 rounded-full bg-black/60 p-2 text-white hover:bg-black"
+                aria-label="Đóng ảnh"
+              >
+                <FaTimes className="h-6 w-6" />
+              </button>
+              {/* Nút Previous */}
+              <button
+                onClick={prevFullScreenImage}
+                className="absolute left-6 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-3 text-white hover:bg-black"
+                aria-label="Ảnh trước"
+              >
+                <FaChevronLeft className="h-6 w-6" />
+              </button>
+
+              {/* Nút Next */}
+              <button
+                onClick={nextFullScreenImage}
+                className="absolute right-6 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-3 text-white hover:bg-black"
+                aria-label="Ảnh tiếp theo"
+              >
+                <FaChevronRight className="h-6 w-6" />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 };
