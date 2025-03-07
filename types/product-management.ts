@@ -19,6 +19,7 @@ export interface ProductContent extends BaseDocument {
   thumbnail?: string;
   author?: string;
   hotness?: string;
+  id?: string;
 }
 
 export interface Draft extends ProductContent {

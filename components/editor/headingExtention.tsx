@@ -27,20 +27,18 @@ export const HeadingID = Extension.create({
   onTransaction({ transaction }) {
     // Kiểm tra mỗi node mới được tạo hoặc cập nhật
     transaction.steps.forEach((step) => {
-      if (step.map) {
-        // Duyệt qua các node đã thay đổi
-        this.editor.state.doc.descendants((node, pos) => {
-          if (node.type.name === "heading" && !node.attrs.id) {
-            // Gán ID cho heading nếu chưa có
-            this.editor.view.dispatch(
-              this.editor.state.tr.setNodeMarkup(pos, undefined, {
-                ...node.attrs,
-                id: uuidv4(),
-              }),
-            );
-          }
-        });
-      }
+      // Duyệt qua các node đã thay đổi
+      this.editor.state.doc.descendants((node, pos) => {
+        if (node.type.name === "heading" && !node.attrs.id) {
+          // Gán ID cho heading nếu chưa có
+          this.editor.view.dispatch(
+            this.editor.state.tr.setNodeMarkup(pos, undefined, {
+              ...node.attrs,
+              id: uuidv4(),
+            }),
+          );
+        }
+      });
     });
   },
 });

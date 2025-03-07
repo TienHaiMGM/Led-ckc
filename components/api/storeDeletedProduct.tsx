@@ -52,7 +52,11 @@ const DeletedProducts = () => {
   // Hàm khôi phục sản phẩm
   const restoreProduct = async (product: ProductContent) => {
     try {
-      await setDoc(doc(db, "collections", product.id), product);
+      if (product.id) {
+        await setDoc(doc(db, "collections", product.id), product);
+      } else {
+        throw new Error("Product ID is undefined");
+      }
       await deleteDoc(doc(db, "deletedProducts", product.id));
       setDeletedProducts(
         deletedProducts.filter((item) => item.id !== product.id),
@@ -63,7 +67,7 @@ const DeletedProducts = () => {
   };
 
   // Hàm xóa vĩnh viễn
-  const permanentlyDelete = async (id: string | undefined) => {
+  const permanentlyDelete = async (id: string) => {
     try {
       await deleteDoc(doc(db, "deletedProducts", id));
       setDeletedProducts(deletedProducts.filter((item) => item.id !== id));
@@ -93,7 +97,7 @@ const DeletedProducts = () => {
                   Khôi phục
                 </button>
                 <button
-                  onClick={() => permanentlyDelete(product.id)}
+                  onClick={() => product.id && permanentlyDelete(product.id)}
                   className="rounded bg-red-500 px-4 py-2 text-white"
                 >
                   Xóa vĩnh viễn

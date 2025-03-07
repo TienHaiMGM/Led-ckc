@@ -2,9 +2,10 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getNewsBySlug, News } from "@/components/api/NewsService";
+import { getNewsBySlug } from "@/components/api/NewsService";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import News_WithData from "@/components/specific/News_WithData";
+import { News } from "@/types/news";
 
 export default function NewsPage() {
   const params = useParams();
