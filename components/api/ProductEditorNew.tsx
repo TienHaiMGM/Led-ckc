@@ -218,6 +218,7 @@ const ProductEditorNew: React.FC<EditorProps> = ({
     <div className="space-y-6">
       <FormField
         label="Tên sản phẩm"
+        textLength={formData.title?.length || 0}
         value={formData.title}
         onChange={(value) => setFormData({ ...formData, title: value })}
         required
@@ -245,10 +246,10 @@ const ProductEditorNew: React.FC<EditorProps> = ({
       />
 
       <FormField
-        label="Danh mục"
-        type="select"
-        value={formData.category}
-        onChange={(value) => setFormData({ ...formData, category: value })}
+        label="Độ hot"
+        type="range"
+        value={formData.hotness || ""}
+        onChange={(value) => setFormData({ ...formData, hotness: value })}
         options={categoryOptions}
         required
       />
@@ -263,6 +264,8 @@ const ProductEditorNew: React.FC<EditorProps> = ({
 
       <FormField
         label="Mô tả"
+        type="textarea"
+        textLength={formData.description?.length || 0}
         value={formData.description}
         onChange={(value) => setFormData({ ...formData, description: value })}
         required
@@ -305,6 +308,7 @@ const ProductEditorNew: React.FC<EditorProps> = ({
       <div className="space-y-6">
         <FormField
           label="SEO Title"
+          textLength={formData.seoTitle?.length || 0}
           value={formData.seoTitle || ""}
           onChange={(value) => setFormData({ ...formData, seoTitle: value })}
           description="Tiêu đề hiển thị trên kết quả tìm kiếm. Để trống để sử dụng tiêu đề chính."
@@ -312,6 +316,7 @@ const ProductEditorNew: React.FC<EditorProps> = ({
 
         <FormField
           label="SEO Description"
+          textLength={formData.seoDescription?.length || 0}
           type="textarea"
           value={formData.seoDescription || ""}
           onChange={(value) =>

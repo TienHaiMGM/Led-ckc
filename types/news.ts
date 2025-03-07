@@ -11,4 +11,5 @@ export interface News {
   createdAt?: any;
   updatedAt?: any;
   status?: "draft" | "published";
+  hotness?: string;
 }

@@ -11,7 +11,7 @@ interface FormData {
   message: string;
 }
 
-export const TabarLeft = () => {
+export const tabarLeft = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -202,4 +202,4 @@ export const TabarLeft = () => {
     </div>
   );
 };
-export default TabarLeft;
+export default tabarLeft;

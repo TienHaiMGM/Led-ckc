@@ -271,6 +271,8 @@ const ProductEditorKnowledge: React.FC<EditorProps> = ({
 
       <FormField
         label="Mô tả"
+        type="textarea"
+        textLength={formData.description?.length || 0}
         value={formData.description}
         onChange={(value) => setFormData({ ...formData, description: value })}
         required
@@ -367,7 +369,7 @@ const ProductEditorKnowledge: React.FC<EditorProps> = ({
       {(isAdding || editingProduct) && (
         <div className="mb-8 rounded-lg bg-white p-6 shadow-lg">
           <h2 className="mb-4 text-xl font-semibold">
-            {editingProduct ? "Sửa Sản Phẩm" : "Thêm Sản Phẩm Mới"}
+            {editingProduct ? "Sửa Sản Phẩm" : "Thêm Kiến Thức Mới"}
           </h2>
           <form onSubmit={editingProduct ? handleUpdate : handleAdd}>
             <div className="border-b border-gray-200">
@@ -473,7 +475,7 @@ const ProductEditorKnowledge: React.FC<EditorProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Tìm kiếm sản phẩm..."
+              placeholder="Tìm kiếm kiến thức..."
               className="block w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>

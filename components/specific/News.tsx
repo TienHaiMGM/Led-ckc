@@ -2,44 +2,44 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NewsletterSubscription from "../../components/common/NewsletterSubscription";
 import Breadcrumb from "../../components/common/Breadcrumb";
 import { useProductEditorNew } from "../../components/api/hooks/useProductEditorNew";
 import { EditorProps } from "../../types/product-management";
+import { removeVietnameseTones } from "@/types/removeVietnameseTones";
+import QuickStats from "../common/QuickStat";
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 3;
 
 const News: React.FC<EditorProps> = ({ EditorContent }) => {
   const { products } = useProductEditorNew(EditorContent);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // Filter news items by category and search
-  const filteredItems = products
-    .filter(
-      (item) =>
-        selectedCategory === "Tất cả" || item.category === selectedCategory,
-    )
-    .filter(
-      (item) =>
-        !searchQuery ||
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchQuery.toLowerCase()),
+  const normalizedSearchTerm = removeVietnameseTones(searchTerm);
+
+  const filteredItems = products.filter((item) => {
+    const normalizedTitle = removeVietnameseTones(item.title);
+    const normalizedDescription = removeVietnameseTones(item.description);
+
+    return (
+      normalizedSearchTerm === "" ||
+      normalizedTitle.includes(normalizedSearchTerm) ||
+      normalizedDescription.includes(normalizedSearchTerm)
     );
+  });
+
+  // Nếu có tìm kiếm, đặt lại currentPage về 1 để tránh lỗi hiển thị trang không có dữ liệu
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const currentItems = filteredItems.slice(startIndex, endIndex);
-
-  // Get unique categories
-  const categories = [
-    "Tất cả",
-    ...Array.from(new Set(products.map((item) => item.category))),
-  ];
 
   // Generate pagination array
   const generatePaginationArray = () => {
@@ -93,75 +93,25 @@ const News: React.FC<EditorProps> = ({ EditorContent }) => {
                   <form onSubmit={handleSearch} className="relative">
                     <input
                       type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
                       placeholder="Tìm kiếm bài viết..."
                       className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-3 text-white placeholder-gray-300 backdrop-blur-sm transition-all focus:border-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 sm:py-4"
                     />
                     <button
                       type="submit"
-                      className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white px-6 py-2 text-blue-600 transition-colors hover:bg-blue-50 focus:outline-none"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white px-6 py-3 text-blue-600 transition-colors hover:bg-blue-50 focus:outline-none"
                     >
                       <span>Tìm kiếm</span>
                     </button>
                   </form>
                 </div>
-
-                {/* Quick Stats */}
-                <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
-                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-md">
-                    <div className="mb-1 text-3xl font-bold text-white">
-                      {products.length}
-                    </div>
-                    <div className="text-gray-200">Bài viết</div>
-                  </div>
-                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-md">
-                    <div className="mb-1 text-3xl font-bold text-white">
-                      {categories.length - 1}
-                    </div>
-                    <div className="text-gray-200">Danh mục</div>
-                  </div>
-                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-md">
-                    <div className="mb-1 text-3xl font-bold text-white">
-                      24/7
-                    </div>
-                    <div className="text-gray-200">Hỗ trợ</div>
-                  </div>
-                  <div className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-md">
-                    <div className="mb-1 text-3xl font-bold text-white">
-                      100+
-                    </div>
-                    <div className="text-gray-200">Khách hàng</div>
-                  </div>
-                </div>
+                <QuickStats length={products.length} />
               </div>
             </div>
           </section>
           {/* Breadcrumb */}
           <Breadcrumb />
-          {/* Categories */}
-          <section className="sticky top-0 z-10 border-b bg-gray-50 py-3 shadow-sm">
-            <div className="container mx-auto px-4">
-              <div className="flex flex-wrap justify-start gap-3">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => {
-                      setSelectedCategory(category);
-                      setCurrentPage(1);
-                    }}
-                    className={`rounded-full px-4 py-2 text-sm transition-colors md:text-base ${
-                      selectedCategory === category
-                        ? "bg-red-600 text-white"
-                        : "bg-white text-gray-700 hover:bg-gray-100"
-                    }`}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </section>
 
           {/* News Grid */}
           <section className="bg-gray-50 py-8 md:py-12">

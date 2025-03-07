@@ -35,9 +35,9 @@ export const getKnowledgeBySlug = async (
  * Fetch related knowledge entries based on category & slug.
  */
 export const getRelatedKnowledge = async (
-  currentSlug: string,
+  KnowledgeId: string,
   category: string,
-  maxResults: number = 3,
+  maxResults: number = 4,
 ): Promise<Knowledge[]> => {
   try {
     const knowledgeRef = collection(db, "knowledge");
@@ -49,7 +49,7 @@ export const getRelatedKnowledge = async (
     const querySnapshot = await getDocs(q);
     return querySnapshot.docs
       .map(mapFirestoreDoc)
-      .filter((knowledge) => knowledge.slug !== currentSlug); // 🔥 Filter after querying
+      .filter((doc) => doc.id !== KnowledgeId); // 🔥 Filter after querying
   } catch (error) {
     console.error("Error fetching related knowledge:", error);
     throw new Error("Failed to fetch related knowledge");

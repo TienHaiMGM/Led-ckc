@@ -309,14 +309,14 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/pages/lien-he"
+              href="/lien-he"
               className="rounded-full bg-white px-8 py-3 font-semibold text-red-600 transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
               aria-label="Chuyển đến trang liên hệ"
             >
               Liên Hệ Ngay
             </Link>
             <a
-              href="tel:+84123456789"
+              href="tel:+0827034567"
               className="rounded-full border-2 border-white px-8 py-3 font-semibold text-white transition-colors hover:bg-white hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-white"
               aria-label="Gọi điện thoại cho chúng tôi"
             >

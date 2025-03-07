@@ -1,34 +1,38 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NewsletterSubscription from "../../components/common/NewsletterSubscription";
 import Breadcrumb from "../../components/common/Breadcrumb";
-
 import { EditorProps } from "../../types/product-management";
 import { useProductEditorKnowLedge } from "../../components/api/hooks/useProductEditorKnowLedge";
+import { removeVietnameseTones } from "@/types/removeVietnameseTones";
+import QuickStats from "../common/QuickStat";
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 3;
 
 const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
-  const { products, loading, error, generateSlug } =
-    useProductEditorKnowLedge(EditorContent);
+  const { products, loading, error } = useProductEditorKnowLedge(EditorContent);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Filter items by category and search term
-  const filteredItems = products
-    .filter(
-      (item) =>
-        selectedCategory === "Tất cả" || item.category === selectedCategory,
-    )
-    .filter(
-      (item) =>
-        searchTerm === "" ||
-        item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchTerm.toLowerCase()),
+  const normalizedSearchTerm = removeVietnameseTones(searchTerm);
+
+  const filteredItems = products.filter((item) => {
+    const normalizedTitle = removeVietnameseTones(item.title);
+    const normalizedDescription = removeVietnameseTones(item.description);
+
+    return (
+      normalizedSearchTerm === "" ||
+      normalizedTitle.includes(normalizedSearchTerm) ||
+      normalizedDescription.includes(normalizedSearchTerm)
     );
+  });
+
+  // Nếu có tìm kiếm, đặt lại currentPage về 1 để tránh lỗi hiển thị trang không có dữ liệu
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
@@ -41,13 +45,6 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
     "Tất cả",
     ...Array.from(new Set(products.map((item) => item.category))),
   ];
-
-  // Handle category change
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-    setCurrentPage(1);
-  };
-
   // Generate pagination array
   const generatePaginationArray = () => {
     const delta = 2;
@@ -67,6 +64,9 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
     if (totalPages > 1) range.push(totalPages);
 
     return range;
+  };
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
   };
 
   return (
@@ -92,81 +92,28 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
 
               {/* Search Bar */}
               <div className="mx-auto max-w-2xl">
-                <div className="flex items-center rounded-full border border-white/20 bg-white/10 p-2 backdrop-blur-md">
+                <form onSubmit={handleSearch} className="relative">
                   <input
                     type="text"
-                    placeholder="Tìm kiếm kiến thức..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full bg-transparent px-6 py-3 text-white placeholder-gray-300 focus:outline-none"
+                    placeholder="Tìm kiếm bài viết..."
+                    className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-3 text-white placeholder-gray-300 backdrop-blur-sm transition-all focus:border-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 sm:py-4"
                   />
-                  <button className="flex items-center gap-2 rounded-full bg-white px-6 py-3 text-blue-600 transition-colors duration-300 hover:bg-gray-100 focus:outline-none">
+                  <button
+                    type="submit"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white px-6 py-3 text-blue-600 transition-colors hover:bg-blue-50 focus:outline-none"
+                  >
                     <span>Tìm kiếm</span>
                   </button>
-                </div>
+                </form>
               </div>
-
-              {/* Quick Stats */}
-              <div className="mt-8 grid grid-cols-2 gap-4 sm:mt-12 md:grid-cols-4">
-                <div className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-md">
-                  <div className="mb-1 text-2xl font-bold text-white sm:text-3xl">
-                    {products.length}
-                  </div>
-                  <div className="text-sm text-gray-200 sm:text-base">
-                    Bài viết
-                  </div>
-                </div>
-                <div className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-md">
-                  <div className="mb-1 text-2xl font-bold text-white sm:text-3xl">
-                    {categories.length - 1}
-                  </div>
-                  <div className="text-sm text-gray-200 sm:text-base">
-                    Danh mục
-                  </div>
-                </div>
-                <div className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-md">
-                  <div className="mb-1 text-2xl font-bold text-white sm:text-3xl">
-                    24/7
-                  </div>
-                  <div className="text-sm text-gray-200 sm:text-base">
-                    Hỗ trợ
-                  </div>
-                </div>
-                <div className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-md">
-                  <div className="mb-1 text-2xl font-bold text-white sm:text-3xl">
-                    100+
-                  </div>
-                  <div className="text-sm text-gray-200 sm:text-base">
-                    Khách hàng
-                  </div>
-                </div>
-              </div>
+              <QuickStats length={products.length} />
             </div>
           </div>
         </section>
         {/* Breadcrumb */}
         <Breadcrumb />
-        {/* Categories */}
-        <section className="sticky top-0 z-10 border-b bg-gray-50 py-3 shadow-sm sm:py-6">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-wrap justify-start gap-2 sm:gap-3">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => handleCategoryChange(category)}
-                  className={`rounded-full px-3 py-1.5 text-sm transition-colors sm:px-4 sm:py-2 sm:text-base ${
-                    selectedCategory === category
-                      ? "bg-red-600 text-white"
-                      : "bg-white text-gray-700 hover:bg-gray-100"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Articles Grid */}
         <section className="bg-gray-50 py-8 sm:py-12 md:py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
