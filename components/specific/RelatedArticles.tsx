@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { getRelatedKnowledge } from "@/components/api/KnowledgeService";
-import Link from "next/link";
-import Image from "next/image";
 import { Knowledge } from "@/types/knowledge";
 import { LIMITKIENHUCLIENQUAN, SLICEKIENTHUCLIENQUAN } from "@/utils/constants";
+import ItemCardArticle from "../common/itemCardArticle";
 
 interface RelatedArticlesProps {
   KnowledgeID: string;
@@ -47,32 +46,19 @@ const RelatedArticles = ({ KnowledgeID, category }: RelatedArticlesProps) => {
     return <p className="text-center">Không có sản phẩm liên quan.</p>;
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 lg:grid-cols-4 lg:gap-4 xl:mx-36">
       {relatedArticles.map((knowledge) => (
         <div
-          className="col-span-1 rounded-xl shadow-2xl transition-all hover:scale-105"
           key={knowledge.id}
+          className="group rounded-lg bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
         >
-          <div className="h-56 overflow-hidden rounded-lg bg-white transition-all duration-500 ease-in-out sm:h-60 sm:rounded-xl md:h-72 lg:h-64 xl:h-72">
-            <Link href={`/kien-thuc/${knowledge.slug}`} className="block">
-              <div className="relative h-[19vh] sm:h-[20vh] md:h-[25vh] lg:h-[20vh] xl:h-[25vh]">
-                <Image
-                  src={knowledge.images || "/images/default-product.jpg"}
-                  alt={knowledge.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/..."
-                />
-              </div>
-              <div className="p-2 sm:p-3">
-                <h3 className="text-center text-xs font-bold uppercase text-slate-600 sm:text-sm">
-                  {knowledge.title}
-                </h3>
-              </div>
-            </Link>
-          </div>
+          <ItemCardArticle
+            title={knowledge.title}
+            images={knowledge.images}
+            slug={knowledge.slug}
+            href={"/kien-thuc/"}
+            description={knowledge.description}
+          />
         </div>
       ))}
     </div>

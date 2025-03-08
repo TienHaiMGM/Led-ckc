@@ -32,7 +32,7 @@ const ItemCard = ({
 
         {/* Hiệu ứng Holographic */}
         <div className="absolute left-[-50%] top-[-50%] h-[200%] w-[200%] rotate-[-45deg] bg-gradient-to-b from-transparent via-transparent to-[rgba(0,0,0,0.3)] opacity-80 transition-all duration-200 ease-in-out group-hover:translate-y-full group-hover:opacity-100"></div>
-        <div className="group-hover:animate-shimmer absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-10 transition-all duration-700 ease-in-out group-hover:opacity-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-10 transition-all duration-700 ease-in-out group-hover:animate-shimmer group-hover:opacity-50"></div>
 
         <div className="p-2 sm:p-3">
           <h3 className="relative z-10 text-center text-xs font-bold uppercase sm:text-sm">

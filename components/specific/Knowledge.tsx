@@ -8,8 +8,10 @@ import { EditorProps } from "../../types/product-management";
 import { useProductEditorKnowLedge } from "../../components/api/hooks/useProductEditorKnowLedge";
 import { removeVietnameseTones } from "@/types/removeVietnameseTones";
 import QuickStats from "../common/QuickStat";
+import { motion } from "framer-motion";
+import ItemCardArticle from "../common/itemCardArticle";
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 4;
 
 const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
   const { products, loading, error } = useProductEditorKnowLedge(EditorContent);
@@ -69,6 +71,10 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
     e.preventDefault();
   };
 
+  const SkeletonCard = () => (
+    <div className="h-56 w-full animate-pulse rounded-lg bg-gray-200 sm:h-72 lg:h-64"></div>
+  );
+
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-grow">
@@ -118,8 +124,10 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
         <section className="bg-gray-50 py-8 sm:py-12 md:py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             {loading ? (
-              <div className="flex items-center justify-center py-12">
-                <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+                {[...Array(ITEMS_PER_PAGE)].map((_, index) => (
+                  <SkeletonCard key={index} />
+                ))}
               </div>
             ) : error ? (
               <div className="rounded-lg bg-red-50 p-4 text-center text-red-600">
@@ -127,43 +135,44 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
               </div>
             ) : (
               <>
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {currentItems.map((item) => (
-                    <article
+                {/* Hiệu ứng motion khi hiển thị danh sách bài viết */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                >
+                  {currentItems.map((item, index) => (
+                    <motion.article
                       key={item.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
                       className="group rounded-lg bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                     >
-                      <Link href={`/kien-thuc/${item.slug}`} className="block">
-                        <div className="relative aspect-video overflow-hidden rounded-t-lg">
-                          <Image
-                            src={item.images}
-                            alt={item.title}
-                            fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                            quality={85}
-                          />
-                        </div>
-                        <div className="p-4 sm:p-6">
-                          <h2 className="mb-2 line-clamp-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-blue-600 sm:text-xl">
-                            {item.title}
-                          </h2>
-                          <p className="line-clamp-3 text-sm text-gray-600 sm:text-base">
-                            {item.description}
-                          </p>
-                          <div className="mt-4 text-sm font-medium text-blue-600 group-hover:text-blue-700 sm:text-base">
-                            Đọc thêm →
-                          </div>
-                        </div>
-                      </Link>
-                    </article>
+                      <ItemCardArticle
+                        images={item.images}
+                        title={item.title}
+                        description={item.description}
+                        slug={item.slug}
+                        href={"/kien-thuc/"}
+                      />
+                    </motion.article>
                   ))}
-                </div>
+                </motion.div>
 
-                {/* Pagination */}
+                {/* Pagination với Motion */}
                 {totalPages > 1 && (
-                  <div className="mt-8 flex justify-center sm:mt-12">
-                    <nav
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-8 flex justify-center sm:mt-12"
+                  >
+                    <motion.nav
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.5 }}
                       className="flex items-center gap-1 sm:gap-2"
                       aria-label="Phân trang"
                     >
@@ -195,8 +204,11 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
                       </button>
 
                       {generatePaginationArray().map((page, index) => (
-                        <button
+                        <motion.button
                           key={index}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: index * 0.05 }}
                           onClick={() =>
                             typeof page === "number" && setCurrentPage(page)
                           }
@@ -209,7 +221,7 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
                           }`}
                         >
                           {page}
-                        </button>
+                        </motion.button>
                       ))}
 
                       <button
@@ -240,8 +252,8 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
                           />
                         </svg>
                       </button>
-                    </nav>
-                  </div>
+                    </motion.nav>
+                  </motion.div>
                 )}
               </>
             )}

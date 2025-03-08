@@ -9,11 +9,13 @@ import { useProductEditorNew } from "../../components/api/hooks/useProductEditor
 import { EditorProps } from "../../types/product-management";
 import { removeVietnameseTones } from "@/types/removeVietnameseTones";
 import QuickStats from "../common/QuickStat";
+import { motion } from "framer-motion";
+import ItemCardArticle from "../common/itemCardArticle";
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 4;
 
 const News: React.FC<EditorProps> = ({ EditorContent }) => {
-  const { products } = useProductEditorNew(EditorContent);
+  const { products, loading, error } = useProductEditorNew(EditorContent);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -65,6 +67,9 @@ const News: React.FC<EditorProps> = ({ EditorContent }) => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
   };
+  const SkeletonCard = () => (
+    <div className="h-56 w-full animate-pulse rounded-lg bg-gray-200 sm:h-72 lg:h-64"></div>
+  );
 
   return (
     <>
@@ -114,121 +119,143 @@ const News: React.FC<EditorProps> = ({ EditorContent }) => {
           <Breadcrumb />
 
           {/* News Grid */}
-          <section className="bg-gray-50 py-8 md:py-12">
-            <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4">
-                {currentItems.map((item) => (
-                  <article
-                    key={item.id}
-                    className="rounded-lg bg-white shadow-sm transition-shadow duration-300 hover:shadow-md"
-                  >
-                    <Link href={`/tin-tuc/${item.slug}`} className="block">
-                      <div className="relative h-48 w-full overflow-hidden rounded-t-lg md:h-56">
-                        <Image
-                          src={item.images}
-                          alt={item.title}
-                          fill
-                          className="object-cover transition-transform duration-300 hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                        />
-                      </div>
-                      <div className="p-4 md:p-6">
-                        <h2 className="mb-2 line-clamp-2 text-lg font-semibold text-gray-900 transition-colors hover:text-blue-600 md:text-xl">
-                          {item.title}
-                        </h2>
-                        <p className="line-clamp-3 text-sm text-gray-600 md:text-base">
-                          {item.description}
-                        </p>
-                        <div className="mt-4 text-sm font-medium text-blue-600 hover:text-blue-700 md:text-base">
-                          Đọc thêm →
-                        </div>
-                      </div>
-                    </Link>
-                  </article>
-                ))}
-              </div>
-
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <div className="mt-12 flex justify-center">
-                  <nav
-                    className="flex items-center gap-2"
-                    aria-label="Phân trang"
-                  >
-                    <button
-                      onClick={() =>
-                        setCurrentPage((prev) => Math.max(prev - 1, 1))
-                      }
-                      disabled={currentPage === 1}
-                      className={`rounded-lg p-2 ${
-                        currentPage === 1
-                          ? "cursor-not-allowed text-gray-400"
-                          : "text-blue-600 hover:bg-blue-50"
-                      }`}
-                      aria-label="Trang trước"
-                    >
-                      <svg
-                        className="h-5 w-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 19l-7-7 7-7"
-                        />
-                      </svg>
-                    </button>
-
-                    {generatePaginationArray().map((page, index) => (
-                      <button
-                        key={index}
-                        onClick={() =>
-                          typeof page === "number" && setCurrentPage(page)
-                        }
-                        className={`rounded-lg px-4 py-2 ${
-                          currentPage === page
-                            ? "bg-blue-600 text-white"
-                            : page === "..."
-                              ? "cursor-default text-gray-500"
-                              : "text-blue-600 hover:bg-blue-50"
-                        }`}
-                      >
-                        {page}
-                      </button>
-                    ))}
-
-                    <button
-                      onClick={() =>
-                        setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                      }
-                      disabled={currentPage === totalPages}
-                      className={`rounded-lg p-2 ${
-                        currentPage === totalPages
-                          ? "cursor-not-allowed text-gray-400"
-                          : "text-blue-600 hover:bg-blue-50"
-                      }`}
-                      aria-label="Trang sau"
-                    >
-                      <svg
-                        className="h-5 w-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </button>
-                  </nav>
+          <section className="bg-gray-50 py-8 sm:py-12 md:py-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              {loading ? (
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+                  {[...Array(ITEMS_PER_PAGE)].map((_, index) => (
+                    <SkeletonCard key={index} />
+                  ))}
                 </div>
+              ) : error ? (
+                <div className="rounded-lg bg-red-50 p-4 text-center text-red-600">
+                  Có lỗi xảy ra khi tải dữ liệu
+                </div>
+              ) : (
+                <>
+                  {/* Hiệu ứng motion khi hiển thị danh sách bài viết */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                  >
+                    {currentItems.map((item, index) => (
+                      <motion.article
+                        key={item.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="group rounded-lg bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                      >
+                        <ItemCardArticle
+                          images={item.images}
+                          title={item.title}
+                          description={item.description}
+                          slug={item.slug}
+                          href={"/tin-tuc/"}
+                        />
+                      </motion.article>
+                    ))}
+                  </motion.div>
+
+                  {/* Pagination với Motion */}
+                  {totalPages > 1 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-8 flex justify-center sm:mt-12"
+                    >
+                      <motion.nav
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                        className="flex items-center gap-1 sm:gap-2"
+                        aria-label="Phân trang"
+                      >
+                        <button
+                          onClick={() =>
+                            setCurrentPage((prev) => Math.max(prev - 1, 1))
+                          }
+                          disabled={currentPage === 1}
+                          className={`rounded-lg p-2 ${
+                            currentPage === 1
+                              ? "cursor-not-allowed text-gray-400"
+                              : "text-blue-600 hover:bg-blue-50"
+                          }`}
+                          aria-label="Trang trước"
+                        >
+                          <svg
+                            className="h-5 w-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15 19l-7-7 7-7"
+                            />
+                          </svg>
+                        </button>
+
+                        {generatePaginationArray().map((page, index) => (
+                          <motion.button
+                            key={index}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: index * 0.05 }}
+                            onClick={() =>
+                              typeof page === "number" && setCurrentPage(page)
+                            }
+                            className={`rounded-lg px-3 py-2 text-sm sm:px-4 sm:text-base ${
+                              currentPage === page
+                                ? "bg-blue-600 text-white"
+                                : page === "..."
+                                  ? "cursor-default text-gray-500"
+                                  : "text-blue-600 hover:bg-blue-50"
+                            }`}
+                          >
+                            {page}
+                          </motion.button>
+                        ))}
+
+                        <button
+                          onClick={() =>
+                            setCurrentPage((prev) =>
+                              Math.min(prev + 1, totalPages),
+                            )
+                          }
+                          disabled={currentPage === totalPages}
+                          className={`rounded-lg p-2 ${
+                            currentPage === totalPages
+                              ? "cursor-not-allowed text-gray-400"
+                              : "text-blue-600 hover:bg-blue-50"
+                          }`}
+                          aria-label="Trang sau"
+                        >
+                          <svg
+                            className="h-5 w-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </button>
+                      </motion.nav>
+                    </motion.div>
+                  )}
+                </>
               )}
+
               {/* Newsletter Subscription */}
               <NewsletterSubscription />
             </div>
