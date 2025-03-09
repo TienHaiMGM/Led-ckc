@@ -44,7 +44,7 @@ const ContactRow: React.FC<ContactRowProps> = ({
   updating,
 }) => {
   return (
-    <tr className="hover:bg-gray-50">
+    <tr className="h-20 hover:bg-gray-50">
       <td>{request.createdAt?.toDate().toLocaleString("vi-VN")}</td>
       <td>{request.name}</td>
       <td>{request.email}</td>

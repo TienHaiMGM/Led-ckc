@@ -1,102 +1,10 @@
-import { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
-
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
-    description:
-      "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu cao cấp, bền đẹp và tiết kiệm chi phí cho doanh nghiệp của bạn.",
-    keywords: [
-      "bảng hiệu alu",
-      "quảng cáo",
-      "thiết kế bảng hiệu",
-      "biển quảng cáo",
-      "quảng cáo ngoài trời",
-    ],
-    robots: "index, follow",
-    openGraph: {
-      title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
-      description:
-        "Chuyên thiết kế và thi công các loại bảng hiệu Alu quảng cáo chất lượng cao.",
-      url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-      siteName: "Siêu Thị Bảng Hiệu",
-      images: [
-        {
-          url: "https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg",
-          width: 1200,
-          height: 630,
-          alt: "Bảng Hiệu Alu - Siêu Thị Bảng Hiệu",
-        },
-      ],
-      locale: "vi_VN",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
-      description:
-        "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu.",
-      images: ["https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg"],
-    },
-    alternates: {
-      canonical: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-    },
-  };
-}
-const schema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-      url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-      name: "Bảng Hiệu Alu",
-      description:
-        "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu cao cấp.",
-      isPartOf: {
-        "@type": "WebSite",
-        "@id": "https://sieuthibanghieu.vn/#website",
-        url: "https://sieuthibanghieu.vn",
-        name: "Siêu Thị Bảng Hiệu",
-        description:
-          "Chuyên thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp",
-        publisher: {
-          "@id": "https://sieuthibanghieu.vn/#organization",
-        },
-      },
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id":
-        "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu#breadcrumb",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          item: {
-            "@type": "WebPage",
-            "@id": "https://sieuthibanghieu.vn/",
-            url: "https://sieuthibanghieu.vn/",
-            name: "Trang chủ",
-          },
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          item: {
-            "@type": "WebPage",
-            "@id": "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-            url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-            name: "Bảng Hiệu Alu",
-          },
-        },
-      ],
-    },
-  ],
-};
+import { motion } from "framer-motion";
 
 const BangHieuAlu = () => {
   return (
@@ -106,22 +14,58 @@ const BangHieuAlu = () => {
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* {TabarLeft} */}
           <div className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
-            <TabarLeft />
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0, transition: { duration: 0.6 } }}
+              className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block"
+            >
+              <TabarLeft />
+            </motion.div>
           </div>
+
           <article className="animation animation-fadeIn prose prose-custome lg:w-3/4">
-            <div className="rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
-              <h1 className="text-3xl font-bold text-blue-800 lg:text-4xl">
-                Bảng Hiệu Alu - Giải Pháp Quảng Cáo Hiệu Quả, Bền Đẹp Và Tiết
-                Kiệm Chi Phí
-              </h1>
-              <p className="text-lg text-gray-600">
-                <strong>Bảng hiệu alu</strong> đang trở thành xu hướng hàng đầu
-                trong ngành quảng cáo và thiết kế thương hiệu. Với ưu điểm về độ
-                bền, tính thẩm mỹ cao và khả năng chống chịu thời tiết, bảng
-                hiệu alu mang lại diện mạo chuyên nghiệp cho mọi doanh nghiệp
-              </p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
+              className="animation animation-fadeIn prose prose-custome lg:w-3/4"
+            >
+              <div className="rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
+                <h1 className="text-3xl font-bold text-blue-800 lg:text-4xl">
+                  Bảng Hiệu Alu - Giải Pháp Quảng Cáo Hiệu Quả, Bền Đẹp Và Tiết
+                  Kiệm Chi Phí
+                </h1>
+                <p className="text-lg text-gray-600">
+                  <strong>Bảng hiệu alu</strong> đang trở thành xu hướng hàng
+                  đầu trong ngành quảng cáo và thiết kế thương hiệu. Với ưu điểm
+                  về độ bền, tính thẩm mỹ cao và khả năng chống chịu thời tiết,
+                  bảng hiệu alu mang lại diện mạo chuyên nghiệp cho mọi doanh
+                  nghiệp
+                </p>
+              </div>
+            </motion.div>
             <section className="grid gap-4">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  transition: { duration: 0.5, delay: 0.3 },
+                }}
+                className="flex justify-center"
+              >
+                <figure>
+                  <Image
+                    src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740456298/bang-hieu-alu-brand-junlie1_kowuml.jpg"
+                    alt="Bảng hiệu Alu chữ nổi"
+                    width={800}
+                    height={600}
+                    className="rounded-lg shadow-lg"
+                  />
+                  <figcaption className="text-center italic">
+                    Bảng hiệu Alu chữ nổi
+                  </figcaption>
+                </figure>
+              </motion.div>
               <nav className="order-2 rounded-lg bg-gray-100 p-2 shadow-lg">
                 <h2 className="mb-4 text-xl font-semibold text-gray-700">
                   📚 Mục Lục
@@ -273,20 +217,6 @@ const BangHieuAlu = () => {
                   </li>
                 </ul>
               </nav>
-              <div className="flex justify-center">
-                <figure>
-                  <Image
-                    src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740456298/bang-hieu-alu-brand-junlie1_kowuml.jpg"
-                    alt="Bảng hiệu Alu chữ nổi"
-                    width={800}
-                    height={600}
-                    className="rounded-lg shadow-lg"
-                  />
-                  <figcaption className="text-center italic">
-                    Bảng hiệu Alu chữ nổi
-                  </figcaption>
-                </figure>
-              </div>
             </section>
 
             <div className="grid gap-3 lg:grid-cols-2">
@@ -302,7 +232,7 @@ const BangHieuAlu = () => {
               <div className="space-y-1 leading-normal">
                 <h2
                   id="bang-hieu-alu-la-gi"
-                  className="text-2xl font-bold text-gray-800"
+                  className="scroll-mt-16 text-2xl font-bold text-gray-800"
                 >
                   Bảng Hiệu Alu Là Gì?
                 </h2>
@@ -336,14 +266,17 @@ const BangHieuAlu = () => {
               </div>
             </div>
             <section className="w-full leading-normal">
-              <h2 id="loi-ich" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="loi-ich"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Lợi Ích Khi Sử Dụng Bảng Hiệu Alu
               </h2>
               <div className="space-y-6">
                 <div>
                   <h3
                     id="tham-my-cao"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Tính Thẩm Mỹ Cao, Sang Trọng
                   </h3>
@@ -365,7 +298,7 @@ const BangHieuAlu = () => {
                 <div>
                   <h3
                     id="do-ben-vuot-troi"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Độ Bền Vượt Trội, Chống Chịu Thời Tiết
                   </h3>
@@ -387,7 +320,7 @@ const BangHieuAlu = () => {
                 <div>
                   <h3
                     id="chi-phi-hop-ly"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Chi Phí Hợp Lý, Tiết Kiệm
                   </h3>
@@ -405,7 +338,7 @@ const BangHieuAlu = () => {
                 <div>
                   <h3
                     id="de-thi-cong"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Dễ Dàng Thi Công & Bảo Trì
                   </h3>
@@ -443,7 +376,7 @@ const BangHieuAlu = () => {
             <section className="leading-normal">
               <h2
                 id="cac-loai"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Các Loại Bảng Hiệu Alu Phổ Biến Hiện Nay
               </h2>
@@ -451,7 +384,7 @@ const BangHieuAlu = () => {
                 <div>
                   <h3
                     id="chu-noi"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng Hiệu Alu Chữ Nổi là sự kết hợp giữa tấm alu làm nền và
                     các chữ nổi được gắn lên. Chữ nổi có thể làm từ nhiều vật
@@ -485,7 +418,7 @@ const BangHieuAlu = () => {
                 <div>
                   <h3
                     id="mat-dan-decal"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng hiệu alu mặt dán decal là loại bảng hiệu đơn giản nhất,
                     sử dụng tấm alu làm nền và dán decal in kỹ thuật số lên bề
@@ -519,7 +452,7 @@ const BangHieuAlu = () => {
                 <div>
                   <h3
                     id="hop-den"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng hiệu alu hộp đèn. Kết hợp tấm alu với đèn LED bên trong
                     tạo nên bảng hiệu phát sáng vào ban đêm.
@@ -552,7 +485,7 @@ const BangHieuAlu = () => {
                 <div>
                   <h3
                     id="alu-guong"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng hiệu alu gương là sự kết hợp giữa tấm nhôm alu và lớp
                     phủ gương cao cấp, tạo nên bề mặt sáng bóng và có khả năng
@@ -586,7 +519,10 @@ const BangHieuAlu = () => {
               </div>
             </section>
             <section className="leading-normal">
-              <h2 id="muc-gia" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="muc-gia"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Mức Giá Làm Bảng Hiệu Alu Hiện Nay
               </h2>
               <p className="mb-4">
@@ -685,7 +621,7 @@ const BangHieuAlu = () => {
             <section className="leading-normal">
               <h2
                 id="bao-quan"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Cách Bảo Quản Và Bảo Trì Bảng Hiệu Alu
               </h2>
@@ -694,7 +630,7 @@ const BangHieuAlu = () => {
                 <div>
                   <h3
                     id="ve-sinh"
-                    className="mb-2 text-xl font-semibold text-gray-600"
+                    className="mb-2 scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     1. Vệ Sinh Định Kỳ
                   </h3>
@@ -709,7 +645,7 @@ const BangHieuAlu = () => {
                 <div>
                   <h3
                     id="kiem-tra-dien"
-                    className="mb-2 text-xl font-semibold text-gray-600"
+                    className="mb-2 scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     2. Kiểm Tra Hệ Thống Điện
                   </h3>
@@ -723,7 +659,7 @@ const BangHieuAlu = () => {
                 <div>
                   <h3
                     id="xu-ly-van-de"
-                    className="mb-2 text-xl font-semibold text-gray-600"
+                    className="mb-2 scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     3. Xử Lý Các Vấn Đề Nhỏ Kịp Thời
                   </h3>
@@ -737,7 +673,7 @@ const BangHieuAlu = () => {
                 <div>
                   <h3
                     id="bao-ve-vat-ly"
-                    className="mb-2 text-xl font-semibold text-gray-600"
+                    className="mb-2 scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     4. Bảo Vệ Khỏi Tác Động Vật Lý
                   </h3>
@@ -765,7 +701,7 @@ const BangHieuAlu = () => {
             <section className="leading-normal">
               <h2
                 id="ket-luan"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Tại Sao Bảng Hiệu Alu Là Sự Lựa Chọn Hoàn Hảo?
               </h2>
@@ -796,10 +732,6 @@ const BangHieuAlu = () => {
           </article>
         </div>
       </main>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
     </div>
   );
 };

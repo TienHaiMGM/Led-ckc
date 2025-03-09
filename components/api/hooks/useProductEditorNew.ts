@@ -12,6 +12,7 @@ import {
   orderBy,
   DocumentData,
   QueryDocumentSnapshot,
+  setDoc,
 } from "firebase/firestore";
 import {
   ProductContent,
@@ -51,7 +52,7 @@ export const useProductEditorNew = (
   const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
-      const q = query(collection(db, "newItems"), orderBy("createdAt", "desc"));
+      const q = query(collection(db, "newItems"), orderBy("hotness", "desc"));
       const querySnapshot = await getDocs(q);
       setProducts(
         querySnapshot.docs.map((doc) => mapFirestoreDoc<ProductContent>(doc)),
@@ -121,10 +122,11 @@ export const useProductEditorNew = (
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!window.confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) return;
+  const handleDelete = async (id: string, product: ProductContent) => {
+    if (!window.confirm("Bạn có chắc chắn muốn xóa tin tức này?")) return;
     try {
       setLoading(true);
+      await setDoc(doc(db, "deletedNews", id), product);
       await deleteDoc(doc(db, "newItems", id));
       setProducts((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {

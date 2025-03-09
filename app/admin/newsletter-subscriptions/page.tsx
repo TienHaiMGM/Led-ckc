@@ -73,6 +73,9 @@ export default function NewsletterSubscription() {
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                       Trạng Thái
                     </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Thao Tác
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
@@ -108,6 +111,11 @@ export default function NewsletterSubscription() {
                             ? "Đang hoạt động"
                             : "Không hoạt động"}
                         </span>
+                      </td>
+                      <td>
+                        <button className="rounded bg-red-500 px-2 py-1 text-white disabled:opacity-50">
+                          Xóa
+                        </button>
                       </td>
                     </tr>
                   ))}

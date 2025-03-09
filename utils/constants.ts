@@ -3,8 +3,8 @@ export const LIMITRESULTTRANGCHU = 8;
 //Limit sản phẩm cho trang sản phẩm
 export const LIMITRESULTTRANGSANPHAM = 24;
 //Limit sản phẩm liên quan
-export const LIMITSANPHAMLIENQUAN = 5; //Lấy 4 sp để ngoại trừ trường hợp id hiện tại trùng với id trong sp lấy về: -1sp
-export const SLICESANPHAMLIENQUAN = 4; // Dùng slice để cho trường hợp id không trùng thì nó lại lấy 4 sp
+export const LIMITSANPHAMLIENQUAN = 4; //Lấy 4 sp để ngoại trừ trường hợp id hiện tại trùng với id trong sp lấy về: -1sp
+export const SLICESANPHAMLIENQUAN = 3; // Dùng slice để cho trường hợp id không trùng thì nó lại lấy 4 sp
 
 //Limit tin tức liên quan
 export const LIMITTINTUCLIENQUAN = 5; //Lấy 4 sp để ngoại trừ trường hợp id hiện tại trùng với id trong sp lấy về: -1sp
@@ -13,6 +13,26 @@ export const SLICETINTUCLIENQUAN = 4; // Dùng slice để cho trường hợp i
 //Limit kiến thức liên quan
 export const LIMITKIENHUCLIENQUAN = 4; //Lấy 4 sp để ngoại trừ trường hợp id hiện tại trùng với id trong sp lấy về: -1sp
 export const SLICEKIENTHUCLIENQUAN = 3; // Dùng slice để cho trường hợp id không trùng thì nó lại lấy 4 sp
+
+export const ITEMS_PER_PAGE = 12; //Số sản phẩm trên 1 trang của tin tức và kiến thức
+
+interface CategoryOption {
+  value: string;
+  label: string;
+}
+
+export const categoryOptions: CategoryOption[] = [
+  { value: "banghieu", label: "Bảng hiệu" },
+  { value: "chunoi", label: "Chữ nổi" },
+  { value: "hopden", label: "Hộp đèn" },
+  { value: "bienbat", label: "Biển bạt" },
+  { value: "bangled", label: "Bảng LED" },
+  { value: "standee", label: "Standee" },
+  { value: "bangsonha", label: "Bảng số nhà" },
+  { value: "bangtencongty", label: "Bảng tên công ty" },
+];
+// Scroll lên 1 khoảng = menu khi nhấp vào mục lục
+export const scrollTableLengthMenu = "scroll-mt-16";
 
 // Site Configuration
 export const SITE_CONFIG = {

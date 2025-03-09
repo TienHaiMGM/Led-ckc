@@ -275,7 +275,7 @@ const BangHieuInox = () => {
               <div className="space-y-1 leading-normal">
                 <h2
                   id="bang-hieu-inox-la-gi"
-                  className="text-2xl font-bold text-gray-800"
+                  className="scroll-mt-16 text-2xl font-bold text-gray-800"
                 >
                   Bảng Hiệu Inox Là Gì?
                 </h2>
@@ -297,14 +297,17 @@ const BangHieuInox = () => {
               </div>
             </section>
             <section className="mt-0 leading-normal">
-              <h2 id="loi-ich" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="loi-ich"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Lợi Ích Khi Sử Dụng Bảng Hiệu Inox Cho Doanh Nghiệp
               </h2>
               <div className="space-y-6">
                 <div>
                   <h3
                     id="tang-cuong-hinh-anh"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Tăng Cường Hình Ảnh Thương Hiệu
                   </h3>
@@ -318,7 +321,7 @@ const BangHieuInox = () => {
                 <div>
                   <h3
                     id="do-ben"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Độ Bền Và Tính Ổn Định Cao
                   </h3>
@@ -331,7 +334,7 @@ const BangHieuInox = () => {
                 <div>
                   <h3
                     id="de-dang-tuy-chinh"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Dễ Dàng Tùy Chỉnh
                   </h3>
@@ -344,7 +347,7 @@ const BangHieuInox = () => {
                 <div>
                   <h3
                     id="san-xuat"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Sản Xuất Và Lắp Đặt Nhanh Chóng
                   </h3>
@@ -373,7 +376,7 @@ const BangHieuInox = () => {
             <section className="leading-normal">
               <h2
                 id="cac-loai-inox"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Các Loại Bảng Hiệu Inox Phổ Biến Trên Thị Trường
               </h2>
@@ -381,7 +384,7 @@ const BangHieuInox = () => {
                 <div>
                   <h3
                     id="bang-cong-ty-inox"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng Tên Công Ty Inox Ăn Mòn
                   </h3>
@@ -419,7 +422,7 @@ const BangHieuInox = () => {
                 <div>
                   <h3
                     id="inox-an-mon"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng Tên Inox Ăn Mòn
                   </h3>
@@ -447,7 +450,7 @@ const BangHieuInox = () => {
                 <div>
                   <h3
                     id="bien-inox"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Biển Inox Công Ty
                   </h3>
@@ -478,11 +481,13 @@ const BangHieuInox = () => {
               <div>
                 <h2
                   id="cac-tieu-chi"
-                  className="text-2xl font-semibold text-gray-700"
+                  className="scroll-mt-16 text-2xl font-semibold text-gray-700"
                 >
                   Các Tiêu Chí Lựa Chọn Bảng Hiệu Inox Chất Lượng
                 </h2>
-                <h3 id="lua-chon-inox">Lựa Chọn Loại Inox Phù Hợp</h3>
+                <h3 id="lua-chon-inox" className="scroll-mt-16">
+                  Lựa Chọn Loại Inox Phù Hợp
+                </h3>
                 <ul>
                   <li>
                     <strong>Inox 201: </strong> Giá rẻ, phù hợp với môi trường
@@ -497,7 +502,9 @@ const BangHieuInox = () => {
                     trường biển hoặc hóa chất.
                   </li>
                 </ul>
-                <h3 id="ky-thuat">Kỹ Thuật Gia Công</h3>
+                <h3 id="ky-thuat" className="scroll-mt-16">
+                  Kỹ Thuật Gia Công
+                </h3>
 
                 <ul>
                   <li>
@@ -526,7 +533,10 @@ const BangHieuInox = () => {
               </div>
             </section>
             <section className="leading-normal">
-              <h2 id="bao-gia" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="bao-gia"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Báo Giá Và Yếu Tố Ảnh Hưởng Đến Giá Bảng Hiệu Inox
               </h2>
               <p>
@@ -574,7 +584,7 @@ const BangHieuInox = () => {
             <section className="leading-normal">
               <h2
                 id="ket-luan"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Tại Sao Bảng Hiệu Inox Là Sự Lựa Chọn Hoàn Hảo?
               </h2>

@@ -300,7 +300,7 @@ const BangHieuGo = () => {
               <div className="space-y-1 leading-normal">
                 <h2
                   id="bang-hieu-go-la-gi"
-                  className="text-2xl font-bold text-gray-800"
+                  className="scroll-mt-16 text-2xl font-bold text-gray-800"
                 >
                   Bảng Hiệu Gỗ Là Gì?
                 </h2>
@@ -315,14 +315,17 @@ const BangHieuGo = () => {
               </div>
             </section>
             <section className="mt-0 leading-normal">
-              <h2 id="loi-ich" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="loi-ich"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Vì Sao Bảng Hiệu Gỗ Ngày Càng Phổ Biến?
               </h2>
               <div className="space-y-6">
                 <div>
                   <h3
                     id="tinh-tham-my"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Tính Thẩm Mỹ và Tạo Ấn Tượng
                   </h3>
@@ -335,7 +338,7 @@ const BangHieuGo = () => {
                 <div>
                   <h3
                     id="do-ben"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Độ Bền và Khả Năng Chịu Lực
                   </h3>
@@ -348,7 +351,7 @@ const BangHieuGo = () => {
                 <div>
                   <h3
                     id="chi-phi-hop-ly"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Chi Phí Hợp Lý
                   </h3>
@@ -378,7 +381,7 @@ const BangHieuGo = () => {
             <section className="leading-normal">
               <h2
                 id="cac-loai-go"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Các Loại Bảng Hiệu Gỗ Phổ Biến
               </h2>
@@ -386,7 +389,7 @@ const BangHieuGo = () => {
                 <div>
                   <h3
                     id="go-ngoai-troi"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng Hiệu Gỗ Ngoài Trời
                   </h3>
@@ -419,7 +422,7 @@ const BangHieuGo = () => {
                 <div>
                   <h3
                     id="go-vintage"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng Hiệu Gỗ Vintage
                   </h3>
@@ -452,7 +455,7 @@ const BangHieuGo = () => {
                 <div>
                   <h3
                     id="go-treo"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng Hiệu Gỗ Treo
                   </h3>
@@ -485,7 +488,7 @@ const BangHieuGo = () => {
                 <div>
                   <h3
                     id="go-doanh-nghiep"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Biển Hiệu Gỗ Cho Doanh Nghiệp
                   </h3>
@@ -522,11 +525,13 @@ const BangHieuGo = () => {
               <div>
                 <h2
                   id="quy-trinh"
-                  className="text-2xl font-semibold text-gray-700"
+                  className="scroll-mt-16 text-2xl font-semibold text-gray-700"
                 >
                   Quy Trình Làm Bảng Hiệu Gỗ Giá Rẻ
                 </h2>
-                <h3 id="lua-chon-go">Lựa Chọn Loại Gỗ Phù Hợp</h3>
+                <h3 id="lua-chon-go" className="scroll-mt-16">
+                  Lựa Chọn Loại Gỗ Phù Hợp
+                </h3>
                 <p>
                   Việc lựa chọn loại gỗ phù hợp là yếu tố quan trọng quyết định
                   độ bền và tính thẩm mỹ của bảng hiệu gỗ. Một số loại gỗ phổ
@@ -544,7 +549,9 @@ const BangHieuGo = () => {
                     bảng hiệu gỗ ngoài trời.
                   </li>
                 </ul>
-                <h3 id="thiet-ke">Thiết Kế Bảng Hiệu</h3>
+                <h3 id="thiet-ke" className="scroll-mt-16">
+                  Thiết Kế Bảng Hiệu
+                </h3>
                 <p>Những lưu ý khi thiết kế: </p>
                 <ul>
                   <li>Kích thước phù hợp với không gian lắp đặt.</li>
@@ -553,7 +560,9 @@ const BangHieuGo = () => {
                     Chọn kiểu chữ dễ đọc, phù hợp với nội dung truyền tải.
                   </li>
                 </ul>
-                <h3 id="gia-cong">Gia Công và Xử Lý Bề Mặt</h3>
+                <h3 id="gia-cong" className="scroll-mt-16">
+                  Gia Công và Xử Lý Bề Mặt
+                </h3>
 
                 <ul>
                   <li>
@@ -586,7 +595,10 @@ const BangHieuGo = () => {
               </div>
             </section>
             <section className="leading-normal">
-              <h2 id="bao-gia" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="bao-gia"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Giá Làm Bảng Hiệu Gỗ: Các Yếu Tố Ảnh Hưởng Và Bảng Giá Tham Khảo
               </h2>
               <p>
@@ -596,7 +608,7 @@ const BangHieuGo = () => {
                 chi tiết giúp bạn hình dung chi phí và lựa chọn phù hợp với ngân
                 sách của mình.
               </p>
-              <h3 id="bang-gia-tham-khao">
+              <h3 id="bang-gia-tham-khao" className="scroll-mt-16">
                 Bảng Giá Tham Khảo Cho Các Loại Bảng Hiệu Gỗ
               </h3>
               <table className="w-full table-auto border border-gray-300 text-gray-700">
@@ -682,7 +694,7 @@ const BangHieuGo = () => {
             <section className="leading-normal">
               <h2
                 id="meo-keo-dai"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Mẹo Kéo Dài Tuổi Thọ Cho Biển Hiệu Gỗ
               </h2>
@@ -715,7 +727,7 @@ const BangHieuGo = () => {
             <section className="leading-normal">
               <h2
                 id="ket-luan"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Tại sao bảng hiệu gỗ là giải pháp lý tưởng?
               </h2>

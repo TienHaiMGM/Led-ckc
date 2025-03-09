@@ -322,7 +322,7 @@ const BangHieuLed = () => {
               <div className="space-y-1 leading-normal">
                 <h2
                   id="bang-hieu-led-la-gi"
-                  className="text-2xl font-bold text-gray-800"
+                  className="scroll-mt-16 text-2xl font-bold text-gray-800"
                 >
                   Bảng hiệu led là gi?
                 </h2>
@@ -346,14 +346,17 @@ const BangHieuLed = () => {
               </div>
             </section>
             <section className="mt-0 leading-normal">
-              <h2 id="uu-diem" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="uu-diem"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Ưu điểm vượt trội của bảng hiệu led
               </h2>
               <div className="space-y-6">
                 <div>
                   <h3
                     id="kha-nang-thu-hut"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Khả năng thu hút ánh nhìn tuyệt vời
                   </h3>
@@ -368,7 +371,7 @@ const BangHieuLed = () => {
                 <div>
                   <h3
                     id="tiet-kiem-nang-luong"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Tiết kiệm năng lượng
                   </h3>
@@ -383,7 +386,7 @@ const BangHieuLed = () => {
                 <div>
                   <h3
                     id="tuoi-tho-cao"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Tuổi thọ cao
                   </h3>
@@ -398,7 +401,7 @@ const BangHieuLed = () => {
                 <div>
                   <h3
                     id="tinh-linh-hoat"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Tính linh hoạt trong hiển thị nội dung
                   </h3>
@@ -413,7 +416,7 @@ const BangHieuLed = () => {
                 <div>
                   <h3
                     id="kha-nang-hoat-dong"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Khả năng hoạt động trong mọi điều kiện thời tiết
                   </h3>
@@ -443,7 +446,7 @@ const BangHieuLed = () => {
             <section className="leading-normal">
               <h2
                 id="cac-loai-led"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Các loại bảng hiệu led phổ biến
               </h2>
@@ -451,7 +454,7 @@ const BangHieuLed = () => {
                 <div>
                   <h3
                     id="led-chu-chay"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng hiệu led chữ chạy
                   </h3>
@@ -491,7 +494,7 @@ const BangHieuLed = () => {
                 <div>
                   <h3
                     id="led-ma-tran"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng hiệu led ma trận
                   </h3>
@@ -527,7 +530,7 @@ const BangHieuLed = () => {
                 <div>
                   <h3
                     id="led-3d"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng hiệu led 3D{" "}
                   </h3>
@@ -566,7 +569,7 @@ const BangHieuLed = () => {
                 <div>
                   <h3
                     id="led-full-color"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Màn hình LED full color
                   </h3>
@@ -609,11 +612,13 @@ const BangHieuLed = () => {
               <div>
                 <h2
                   id="yeu-to-can-nhac"
-                  className="text-2xl font-semibold text-gray-700"
+                  className="scroll-mt-16 text-2xl font-semibold text-gray-700"
                 >
                   Các yếu tố cần cân nhắc khi làm bảng hiệu đèn led
                 </h2>
-                <h3 id="vi-tri-lap-dat">1. Vị trí lắp đặt</h3>
+                <h3 id="vi-tri-lap-dat" className="scroll-mt-16">
+                  1. Vị trí lắp đặt
+                </h3>
                 <p>
                   Vị trí lắp đặt bảng hiệu led đóng vai trò quan trọng quyết
                   định hiệu quả quảng cáo. Cần cân nhắc các yếu tố:
@@ -626,7 +631,9 @@ const BangHieuLed = () => {
                     Hướng ánh sáng mặt trời (để tránh hiện tượng chói, khó nhìn)
                   </li>
                 </ul>
-                <h3 id="kich-thuoc">2. Kích thước và độ phân giải</h3>
+                <h3 id="kich-thuoc" className="scroll-mt-16">
+                  2. Kích thước và độ phân giải
+                </h3>
                 <p>
                   Kích thước bảng hiệu led cần phù hợp với không gian lắp đặt và
                   khoảng cách mà người xem thường quan sát. Đối với bảng hiệu
@@ -634,7 +641,9 @@ const BangHieuLed = () => {
                   thấp hơn. Ngược lại, bảng hiệu được nhìn ở khoảng cách gần cần
                   có độ phân giải cao hơn để hiển thị chi tiết rõ ràng.
                 </p>
-                <h3 id="do-sang">3. Độ sáng và màu sắc</h3>
+                <h3 id="do-sang" className="scroll-mt-16">
+                  3. Độ sáng và màu sắc
+                </h3>
                 <p>
                   Độ sáng của bảng hiệu led cần được điều chỉnh phù hợp với môi
                   trường xung quanh:
@@ -666,11 +675,11 @@ const BangHieuLed = () => {
             <section className="leading-normal">
               <h2
                 id="chi-phi-led"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Chi Phí Làm Bảng Hiệu Đèn LED: Báo Giá Tham Khảo
               </h2>
-              <h3 id="yeu-to-chi-phi">
+              <h3 id="yeu-to-chi-phi" className="scroll-mt-16">
                 Yếu Tố Ảnh Hưởng Đến Chi Phí Làm Bảng Hiệu LED
               </h3>
               <p>
@@ -730,7 +739,7 @@ const BangHieuLed = () => {
 
               <h3
                 id="bang-gia-tham-khao"
-                className="mb-4 text-xl font-semibold text-gray-600"
+                className="mb-4 scroll-mt-16 text-xl font-semibold text-gray-600"
               >
                 Bảng Giá Tham Khảo Bảng Hiệu LED Theo Loại Và Kích Thước
               </h3>
@@ -835,7 +844,7 @@ const BangHieuLed = () => {
             <section className="leading-normal">
               <h2
                 id="ket-luan"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Đầu Tư Thông Minh Với Bảng Hiệu LED Giá Rẻ, Chữ Chạy
               </h2>

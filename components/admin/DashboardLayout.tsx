@@ -105,6 +105,25 @@ const navItems: NavItem[] = [
       </svg>
     ),
   },
+  {
+    name: "Thùng rác",
+    path: "/admin/product-deleted",
+    icon: (
+      <svg
+        className="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M6 18L6 9M10 18V9M14 18V9M18 18V9M4 6H20M16 6V4C16 3.44772 15.5523 3 15 3H9C8.44772 3 8 3.44772 8 4V6M10 6H14"
+        />
+      </svg>
+    ),
+  },
 ];
 
 export default function DashboardLayout({

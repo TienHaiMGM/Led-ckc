@@ -341,7 +341,7 @@ const BangHieuMica = () => {
               <div className="space-y-1 leading-normal">
                 <h2
                   id="bang-hieu-mica-la-gi"
-                  className="text-2xl font-bold text-gray-800"
+                  className="scroll-mt-16 text-2xl font-bold text-gray-800"
                 >
                   Bảng hiệu mica là gì vậy?
                 </h2>
@@ -362,14 +362,17 @@ const BangHieuMica = () => {
               </div>
             </section>
             <section className="w-full leading-normal">
-              <h2 id="loi-ich" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="loi-ich"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Lợi Ích Khi Sử Dụng Bảng Hiệu Mica Trong Kinh Doanh
               </h2>
               <div className="space-y-6">
                 <div>
                   <h3
                     id="tham-my-cao"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Tính Thẩm Mỹ Cao, Sang Trọng
                   </h3>
@@ -388,7 +391,7 @@ const BangHieuMica = () => {
                 <div>
                   <h3
                     id="do-ben-vuot-troi"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Độ Bền Vượt Trội, Chống Chịu Thời Tiết
                   </h3>
@@ -408,7 +411,7 @@ const BangHieuMica = () => {
                 <div>
                   <h3
                     id="chi-phi-hop-ly"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Giá cả hợp lý
                   </h3>
@@ -422,7 +425,7 @@ const BangHieuMica = () => {
                 <div>
                   <h3
                     id="de-thi-cong"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Dễ Dàng Tùy Chỉnh Theo Yêu Cầu
                   </h3>
@@ -452,7 +455,7 @@ const BangHieuMica = () => {
             <section className="leading-normal">
               <h2
                 id="cac-loai"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Các loại bảng hiệu mica phổ biến
               </h2>
@@ -460,7 +463,7 @@ const BangHieuMica = () => {
                 <div>
                   <h3
                     id="mica-chu-noi"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng Hiệu Mica Chữ Nổi
                   </h3>
@@ -498,7 +501,7 @@ const BangHieuMica = () => {
                 <div>
                   <h3
                     id="hop-den-mica"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Hộp Đèn Mica
                   </h3>
@@ -534,7 +537,7 @@ const BangHieuMica = () => {
                 <div>
                   <h3
                     id="bien-con-ty"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Biển Công Ty Mica
                   </h3>
@@ -564,11 +567,11 @@ const BangHieuMica = () => {
             <section className="leading-normal">
               <h2
                 id="bang-gia"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Bảng Giá Tham Khảo Cho Bảng Hiệu Mica
               </h2>
-              <h3 id="yeu-to" className="mb-4">
+              <h3 id="yeu-to" className="mb-4 scroll-mt-16">
                 Những Yếu Tố Ảnh Hưởng Đến Giá
               </h3>
               <p>
@@ -596,7 +599,7 @@ const BangHieuMica = () => {
 
               <h3
                 id="muc-gia"
-                className="mb-4 text-xl font-semibold text-gray-600"
+                className="mb-4 scroll-mt-16 text-xl font-semibold text-gray-600"
               >
                 Mức Giá Tham Khảo
               </h3>
@@ -632,11 +635,13 @@ const BangHieuMica = () => {
             <section className="leading-normal">
               <h2
                 id="lam-nhu-the-nao"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Làm bảng hiệu mica như thế nào?
               </h2>
-              <h3 id="y-tuong">Tìm ý tưởng và thiết kế</h3>
+              <h3 id="y-tuong" className="scroll-mt-16">
+                Tìm ý tưởng và thiết kế
+              </h3>
               <p>
                 Đừng vội nhấc điện thoại gọi cho đơn vị làm biển hiệu ngay! Hãy:
               </p>
@@ -646,7 +651,9 @@ const BangHieuMica = () => {
                 <li>Phác thảo ý tưởng</li>
                 <li>Cân nhắc không gian lắp đặt</li>
               </ul>
-              <h3 id="tu-van">Tư vấn chuyên nghiệp</h3>
+              <h3 id="tu-van" className="scroll-mt-16">
+                Tư vấn chuyên nghiệp
+              </h3>
               <p>Một đơn vị tốt sẽ:</p>
               <ul>
                 <li>Khảo sát không gian thực tế</li>
@@ -654,7 +661,9 @@ const BangHieuMica = () => {
                 <li>Thiết kế mẫu 3D để bạn hình dung</li>
                 <li>Tư vấn về hệ thống đèn (nếu cần)</li>
               </ul>
-              <h3 id="san-xuat">Sản xuất</h3>
+              <h3 id="san-xuat" className="scroll-mt-16">
+                Sản xuất
+              </h3>
               <p>Quy trình sản xuất bao gồm:</p>
               <ul>
                 <li>Cắt mica theo thiết kế</li>
@@ -663,7 +672,9 @@ const BangHieuMica = () => {
                 <li>Lắp ráp các thành phần</li>
                 <li>Lắp đặt hệ thống đèn (nếu có)</li>
               </ul>
-              <h3 id="lap-dat">Lắp đặt và bàn giao</h3>
+              <h3 id="lap-dat" className="scroll-mt-16">
+                Lắp đặt và bàn giao
+              </h3>
               <p>Đơn vị chuyên nghiệp sẽ:</p>
               <ul>
                 <li>Chuẩn bị vị trí lắp đặt</li>
@@ -689,7 +700,7 @@ const BangHieuMica = () => {
             <section className="leading-normal">
               <h2
                 id="cham-soc"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Chăm sóc bảng hiệu mica sao cho đúng?
               </h2>
@@ -698,19 +709,25 @@ const BangHieuMica = () => {
                 nhanh xuống cấp nhé! Một số bí quyết tôi thường chia sẻ với
                 khách hàng:
               </p>
-              <h3 id="ve-sinh">Vệ sinh thường xuyên</h3>
+              <h3 id="ve-sinh" className="scroll-mt-16">
+                Vệ sinh thường xuyên
+              </h3>
               <ul>
                 <li>Dùng khăn mềm và nước ấm với chút xà phòng nhẹ</li>
                 <li>Tuyệt đối tránh cồn, acetone hoặc các dung môi mạnh</li>
                 <li>Không dùng vật cứng cạo bề mặt kẻo xước</li>
               </ul>
-              <h3 id="kiem-tra">Kiểm tra hệ thống đèn</h3>
+              <h3 id="kiem-tra" className="scroll-mt-16">
+                Kiểm tra hệ thống đèn
+              </h3>
               <ul>
                 <li>3-6 tháng kiểm tra dây điện và nguồn</li>
                 <li>Thay bóng đèn ngay khi chúng bắt đầu mờ</li>
                 <li>Lau bụi ở khu vực đèn để tránh quá nóng</li>
               </ul>
-              <h3 id="xu-ly-vet-xuoc">Xử lý vết xước</h3>
+              <h3 id="xu-ly-vet-xuoc" className="scroll-mt-16">
+                Xử lý vết xước
+              </h3>
 
               <ul>
                 <li>Vết xước nhỏ: dùng kem đánh bóng chuyên dụng</li>
@@ -735,7 +752,7 @@ const BangHieuMica = () => {
             <section className="leading-normal">
               <h2
                 id="ket-luan"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Đầu tư vào biển hiệu là đầu tư cho thương hiệu
               </h2>

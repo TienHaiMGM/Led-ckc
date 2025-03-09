@@ -354,7 +354,7 @@ const BangHieuHiflex = () => {
               <div className="space-y-1 leading-normal">
                 <h2
                   id="in-bat-hiflex-la-gi"
-                  className="text-2xl font-bold text-gray-800"
+                  className="scroll-mt-16 text-2xl font-bold text-gray-800"
                 >
                   In Bạt Hiflex Là Gì?
                 </h2>
@@ -379,14 +379,17 @@ const BangHieuHiflex = () => {
               </div>
             </section>
             <section className="mt-0 leading-normal">
-              <h2 id="loi-ich" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="loi-ich"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Lợi Ích Khi Sử Dụng In Bạt Hiflex
               </h2>
               <div className="space-y-6">
                 <div>
                   <h3
                     id="gia-thanh"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Giá Thành Rẻ, Phù Hợp Với Mọi Doanh Nghiệp
                   </h3>
@@ -400,7 +403,7 @@ const BangHieuHiflex = () => {
                 <div>
                   <h3
                     id="nhanh-chong"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Thời Gian Thi Công Nhanh Chóng
                   </h3>
@@ -413,7 +416,7 @@ const BangHieuHiflex = () => {
                 <div>
                   <h3
                     id="do-ben"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Độ Bền Và Tính Ứng Dụng Cao
                   </h3>
@@ -442,7 +445,7 @@ const BangHieuHiflex = () => {
             <section className="leading-normal">
               <h2
                 id="cac-loai-bat-hiflex"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Các Loại Bạt Hiflex Phổ Biến
               </h2>
@@ -450,7 +453,7 @@ const BangHieuHiflex = () => {
                 <div>
                   <h3
                     id="bat-phan-quang"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bạt Hiflex Frontlit (Bạt phản quang)
                   </h3>
@@ -491,7 +494,7 @@ const BangHieuHiflex = () => {
                 <div>
                   <h3
                     id="bat-den"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bạt Hiflex Backlit (Bạt đèn)
                   </h3>
@@ -531,7 +534,7 @@ const BangHieuHiflex = () => {
                 <div>
                   <h3
                     id="bat-luoi"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bạt Mesh (Bạt lưới)
                   </h3>
@@ -574,11 +577,13 @@ const BangHieuHiflex = () => {
               <div>
                 <h2
                   id="quy-trinh"
-                  className="text-2xl font-semibold text-gray-700"
+                  className="scroll-mt-16 text-2xl font-semibold text-gray-700"
                 >
                   Quy Trình In Bạt Hiflex Chuyên Nghiệp
                 </h2>
-                <h3 id="tu-van">Tư Vấn Và Thiết Kế</h3>
+                <h3 id="tu-van" className="scroll-mt-16">
+                  Tư Vấn Và Thiết Kế
+                </h3>
                 <ul>
                   <li>Xác định nhu cầu và mục đích sử dụng.</li>
                   <li>
@@ -586,7 +591,9 @@ const BangHieuHiflex = () => {
                     nét.
                   </li>
                 </ul>
-                <h3 id="chat-lieu">Lựa Chọn Chất Liệu Và Công Nghệ In</h3>
+                <h3 id="chat-lieu" className="scroll-mt-16">
+                  Lựa Chọn Chất Liệu Và Công Nghệ In
+                </h3>
                 <ul>
                   <li>
                     Chọn loại bạt phù hợp (bạt xuyên sáng, bạt thường, bạt 3M).
@@ -596,7 +603,9 @@ const BangHieuHiflex = () => {
                     dụng ngoài trời hay trong nhà.
                   </li>
                 </ul>
-                <h3 id="in-an">In Ấn Và Hoàn Thiện</h3>
+                <h3 id="in-an" className="scroll-mt-16">
+                  In Ấn Và Hoàn Thiện
+                </h3>
                 <ul>
                   <li>
                     Chọn loại bạt phù hợp (bạt xuyên sáng, bạt thường, bạt 3M).
@@ -606,7 +615,9 @@ const BangHieuHiflex = () => {
                     dụng ngoài trời hay trong nhà.
                   </li>
                 </ul>
-                <h3 id="lap-dat">Lắp Đặt Và Bảo Hành</h3>
+                <h3 id="lap-dat" className="scroll-mt-16">
+                  Lắp Đặt Và Bảo Hành
+                </h3>
                 <ul>
                   <li>Vận chuyển đến địa điểm lắp đặt.</li>
                   <li>Thi công và lắp đặt đúng tiêu chuẩn, đảm bảo an toàn.</li>
@@ -632,7 +643,10 @@ const BangHieuHiflex = () => {
               </div>
             </section>
             <section className="leading-normal">
-              <h2 id="bao-gia" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="bao-gia"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Các Yếu Tố Ảnh Hưởng Đến Giá In Bạt Hiflex
               </h2>
               <p>
@@ -640,18 +654,24 @@ const BangHieuHiflex = () => {
                 hiểu rõ các yếu tố ảnh hưởng đến giá thành. Dưới đây là những
                 yếu tố chính quyết định giá in bạt:
               </p>
-              <h3 id="loai-bat">Loại bạt</h3>
+              <h3 id="loai-bat" className="scroll-mt-16">
+                Loại bạt
+              </h3>
               <ul>
                 <li>Bạt Frontlit: 40.000 - 60.000 VNĐ/m²</li>
                 <li>Bạt Backlit: 60.000 - 90.000 VNĐ/m²</li>
                 <li>Bạt Mesh: 50.000 - 70.000 VNĐ/m²</li>
               </ul>
-              <h3 id="do-phan-giai">Độ phân giải in</h3>
+              <h3 id="do-phan-giai" className="scroll-mt-16">
+                Độ phân giải in
+              </h3>
               <ul>
                 <li>Độ phân giải 720dpi: Giá thấp nhất</li>
                 <li>Độ phân giải 1440dpi: Giá cao hơn 20-30%</li>
               </ul>
-              <h3 id="kich-thuoc-so-luong">Kích thước và số lượng</h3>
+              <h3 id="kich-thuoc-so-luong" className="scroll-mt-16">
+                Kích thước và số lượng
+              </h3>
               <p>
                 Đơn hàng với diện tích lớn hoặc số lượng nhiều thường được hưởng
                 đơn giá thấp hơn.
@@ -676,23 +696,30 @@ const BangHieuHiflex = () => {
               </div>
             </section>
             <section className="leading-normal">
-              <h2 id="luu-y" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="luu-y"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Những Lưu Ý Quan Trọng Khi In Bạt Hiflex
               </h2>
-              <h3 id="thiet-ke-phu-hop">
+              <h3 id="thiet-ke-phu-hop" className="scroll-mt-16">
                 Thiết kế phù hợp với khoảng cách nhìn
               </h3>
               <p>
                 Biển quảng cáo đặt ở vị trí cao hoặc xa người xem cần có thiết
                 kế đơn giản, chữ to, màu sắc tương phản cao.
               </p>
-              <h3 id="thoi-tiet">Cân nhắc điều kiện thời tiết</h3>
+              <h3 id="thoi-tiet" className="scroll-mt-16">
+                Cân nhắc điều kiện thời tiết
+              </h3>
               <p>
                 Nếu biển đặt ở vị trí chịu nhiều gió, nên sử dụng bạt mesh. Nếu
                 đặt ở nơi có ánh nắng mạnh, nên chọn bạt có khả năng chống UV
                 tốt.
               </p>
-              <h3 id="mau-sac">Lưu ý về màu sắc</h3>
+              <h3 id="mau-sac" className="scroll-mt-16">
+                Lưu ý về màu sắc
+              </h3>
               <p>
                 Có sự khác biệt giữa màu trên màn hình và màu in thực tế. Nên sử
                 dụng bảng màu CMYK để tham khảo hoặc yêu cầu proof màu.
@@ -715,7 +742,7 @@ const BangHieuHiflex = () => {
             <section className="leading-normal">
               <h2
                 id="ket-luan"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 In bạt hiflex là giải pháp quảng cáo hiệu quả, bền vững.
               </h2>

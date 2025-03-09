@@ -1,6 +1,4 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import NewsletterSubscription from "../../components/common/NewsletterSubscription";
 import Breadcrumb from "../../components/common/Breadcrumb";
@@ -10,8 +8,7 @@ import { removeVietnameseTones } from "@/types/removeVietnameseTones";
 import QuickStats from "../common/QuickStat";
 import { motion } from "framer-motion";
 import ItemCardArticle from "../common/itemCardArticle";
-
-const ITEMS_PER_PAGE = 4;
+import { ITEMS_PER_PAGE } from "@/utils/constants";
 
 const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
   const { products, loading, error } = useProductEditorKnowLedge(EditorContent);

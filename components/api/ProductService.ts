@@ -44,6 +44,7 @@ export const getProductByCategory = async (
     const q = query(
       productsRef,
       where("category", "==", category),
+      orderBy("hotness", "desc"),
       limit(maxResults),
     );
     const querySnapshot = await getDocs(q);
@@ -67,6 +68,7 @@ export const getRelatedProducts = async (
     const q = query(
       productsRef,
       where("category", "==", category),
+      orderBy("hotness", "desc"),
       limit(maxResults),
     );
     const querySnapshot = await getDocs(q);

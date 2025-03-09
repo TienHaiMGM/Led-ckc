@@ -1,10 +1,12 @@
+"use client";
 import { Metadata } from "next";
 import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
+import { motion } from "framer-motion";
 
-export async function generateMetadata(): Promise<Metadata> {
+function generateMetadata(): Promise<Metadata> {
   return {
     title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
     description:
@@ -99,23 +101,35 @@ const BangHieuDecal = () => {
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* {TabarLeft} */}
           <div className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
-            <TabarLeft />
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0, transition: { duration: 0.6 } }}
+              className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block"
+            >
+              <TabarLeft />
+            </motion.div>
           </div>
           <article className="prose prose-custome lg:w-3/4">
-            <div className="rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
-              <h1 className="text-3xl font-bold text-blue-800 lg:text-4xl">
-                Bảng hiệu dán decal giá rẻ
-              </h1>
-              <p className="text-lg text-gray-600">
-                Bảng hiệu decal đang trở thành xu hướng quảng cáo phổ biến nhờ
-                chi phí thấp, dễ thi công và mang lại hiệu quả thẩm mỹ cao. Với
-                khả năng tùy chỉnh đa dạng, bảng hiệu decal phù hợp cho nhiều
-                loại hình kinh doanh từ cửa hàng nhỏ lẻ đến các doanh nghiệp
-                lớn. Vậy bảng hiệu decal có những ưu điểm gì nổi bật? Lựa chọn
-                loại decal nào để đảm bảo bền đẹp và thu hút khách hàng? Hãy
-                cùng tìm hiểu chi tiết trong bài viết sau đây.
-              </p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
+              className="animation animation-fadeIn prose prose-custome lg:w-3/4"
+            >
+              <div className="rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
+                <h1 className="text-3xl font-bold text-blue-800 lg:text-4xl">
+                  Bảng hiệu dán decal giá rẻ
+                </h1>
+                <p className="text-lg text-gray-600">
+                  Bảng hiệu decal đang trở thành xu hướng quảng cáo phổ biến nhờ
+                  chi phí thấp, dễ thi công và mang lại hiệu quả thẩm mỹ cao.
+                  Với khả năng tùy chỉnh đa dạng, bảng hiệu decal phù hợp cho
+                  nhiều loại hình kinh doanh từ cửa hàng nhỏ lẻ đến các doanh
+                  nghiệp lớn. Vậy bảng hiệu decal có những ưu điểm gì nổi bật?
+                  Lựa chọn loại decal nào để đảm bảo bền đẹp và thu hút khách
+                  hàng? Hãy cùng tìm hiểu chi tiết trong bài viết sau đây.
+                </p>
+              </div>
+            </motion.div>
             <section className="grid gap-4">
               <nav className="order-2 rounded-lg bg-gray-100 p-2 shadow-lg">
                 <h2 className="mb-4 text-xl font-semibold text-gray-700">
@@ -336,7 +350,15 @@ const BangHieuDecal = () => {
                   </li>
                 </ul>
               </nav>
-              <div className="flex justify-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  transition: { duration: 0.5, delay: 0.3 },
+                }}
+                className="flex justify-center"
+              >
                 <figure>
                   <Image
                     src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740553404/bang-hieu-decal-tiem-massage_pddapb.jpg"
@@ -349,7 +371,7 @@ const BangHieuDecal = () => {
                     Bảng hiệu Decal tiệm massage
                   </figcaption>
                 </figure>
-              </div>
+              </motion.div>
             </section>
             <section className="mb-0 grid gap-3 leading-normal lg:grid-cols-2 xl:lg:grid-cols-2">
               <figure>
@@ -367,7 +389,7 @@ const BangHieuDecal = () => {
               <div className="space-y-1 leading-normal">
                 <h2
                   id="bang-hieu-decal-la-gi"
-                  className="text-2xl font-bold text-gray-800"
+                  className="scroll-mt-16 text-2xl font-bold text-gray-800"
                 >
                   Bảng Hiệu Decal Là Gì?
                 </h2>
@@ -396,14 +418,17 @@ const BangHieuDecal = () => {
               </div>
             </section>
             <section className="mt-0 leading-normal">
-              <h2 id="loi-ich" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="loi-ich"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Tại Sao Doanh Nghiệp Nên Chọn Bảng Hiệu Decal?
               </h2>
               <div className="space-y-6">
                 <div>
                   <h3
                     id="chi-phi-thap"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Chi Phí Thấp – Hiệu Quả Cao
                   </h3>
@@ -417,7 +442,7 @@ const BangHieuDecal = () => {
                 <div>
                   <h3
                     id="de-thi-cong"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Dễ Thi Công Và Thay Thế
                   </h3>
@@ -431,7 +456,7 @@ const BangHieuDecal = () => {
                 <div>
                   <h3
                     id="da-dang"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Đa Dạng Về Thiết Kế
                   </h3>
@@ -446,7 +471,7 @@ const BangHieuDecal = () => {
                 <div>
                   <h3
                     id="kha-nang"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Khả Năng Chống Chịu Thời Tiết
                   </h3>
@@ -460,7 +485,7 @@ const BangHieuDecal = () => {
                 <div>
                   <h3
                     id="thoi-gian"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Thời Gian Thi Công Nhanh
                   </h3>
@@ -490,7 +515,7 @@ const BangHieuDecal = () => {
             <section className="leading-normal">
               <h2
                 id="cac-loai-decal"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Các Loại Bảng Hiệu Decal Phổ Biến
               </h2>
@@ -498,7 +523,7 @@ const BangHieuDecal = () => {
                 <div>
                   <h3
                     id="alu-dan-decal"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng Alu Dán Decal
                   </h3>
@@ -532,7 +557,10 @@ const BangHieuDecal = () => {
                   </div>
                 </div>
                 <div>
-                  <h3 id="  " className="text-xl font-semibold text-gray-600">
+                  <h3
+                    id="  "
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
+                  >
                     Bảng Hiệu Tôn Dán Decal
                   </h3>
                   <p>
@@ -568,7 +596,7 @@ const BangHieuDecal = () => {
                 <div>
                   <h3
                     id="mica-dan-decal"
-                    className="text-xl font-semibold text-gray-600"
+                    className="scroll-mt-16 text-xl font-semibold text-gray-600"
                   >
                     Bảng Hiệu Mica Dán Decal
                   </h3>
@@ -606,7 +634,7 @@ const BangHieuDecal = () => {
               <div>
                 <h2
                   id="chon-decal"
-                  className="text-2xl font-semibold text-gray-700"
+                  className="scroll-mt-16 text-2xl font-semibold text-gray-700"
                 >
                   Cách Chọn Bảng Hiệu Decal Phù Hợp Với Doanh Nghiệp
                 </h2>
@@ -621,7 +649,9 @@ const BangHieuDecal = () => {
                   <li>Bảng thông tin, chỉ dẫn</li>
                   <li>Bảng hiệu tạm thời cho sự kiện, khuyến mãi</li>
                 </ul>
-                <h3 id="ngan-sach">Cân Nhắc Ngân Sách</h3>
+                <h3 id="ngan-sach" className="scroll-mt-16">
+                  Cân Nhắc Ngân Sách
+                </h3>
                 <p>
                   Với mỗi loại vật liệu và kích thước khác nhau, chi phí sản
                   xuất bảng hiệu decal có thể dao động đáng kể. Hãy cân nhắc
@@ -629,7 +659,9 @@ const BangHieuDecal = () => {
                   hợp.
                 </p>
 
-                <h3 id="khong-gian">Phân Tích Không Gian Lắp Đặt</h3>
+                <h3 id="khong-gian" className="scroll-mt-16">
+                  Phân Tích Không Gian Lắp Đặt
+                </h3>
                 <p>
                   Môi trường lắp đặt quyết định loại vật liệu nền và decal phù
                   hợp:
@@ -665,32 +697,43 @@ const BangHieuDecal = () => {
               </div>
             </section>
             <section className="leading-normal">
-              <h2 id="bao-gia" className="text-2xl font-semibold text-gray-700">
+              <h2
+                id="bao-gia"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
+              >
                 Chi Phí Sản Xuất Bảng Hiệu Dán Decal
               </h2>
               <p>
                 Giá thành của một bảng hiệu decal phụ thuộc vào nhiều yếu tố
                 như:
               </p>
-              <h3 id="kich-thuoc">Kích Thước Bảng Hiệu</h3>
+              <h3 id="kich-thuoc" className="scroll-mt-16">
+                Kích Thước Bảng Hiệu
+              </h3>
               <ul>
                 <li>Bảng nhỏ (dưới 1m²): 300.000đ - 500.000đ</li>
                 <li>Bảng trung bình (1-3m²): 500.000đ - 1.500.000đ</li>
                 <li>Bảng lớn (trên 3m²): Từ 1.500.000đ trở lên</li>
               </ul>
-              <h3 id="chat-lieu">Chất Liệu Nền</h3>
+              <h3 id="chat-lieu" className="scroll-mt-16">
+                Chất Liệu Nền
+              </h3>
               <ul>
                 <li>Tôn: Giá thấp nhất</li>
                 <li>Alu: Giá trung bình</li>
                 <li>Mica: Giá cao nhất</li>
               </ul>
-              <h3 id="chat-luong">Chất Lượng Decal</h3>
+              <h3 id="chat-luong" className="scroll-mt-16">
+                Chất Lượng Decal
+              </h3>
               <ul>
                 <li>Decal thường: Giá rẻ, tuổi thọ 1-2 năm</li>
                 <li>Decal cao cấp: Giá cao hơn, tuổi thọ 3-5 năm</li>
                 <li>Decal đặc biệt (phản quang, chống UV cao): Giá cao nhất</li>
               </ul>
-              <h3 id="thiet-ke">Thiết kế</h3>
+              <h3 id="thiet-ke" className="scroll-mt-16">
+                Thiết kế
+              </h3>
               <ul>
                 <li>Sử dụng mẫu có sẵn: Miễn phí hoặc chi phí thấp</li>
                 <li>Thiết kế riêng đơn giản: 300.000đ - 500.000đ</li>
@@ -718,28 +761,37 @@ const BangHieuDecal = () => {
             <section className="leading-normal">
               <h2
                 id="meo-keo-dai"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Các Bước Bảo Quản Bảng Hiệu Decal Để Kéo Dài Tuổi Thọ
               </h2>
-              <h3 id="ve-sinh">Vệ Sinh Định Kỳ</h3>
+              <h3 id="ve-sinh" className="scroll-mt-16">
+                Vệ Sinh Định Kỳ
+              </h3>
               <p>
                 Bụi bẩn, côn trùng và các yếu tố môi trường có thể làm giảm vẻ
                 đẹp của bảng hiệu decal. Vệ sinh định kỳ với nước sạch và chất
                 tẩy nhẹ sẽ giúp bảng hiệu luôn sáng đẹp.
               </p>
-              <h3 id="tranh-va-dap">Tránh Va Đập Mạnh</h3>
+              <h3 id="tranh-va-dap" className="scroll-mt-16">
+                Tránh Va Đập Mạnh
+              </h3>
               <p>
                 Mặc dù khá bền, nhưng bảng hiệu decal vẫn có thể bị hư hại do va
                 đập. Hãy lắp đặt ở vị trí an toàn, tránh các tác động vật lý
                 mạnh.
               </p>
-              <h3 id="lop-bao-ve">Phủ Lớp Bảo Vệ</h3>
+              <h3 id="lop-bao-ve" className="scroll-mt-16">
+                Phủ Lớp Bảo Vệ
+              </h3>
               <p>
                 Với bảng hiệu ngoài trời, việc phủ thêm một lớp bảo vệ UV lên bề
                 mặt decal có thể giúp kéo dài tuổi thọ đáng kể.
               </p>
-              <h3 id="kiem-tra"> Kiểm Tra Và Sửa Chữa Kịp Thời</h3>
+              <h3 id="kiem-tra" className="scroll-mt-16">
+                {" "}
+                Kiểm Tra Và Sửa Chữa Kịp Thời
+              </h3>
               <p>
                 Phát hiện và xử lý sớm các vấn đề như bong tróc, nứt vỡ sẽ ngăn
                 chặn hư hỏng lan rộng, tiết kiệm chi phí thay thế.
@@ -762,7 +814,7 @@ const BangHieuDecal = () => {
             <section className="leading-normal">
               <h2
                 id="ket-luan"
-                className="text-2xl font-semibold text-gray-700"
+                className="scroll-mt-16 text-2xl font-semibold text-gray-700"
               >
                 Bảng hiệu decal là giải pháp quảng cáo hiệu quả
               </h2>

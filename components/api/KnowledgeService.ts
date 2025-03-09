@@ -44,6 +44,7 @@ export const getRelatedKnowledge = async (
     const q = query(
       knowledgeRef,
       where("category", "==", category),
+      orderBy("hotness", "desc"),
       limit(maxResults), // 🔥 Firestore now limits results, reducing query cost
     );
     const querySnapshot = await getDocs(q);

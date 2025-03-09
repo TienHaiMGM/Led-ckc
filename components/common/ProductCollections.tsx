@@ -2,6 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useProductEditor } from "../api/hooks/useProductEditor";
+import { ITEMS_PER_PAGE, categoryOptions } from "@/utils/constants";
+import ProductCard from "./ProductCard";
+import { motion } from "framer-motion";
+import { scrollToTop } from "../../utils/scrollToTop";
 
 interface ProductManagerProps {
   EditorContent: any;
@@ -9,16 +13,6 @@ interface ProductManagerProps {
   currentPage?: number;
   setCurrentPage?: (page: number) => void;
 }
-
-const ITEMS_PER_PAGE = 12;
-
-// Define category mapping
-const CATEGORY_MAP = {
-  "Bảng Hiệu": "banghieu",
-  "Bảng LED": "bangled",
-  "Hộp Đèn": "hopden",
-  "Chữ Nổi": "chunoi",
-} as const;
 const ProductCollections: React.FC<ProductManagerProps> = ({
   EditorContent,
   searchQuery = "",
@@ -32,12 +26,19 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
   const [mounted, setMounted] = React.useState(false);
 
   // Get unique categories from products
-  const categories = ["Tất cả", ...Object.keys(CATEGORY_MAP)];
+  const categories = ["Tất cả", ...categoryOptions.map((cat) => cat.label)];
 
-  // Handle category change
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-    const filtered = products.filter((item) => item.category === category);
+  // Hàm xử lý thay đổi danh mục
+  const handleCategoryChange = (categoryLabel: string) => {
+    setSelectedCategory(categoryLabel);
+    const categoryValue =
+      categoryOptions.find((cat) => cat.label === categoryLabel)?.value || "";
+
+    const filtered =
+      categoryValue !== ""
+        ? products.filter((item) => item.category === categoryValue)
+        : products;
+
     setFilteredProducts(filtered);
     setCurrentPage(1);
   };
@@ -47,10 +48,11 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
     let filtered = [...products];
     let related: typeof products = [];
 
-    // Apply category filter
+    // Áp dụng bộ lọc danh mục
     if (selectedCategory !== "Tất cả") {
       const categoryValue =
-        CATEGORY_MAP[selectedCategory as keyof typeof CATEGORY_MAP];
+        categoryOptions.find((cat) => cat.label === selectedCategory)?.value ||
+        "";
       filtered = products.filter((item) => item.category === categoryValue);
 
       // Get related products (same category, but not in current filtered set)
@@ -130,31 +132,6 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
     return range;
   };
 
-  // Product card component
-  const ProductCard = ({ product }: { product: (typeof products)[0] }) => (
-    <article className="rounded-xl bg-white shadow-sm transition-shadow duration-300 hover:shadow-md">
-      <Link href={`chi-tiet-san-pham/${product.slug}`} className="block">
-        <div className="relative h-[60vw] w-full overflow-hidden rounded-t-xl md:h-56">
-          <Image
-            src={product.images}
-            alt={product.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-300 hover:scale-105"
-          />
-        </div>
-        <div className="p-6">
-          <h2 className="mb-3 line-clamp-2 text-xl font-semibold text-gray-900 transition-colors hover:text-blue-600">
-            {product.title}
-          </h2>
-          <p className="mb-4 line-clamp-3 text-gray-600">
-            {product.description}
-          </p>
-        </div>
-      </Link>
-    </article>
-  );
-
   React.useEffect(() => {
     setMounted(true);
   }, []);
@@ -175,7 +152,7 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
       <section className="py-8 md:py-12">
         <div className="container mx-auto px-4">
           {/* Categories */}
-          <div className="sticky top-0 z-20 mb-8 bg-white shadow-sm">
+          <div className="top-0 z-20 mb-8 bg-white shadow-sm">
             <div className="container mx-auto">
               <div className="flex flex-wrap gap-3 py-4">
                 {categories.map((category) => (
@@ -194,7 +171,6 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
               </div>
             </div>
           </div>
-
           {/* Selected Category Title */}
           {selectedCategory !== "Tất cả" && (
             <div className="mb-6">
@@ -204,34 +180,38 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
               <div className="mt-2 h-1 w-16 bg-blue-500"></div>
             </div>
           )}
-
           {/* No results message */}
           {currentItems.length === 0 && (
             <div className="py-8 text-center">
               <p className="text-gray-500">Không tìm thấy sản phẩm phù hợp</p>
             </div>
           )}
-
           {/* Products Grid */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4">
-            {currentItems.map((product) => (
-              <ProductCard key={product.id} product={product} />
+          {/* Hiệu ứng motion khi hiển thị danh sách bài viết */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          >
+            {currentItems.map((item, index) => (
+              <motion.article
+                key={item.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="group rounded-lg bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              >
+                <ProductCard
+                  images={item.images}
+                  title={item.title}
+                  description={item.description}
+                  slug={item.slug}
+                  href={"/chi-tiet-san-pham/"}
+                />
+              </motion.article>
             ))}
-          </div>
-
-          {/* Related Products */}
-          {selectedCategory !== "Tất cả" && relatedProducts.length > 0 && (
-            <div className="mt-16">
-              <h3 className="mb-6 text-xl font-bold text-gray-900">
-                Sản phẩm liên quan
-              </h3>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4">
-                {relatedProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </div>
-          )}
+          </motion.div>
 
           {/* Pagination */}
           {totalPages > 1 && (
@@ -265,9 +245,12 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
                 {generatePaginationArray().map((page, index) => (
                   <button
                     key={index}
-                    onClick={() =>
-                      typeof page === "number" && setCurrentPage(page)
-                    }
+                    onClick={() => {
+                      if (typeof page === "number") {
+                        setCurrentPage(page);
+                        scrollToTop(500);
+                      }
+                    }}
                     className={`rounded-lg px-4 py-2 ${
                       currentPage === page
                         ? "bg-blue-600 text-white"
@@ -309,7 +292,6 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
               </nav>
             </div>
           )}
-
           {/* Contact CTA */}
           <div className="mt-16 rounded-xl bg-white p-8 shadow-sm">
             <div className="mx-auto max-w-2xl text-center">

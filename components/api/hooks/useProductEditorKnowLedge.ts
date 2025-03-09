@@ -12,6 +12,7 @@ import {
   orderBy,
   DocumentData,
   QueryDocumentSnapshot,
+  setDoc,
 } from "firebase/firestore";
 import {
   ProductContent,
@@ -51,10 +52,7 @@ export const useProductEditorKnowLedge = (
   const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
-      const q = query(
-        collection(db, "knowledge"),
-        orderBy("createdAt", "desc"),
-      );
+      const q = query(collection(db, "knowledge"), orderBy("hotness", "desc"));
       const querySnapshot = await getDocs(q);
       setProducts(
         querySnapshot.docs.map((doc) => mapFirestoreDoc<ProductContent>(doc)),
@@ -124,10 +122,11 @@ export const useProductEditorKnowLedge = (
     }
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string, product: ProductContent) => {
     if (!window.confirm("Bạn có chắc chắn muốn xóa bài viết này?")) return;
     try {
       setLoading(true);
+      await setDoc(doc(db, "deletedKnowledges", id), product);
       await deleteDoc(doc(db, "knowledge", id));
       setProducts((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {

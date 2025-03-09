@@ -19,6 +19,15 @@ export const HeadingID = Extension.create({
               return { id: attributes.id };
             },
           },
+          class: {
+            default: "scroll-mt-16", // Mặc định cho tất cả heading
+            parseHTML: (element) => element.getAttribute("class"),
+            renderHTML: (attributes) => {
+              return {
+                class: attributes.class || "",
+              };
+            },
+          },
         },
       },
     ];

@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { db } from "../../lib/firebase";
 import {
@@ -89,6 +90,7 @@ const DeletedProducts = () => {
               className="flex items-center justify-between rounded-lg border p-4"
             >
               <span>{product.title}</span>
+              <span>{product.category}</span>
               <div className="space-x-2">
                 <button
                   onClick={() => restoreProduct(product)}

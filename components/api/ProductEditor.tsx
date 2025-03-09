@@ -13,22 +13,7 @@ import Preview from "../../app/admin/product-content/preview";
 import { FormField } from "../common/FormField";
 import { useProductEditor } from "./hooks/useProductEditor";
 import RichTextEditor from "../editor/TextEditor";
-
-interface CategoryOption {
-  value: string;
-  label: string;
-}
-
-const categoryOptions: CategoryOption[] = [
-  { value: "banghieu", label: "Bảng hiệu" },
-  { value: "chunoi", label: "Chữ nổi" },
-  { value: "hopden", label: "Hộp đèn" },
-  { value: "bienbat", label: "Biển bạt" },
-  { value: "bangled", label: "Bảng LED" },
-  { value: "standee", label: "Standee" },
-  { value: "bangsonha", label: "Bảng số nhà" },
-  { value: "bangtencongty", label: "Bảng tên công ty" },
-];
+import { categoryOptions } from "@/utils/constants";
 
 interface DraftsModalProps {
   drafts: Draft[];

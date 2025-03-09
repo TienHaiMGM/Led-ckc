@@ -279,7 +279,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
             </div>
             {/* Tabe of content */}
             <TableOfContent content={product.content} />
-            <div className="prose prose-custome text-base">
+            <div className="prose prose-custome scroll-mt-96 text-base">
               <div dangerouslySetInnerHTML={{ __html: product.content }} />
             </div>
           </div>

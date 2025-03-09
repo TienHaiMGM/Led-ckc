@@ -7,6 +7,7 @@ import {
   DocumentData,
   QueryDocumentSnapshot,
   limit,
+  orderBy,
 } from "firebase/firestore";
 import { News } from "@/types/news";
 // Map Firestore document to local TypeScript type
@@ -45,6 +46,7 @@ export const getRelatedNews = async (
     const q = query(
       newsRef,
       where("category", "==", category),
+      orderBy("hotness", "desc"),
       limit(maxResults),
     );
     const querySnapshot = await getDocs(q);

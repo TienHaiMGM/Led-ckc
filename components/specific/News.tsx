@@ -1,7 +1,4 @@
 "use client";
-
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import NewsletterSubscription from "../../components/common/NewsletterSubscription";
 import Breadcrumb from "../../components/common/Breadcrumb";
@@ -11,8 +8,8 @@ import { removeVietnameseTones } from "@/types/removeVietnameseTones";
 import QuickStats from "../common/QuickStat";
 import { motion } from "framer-motion";
 import ItemCardArticle from "../common/itemCardArticle";
-
-const ITEMS_PER_PAGE = 4;
+import { ITEMS_PER_PAGE } from "@/utils/constants";
+import { scrollToTop } from "../../utils/scrollToTop";
 
 const News: React.FC<EditorProps> = ({ EditorContent }) => {
   const { products, loading, error } = useProductEditorNew(EditorContent);
@@ -207,9 +204,12 @@ const News: React.FC<EditorProps> = ({ EditorContent }) => {
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: index * 0.05 }}
-                            onClick={() =>
-                              typeof page === "number" && setCurrentPage(page)
-                            }
+                            onClick={() => {
+                              if (typeof page === "number") {
+                                setCurrentPage(page);
+                                scrollToTop(650);
+                              }
+                            }}
                             className={`rounded-lg px-3 py-2 text-sm sm:px-4 sm:text-base ${
                               currentPage === page
                                 ? "bg-blue-600 text-white"

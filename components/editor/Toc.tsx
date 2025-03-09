@@ -63,10 +63,10 @@ const TableOfContent: React.FC<TableOfContentProps> = ({ content }) => {
   };
 
   return (
-    <section className="grid gap-4">
-      <nav className="prose prose-custome order-2 rounded-lg bg-gray-100 p-4 leading-normal shadow-lg">
+    <section className="">
+      <nav className="prose prose-custome order-2 rounded-lg bg-gray-100 p-2 leading-normal shadow-lg">
         <div
-          className="flex hover:cursor-pointer active:text-red-600"
+          className="-mt-10 flex hover:cursor-pointer active:text-red-600"
           onClick={() => setIsToc(!isToc)}
         >
           <h2 className="mb-2 text-2xl font-semibold">📚 Mục Lục</h2>
@@ -79,7 +79,7 @@ const TableOfContent: React.FC<TableOfContentProps> = ({ content }) => {
         {isToc && (
           <ul className="list-inside text-gray-700">
             {tocItems.map((item) => (
-              <li key={item.id} className={marginClass(item.level)}>
+              <li key={item.id} className={`${marginClass(item.level)} `}>
                 <a
                   href={`#${item.id}`}
                   className="no-underline hover:underline"

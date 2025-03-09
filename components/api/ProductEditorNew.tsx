@@ -589,7 +589,7 @@ const ProductEditorNew: React.FC<EditorProps> = ({
                       <FaEdit className="h-5 w-5" />
                     </button>
                     <button
-                      onClick={() => handleDelete(products.id!)}
+                      onClick={() => handleDelete(products.id!, products)}
                       className="text-red-600 hover:text-red-900"
                     >
                       <FaTrash className="h-5 w-5" />
