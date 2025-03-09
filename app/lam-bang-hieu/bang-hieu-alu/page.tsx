@@ -17,13 +17,13 @@ const BangHieuAlu = () => {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0, transition: { duration: 0.6 } }}
-              className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block"
+              className="hidden sm:hidden md:hidden lg:block xl:block"
             >
               <TabarLeft />
             </motion.div>
           </div>
 
-          <article className="animation animation-fadeIn prose prose-custome lg:w-3/4">
+          <article className="animation animation-fadeIn prose prose-custome p-2 lg:w-3/4">
             <motion.div
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}

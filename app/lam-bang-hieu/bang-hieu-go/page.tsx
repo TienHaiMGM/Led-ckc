@@ -1,94 +1,9 @@
-import { Metadata } from "next";
+"use client";
 import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
-    description:
-      "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu cao cấp, bền đẹp và tiết kiệm chi phí cho doanh nghiệp của bạn.",
-    keywords: ["bảng hiệu alu", "quảng cáo", "thiết kế bảng hiệu"],
-    openGraph: {
-      title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
-      description:
-        "Chuyên thiết kế và thi công các loại bảng hiệu Alu quảng cáo chất lượng cao.",
-      url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-      siteName: "Siêu Thị Bảng Hiệu",
-      images: [
-        {
-          url: "https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg",
-          width: 1200,
-          height: 630,
-          alt: "Bảng Hiệu Alu - Siêu Thị Bảng Hiệu",
-        },
-      ],
-      locale: "vi_VN",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
-      description:
-        "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu.",
-      images: ["https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg"],
-    },
-    alternates: {
-      canonical: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-    },
-  };
-}
-const schema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-      url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-      name: "Bảng Hiệu Alu",
-      description:
-        "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu cao cấp.",
-      isPartOf: {
-        "@type": "WebSite",
-        "@id": "https://sieuthibanghieu.vn/#website",
-        url: "https://sieuthibanghieu.vn",
-        name: "Siêu Thị Bảng Hiệu",
-        description:
-          "Chuyên thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp",
-        publisher: {
-          "@id": "https://sieuthibanghieu.vn/#organization",
-        },
-      },
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id":
-        "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu#breadcrumb",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          item: {
-            "@type": "WebPage",
-            "@id": "https://sieuthibanghieu.vn/",
-            url: "https://sieuthibanghieu.vn/",
-            name: "Trang chủ",
-          },
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          item: {
-            "@type": "WebPage",
-            "@id": "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-            url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-            name: "Bảng Hiệu Alu",
-          },
-        },
-      ],
-    },
-  ],
-};
+import { motion } from "framer-motion";
 
 const BangHieuGo = () => {
   return (
@@ -97,11 +12,19 @@ const BangHieuGo = () => {
       <main className="container mx-auto flex-grow px-0 py-0 lg:py-6 xl:py-6">
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* {TabarLeft} */}
-          <div className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0, transition: { duration: 0.6 } }}
+            className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block"
+          >
             <TabarLeft />
-          </div>
-          <article className="prose prose-custome lg:w-3/4">
-            <div className="rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
+          </motion.div>
+          <article className="prose prose-custome p-2 lg:w-3/4">
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
+              className="animation animation-fadeIn prose prose-custome lg:w-3/4"
+            >
               <h1 className="text-3xl font-bold text-blue-800 lg:text-4xl">
                 Làm Bảng Hiệu Gỗ Giá Rẻ
               </h1>
@@ -112,7 +35,7 @@ const BangHieuGo = () => {
                 chỉ được sử dụng trong các quán cà phê, nhà hàng, mà còn phổ
                 biến ở các cửa hàng thời trang và doanh nghiệp sáng tạo.
               </p>
-            </div>
+            </motion.div>
             <section className="grid gap-4">
               <nav className="order-2 rounded-lg bg-gray-100 p-2 shadow-lg">
                 <h2 className="mb-4 text-xl font-semibold text-gray-700">
@@ -269,7 +192,15 @@ const BangHieuGo = () => {
                   </li>
                 </ul>
               </nav>
-              <div className="flex justify-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  transition: { duration: 0.5, delay: 0.3 },
+                }}
+                className="flex justify-center"
+              >
                 <figure>
                   <Image
                     src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740547037/bang-hieu-go-moc-tra_aebchr.jpg"
@@ -282,7 +213,7 @@ const BangHieuGo = () => {
                     Bảng hiệu gỗ Spa
                   </figcaption>
                 </figure>
-              </div>
+              </motion.div>
             </section>
             <section className="mb-0 grid gap-3 leading-normal lg:grid-cols-2 xl:lg:grid-cols-2">
               <figure>
@@ -759,10 +690,6 @@ const BangHieuGo = () => {
           </article>
         </div>
       </main>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
     </div>
   );
 };

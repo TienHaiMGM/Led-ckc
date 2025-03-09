@@ -6,93 +6,6 @@ import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
 import { motion } from "framer-motion";
 
-function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
-    description:
-      "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu cao cấp, bền đẹp và tiết kiệm chi phí cho doanh nghiệp của bạn.",
-    keywords: ["bảng hiệu alu", "quảng cáo", "thiết kế bảng hiệu"],
-    openGraph: {
-      title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
-      description:
-        "Chuyên thiết kế và thi công các loại bảng hiệu Alu quảng cáo chất lượng cao.",
-      url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-      siteName: "Siêu Thị Bảng Hiệu",
-      images: [
-        {
-          url: "https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg",
-          width: 1200,
-          height: 630,
-          alt: "Bảng Hiệu Alu - Siêu Thị Bảng Hiệu",
-        },
-      ],
-      locale: "vi_VN",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Bảng Hiệu Alu - Giải Pháp Quảng Cáo Chuyên Nghiệp",
-      description:
-        "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu.",
-      images: ["https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg"],
-    },
-    alternates: {
-      canonical: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-    },
-  };
-}
-const schema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-      url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-      name: "Bảng Hiệu Alu",
-      description:
-        "Khám phá giải pháp bảng hiệu chuyên nghiệp với chất liệu Alu cao cấp.",
-      isPartOf: {
-        "@type": "WebSite",
-        "@id": "https://sieuthibanghieu.vn/#website",
-        url: "https://sieuthibanghieu.vn",
-        name: "Siêu Thị Bảng Hiệu",
-        description:
-          "Chuyên thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp",
-        publisher: {
-          "@id": "https://sieuthibanghieu.vn/#organization",
-        },
-      },
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id":
-        "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu#breadcrumb",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          item: {
-            "@type": "WebPage",
-            "@id": "https://sieuthibanghieu.vn/",
-            url: "https://sieuthibanghieu.vn/",
-            name: "Trang chủ",
-          },
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          item: {
-            "@type": "WebPage",
-            "@id": "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-            url: "https://sieuthibanghieu.vn/lam-bang-hieu/bang-hieu-alu",
-            name: "Bảng Hiệu Alu",
-          },
-        },
-      ],
-    },
-  ],
-};
-
 const BangHieuDecal = () => {
   return (
     <div className="flex min-h-screen flex-col">
@@ -100,7 +13,7 @@ const BangHieuDecal = () => {
       <main className="container mx-auto flex-grow px-0 py-0 lg:py-6 xl:py-6">
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* {TabarLeft} */}
-          <div className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
+          <div className="hidden sm:hidden md:hidden lg:block xl:block">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0, transition: { duration: 0.6 } }}
@@ -109,7 +22,7 @@ const BangHieuDecal = () => {
               <TabarLeft />
             </motion.div>
           </div>
-          <article className="prose prose-custome lg:w-3/4">
+          <article className="prose prose-custome p-2 lg:w-3/4">
             <motion.div
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
@@ -846,10 +759,6 @@ const BangHieuDecal = () => {
           </article>
         </div>
       </main>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
     </div>
   );
 };
