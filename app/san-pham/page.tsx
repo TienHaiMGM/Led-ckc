@@ -1,6 +1,4 @@
 "use client";
-
-import Image from "next/image";
 import React, { useState } from "react";
 import ProductCollections from "../../components/common/ProductCollections";
 import { FaSearch } from "react-icons/fa";

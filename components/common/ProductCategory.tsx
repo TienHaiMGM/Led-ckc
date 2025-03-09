@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   FaPhone,
   FaEnvelope,
@@ -9,43 +9,15 @@ import {
   FaGift,
 } from "react-icons/fa";
 import ItemCard from "./ItemCard";
-import { EditorProps } from "../../types/product-management";
 import PromotionPopup from "./PromotionPopup";
 import { Product } from "@/types/product";
-import { getProductByCategory } from "../api/ProductService";
-import { LIMITRESULTTRANGSANPHAM } from "@/utils/constants";
 import { motion } from "framer-motion";
-
-const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
+type EditorProps = {
+  product: Product[];
+};
+const ProductCategory: React.FC<EditorProps> = ({ product }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [productsByCategory, setProductsByCategory] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchProductByCategory = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const products = await getProductByCategory(
-          EditorContent.category,
-          LIMITRESULTTRANGSANPHAM,
-        );
-        setProductsByCategory(products);
-      } catch (error) {
-        console.error("Error fetching related products:", error);
-        setError("Không thể tải sản phẩm liên quan.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProductByCategory();
-  }, [EditorContent.category]);
-
-  const SkeletonCard = () => (
-    <div className="h-56 w-full animate-pulse rounded-lg bg-gray-200 sm:h-72 lg:h-64"></div>
-  );
   // Sidebar content component to avoid repetition
   const SidebarContent = (): React.ReactElement => (
     <div className="space-y-6">
@@ -153,7 +125,7 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
       {/* SEO Title and Description */}
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">
-          {EditorContent.title}
+          {/* {product.title} */}
         </h1>
         <div className="mt-2 h-1 w-16 bg-blue-500 sm:w-20"></div>
       </div>
@@ -175,42 +147,28 @@ const ProductCategory: React.FC<EditorProps> = ({ EditorContent }) => {
         </div>
 
         <div className="flex-grow">
-          {loading ? (
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3">
-              {[...Array(LIMITRESULTTRANGSANPHAM)].map((_, index) => (
-                <SkeletonCard key={index} />
-              ))}
-            </div>
-          ) : productsByCategory.length > 0 ? (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3"
-            >
-              {productsByCategory.map((product, index) => (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <ItemCard
-                    title={product.title}
-                    description={product.description}
-                    image={product.images}
-                    slug={product.slug}
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
-          ) : (
-            <div className="py-8 text-center">
-              <p className="text-gray-500">
-                Không có sản phẩm nào trong danh mục này
-              </p>
-            </div>
-          )}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3"
+          >
+            {product.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <ItemCard
+                  title={product.title}
+                  description={product.description}
+                  image={product.images}
+                  slug={product.slug}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
 
           {/* Sidebar Content - Visible only on mobile */}
           <div className="mt-8 lg:hidden">

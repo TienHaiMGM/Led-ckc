@@ -81,3 +81,9 @@ export const getRelatedProducts = async (
     throw new Error("Failed to fetch related products");
   }
 };
+
+// 🔥 Lấy danh sách slug của tất cả sản phẩm
+export async function getAllProductSlugs() {
+  const querySnapshot = await getDocs(collection(db, "products"));
+  return querySnapshot.docs.map((doc) => doc.id); // Trả về danh sách slug (ID sản phẩm)
+}

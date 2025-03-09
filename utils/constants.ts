@@ -11,8 +11,8 @@ export const LIMITTINTUCLIENQUAN = 5; //Lấy 4 sp để ngoại trừ trường
 export const SLICETINTUCLIENQUAN = 4; // Dùng slice để cho trường hợp id không trùng thì nó lại lấy 4 sp
 
 //Limit kiến thức liên quan
-export const LIMITKIENHUCLIENQUAN = 4; //Lấy 4 sp để ngoại trừ trường hợp id hiện tại trùng với id trong sp lấy về: -1sp
-export const SLICEKIENTHUCLIENQUAN = 3; // Dùng slice để cho trường hợp id không trùng thì nó lại lấy 4 sp
+export const LIMITKIENHUCLIENQUAN = 5; //Lấy 4 sp để ngoại trừ trường hợp id hiện tại trùng với id trong sp lấy về: -1sp
+export const SLICEKIENTHUCLIENQUAN = 4; // Dùng slice để cho trường hợp id không trùng thì nó lại lấy 4 sp
 
 export const ITEMS_PER_PAGE = 12; //Số sản phẩm trên 1 trang của tin tức và kiến thức
 

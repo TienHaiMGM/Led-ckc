@@ -7,6 +7,7 @@ import { Knowledge } from "@/types/knowledge";
 import TabarLeftNew from "@/components/common/TabarLeftNew";
 import ShareButtons from "../common/ButtonShareSocial";
 import RelatedArticles from "./RelatedArticles";
+import { motion } from "framer-motion";
 
 interface KnowledgeProps {
   Knowledge: Knowledge;
@@ -18,7 +19,11 @@ const Knowledge_WithData = ({ Knowledge }: KnowledgeProps) => {
       {/* Hero Section (Header) */}
       <header className="prose prose-custome bg-white shadow-md">
         <div className="mx-auto flex flex-col items-center justify-center gap-2 px-4 py-10 xl:container lg:flex-row">
-          <div className="hidden items-center justify-center p-4 lg:flex">
+          <motion.div
+            className="hidden items-center justify-center p-4 lg:flex"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1, transition: { duration: 0.7 } }}
+          >
             <Image
               src={
                 Knowledge.images ||
@@ -29,9 +34,17 @@ const Knowledge_WithData = ({ Knowledge }: KnowledgeProps) => {
               height={300}
               className="h-72 rounded-lg object-cover shadow-lg"
             />
-          </div>
+          </motion.div>
           {/* Text Content */}
-          <div className="container prose max-w-none px-4">
+          <motion.div
+            className="container prose max-w-none px-4"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.8 },
+            }}
+          >
             <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-4xl">
               {Knowledge.title}
             </h1>
@@ -56,7 +69,7 @@ const Knowledge_WithData = ({ Knowledge }: KnowledgeProps) => {
             {Knowledge.description && (
               <p className="text-lg text-gray-700">{Knowledge.description}</p>
             )}
-          </div>
+          </motion.div>
           {/* Featured Image */}
           <div className="rounded-lg shadow-lg lg:hidden">
             <Image
