@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (search.trim()) {
-      router.push(`/tim-kiem?q=${encodeURIComponent(search.trim())}`);
+      router.push(`/san-pham?q=${encodeURIComponent(search.trim())}`);
       setSearch("");
       setIsSearchOpen(false);
     }

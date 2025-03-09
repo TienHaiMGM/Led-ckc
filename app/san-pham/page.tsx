@@ -17,17 +17,8 @@ export default function CollectionsPage() {
       <div className="flex min-h-screen flex-col">
         <main className="flex-grow bg-gray-50">
           {/* Hero Section */}
-          <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
+          <section className="relative overflow-hidden py-20">
             <div className="absolute inset-0">
-              <Image
-                src="/images/banghieu.jpg"
-                alt="Bộ sưu tập bảng hiệu chuyên nghiệp"
-                fill
-                className="object-cover opacity-20"
-                priority
-                sizes="100vw"
-                quality={90}
-              />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0e7490] via-[#3b82f6] to-[#4f46e5]" />
             </div>
 
