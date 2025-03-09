@@ -6,7 +6,6 @@ import ProductCollections from "../../components/common/ProductCollections";
 import { FaSearch } from "react-icons/fa";
 
 export default function CollectionsPage() {
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +38,6 @@ export default function CollectionsPage() {
                       value={searchQuery}
                       onChange={(e) => {
                         setSearchQuery(e.target.value);
-                        setCurrentPage(1);
                       }}
                       placeholder="Tìm kiếm sản phẩm..."
                       className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-3 text-white placeholder-gray-300 backdrop-blur-sm transition-all focus:border-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 sm:py-4"
@@ -61,8 +59,6 @@ export default function CollectionsPage() {
           <ProductCollections
             EditorContent={undefined}
             searchQuery={searchQuery}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
           />
         </main>
       </div>

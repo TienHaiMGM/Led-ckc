@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { menuItems } from "../../utils/menuItems"; // Corrected import path
+import { normalizeSpaces } from "@/utils/normalizeSpaces";
 
 interface HeaderProps {
   showSearch?: boolean; // Optional prop to control search bar visibility
@@ -27,8 +28,8 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (search.trim()) {
-      router.push(`/san-pham?q=${encodeURIComponent(search.trim())}`);
+    if (search) {
+      router.push(`/san-pham?q=${encodeURIComponent(normalizeSpaces(search))}`);
       setSearch("");
       setIsSearchOpen(false);
     }

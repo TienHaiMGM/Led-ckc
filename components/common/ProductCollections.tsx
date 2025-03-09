@@ -1,7 +1,6 @@
-import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import { useProductEditor } from "../api/hooks/useProductEditor";
-import { ITEMS_PER_PAGE, categoryOptions } from "@/utils/constants";
+import { categoryOptions } from "@/utils/constants";
 import ProductCard from "./ProductCard";
 import { motion } from "framer-motion";
 import { scrollToTop } from "../../utils/scrollToTop";
@@ -14,6 +13,7 @@ import {
   clearSearchHistory,
   searchProducts,
 } from "../../utils/searchUtils";
+import { normalizeSpaces } from "@/utils/normalizeSpaces";
 
 interface ProductManagerProps {
   EditorContent: any;
@@ -31,6 +31,9 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const searchParams = useSearchParams();
   const queryFromURL = searchParams.get("q") || "";
+  const [searchQueryState, setSearchQueryState] = useState(
+    queryFromURL || searchQuery,
+  );
   const categories = ["Tất cả", ...categoryOptions.map((cat) => cat.label)];
 
   const isFirstMount = useRef(true); // Biến đánh dấu lần đầu mount
@@ -38,16 +41,16 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
   useEffect(() => {
     if (isFirstMount.current) {
       // Chỉ lấy queryFromURL lần đầu tiên
-      setDebouncedQuery(queryFromURL || searchQuery);
+      setDebouncedQuery(searchQueryState);
       isFirstMount.current = false;
     }
   }, []); // Chỉ chạy 1 lần khi mount
-
   useEffect(() => {
     // Khi searchQuery thay đổi, luôn ưu tiên giá trị mới
-    if (!isFirstMount.current && searchQuery) {
+    if (!isFirstMount.current) {
+      setSearchQueryState(normalizeSpaces(searchQuery));
       const timer = setTimeout(() => {
-        setDebouncedQuery(searchQuery);
+        setDebouncedQuery(searchQueryState);
       }, 1000);
 
       return () => clearTimeout(timer);
