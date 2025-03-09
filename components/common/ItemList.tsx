@@ -1,40 +1,14 @@
-"use client";
-import React, { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 import { FaChevronRight } from "react-icons/fa";
 import Link from "next/link";
-import { EditorProps } from "../../types/product-management";
-import { getProductByCategory } from "@/components/api/ProductService";
-import { Product } from "@/types/product";
-import { LIMITRESULTTRANGCHU } from "@/utils/constants";
+import { Product } from "../../types/product";
+interface ProductDetailProps {
+  products: Product[];
+  title: string;
+  slug: string;
+}
 
-const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
-  const [productsByCategory, setProductsByCategory] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchProductByCategory = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const products = await getProductByCategory(
-          EditorContent.category,
-          LIMITRESULTTRANGCHU,
-        );
-        setProductsByCategory(products);
-      } catch (error) {
-        console.error("Error fetching related products:", error);
-        setError("Không thể tải sản phẩm liên quan.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProductByCategory();
-  }, [EditorContent.category]);
-
+const ItemList = ({ products, title, slug }: ProductDetailProps) => {
   return (
     <section className="bg-gray-100 py-2">
       <div className="container mx-auto px-1">
@@ -45,7 +19,7 @@ const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
           >
             <div className="relative py-2">
               <h2 className="transform pl-7 text-left text-xl font-bold text-white transition-transform duration-300 group-hover:scale-105 md:text-2xl">
-                {EditorContent.title}
+                {title}
               </h2>
 
               {/* Decorative Circles */}
@@ -60,7 +34,7 @@ const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
 
         {/* Cards Grid */}
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-4 xl:mx-36">
-          {productsByCategory.map((item, index) => (
+          {products.map((item, index) => (
             <div
               key={item.id}
               className="animate-fadeIn transition"
@@ -81,7 +55,7 @@ const ItemList: React.FC<EditorProps> = ({ EditorContent }) => {
         {/* Section Xem thêm */}
         <div className="mt-3 flex justify-center text-base font-bold text-blue-700">
           <Link
-            href={`/san-pham/${EditorContent.slug}`}
+            href={`/san-pham/${slug}`}
             className="flex cursor-pointer hover:scale-105"
           >
             <p className="">Xem thêm sản phẩm</p>

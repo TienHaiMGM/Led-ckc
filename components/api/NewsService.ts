@@ -15,6 +15,20 @@ const mapFirestoreDoc = <T extends { id?: string }>(
   doc: QueryDocumentSnapshot<DocumentData>,
 ): T => ({ id: doc.id, ...doc.data() }) as T;
 
+export const getAllNews = async (): Promise<News | null> => {
+  try {
+    const newsRef = collection(db, "newItems");
+    const q = query(newsRef, orderBy("hotness", "desc"));
+    const querySnapshot = await getDocs(q);
+
+    return querySnapshot.empty
+      ? null
+      : mapFirestoreDoc<News>(querySnapshot.docs[0]);
+  } catch (error) {
+    console.error("Error fetching news:", error);
+    throw new Error("Failed to fetch news");
+  }
+};
 /**
  * Fetch a single new by slug.
  */

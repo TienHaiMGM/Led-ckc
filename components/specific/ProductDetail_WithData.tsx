@@ -57,15 +57,7 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
 
     setShowFullImage(true);
   };
-  useEffect(() => {
-    if (showFullImage) {
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === "Escape") closeFullImage();
-      };
-      window.addEventListener("keydown", handleKeyDown);
-      return () => window.removeEventListener("keydown", handleKeyDown);
-    }
-  }, [showFullImage]);
+
   // Đóng full-screen
   const closeFullImage = () => {
     setShowFullImage(false);
@@ -85,14 +77,14 @@ const ProductDetail_WithData = ({ product }: ProductDetailProps) => {
   };
   // Đóng full-screen khi nhấn ESC
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeFullImage();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+    if (showFullImage) {
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === "Escape") closeFullImage();
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [showFullImage]);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) =>

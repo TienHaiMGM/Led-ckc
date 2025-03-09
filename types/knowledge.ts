@@ -1,7 +1,7 @@
 export interface Knowledge {
   id?: string;
   title: string;
-  description?: string;
+  description: string;
   content: string;
   images: string;
   slug: string;
@@ -13,4 +13,5 @@ export interface Knowledge {
   status?: "draft" | "published";
   educationalLevel?: "beginner" | "intermediate" | "advanced";
   readingTime?: number;
+  hotness?: string;
 }
