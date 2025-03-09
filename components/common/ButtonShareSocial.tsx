@@ -1,13 +1,17 @@
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaPinterest,
-  FaLinkedinIn,
-} from "react-icons/fa";
-import { SiZalo } from "react-icons/si";
+"use client"; // ✅ Chuyển thành Client Component
+
+import { FaFacebookF, FaTwitter, FaPinterest } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 const ShareButtons = () => {
-  const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+  const [currentUrl, setCurrentUrl] = useState("");
+
+  // ✅ Lấy URL sau khi component render trên client
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
+  }, []);
 
   const shareLinks = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`,

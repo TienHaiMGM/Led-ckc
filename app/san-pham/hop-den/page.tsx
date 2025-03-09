@@ -8,7 +8,7 @@ export default async function HopDenPage() {
     <div className="flex min-h-screen flex-col">
       <Breadcrumb />
       <main className="flex-grow p-0">
-        <ProductCategory product={product} />
+        <ProductCategory product={product} title="Hộp đèn" />
       </main>
     </div>
   );

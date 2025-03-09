@@ -1,9 +1,7 @@
-"use client";
 import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
-import { motion } from "framer-motion";
 
 const BangHieuGo = () => {
   return (
@@ -11,20 +9,11 @@ const BangHieuGo = () => {
       <Breadcrumb />
       <main className="container mx-auto flex-grow px-0 py-0 lg:py-6 xl:py-6">
         <div className="flex flex-col gap-8 lg:flex-row">
-          {/* {TabarLeft} */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0, transition: { duration: 0.6 } }}
-            className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block"
-          >
+          <div className="animate-fadeSlide hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
             <TabarLeft />
-          </motion.div>
+          </div>
           <article className="prose prose-custome p-2 lg:w-3/4">
-            <motion.div
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
-              className="animation animation-fadeIn prose prose-custome lg:w-3/4"
-            >
+            <div className="prose prose-custome animate-fadeIn lg:w-3/4">
               <h1 className="text-3xl font-bold text-blue-800 lg:text-4xl">
                 Làm Bảng Hiệu Gỗ Giá Rẻ
               </h1>
@@ -35,8 +24,22 @@ const BangHieuGo = () => {
                 chỉ được sử dụng trong các quán cà phê, nhà hàng, mà còn phổ
                 biến ở các cửa hàng thời trang và doanh nghiệp sáng tạo.
               </p>
-            </motion.div>
+            </div>
             <section className="grid gap-4">
+              <div className="animate-fadeScale flex justify-center">
+                <figure>
+                  <Image
+                    src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740547037/bang-hieu-go-moc-tra_aebchr.jpg"
+                    alt="Bảng hiệu gỗ Spa"
+                    width={800}
+                    height={600}
+                    className="rounded-lg shadow-lg"
+                  />
+                  <figcaption className="text-center italic">
+                    Bảng hiệu gỗ Spa
+                  </figcaption>
+                </figure>
+              </div>
               <nav className="order-2 rounded-lg bg-gray-100 p-2 shadow-lg">
                 <h2 className="mb-4 text-xl font-semibold text-gray-700">
                   📚 Mục Lục
@@ -192,28 +195,6 @@ const BangHieuGo = () => {
                   </li>
                 </ul>
               </nav>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  transition: { duration: 0.5, delay: 0.3 },
-                }}
-                className="flex justify-center"
-              >
-                <figure>
-                  <Image
-                    src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740547037/bang-hieu-go-moc-tra_aebchr.jpg"
-                    alt="Bảng hiệu gỗ Spa"
-                    width={800}
-                    height={600}
-                    className="rounded-lg shadow-lg"
-                  />
-                  <figcaption className="text-center italic">
-                    Bảng hiệu gỗ Spa
-                  </figcaption>
-                </figure>
-              </motion.div>
             </section>
             <section className="mb-0 grid gap-3 leading-normal lg:grid-cols-2 xl:lg:grid-cols-2">
               <figure>

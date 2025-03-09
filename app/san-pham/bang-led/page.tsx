@@ -8,7 +8,7 @@ export default async function BangLedPage() {
     <div className="flex min-h-screen flex-col">
       <Breadcrumb />
       <main className="flex-grow p-0">
-        <ProductCategory product={product} />
+        <ProductCategory product={product} title="Bảng Led" />
       </main>
     </div>
   );

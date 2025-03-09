@@ -8,7 +8,7 @@ export default async function BangHieuPage() {
     <div className="flex min-h-screen flex-col">
       <Breadcrumb />
       <main className="flex-grow p-0">
-        <ProductCategory product={product} />
+        <ProductCategory product={product} title="Bảng hiệu" />
       </main>
     </div>
   );

@@ -72,6 +72,14 @@ module.exports = {
             transform: "translateX(100%)",
           },
         },
+        fadeSlide: {
+          "0%": { opacity: "0", transform: "translateX(-50px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
+        fadeScale: {
+          "0%": { opacity: "0", transform: "scale(0.8)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
       },
       animation: {
         focusScale: "focusScale 200ms ease-out forwards",
@@ -79,6 +87,8 @@ module.exports = {
         flicker: "flicker 1.5s infinite alternate",
         fadeIn: "fadeIn 0.5s ease-out",
         shimmer: "shimmer 2s infinite",
+        fadeSlide: "fadeSlide 0.6s ease-out forwards",
+        fadeScale: "fadeScale 0.6s ease-out forwards",
       },
       typography: {
         custome: {

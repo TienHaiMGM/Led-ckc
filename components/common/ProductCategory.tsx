@@ -11,11 +11,11 @@ import {
 import ItemCard from "./ItemCard";
 import PromotionPopup from "./PromotionPopup";
 import { Product } from "@/types/product";
-import { motion } from "framer-motion";
 type EditorProps = {
   product: Product[];
+  title: string;
 };
-const ProductCategory: React.FC<EditorProps> = ({ product }) => {
+const ProductCategory: React.FC<EditorProps> = ({ product, title }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   // Sidebar content component to avoid repetition
@@ -125,7 +125,7 @@ const ProductCategory: React.FC<EditorProps> = ({ product }) => {
       {/* SEO Title and Description */}
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">
-          {/* {product.title} */}
+          {title}
         </h1>
         <div className="mt-2 h-1 w-16 bg-blue-500 sm:w-20"></div>
       </div>
@@ -133,54 +133,29 @@ const ProductCategory: React.FC<EditorProps> = ({ product }) => {
       <div className="lg:flex lg:gap-8">
         {/* Left Sidebar - Visible only on lg and up */}
         <div className="hidden lg:block lg:w-64 lg:shrink-0">
-          <div className="sticky top-4">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="sticky top-4">
-                <SidebarContent />
-              </div>
-            </motion.div>
+          <div className="animate-fadeSlide sticky top-4">
+            <SidebarContent />
           </div>
         </div>
 
         <div className="flex-grow">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3"
-          >
+          <div className="grid animate-fadeIn grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-3">
             {product.map((product, index) => (
-              <motion.div
+              <ItemCard
                 key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <ItemCard
-                  title={product.title}
-                  description={product.description}
-                  image={product.images}
-                  slug={product.slug}
-                />
-              </motion.div>
+                title={product.title}
+                description={product.description}
+                image={product.images}
+                slug={product.slug}
+              />
             ))}
-          </motion.div>
+          </div>
 
           {/* Sidebar Content - Visible only on mobile */}
           <div className="mt-8 lg:hidden">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="sticky top-4">
-                <SidebarContent />
-              </div>
-            </motion.div>
+            <div className="animate-fadeSlide sticky top-4">
+              <SidebarContent />
+            </div>
           </div>
         </div>
       </div>

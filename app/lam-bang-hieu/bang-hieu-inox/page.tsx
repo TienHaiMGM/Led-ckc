@@ -12,19 +12,11 @@ const BangHieuInox = () => {
       <main className="container mx-auto flex-grow px-0 py-0 lg:py-6 xl:py-6">
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* {TabarLeft} */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0, transition: { duration: 0.6 } }}
-            className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block"
-          >
+          <div className="animate-fadeSlide hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
             <TabarLeft />
-          </motion.div>
+          </div>
           <article className="prose prose-custome p-2 lg:w-3/4">
-            <motion.div
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
-              className="animation animation-fadeIn prose prose-custome lg:w-3/4"
-            >
+            <div className="prose prose-custome animate-fadeIn lg:w-3/4">
               <h1 className="text-3xl font-bold text-blue-800 lg:text-4xl">
                 Bảng Hiệu Inox: Giải Pháp Sang Trọng và Bền Vững Cho Doanh
                 Nghiệp
@@ -37,8 +29,22 @@ const BangHieuInox = () => {
                 trội và khả năng chống chịu tốt với thời tiết, bảng hiệu inox đã
                 trở thành giải pháp lý tưởng cho nhiều công ty và cửa hàng.
               </p>
-            </motion.div>
+            </div>
             <section className="grid gap-4">
+              <div className="animate-fadeScale flex justify-center">
+                <figure>
+                  <Image
+                    src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740543499/bang-hieu-inox-logo_f7vxwv.jpg"
+                    alt="Bảng hiệu inox logo"
+                    width={800}
+                    height={600}
+                    className="rounded-lg shadow-lg"
+                  />
+                  <figcaption className="text-center italic">
+                    Bảng hiệu inox logo
+                  </figcaption>
+                </figure>
+              </div>
               <nav className="order-2 rounded-lg bg-gray-100 p-2 shadow-lg">
                 <h2 className="mb-4 text-xl font-semibold text-gray-700">
                   📚 Mục Lục
@@ -167,28 +173,6 @@ const BangHieuInox = () => {
                   </li>
                 </ul>
               </nav>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  transition: { duration: 0.5, delay: 0.3 },
-                }}
-                className="flex justify-center"
-              >
-                <figure>
-                  <Image
-                    src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740543499/bang-hieu-inox-logo_f7vxwv.jpg"
-                    alt="Bảng hiệu inox logo"
-                    width={800}
-                    height={600}
-                    className="rounded-lg shadow-lg"
-                  />
-                  <figcaption className="text-center italic">
-                    Bảng hiệu inox logo
-                  </figcaption>
-                </figure>
-              </motion.div>
             </section>
             <section className="mb-0 grid gap-3 leading-normal lg:grid-cols-2 xl:lg:grid-cols-2">
               <figure>
