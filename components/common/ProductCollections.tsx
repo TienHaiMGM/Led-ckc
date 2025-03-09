@@ -1,11 +1,11 @@
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useProductEditor } from "../api/hooks/useProductEditor";
 import { ITEMS_PER_PAGE, categoryOptions } from "@/utils/constants";
 import ProductCard from "./ProductCard";
 import { motion } from "framer-motion";
 import { scrollToTop } from "../../utils/scrollToTop";
-import { useSearchParams } from "next/navigation"; // Import hook để lấy query từ URL
+import { useSearchParams } from "next/navigation";
 
 import {
   removeDiacritics,
@@ -13,56 +13,50 @@ import {
   saveToSearchHistory,
   clearSearchHistory,
   searchProducts,
-} from "../../utils/searchUtils"; // Import các hàm tìm kiếm
+} from "../../utils/searchUtils";
 
 interface ProductManagerProps {
   EditorContent: any;
   searchQuery?: string;
-  currentPage?: number;
-  setCurrentPage?: (page: number) => void;
 }
 
 const ProductCollections: React.FC<ProductManagerProps> = ({
   EditorContent,
   searchQuery = "",
-  currentPage = 1,
-  setCurrentPage = () => {},
 }) => {
   const { products, loading, error } = useProductEditor(EditorContent);
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
-  const [debouncedQuery, setDebouncedQuery] = useState(searchQuery); // State debounce
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const searchParams = useSearchParams();
+  const queryFromURL = searchParams.get("q") || "";
   const categories = ["Tất cả", ...categoryOptions.map((cat) => cat.label)];
-  const searchParams = useSearchParams(); // Lấy query từ URL
-  const queryFromURL = searchParams.get("q") || ""; // Lấy giá trị "q" từ URL
+
+  const isFirstMount = useRef(true); // Biến đánh dấu lần đầu mount
 
   useEffect(() => {
-    if (!products) return;
-    setSearchHistory(getSearchHistory()); // Load lịch sử tìm kiếm khi component mount
-    let filtered = [...products];
-    if (queryFromURL) {
-      const query = removeDiacritics(queryFromURL); // Xử lý tìm kiếm không dấu
-      filtered = searchProducts(products, query);
-      saveToSearchHistory(query);
-      setSearchHistory(getSearchHistory()); // Cập nhật lịch sử tìm kiếm
-      scrollToTop(150);
-      setFilteredProducts(filtered);
+    if (isFirstMount.current) {
+      // Chỉ lấy queryFromURL lần đầu tiên
+      setDebouncedQuery(queryFromURL || searchQuery);
+      isFirstMount.current = false;
     }
-  }, [products, queryFromURL]);
+  }, []); // Chỉ chạy 1 lần khi mount
 
-  // ⏳ Debounce search query (Chỉ cập nhật `debouncedQuery` sau 1 giây khi người dùng dừng nhập)
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedQuery(searchQuery);
-    }, 1000); // ⏳ Chờ 1 giây trước khi cập nhật
+    // Khi searchQuery thay đổi, luôn ưu tiên giá trị mới
+    if (!isFirstMount.current && searchQuery) {
+      const timer = setTimeout(() => {
+        setDebouncedQuery(searchQuery);
+      }, 1000);
 
-    return () => clearTimeout(timer); // Hủy timer nếu người dùng nhập tiếp
-  }, [searchQuery]);
+      return () => clearTimeout(timer);
+    }
+  }, [searchQuery]); // Chỉ theo dõi searchQuery
 
-  // Cập nhật danh sách sản phẩm khi dữ liệu thay đổi hoặc khi debounce hoàn tất
   useEffect(() => {
     if (!products) return;
+
     let filtered = [...products];
 
     if (selectedCategory !== "Tất cả") {
@@ -73,21 +67,26 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
     }
 
     if (debouncedQuery) {
-      const query = removeDiacritics(debouncedQuery); // Bỏ dấu trước khi tìm kiếm
-      saveToSearchHistory(query); // Lưu vào lịch sử tìm kiếm
-      setSearchHistory(getSearchHistory()); // Cập nhật lịch sử tìm kiếm
-
+      const query = removeDiacritics(debouncedQuery);
+      if (!searchHistory.includes(query)) {
+        saveToSearchHistory(query);
+        setSearchHistory(getSearchHistory());
+      }
       filtered = searchProducts(filtered, query);
     }
 
+    scrollToTop(150);
     setFilteredProducts(filtered);
-    setCurrentPage(1);
-  }, [products, selectedCategory, debouncedQuery, setCurrentPage]);
+  }, [products, debouncedQuery, selectedCategory]);
 
   const handleClearSearchHistory = () => {
     clearSearchHistory();
     setSearchHistory([]);
   };
+
+  if (loading) return <p className="text-center">Đang tải sản phẩm...</p>;
+  if (error)
+    return <p className="text-center text-red-500">Lỗi tải sản phẩm!</p>;
 
   return (
     <div>
@@ -157,7 +156,7 @@ const ProductCollections: React.FC<ProductManagerProps> = ({
                 title={item.title}
                 description={item.description}
                 slug={item.slug}
-                href={`/chi-tiet-san-pham/`} // 🔥 Thêm slug vào URL
+                href={`/chi-tiet-san-pham/`}
               />
             ))}
           </motion.div>
