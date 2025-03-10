@@ -14,4 +14,8 @@ export interface Knowledge {
   educationalLevel?: "beginner" | "intermediate" | "advanced";
   readingTime?: number;
   hotness?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  featuredImage?: string;
+  thumbnail?: string;
 }

@@ -12,4 +12,8 @@ export interface News {
   updatedAt?: any;
   status?: "draft" | "published";
   hotness: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  featuredImage?: string;
+  thumbnail?: string;
 }

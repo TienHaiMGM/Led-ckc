@@ -1,9 +1,59 @@
-"use client";
 import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
-import { motion } from "framer-motion";
+
+export const metadata = {
+  title: "Bảng Hiệu LED | Giải Pháp Quảng Cáo Nổi Bật & Hiện Đại",
+  description:
+    "Tìm hiểu về bảng hiệu LED – giải pháp quảng cáo hiện đại, thu hút, tiết kiệm điện năng. Siêu Thị Bảng Hiệu cung cấp thiết kế LED sắc nét, bền bỉ, phù hợp với mọi nhu cầu.",
+  keywords: [
+    "bảng hiệu led",
+    "thiết kế bảng hiệu led",
+    "bảng hiệu led đẹp",
+    "bảng hiệu led quảng cáo",
+    "bảng hiệu led tiết kiệm điện",
+  ],
+  openGraph: {
+    title: "Bảng Hiệu LED | Giải Pháp Quảng Cáo Nổi Bật & Hiện Đại",
+    description:
+      "Tìm hiểu về bảng hiệu LED – giải pháp quảng cáo hiện đại, thu hút, tiết kiệm điện năng. Siêu Thị Bảng Hiệu cung cấp thiết kế LED sắc nét, bền bỉ, phù hợp với mọi nhu cầu.",
+    url: "https://sieuthibanghieu.com/bang-hieu-led",
+    siteName: "Siêu Thị Bảng Hiệu",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bảng hiệu LED - Siêu Thị Bảng Hiệu",
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bảng Hiệu LED | Giải Pháp Quảng Cáo Nổi Bật & Hiện Đại",
+    description:
+      "Tìm hiểu về bảng hiệu LED – giải pháp quảng cáo hiện đại, thu hút, tiết kiệm điện năng. Siêu Thị Bảng Hiệu cung cấp thiết kế LED sắc nét, bền bỉ, phù hợp với mọi nhu cầu.",
+    images: [
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+    ],
+  },
+  alternates: {
+    canonical: "https://sieuthibanghieu.com/bang-hieu-led",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+    },
+  },
+};
 
 const BangHieuLed = () => {
   return (
@@ -12,7 +62,7 @@ const BangHieuLed = () => {
       <main className="container mx-auto flex-grow px-0 py-0 lg:py-6 xl:py-6">
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* {TabarLeft} */}
-          <div className="animate-fadeSlide hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
+          <div className="hidden animate-fadeSlide sm:hidden md:hidden lg:block xl:ml-28 xl:block">
             <TabarLeft />
           </div>
           <article className="prose prose-custome p-2 lg:w-3/4">
@@ -32,7 +82,7 @@ const BangHieuLed = () => {
               </p>
             </div>
             <section className="grid gap-4">
-              <div className="animate-fadeScale flex justify-center">
+              <div className="flex animate-fadeScale justify-center">
                 <figure>
                   <Image
                     src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740538901/bang-hieu-led-deco-gaming_rrlxec.jpg"

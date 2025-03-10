@@ -12,95 +12,47 @@ export const viewport = {
   initialScale: 1,
 };
 export const metadata = {
-  metadataBase: new URL("https://sieuthibanghieu.com"),
-  title: {
-    template: "%s | Siêu Thị Bảng Hiệu",
-    default:
-      "Siêu Thị Bảng Hiệu - Chuyên Thiết Kế & Thi Công Bảng Hiệu Quảng Cáo",
-  },
+  title: "Bảng Hiệu Quảng Cáo Chất Lượng Cao | Siêu Thị Bảng Hiệu",
   description:
-    "Chuyên thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp, uy tín tại TP.HCM. Cung cấp đa dạng dịch vụ làm bảng hiệu, chữ nổi, hộp đèn quảng cáo.",
-  author: "Siêu thị bảng hiệu",
+    "Siêu Thị Bảng Hiệu chuyên cung cấp bảng hiệu quảng cáo, hộp đèn, chữ nổi, đèn LED với thiết kế đẹp, bền bỉ, giá tốt. Liên hệ ngay!",
+  keywords: [
+    "bảng hiệu quảng cáo",
+    "thiết kế bảng hiệu",
+    "bảng hiệu LED",
+    "hộp đèn quảng cáo",
+    "chữ nổi",
+  ],
   openGraph: {
-    type: "website",
+    title: "Bảng Hiệu Quảng Cáo Chất Lượng Cao | Siêu Thị Bảng Hiệu",
+    description:
+      "Siêu Thị Bảng Hiệu chuyên cung cấp bảng hiệu quảng cáo, hộp đèn, chữ nổi, đèn LED với thiết kế đẹp, bền bỉ, giá tốt. Liên hệ ngay!",
+    url: "https://sieuthibanghieu.com/",
     siteName: "Siêu Thị Bảng Hiệu",
-    locale: "vi_VN",
     images: [
       {
-        url: "https://sieuthibanghieu.com/images/sieuthibanghieu.jpg",
+        url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
         width: 1200,
         height: 630,
-        alt: "Siêu Thị Bảng Hiệu",
+        alt: "Bảng hiệu quảng cáo - Siêu Thị Bảng Hiệu",
       },
     ],
+    locale: "vi_VN",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    images: ["https://sieuthibanghieu.com/images/sieuthibanghieu.jpg"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: {
-    google: "verification_token",
+    title: "Bảng Hiệu Quảng Cáo Chất Lượng Cao | Siêu Thị Bảng Hiệu",
+    description:
+      "Siêu Thị Bảng Hiệu chuyên cung cấp bảng hiệu quảng cáo, hộp đèn, chữ nổi, đèn LED với thiết kế đẹp, bền bỉ, giá tốt. Liên hệ ngay!",
+    images: [
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+    ],
   },
   alternates: {
-    canonical: "https://sieuthibanghieu.vn",
+    canonical: "https://sieuthibanghieu.com/",
   },
-  jsonLd: [
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      name: "Siêu Thị Bảng Hiệu",
-      url: "https://sieuthibanghieu.com",
-      logo: "https://sieuthibanghieu.com/images/logo_sieuthibanghieu.png",
-      telephone: "+84962630679",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "129 Thoại Ngọc Hầu",
-        addressLocality: "Phường Hòa Thạnh, Quận Tân Phú",
-        addressRegion: "TP.Hồ Chí Minh",
-        addressCountry: "Việt Nam",
-      },
-      description:
-        "Chuyên thiết kế và thi công bảng hiệu quảng cáo chuyên nghiệp, uy tín tại TP.HCM",
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "Danh mục sản phẩm",
-        itemListElement: [
-          {
-            "@type": "OfferCatalog",
-            name: "Bảng hiệu",
-          },
-          {
-            "@type": "OfferCatalog",
-            name: "Chữ nổi",
-          },
-          {
-            "@type": "OfferCatalog",
-            name: "Led",
-          },
-          {
-            "@type": "OfferCatalog",
-            name: "Backdrop",
-          },
-          {
-            "@type": "OfferCatalog",
-            name: "Logo",
-          },
-        ],
-      },
-    },
-  ],
 };
+
 export default function RootLayout({
   children,
 }: {

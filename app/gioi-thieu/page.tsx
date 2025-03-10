@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import {
   FaMedal,
@@ -9,7 +8,58 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import Breadcrumb from "@/components/common/Breadcrumb";
-import { motion } from "framer-motion";
+
+export const metadata = {
+  title: "Giới Thiệu Về Siêu Thị Bảng Hiệu | Bảng Hiệu Quảng Cáo Chất Lượng",
+  description:
+    "Siêu Thị Bảng Hiệu – Giá trị cốt lõi: sáng tạo, khác biệt, chuyên nghiệp. Chúng tôi mang đến bảng hiệu quảng cáo chất lượng, giúp thương hiệu của bạn nổi bật.",
+  keywords: [
+    "bảng hiệu quảng cáo",
+    "Siêu Thị Bảng Hiệu",
+    "thiết kế bảng hiệu",
+    "làm bảng hiệu",
+    "quảng cáo thương hiệu",
+  ],
+  openGraph: {
+    title: "Giới Thiệu Về Siêu Thị Bảng Hiệu | Bảng Hiệu Quảng Cáo Chất Lượng",
+    description:
+      "Siêu Thị Bảng Hiệu – Giá trị cốt lõi: sáng tạo, khác biệt, chuyên nghiệp. Chúng tôi mang đến bảng hiệu quảng cáo chất lượng, giúp thương hiệu của bạn nổi bật.",
+    url: "https://sieuthibanghieu.com/gioi-thieu",
+    siteName: "Siêu Thị Bảng Hiệu",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Giới thiệu về Siêu Thị Bảng Hiệu - Bảng Hiệu Quảng Cáo",
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Giới Thiệu Về Siêu Thị Bảng Hiệu | Bảng Hiệu Quảng Cáo Chất Lượng",
+    description:
+      "Siêu Thị Bảng Hiệu – Giá trị cốt lõi: sáng tạo, khác biệt, chuyên nghiệp. Chúng tôi mang đến bảng hiệu quảng cáo chất lượng, giúp thương hiệu của bạn nổi bật.",
+    images: [
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+    ],
+  },
+  alternates: {
+    canonical: "https://sieuthibanghieu.com/gioi-thieu",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+    },
+  },
+};
 
 export default function AboutPage() {
   return (
@@ -17,15 +67,10 @@ export default function AboutPage() {
       <main className="bg-gradient-to-b from-gray-50 to-white text-gray-800">
         {/* Hero Section with Parallax Effect */}
         <section className="relative h-1/3 w-full overflow-hidden lg:min-h-[80vh]">
-          <div className="flex h-[80vh] items-center justify-center overflow-hidden bg-black">
-            <motion.h1
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="animate-glow text-center font-sans text-9xl font-bold uppercase leading-snug text-white"
-            >
+          <div className="flex h-[80vh] animate-fadeScaleRever items-center justify-center overflow-hidden bg-black">
+            <h1 className="animate-glow text-center font-sans text-9xl font-bold uppercase leading-snug text-white">
               Siêu Thị Bảng Hiệu
-            </motion.h1>
+            </h1>
           </div>
         </section>
         <Breadcrumb />

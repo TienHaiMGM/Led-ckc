@@ -9,36 +9,52 @@ import {
 } from "react-icons/fa";
 
 export const metadata = {
-  title: "Liên Hệ - Siêu Thị Bảng Hiệu",
+  title: "Thông Tin Liên Hệ | Siêu Thị Bảng Hiệu - Hỗ Trợ Nhanh Chóng",
   description:
-    "Liên hệ với chúng tôi để tạo nên những tác phẩm quảng cáo ấn tượng.",
+    "Liên hệ Siêu Thị Bảng Hiệu ngay để được tư vấn về bảng hiệu quảng cáo. Gồm địa chỉ, số điện thoại, bản đồ và form liên hệ tiện lợi, hỗ trợ nhanh chóng.",
+  keywords: [
+    "thông tin liên hệ bảng hiệu",
+    "liên hệ siêu thị bảng hiệu",
+    "hỗ trợ bảng hiệu quảng cáo",
+    "tư vấn bảng hiệu",
+  ],
   openGraph: {
-    title: "Liên Hệ - Siêu Thị Bảng Hiệu",
+    title: "Thông Tin Liên Hệ | Siêu Thị Bảng Hiệu - Hỗ Trợ Nhanh Chóng",
     description:
-      "Liên hệ với chúng tôi để tạo nên những tác phẩm quảng cáo ấn tượng.",
-    url: "https://yourwebsite.com/lien-he",
-    type: "website",
+      "Liên hệ Siêu Thị Bảng Hiệu ngay để được tư vấn về bảng hiệu quảng cáo. Gồm địa chỉ, số điện thoại, bản đồ và form liên hệ tiện lợi, hỗ trợ nhanh chóng.",
+    url: "https://sieuthibanghieu.com/lien-he",
+    siteName: "Siêu Thị Bảng Hiệu",
     images: [
       {
-        url: "https://yourwebsite.com/path/to/image.jpg",
-        width: 800,
-        height: 600,
-        alt: "Liên Hệ",
+        url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/mica_ckc_1_fkgbgo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Thông tin liên hệ - Siêu Thị Bảng Hiệu",
       },
     ],
+    locale: "vi_VN",
+    type: "website",
   },
-  jsonLd: {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    name: "Liên Hệ",
+  twitter: {
+    card: "summary_large_image",
+    title: "Thông Tin Liên Hệ | Siêu Thị Bảng Hiệu - Hỗ Trợ Nhanh Chóng",
     description:
-      "Liên hệ với chúng tôi để tạo nên những tác phẩm quảng cáo ấn tượng.",
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: "(123) 456-7890",
-      contactType: "Customer Service",
-      areaServed: "VN",
-      availableLanguage: "Vietnamese",
+      "Liên hệ Siêu Thị Bảng Hiệu ngay để được tư vấn về bảng hiệu quảng cáo. Gồm địa chỉ, số điện thoại, bản đồ và form liên hệ tiện lợi, hỗ trợ nhanh chóng.",
+    images: [
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/mica_ckc_1_fkgbgo.jpg",
+    ],
+  },
+  alternates: {
+    canonical: "https://sieuthibanghieu.com/lien-he",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
     },
   },
 };

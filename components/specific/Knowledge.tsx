@@ -85,8 +85,8 @@ const Knowledge: React.FC<EditorProps> = ({ EditorContent }) => {
           {/* Content */}
           <div className="container relative z-10 mx-auto px-4">
             <div className="mx-auto max-w-4xl text-center">
-              <h1 className="mb-6 text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
-                Kiến thức chuyên sâu
+              <h1 className="mb-6 text-3xl font-bold uppercase leading-tight text-white md:text-4xl lg:text-5xl">
+                Kiến Thức Ngành Quảng Cáo
               </h1>
               <p className="mb-8 text-lg leading-relaxed text-gray-100 md:text-xl">
                 Khám phá những xu hướng mới nhất về bảng hiệu quảng cáo, công

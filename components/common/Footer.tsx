@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Footer = () => {
@@ -9,8 +10,10 @@ const Footer = () => {
         <div className="flex flex-wrap items-center justify-between gap-5">
           <div className="mb-4 w-full text-gray-300 md:mb-0 md:w-1/4">
             <div>
-              <img
+              <Image
                 src="https://res.cloudinary.com/dsyidnrat/image/upload/v1741234963/sieuthibanghieulogo_hki2df.png"
+                width={300}
+                height={300}
                 alt="logo sieuthibanghieu"
                 className="w-48"
               />
@@ -73,9 +76,11 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <img
+            <Image
               src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740824063/qr-zalo-me-zalo-me-0987902715_k1vs0h.png"
               alt="qr code cho zalo"
+              width={300}
+              height={300}
               className="w-48"
             />
           </div>

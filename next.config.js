@@ -41,11 +41,10 @@ const nextConfig = {
   images: {
     domains: [
       "firebasestorage.googleapis.com",
-      "banghieuminhkhang.com",
-      "ledsun.vn",
       "fastly.picsum.photos",
       "localhost",
       "res.cloudinary.com",
+      "img.icons8.com",
     ],
     formats: ["image/webp", "image/avif"],
   },

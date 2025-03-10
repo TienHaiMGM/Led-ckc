@@ -80,6 +80,10 @@ module.exports = {
           "0%": { opacity: "0", transform: "scale(0.8)" },
           "100%": { opacity: "1", transform: "scale(1)" },
         },
+        fadeScaleRever: {
+          "0%": { opacity: "0", transform: "scale(1.5)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
       },
       animation: {
         focusScale: "focusScale 200ms ease-out forwards",
@@ -89,6 +93,7 @@ module.exports = {
         shimmer: "shimmer 2s infinite",
         fadeSlide: "fadeSlide 0.6s ease-out forwards",
         fadeScale: "fadeScale 0.6s ease-out forwards",
+        fadeScaleRever: "fadeScaleRever 0.6s ease-out forwards",
       },
       typography: {
         custome: {

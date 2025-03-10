@@ -1,18 +1,66 @@
-"use client";
 import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
-import { motion } from "framer-motion";
 
+export const metadata = {
+  title: "Bảng Hiệu Hiflex | Giải Pháp Quảng Cáo Giá Rẻ & Bền Bỉ",
+  description:
+    "Tìm hiểu về bảng hiệu Hiflex – giải pháp quảng cáo ngoài trời bền bỉ, in ấn sắc nét, giá rẻ. Siêu Thị Bảng Hiệu mang đến thiết kế chất lượng, phù hợp với mọi nhu cầu.",
+  keywords: [
+    "bảng hiệu hiflex",
+    "thiết kế bảng hiệu hiflex",
+    "bảng hiệu hiflex giá rẻ",
+    "bảng hiệu hiflex quảng cáo",
+    "in ấn hiflex",
+  ],
+  openGraph: {
+    title: "Bảng Hiệu Hiflex | Giải Pháp Quảng Cáo Giá Rẻ & Bền Bỉ",
+    description:
+      "Tìm hiểu về bảng hiệu Hiflex – giải pháp quảng cáo ngoài trời bền bỉ, in ấn sắc nét, giá rẻ. Siêu Thị Bảng Hiệu mang đến thiết kế chất lượng, phù hợp với mọi nhu cầu.",
+    url: "https://sieuthibanghieu.com/bang-hieu-hiflex",
+    siteName: "Siêu Thị Bảng Hiệu",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bảng hiệu Hiflex - Siêu Thị Bảng Hiệu",
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bảng Hiệu Hiflex | Giải Pháp Quảng Cáo Giá Rẻ & Bền Bỉ",
+    description:
+      "Tìm hiểu về bảng hiệu Hiflex – giải pháp quảng cáo ngoài trời bền bỉ, in ấn sắc nét, giá rẻ. Siêu Thị Bảng Hiệu mang đến thiết kế chất lượng, phù hợp với mọi nhu cầu.",
+    images: [
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+    ],
+  },
+  alternates: {
+    canonical: "https://sieuthibanghieu.com/bang-hieu-hiflex",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+    },
+  },
+};
 const BangHieuHiflex = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <Breadcrumb />
       <main className="container mx-auto flex-grow px-0 py-0 lg:py-6 xl:py-6">
         <div className="flex flex-col gap-8 lg:flex-row">
-          {/* {TabarLeft} */}
-          <div className="animate-fadeSlide hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
+          <div className="hidden animate-fadeSlide sm:hidden md:hidden lg:block xl:ml-28 xl:block">
             <TabarLeft />
           </div>
           <article className="prose prose-custome p-2 lg:w-3/4">
@@ -31,7 +79,7 @@ const BangHieuHiflex = () => {
               </p>
             </div>
             <section className="grid gap-4">
-              <div className="animate-fadeScale flex justify-center">
+              <div className="flex animate-fadeScale justify-center">
                 <figure>
                   <Image
                     src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740557381/in-bat-hiflex-thuong-hieu-sumikura_tgwmcn.jpg"

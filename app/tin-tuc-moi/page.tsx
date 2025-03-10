@@ -1,46 +1,55 @@
-import { Metadata } from "next";
 import News from "@/components/specific/News";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Tin Tức & Cập Nhật Mới Nhất | Siêu Thị Bảng Hiệu",
+export const metadata = {
+  title: "Tin Tức & Cập Nhật Xu Hướng Quảng Cáo | Siêu Thị Bảng Hiệu",
+  description:
+    "Chia sẻ tin tức mới nhất về ngành bảng hiệu, cập nhật xu hướng quảng cáo sáng tạo và hiệu quả. Theo dõi Siêu Thị Bảng Hiệu để không bỏ lỡ thông tin quan trọng.",
+  keywords: [
+    "xu hướng bảng hiệu quảng cáo",
+    "tin tức bảng hiệu",
+    "cập nhật ngành quảng cáo",
+    "thiết kế bảng hiệu mới nhất",
+  ],
+  openGraph: {
+    title: "Tin Tức & Cập Nhật Xu Hướng Quảng Cáo | Siêu Thị Bảng Hiệu",
     description:
-      "Cập nhật tin tức mới nhất về ngành bảng hiệu, xu hướng thiết kế, công nghệ LED và các giải pháp quảng cáo hiện đại từ Siêu Thị Bảng Hiệu",
-    keywords: [
-      "tin tức bảng hiệu",
-      "xu hướng quảng cáo",
-      "công nghệ LED mới",
-      "thiết kế bảng hiệu",
-      "tin tức quảng cáo",
+      "Chia sẻ tin tức mới nhất về ngành bảng hiệu, cập nhật xu hướng quảng cáo sáng tạo và hiệu quả. Theo dõi Siêu Thị Bảng Hiệu để không bỏ lỡ thông tin quan trọng.",
+    url: "https://sieuthibanghieu.com/tin-tuc",
+    siteName: "Siêu Thị Bảng Hiệu",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/mica_ckc_1_fkgbgo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Tin tức bảng hiệu - Siêu Thị Bảng Hiệu",
+      },
     ],
-    openGraph: {
-      title: "Tin Tức & Cập Nhật Mới Nhất | Siêu Thị Bảng Hiệu",
-      description:
-        "Cập nhật tin tức mới nhất về ngành bảng hiệu, xu hướng thiết kế, công nghệ LED và các giải pháp quảng cáo hiện đại",
-      url: "https://sieuthibanghieu.vn/pages/tin-tuc-moi",
-      siteName: "Siêu Thị Bảng Hiệu",
-      images: [
-        {
-          url: "https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg",
-          width: 1200,
-          height: 630,
-          alt: "Siêu Thị Bảng Hiệu - Tin Tức Mới Nhất",
-        },
-      ],
-      locale: "vi_VN",
-      type: "website",
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tin Tức & Cập Nhật Xu Hướng Quảng Cáo | Siêu Thị Bảng Hiệu",
+    description:
+      "Chia sẻ tin tức mới nhất về ngành bảng hiệu, cập nhật xu hướng quảng cáo sáng tạo và hiệu quả. Theo dõi Siêu Thị Bảng Hiệu để không bỏ lỡ thông tin quan trọng.",
+    images: [
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/mica_ckc_1_fkgbgo.jpg",
+    ],
+  },
+  alternates: {
+    canonical: "https://sieuthibanghieu.com/tin-tuc",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
     },
-    twitter: {
-      card: "summary_large_image",
-      title: "Tin Tức & Cập Nhật Mới Nhất | Siêu Thị Bảng Hiệu",
-      description: "Cập nhật tin tức mới nhất về ngành bảng hiệu và quảng cáo",
-      images: ["https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg"],
-    },
-    alternates: {
-      canonical: "https://sieuthibanghieu.vn/pages/tin-tuc-moi",
-    },
-  };
-}
+  },
+};
 
 const schema = {
   "@context": "https://schema.org",
@@ -110,7 +119,7 @@ const schema = {
 
 const NewsPage = () => {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div>
       <News
         EditorContent={{
           title: "Bảng hiệu",

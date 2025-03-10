@@ -1,47 +1,56 @@
-import { Metadata } from "next";
 import Knowledge from "@/components/specific/Knowledge";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Kiến Thức Bảng Hiệu & Quảng Cáo | Siêu Thị Bảng Hiệu",
+export const metadata = {
+  title: "Hướng Dẫn & Kiến Thức Ngành Quảng Cáo | Siêu Thị Bảng Hiệu",
+  description:
+    "Khám phá hướng dẫn, mẹo và thông tin chuyên sâu về bảng hiệu quảng cáo. Siêu Thị Bảng Hiệu cung cấp kiến thức giúp bạn thiết kế bảng hiệu chuyên nghiệp và hiệu quả.",
+  keywords: [
+    "kiến thức bảng hiệu",
+    "hướng dẫn làm bảng hiệu",
+    "cẩm nang quảng cáo",
+    "mẹo thiết kế bảng hiệu",
+    "bảng hiệu quảng cáo",
+  ],
+  openGraph: {
+    title: "Hướng Dẫn & Kiến Thức Ngành Quảng Cáo | Siêu Thị Bảng Hiệu",
     description:
-      "Tổng hợp kiến thức chuyên sâu về thiết kế, thi công bảng hiệu quảng cáo. Cập nhật xu hướng và công nghệ mới nhất trong ngành.",
-    keywords: [
-      "kiến thức bảng hiệu",
-      "thiết kế bảng hiệu",
-      "thi công bảng hiệu",
-      "công nghệ LED",
-      "xu hướng quảng cáo",
+      "Khám phá hướng dẫn, mẹo và thông tin chuyên sâu về bảng hiệu quảng cáo. Siêu Thị Bảng Hiệu cung cấp kiến thức giúp bạn thiết kế bảng hiệu chuyên nghiệp và hiệu quả.",
+    url: "https://sieuthibanghieu.com/kien-thuc",
+    siteName: "Siêu Thị Bảng Hiệu",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/mica_ckc_1_fkgbgo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Kiến thức bảng hiệu - Siêu Thị Bảng Hiệu",
+      },
     ],
-    openGraph: {
-      title: "Kiến Thức Bảng Hiệu & Quảng Cáo | Siêu Thị Bảng Hiệu",
-      description:
-        "Tổng hợp kiến thức chuyên sâu về thiết kế, thi công bảng hiệu quảng cáo. Cập nhật xu hướng và công nghệ mới nhất trong ngành.",
-      url: "https://sieuthibanghieu.vn/pages/kien-thuc",
-      siteName: "Siêu Thị Bảng Hiệu",
-      images: [
-        {
-          url: "https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg",
-          width: 1200,
-          height: 630,
-          alt: "Siêu Thị Bảng Hiệu - Kiến Thức Chuyên Sâu",
-        },
-      ],
-      locale: "vi_VN",
-      type: "website",
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hướng Dẫn & Kiến Thức Ngành Quảng Cáo | Siêu Thị Bảng Hiệu",
+    description:
+      "Khám phá hướng dẫn, mẹo và thông tin chuyên sâu về bảng hiệu quảng cáo. Siêu Thị Bảng Hiệu cung cấp kiến thức giúp bạn thiết kế bảng hiệu chuyên nghiệp và hiệu quả.",
+    images: [
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/mica_ckc_1_fkgbgo.jpg",
+    ],
+  },
+  alternates: {
+    canonical: "https://sieuthibanghieu.com/kien-thuc",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
     },
-    twitter: {
-      card: "summary_large_image",
-      title: "Kiến Thức Bảng Hiệu & Quảng Cáo | Siêu Thị Bảng Hiệu",
-      description:
-        "Tổng hợp kiến thức chuyên sâu về thiết kế, thi công bảng hiệu quảng cáo.",
-      images: ["https://sieuthibanghieu.vn/images/sieuthibanghieu.jpg"],
-    },
-    alternates: {
-      canonical: "https://sieuthibanghieu.vn/pages/kien-thuc",
-    },
-  };
-}
+  },
+};
 
 const schema = {
   "@context": "https://schema.org",
@@ -101,7 +110,7 @@ const schema = {
 
 const KnowledgePage = () => {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div>
       <Knowledge
         EditorContent={{
           title: "Bảng hiệu",

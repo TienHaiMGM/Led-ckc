@@ -1,9 +1,59 @@
-"use client";
 import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
-import { motion } from "framer-motion";
+
+export const metadata = {
+  title: "Bảng Hiệu Inox | Giải Pháp Quảng Cáo Sang Trọng & Bền Bỉ",
+  description:
+    "Tìm hiểu về bảng hiệu Inox – lựa chọn hoàn hảo cho quảng cáo cao cấp, sang trọng, chống gỉ sét. Siêu Thị Bảng Hiệu cung cấp thiết kế chất lượng, độ bền cao.",
+  keywords: [
+    "bảng hiệu inox",
+    "thiết kế bảng hiệu inox",
+    "bảng hiệu inox đẹp",
+    "bảng hiệu inox sang trọng",
+    "bảng hiệu inox chống gỉ",
+  ],
+  openGraph: {
+    title: "Bảng Hiệu Inox | Giải Pháp Quảng Cáo Sang Trọng & Bền Bỉ",
+    description:
+      "Tìm hiểu về bảng hiệu Inox – lựa chọn hoàn hảo cho quảng cáo cao cấp, sang trọng, chống gỉ sét. Siêu Thị Bảng Hiệu cung cấp thiết kế chất lượng, độ bền cao.",
+    url: "https://sieuthibanghieu.com/bang-hieu-inox",
+    siteName: "Siêu Thị Bảng Hiệu",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bảng hiệu Inox - Siêu Thị Bảng Hiệu",
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bảng Hiệu Inox | Giải Pháp Quảng Cáo Sang Trọng & Bền Bỉ",
+    description:
+      "Tìm hiểu về bảng hiệu Inox – lựa chọn hoàn hảo cho quảng cáo cao cấp, sang trọng, chống gỉ sét. Siêu Thị Bảng Hiệu cung cấp thiết kế chất lượng, độ bền cao.",
+    images: [
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+    ],
+  },
+  alternates: {
+    canonical: "https://sieuthibanghieu.com/bang-hieu-inox",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+    },
+  },
+};
 
 const BangHieuInox = () => {
   return (
@@ -12,7 +62,7 @@ const BangHieuInox = () => {
       <main className="container mx-auto flex-grow px-0 py-0 lg:py-6 xl:py-6">
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* {TabarLeft} */}
-          <div className="animate-fadeSlide hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
+          <div className="hidden animate-fadeSlide sm:hidden md:hidden lg:block xl:ml-28 xl:block">
             <TabarLeft />
           </div>
           <article className="prose prose-custome p-2 lg:w-3/4">
@@ -31,7 +81,7 @@ const BangHieuInox = () => {
               </p>
             </div>
             <section className="grid gap-4">
-              <div className="animate-fadeScale flex justify-center">
+              <div className="flex animate-fadeScale justify-center">
                 <figure>
                   <Image
                     src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740543499/bang-hieu-inox-logo_f7vxwv.jpg"

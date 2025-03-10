@@ -2,6 +2,59 @@ import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
+
+export const metadata = {
+  title: "Bảng Hiệu Alu | Giải Pháp Quảng Cáo Bền Đẹp & Hiện Đại",
+  description:
+    "Tìm hiểu về bảng hiệu Alu – giải pháp quảng cáo hiện đại, bền bỉ, sang trọng. Siêu Thị Bảng Hiệu mang đến thiết kế tinh tế, độ bền cao và giá cạnh tranh.",
+  keywords: [
+    "bảng hiệu alu",
+    "thiết kế bảng hiệu alu",
+    "bảng hiệu alu đẹp",
+    "bảng hiệu alu giá rẻ",
+    "bảng hiệu alu bền đẹp",
+  ],
+  openGraph: {
+    title: "Bảng Hiệu Alu | Giải Pháp Quảng Cáo Bền Đẹp & Hiện Đại",
+    description:
+      "Tìm hiểu về bảng hiệu Alu – giải pháp quảng cáo hiện đại, bền bỉ, sang trọng. Siêu Thị Bảng Hiệu mang đến thiết kế tinh tế, độ bền cao và giá cạnh tranh.",
+    url: "https://sieuthibanghieu.com/bang-hieu-alu",
+    siteName: "Siêu Thị Bảng Hiệu",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bảng hiệu Alu - Siêu Thị Bảng Hiệu",
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bảng Hiệu Alu | Giải Pháp Quảng Cáo Bền Đẹp & Hiện Đại",
+    description:
+      "Tìm hiểu về bảng hiệu Alu – giải pháp quảng cáo hiện đại, bền bỉ, sang trọng. Siêu Thị Bảng Hiệu mang đến thiết kế tinh tế, độ bền cao và giá cạnh tranh.",
+    images: [
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+    ],
+  },
+  alternates: {
+    canonical: "https://sieuthibanghieu.com/bang-hieu-alu",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+    },
+  },
+};
+
 const BangHieuAlu = () => {
   return (
     <div className="flex min-h-screen flex-col">
@@ -9,7 +62,7 @@ const BangHieuAlu = () => {
       <main className="container mx-auto flex-grow px-0 py-0 lg:py-6 xl:py-6">
         <div className="flex flex-col gap-8 lg:flex-row">
           <div className="hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
-            <div className="animate-fadeSlide hidden sm:hidden md:hidden lg:block xl:block">
+            <div className="hidden animate-fadeSlide sm:hidden md:hidden lg:block xl:block">
               <TabarLeft />
             </div>
           </div>
@@ -18,8 +71,7 @@ const BangHieuAlu = () => {
             <div className="prose prose-custome animate-fadeIn lg:w-3/4">
               <div className="rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
                 <h1 className="text-3xl font-bold text-blue-800 lg:text-4xl">
-                  Bảng Hiệu Alu - Giải Pháp Quảng Cáo Hiệu Quả, Bền Đẹp Và Tiết
-                  Kiệm Chi Phí
+                  Bảng Hiệu Alu | Giải Pháp Quảng Cáo Bền Đẹp & Hiện Đại
                 </h1>
                 <p className="text-lg text-gray-600">
                   <strong>Bảng hiệu alu</strong> đang trở thành xu hướng hàng
@@ -31,7 +83,7 @@ const BangHieuAlu = () => {
               </div>
             </div>
             <section className="grid gap-4">
-              <div className="animate-fadeScale flex justify-center">
+              <div className="flex animate-fadeScale justify-center">
                 <figure>
                   <Image
                     src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740456298/bang-hieu-alu-brand-junlie1_kowuml.jpg"

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const SocialButtons = () => {
@@ -14,11 +15,11 @@ const SocialButtons = () => {
           rel="noopener noreferrer"
           className=""
         >
-          <img
-            width="58"
-            height="58"
+          <Image
             src="https://img.icons8.com/bubbles/100/zalo.png"
             alt="zalo"
+            width="58"
+            height="58"
             className=""
           />
         </a>

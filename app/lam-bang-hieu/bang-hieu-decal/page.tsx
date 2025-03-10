@@ -3,6 +3,58 @@ import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
 
+export const metadata = {
+  title: "Bảng Hiệu Decal | Giải Pháp Quảng Cáo Sáng Tạo & Đẹp Mắt",
+  description:
+    "Tìm hiểu về bảng hiệu Decal – lựa chọn hoàn hảo cho quảng cáo sáng tạo, đẹp mắt, dễ thi công. Siêu Thị Bảng Hiệu mang đến thiết kế chuyên nghiệp, bền bỉ, giá hợp lý.",
+  keywords: [
+    "bảng hiệu decal",
+    "thiết kế bảng hiệu decal",
+    "bảng hiệu decal đẹp",
+    "bảng hiệu decal giá rẻ",
+    "bảng hiệu decal quảng cáo",
+  ],
+  openGraph: {
+    title: "Bảng Hiệu Decal | Giải Pháp Quảng Cáo Sáng Tạo & Đẹp Mắt",
+    description:
+      "Tìm hiểu về bảng hiệu Decal – lựa chọn hoàn hảo cho quảng cáo sáng tạo, đẹp mắt, dễ thi công. Siêu Thị Bảng Hiệu mang đến thiết kế chuyên nghiệp, bền bỉ, giá hợp lý.",
+    url: "https://sieuthibanghieu.com/bang-hieu-decal",
+    siteName: "Siêu Thị Bảng Hiệu",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bảng hiệu Decal - Siêu Thị Bảng Hiệu",
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bảng Hiệu Decal | Giải Pháp Quảng Cáo Sáng Tạo & Đẹp Mắt",
+    description:
+      "Tìm hiểu về bảng hiệu Decal – lựa chọn hoàn hảo cho quảng cáo sáng tạo, đẹp mắt, dễ thi công. Siêu Thị Bảng Hiệu mang đến thiết kế chuyên nghiệp, bền bỉ, giá hợp lý.",
+    images: [
+      "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+    ],
+  },
+  alternates: {
+    canonical: "https://sieuthibanghieu.com/bang-hieu-decal",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+    },
+  },
+};
+
 const BangHieuDecal = () => {
   return (
     <div className="flex min-h-screen flex-col">
@@ -10,7 +62,7 @@ const BangHieuDecal = () => {
       <main className="container mx-auto flex-grow px-0 py-0 lg:py-6 xl:py-6">
         <div className="flex flex-col gap-8 lg:flex-row">
           <div className="hidden sm:hidden md:hidden lg:block xl:block">
-            <div className="animate-fadeSlide hidden sm:hidden md:hidden lg:block xl:ml-28 xl:block">
+            <div className="hidden animate-fadeSlide sm:hidden md:hidden lg:block xl:ml-28 xl:block">
               <TabarLeft />
             </div>
           </div>
@@ -18,7 +70,7 @@ const BangHieuDecal = () => {
             <div className="prose prose-custome animate-fadeIn lg:w-3/4">
               <div className="rounded-lg bg-gradient-to-r from-blue-50 to-white p-6">
                 <h1 className="text-3xl font-bold text-blue-800 lg:text-4xl">
-                  Bảng hiệu dán decal giá rẻ
+                  Bảng Hiệu Decal | Giải Pháp Quảng Cáo Sáng Tạo & Đẹp Mắt
                 </h1>
                 <p className="text-lg text-gray-600">
                   Bảng hiệu decal đang trở thành xu hướng quảng cáo phổ biến nhờ
@@ -32,7 +84,7 @@ const BangHieuDecal = () => {
               </div>
             </div>
             <section className="grid gap-4">
-              <div className="animate-fadeScale flex justify-center">
+              <div className="flex animate-fadeScale justify-center">
                 <figure>
                   <Image
                     src="https://res.cloudinary.com/dsyidnrat/image/upload/v1740553404/bang-hieu-decal-tiem-massage_pddapb.jpg"

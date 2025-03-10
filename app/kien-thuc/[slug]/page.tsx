@@ -7,7 +7,65 @@ import { FaTag, FaShareAlt, FaUser } from "react-icons/fa";
 import TabarLeftNew from "@/components/common/TabarLeftNew";
 import ShareButtons from "@/components/common/ButtonShareSocial";
 import RelatedArticles from "@/components/specific/RelatedArticles";
-import { motion } from "framer-motion";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const Knowledge = await getKnowledgeBySlug(params.slug);
+
+  if (!Knowledge) {
+    return {
+      title: "Bài viết không tồn tại - Siêu Thị Bảng Hiệu",
+      description: "Bài viết bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.",
+    };
+  }
+
+  return {
+    title: `${Knowledge.seoTitle}`,
+    description: `${Knowledge.seoDescription}`,
+    keywords: [`${Knowledge.seoTitle}`, "Siêu Thị Bảng Hiệu"],
+    openGraph: {
+      title: `${Knowledge.seoTitle}`,
+      description: `${Knowledge.seoDescription}`,
+      url: `https://sieuthibanghieu.com/kien-thuc/${params.slug}`,
+      siteName: "Siêu Thị Bảng Hiệu",
+      images: [
+        {
+          url: Knowledge.images,
+          width: 1200,
+          height: 630,
+          alt: Knowledge.seoTitle,
+        },
+      ],
+      locale: "vi_VN",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${Knowledge.seoTitle}`,
+      description: `${Knowledge.seoDescription}`,
+      images: [
+        "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+      ],
+    },
+    alternates: {
+      canonical: `https://sieuthibanghieu.com/kien-thuc/${params.slug}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+      },
+    },
+  };
+}
 
 export default async function KnowledgePage({
   params,

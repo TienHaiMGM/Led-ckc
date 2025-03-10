@@ -7,6 +7,65 @@ import { FaTag, FaShareAlt, FaUser } from "react-icons/fa";
 import RelatedNews from "@/components/specific/RelatedNews";
 import TabarLeftNew from "@/components/common/TabarLeftNew";
 import ShareButtons from "@/components/common/ButtonShareSocial";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const News = await getNewsBySlug(params.slug);
+
+  if (!News) {
+    return {
+      title: "Bài viết không tồn tại - Siêu Thị Bảng Hiệu",
+      description: "Bài viết bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.",
+    };
+  }
+
+  return {
+    title: `${News.seoTitle}`,
+    description: `${News.seoDescription}`,
+    keywords: [`${News.seoTitle}`, "Siêu Thị Bảng Hiệu"],
+    openGraph: {
+      title: `${News.seoTitle}`,
+      description: `${News.seoDescription}`,
+      url: `https://sieuthibanghieu.com/tin-tuc/${params.slug}`,
+      siteName: "Siêu Thị Bảng Hiệu",
+      images: [
+        {
+          url: News.images,
+          width: 1200,
+          height: 630,
+          alt: News.seoTitle,
+        },
+      ],
+      locale: "vi_VN",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${News.seoTitle}`,
+      description: `${News.seoDescription}`,
+      images: [
+        "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+      ],
+    },
+    alternates: {
+      canonical: `https://sieuthibanghieu.com/tin-tuc/${params.slug}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+      },
+    },
+  };
+}
 
 export default async function NewsPage({
   params,
