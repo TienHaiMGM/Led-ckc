@@ -222,7 +222,6 @@ export default async function Home() {
           <HowItWorks />
         </section>
         <section className="bg-gray-50" aria-label="Danh mục sản phẩm">
-          {/* <ExploreCategories /> */}
           <NeonLogo />
         </section>
         <section aria-label="Bảng hiệu">

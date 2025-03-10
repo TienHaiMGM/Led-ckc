@@ -186,13 +186,13 @@ export default function AboutPage() {
                 đến lớn.
               </p>
               <div className="flex flex-wrap gap-3 sm:gap-4">
-                <div className="rounded-full bg-red-600 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
+                <div className="rounded-full bg-red-700 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
                   <span className="text-white">5+ Năm Kinh Nghiệm</span>
                 </div>
-                <div className="rounded-full bg-blue-600 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
+                <div className="rounded-full bg-blue-700 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
                   <span className="text-white">1000+ Dự Án</span>
                 </div>
-                <div className="rounded-full bg-green-600 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
+                <div className="rounded-full bg-green-700 px-4 py-2 text-sm backdrop-blur-sm sm:px-6 sm:text-base">
                   <span className="text-white">100% Khách Hàng Hài Lòng</span>
                 </div>
               </div>
