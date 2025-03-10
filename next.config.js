@@ -15,14 +15,6 @@ const nextConfig = {
           priority: 30,
           enforce: true,
         },
-        // Vendor chunk
-        vendor: {
-          name: "vendor",
-          chunks: "all",
-          test: /node_modules/,
-          priority: 20,
-          enforce: true,
-        },
         // Common chunk
         common: {
           name: "common",

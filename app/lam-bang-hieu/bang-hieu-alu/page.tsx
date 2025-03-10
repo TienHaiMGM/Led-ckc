@@ -2,6 +2,7 @@ import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
+import SchemaMarkup from "@/components/common/SchemaMarkup";
 
 export const metadata = {
   title: "Bảng Hiệu Alu | Giải Pháp Quảng Cáo Bền Đẹp & Hiện Đại",
@@ -56,6 +57,114 @@ export const metadata = {
 };
 
 const BangHieuAlu = () => {
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        name: "Dịch vụ làm bảng hiệu Alu",
+        provider: {
+          "@type": "LocalBusiness",
+          name: "Siêu Thị Bảng Hiệu",
+          url: "https://sieuthibanghieu.com",
+          telephone: "0827024567",
+          image:
+            "https://res.cloudinary.com/dsyidnrat/image/upload/v1741234963/sieuthibanghieulogo_hki2df.png",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress:
+              "129 Thoại Ngọc Hầu, Phú Thạnh, Tân Phú, Hồ Chí Minh",
+            addressLocality: "Hồ Chí Minh",
+            addressRegion: "Thành phố Hồ Chí Minh",
+            postalCode: "72000",
+            addressCountry: "VN",
+          },
+        },
+        serviceType: "Thi công bảng hiệu Alu",
+        description:
+          "Siêu Thị Bảng Hiệu cung cấp dịch vụ thiết kế và thi công bảng hiệu Alu chuyên nghiệp, bền đẹp và hiện đại.",
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: "Hồ Chí Minh, Hà Nội, Đà Nẵng",
+        },
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "VND",
+          price: "Liên hệ để nhận báo giá",
+          availability: "https://schema.org/InStock",
+          url: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-alu",
+        },
+      },
+      {
+        "@type": "Article",
+        headline: "Bảng Hiệu Alu | Giải Pháp Quảng Cáo Bền Đẹp & Hiện Đại",
+        description:
+          "Tìm hiểu về bảng hiệu Alu – giải pháp quảng cáo hiện đại, bền bỉ, sang trọng.",
+        url: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-alu",
+        author: {
+          "@type": "Person",
+          name: "Nguyễn Tiến Hải",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Siêu Thị Bảng Hiệu",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1741234963/sieuthibanghieulogo_hki2df.png",
+          },
+        },
+        image:
+          "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+        datePublished: "2025-03-10",
+        dateModified: "2025-03-10",
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Bảng hiệu Alu có bền không?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bảng hiệu Alu có tuổi thọ từ 10-15 năm, chịu được thời tiết khắc nghiệt.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Chi phí lắp đặt bảng hiệu Alu là bao nhiêu?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Chi phí dao động từ 2.000.000 - 10.000.000 VND tùy vào kích thước và thiết kế.",
+            },
+          },
+        ],
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Trang Chủ",
+            item: "https://sieuthibanghieu.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Làm Bảng Hiệu",
+            item: "https://sieuthibanghieu.com/lam-bang-hieu",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Bảng Hiệu Alu",
+            item: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-alu",
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <Breadcrumb />
@@ -91,6 +200,7 @@ const BangHieuAlu = () => {
                     width={800}
                     height={600}
                     className="rounded-lg shadow-lg"
+                    priority
                   />
                   <figcaption className="text-center italic">
                     Bảng hiệu Alu chữ nổi
@@ -766,6 +876,7 @@ const BangHieuAlu = () => {
           </article>
         </div>
       </main>
+      <SchemaMarkup schemaData={schemaData} />
     </div>
   );
 };

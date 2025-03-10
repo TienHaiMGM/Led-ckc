@@ -77,6 +77,8 @@ const Header: React.FC<HeaderProps> = ({ showSearch = true }) => {
             >
               <form onSubmit={handleSearch} className="relative">
                 <input
+                  id="searchBar"
+                  name="searchBar"
                   type="text"
                   placeholder="Tìm kiếm sản phẩm..."
                   value={search}

@@ -127,6 +127,7 @@ export const tabarLeft = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <input
+                  id="name"
                   type="text"
                   name="name"
                   value={formData.name}
@@ -135,10 +136,12 @@ export const tabarLeft = () => {
                   className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                   disabled={isSubmitting}
+                  autoComplete="on"
                 />
               </div>
               <div>
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   value={formData.email}
@@ -147,10 +150,12 @@ export const tabarLeft = () => {
                   className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                   disabled={isSubmitting}
+                  autoComplete="on"
                 />
               </div>
               <div>
                 <input
+                  id="phone"
                   type="tel"
                   name="phone"
                   value={formData.phone}
@@ -159,10 +164,12 @@ export const tabarLeft = () => {
                   className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                   disabled={isSubmitting}
+                  autoComplete="on"
                 />
               </div>
               <div>
                 <textarea
+                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
@@ -171,6 +178,7 @@ export const tabarLeft = () => {
                   className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                   disabled={isSubmitting}
+                  autoComplete="on"
                 ></textarea>
               </div>
 

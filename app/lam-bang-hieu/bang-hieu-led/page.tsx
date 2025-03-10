@@ -2,6 +2,7 @@ import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
+import SchemaMarkup from "@/components/common/SchemaMarkup";
 
 export const metadata = {
   title: "Bảng Hiệu LED | Giải Pháp Quảng Cáo Nổi Bật & Hiện Đại",
@@ -56,6 +57,122 @@ export const metadata = {
 };
 
 const BangHieuLed = () => {
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        name: "Dịch vụ thiết kế và thi công bảng hiệu LED",
+        provider: {
+          "@type": "LocalBusiness",
+          name: "Siêu Thị Bảng Hiệu",
+          url: "https://sieuthibanghieu.com",
+          telephone: "0827024567",
+          image:
+            "https://res.cloudinary.com/dsyidnrat/image/upload/v1741234963/sieuthibanghieulogo_hki2df.png",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress:
+              "129 Thoại Ngọc Hầu, Phú Thạnh, Tân Phú, Hồ Chí Minh",
+            addressLocality: "Hồ Chí Minh",
+            addressRegion: "Thành phố Hồ Chí Minh",
+            postalCode: "72000",
+            addressCountry: "VN",
+          },
+        },
+        serviceType: "Thi công bảng hiệu LED",
+        description:
+          "Siêu Thị Bảng Hiệu chuyên cung cấp dịch vụ thiết kế và thi công bảng hiệu LED quảng cáo, bảng LED chữ chạy, LED ma trận, LED 3D và màn hình LED full color, giúp doanh nghiệp thu hút khách hàng hiệu quả.",
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: "Hồ Chí Minh, Hà Nội, Đà Nẵng",
+        },
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "VND",
+          price: "Liên hệ để nhận báo giá",
+          availability: "https://schema.org/InStock",
+          url: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-led",
+        },
+      },
+      {
+        "@type": "Article",
+        headline: "Bảng Hiệu LED | Giải Pháp Quảng Cáo Nổi Bật & Hiện Đại",
+        description:
+          "Tìm hiểu về bảng hiệu LED – giải pháp quảng cáo hiện đại, thu hút, tiết kiệm điện năng. Siêu Thị Bảng Hiệu cung cấp thiết kế LED sắc nét, bền bỉ, phù hợp với mọi nhu cầu.",
+        url: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-led",
+        author: {
+          "@type": "Person",
+          name: "Nguyễn Tiến Hải",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Siêu Thị Bảng Hiệu",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1741234963/sieuthibanghieulogo_hki2df.png",
+          },
+        },
+        image:
+          "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+        datePublished: "2025-03-10",
+        dateModified: "2025-03-10",
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Bảng hiệu LED là gì?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bảng hiệu LED là loại bảng quảng cáo sử dụng đèn LED (Light Emitting Diode) để hiển thị nội dung như chữ, hình ảnh hoặc hiệu ứng ánh sáng động, giúp thu hút khách hàng và nâng cao nhận diện thương hiệu.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Tại sao nên chọn bảng hiệu LED?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bảng hiệu LED có nhiều ưu điểm như khả năng hiển thị rõ ràng, tiết kiệm điện năng, tuổi thọ cao, dễ dàng cập nhật nội dung và hoạt động bền bỉ trong mọi điều kiện thời tiết.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Bảng hiệu LED có giá bao nhiêu?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Giá bảng hiệu LED phụ thuộc vào loại LED, kích thước, độ phân giải, độ sáng và vật liệu khung. Chi phí dao động từ 3.000.000 – 15.000.000 VNĐ tùy theo yêu cầu cụ thể của khách hàng.",
+            },
+          },
+        ],
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Trang Chủ",
+            item: "https://sieuthibanghieu.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Làm bảng hiệu",
+            item: "https://sieuthibanghieu.com/lam-bang-hieu",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Bảng Hiệu LED",
+            item: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-led",
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <Breadcrumb />
@@ -841,6 +958,7 @@ const BangHieuLed = () => {
           </article>
         </div>
       </main>
+      <SchemaMarkup schemaData={schemaData} />
     </div>
   );
 };

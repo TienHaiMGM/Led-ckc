@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SchemaMarkup from "./SchemaMarkup";
 
 interface BreadcrumbItem {
   label: string;
@@ -30,18 +31,16 @@ const Breadcrumb = () => {
 
   if (pathname === "/") return null;
 
-  // Generate JSON-LD schema
-  const jsonLdSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: breadcrumbs.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.label,
-      item: `https://yourwebsite.com${item.path}`, // Update with your website's URL
-    })),
-  };
-
+  // const schemaData = {
+  //   "@context": "https://schema.org",
+  //   "@type": "BreadcrumbList",
+  //   itemListElement: breadcrumbs.map((item, index) => ({
+  //     "@type": "ListItem",
+  //     position: index + 1,
+  //     name: item.label,
+  //     item: item.path,
+  //   })),
+  // };
   return (
     <>
       <nav
@@ -92,10 +91,8 @@ const Breadcrumb = () => {
             </li>
           ))}
         </ol>
+        {/* <SchemaMarkup schemaData={schemaData} /> */}
       </nav>
-      <script type="application/ld+json" suppressHydrationWarning>
-        {JSON.stringify(jsonLdSchema)}
-      </script>
     </>
   );
 };

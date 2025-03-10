@@ -8,6 +8,7 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import Breadcrumb from "@/components/common/Breadcrumb";
+import SchemaMarkup from "@/components/common/SchemaMarkup";
 
 export const metadata = {
   title: "Giới Thiệu Về Siêu Thị Bảng Hiệu | Bảng Hiệu Quảng Cáo Chất Lượng",
@@ -62,6 +63,90 @@ export const metadata = {
 };
 
 export default function AboutPage() {
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "@id": "https://sieuthibanghieu.com/gioi-thieu",
+        url: "https://sieuthibanghieu.com/gioi-thieu",
+        name: "Giới thiệu - Siêu Thị Bảng Hiệu",
+        description:
+          "Siêu Thị Bảng Hiệu chuyên thiết kế, sản xuất và lắp đặt bảng hiệu quảng cáo chất lượng cao, giúp doanh nghiệp nổi bật với bảng hiệu LED, hộp đèn, chữ nổi mica, inox.",
+        breadcrumb: {
+          "@id": "https://sieuthibanghieu.com/#breadcrumb",
+        },
+        isPartOf: {
+          "@id": "https://sieuthibanghieu.com/#website",
+        },
+        about: {
+          "@id": "https://sieuthibanghieu.com/#organization",
+        },
+        primaryImageOfPage: {
+          "@id":
+            "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/mica_ckc_1_fkgbgo.jpg",
+        },
+        image:
+          "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/mica_ckc_1_fkgbgo.jpg",
+        inLanguage: "vi",
+        datePublished: "2024-03-10T12:00:00+00:00",
+        dateModified: "2024-03-10T12:00:00+00:00",
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://sieuthibanghieu.com/gioi-thieu",
+        },
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://sieuthibanghieu.com/#organization",
+        name: "Siêu Thị Bảng Hiệu",
+        url: "https://sieuthibanghieu.com/",
+        logo: "https://sieuthibanghieu.com/uploads/logo.png",
+        description:
+          "Siêu Thị Bảng Hiệu là đơn vị hàng đầu trong lĩnh vực thiết kế, sản xuất và lắp đặt bảng hiệu quảng cáo tại Việt Nam.",
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: "+84-123-456-789",
+          contactType: "customer service",
+          areaServed: "VN",
+          availableLanguage: ["Vietnamese", "English"],
+        },
+        sameAs: [
+          "https://www.facebook.com/sieuthibanghieu",
+          "https://www.youtube.com/sieuthibanghieu",
+          "https://www.instagram.com/sieuthibanghieu",
+        ],
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://sieuthibanghieu.com/#breadcrumb",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Trang chủ",
+            item: "https://sieuthibanghieu.com/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Giới thiệu",
+            item: "https://sieuthibanghieu.com/gioi-thieu",
+          },
+        ],
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://sieuthibanghieu.com/uploads/gioi-thieu.jpg",
+        url: "https://sieuthibanghieu.com/uploads/gioi-thieu.jpg",
+        contentUrl: "https://sieuthibanghieu.com/uploads/gioi-thieu.jpg",
+        width: "1200",
+        height: "630",
+        caption: "Giới thiệu về Siêu Thị Bảng Hiệu",
+      },
+    ],
+  };
+
   return (
     <>
       <main className="bg-gradient-to-b from-gray-50 to-white text-gray-800">
@@ -318,6 +403,7 @@ export default function AboutPage() {
             </a>
           </div>
         </section>
+        <SchemaMarkup schemaData={schemaData} />
       </main>
     </>
   );

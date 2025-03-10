@@ -2,6 +2,7 @@ import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
+import SchemaMarkup from "@/components/common/SchemaMarkup";
 
 export const metadata = {
   title: "Bảng Hiệu Decal | Giải Pháp Quảng Cáo Sáng Tạo & Đẹp Mắt",
@@ -56,6 +57,122 @@ export const metadata = {
 };
 
 const BangHieuDecal = () => {
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        name: "Dịch vụ làm bảng hiệu Decal",
+        provider: {
+          "@type": "LocalBusiness",
+          name: "Siêu Thị Bảng Hiệu",
+          url: "https://sieuthibanghieu.com",
+          telephone: "0827024567",
+          image:
+            "https://res.cloudinary.com/dsyidnrat/image/upload/v1741234963/sieuthibanghieulogo_hki2df.png",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress:
+              "129 Thoại Ngọc Hầu, Phú Thạnh, Tân Phú, Hồ Chí Minh",
+            addressLocality: "Hồ Chí Minh",
+            addressRegion: "Thành phố Hồ Chí Minh",
+            postalCode: "72000",
+            addressCountry: "VN",
+          },
+        },
+        serviceType: "Thi công bảng hiệu Decal",
+        description:
+          "Siêu Thị Bảng Hiệu cung cấp dịch vụ thiết kế và thi công bảng hiệu Decal chuyên nghiệp, đẹp mắt và giá hợp lý.",
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: "Hồ Chí Minh, Hà Nội, Đà Nẵng",
+        },
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "VND",
+          price: "Liên hệ để nhận báo giá",
+          availability: "https://schema.org/InStock",
+          url: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-decal",
+        },
+      },
+      {
+        "@type": "Article",
+        headline: "Bảng Hiệu Decal | Giải Pháp Quảng Cáo Sáng Tạo & Đẹp Mắt",
+        description:
+          "Tìm hiểu về bảng hiệu Decal – giải pháp quảng cáo hiện đại, bền bỉ, dễ thi công và giá hợp lý.",
+        url: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-decal",
+        author: {
+          "@type": "Person",
+          name: "Nguyễn Tiến Hải",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Siêu Thị Bảng Hiệu",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1741234963/sieuthibanghieulogo_hki2df.png",
+          },
+        },
+        image:
+          "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+        datePublished: "2025-03-10",
+        dateModified: "2025-03-10",
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Bảng hiệu Decal có bền không?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bảng hiệu Decal có thể duy trì độ bền từ 3-5 năm tùy vào chất liệu decal và điều kiện môi trường.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Chi phí lắp đặt bảng hiệu Decal là bao nhiêu?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Chi phí dao động từ 500.000 - 5.000.000 VND tùy vào kích thước và thiết kế.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Có thể thay đổi nội dung bảng hiệu Decal không?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Có, bảng hiệu Decal có thể dễ dàng thay đổi nội dung bằng cách bóc lớp decal cũ và dán lớp mới.",
+            },
+          },
+        ],
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Trang Chủ",
+            item: "https://sieuthibanghieu.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Làm bảng hiệu",
+            item: "https://sieuthibanghieu.com/lam-bang-hieu",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Bảng Hiệu Decal",
+            item: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-decal",
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <Breadcrumb />
@@ -791,6 +908,7 @@ const BangHieuDecal = () => {
           </article>
         </div>
       </main>
+      <SchemaMarkup schemaData={schemaData} />
     </div>
   );
 };

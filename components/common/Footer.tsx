@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Footer = () => {
   return (
@@ -87,27 +86,27 @@ const Footer = () => {
           <div className="mb-4">
             <h3 className="text-lg font-semibold">Theo Dõi Chúng Tôi</h3>
             <div className="flex space-x-4">
-              <Link href="#">
+              <Link href="#" aria-label="Liên kết qua trang facebook">
                 <span className="cursor-pointer text-2xl text-gray-300 hover:text-white">
                   <i className="fab fa-facebook-f"></i>
                 </span>
               </Link>
-              <Link href="#">
+              <Link href="#" aria-label="Liên kết qua trang tiktok">
                 <span className="cursor-pointer text-2xl text-gray-300 hover:text-white">
                   <i className="fab fa-tiktok"></i>
                 </span>
               </Link>
-              <Link href="#">
+              <Link href="#" aria-label="Liên kết qua trang youtube">
                 <span className="cursor-pointer text-2xl text-gray-300 hover:text-white">
                   <i className="fab fa-youtube"></i>
                 </span>
               </Link>
-              <Link href="#">
+              <Link href="#" aria-label="Liên kết qua trang instagram">
                 <span className="cursor-pointer text-2xl text-gray-300 hover:text-white">
                   <i className="fab fa-instagram"></i>
                 </span>
               </Link>
-              <Link href="#">
+              <Link href="#" aria-label="Liên kết qua trang twitter">
                 <span className="cursor-pointer text-2xl text-gray-300 hover:text-white">
                   <i className="fab fa-twitter"></i>
                 </span>
@@ -117,8 +116,8 @@ const Footer = () => {
           <div className="w-full xl:w-1/4">
             <h3 className="text-lg font-semibold">Vị Trí Cửa Hàng</h3>
             <div className="mb-4 h-64 overflow-hidden rounded-lg bg-gray-200">
-              {" "}
               <iframe
+                title="google map vị trí cửa hàng"
                 className="h-full w-full"
                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDhg4nn5MmpjlyOjJCs6cdreduS3ne1ENI&q=Siêu+Thị+Bảng+Hiệu,129+Thoại+Ngọc+Hầu,Tân+Phú,Hồ+Chí+Minh"
                 style={{ border: 0 }}

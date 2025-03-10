@@ -2,6 +2,7 @@ import Image from "next/image";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import TabarLeft from "@/components/common/TabarLeft";
 import ActionCallButtonLamBangHieu from "@/components/common/ActionCallButton";
+import SchemaMarkup from "@/components/common/SchemaMarkup";
 
 export const metadata = {
   title: "Bảng Hiệu Inox | Giải Pháp Quảng Cáo Sang Trọng & Bền Bỉ",
@@ -56,6 +57,122 @@ export const metadata = {
 };
 
 const BangHieuInox = () => {
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        name: "Dịch vụ thiết kế và thi công bảng hiệu Inox",
+        provider: {
+          "@type": "LocalBusiness",
+          name: "Siêu Thị Bảng Hiệu",
+          url: "https://sieuthibanghieu.com",
+          telephone: "0827024567",
+          image:
+            "https://res.cloudinary.com/dsyidnrat/image/upload/v1741234963/sieuthibanghieulogo_hki2df.png",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress:
+              "129 Thoại Ngọc Hầu, Phú Thạnh, Tân Phú, Hồ Chí Minh",
+            addressLocality: "Hồ Chí Minh",
+            addressRegion: "Thành phố Hồ Chí Minh",
+            postalCode: "72000",
+            addressCountry: "VN",
+          },
+        },
+        serviceType: "Thi công bảng hiệu inox",
+        description:
+          "Siêu Thị Bảng Hiệu chuyên cung cấp dịch vụ thiết kế và thi công bảng hiệu inox chất lượng cao, bền bỉ, chống gỉ sét, sang trọng và chuyên nghiệp.",
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: "Hồ Chí Minh, Hà Nội, Đà Nẵng",
+        },
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "VND",
+          price: "Liên hệ để nhận báo giá",
+          availability: "https://schema.org/InStock",
+          url: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-inox",
+        },
+      },
+      {
+        "@type": "Article",
+        headline: "Bảng Hiệu Inox | Giải Pháp Quảng Cáo Sang Trọng & Bền Bỉ",
+        description:
+          "Tìm hiểu về bảng hiệu Inox – lựa chọn hoàn hảo cho quảng cáo cao cấp, sang trọng, chống gỉ sét. Siêu Thị Bảng Hiệu cung cấp thiết kế chất lượng, độ bền cao.",
+        url: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-inox",
+        author: {
+          "@type": "Person",
+          name: "Nguyễn Tiến Hải",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Siêu Thị Bảng Hiệu",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://res.cloudinary.com/dsyidnrat/image/upload/v1741234963/sieuthibanghieulogo_hki2df.png",
+          },
+        },
+        image:
+          "https://res.cloudinary.com/dsyidnrat/image/upload/v1740798279/Led_ckc_1_fkgbgo.jpg",
+        datePublished: "2025-03-10",
+        dateModified: "2025-03-10",
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Bảng hiệu inox là gì?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bảng hiệu inox là loại bảng quảng cáo được làm từ thép không gỉ (inox), có độ bền cao, không bị gỉ sét, chịu được thời tiết khắc nghiệt và mang lại vẻ đẹp sang trọng, chuyên nghiệp.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Tại sao nên chọn bảng hiệu inox?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Bảng hiệu inox có độ bền cao, chống gỉ sét, dễ vệ sinh và thể hiện sự sang trọng. Đây là lựa chọn lý tưởng cho doanh nghiệp, nhà hàng, khách sạn và showroom cao cấp.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Bảng hiệu inox có giá bao nhiêu?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Giá bảng hiệu inox dao động từ 500.000 - 15.000.000 VNĐ tùy vào kích thước, loại inox (201, 304, 316), kỹ thuật gia công (ăn mòn, khắc laser, uốn chữ nổi) và các yếu tố bổ sung như đèn LED.",
+            },
+          },
+        ],
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Trang Chủ",
+            item: "https://sieuthibanghieu.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Làm bảng hiệu",
+            item: "https://sieuthibanghieu.com/lam-bang-hieu",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Bảng Hiệu Inox",
+            item: "https://sieuthibanghieu.com/lam-bang-hieu/bang-hieu-inox",
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <Breadcrumb />
@@ -586,6 +703,7 @@ const BangHieuInox = () => {
           </article>
         </div>
       </main>
+      <SchemaMarkup schemaData={schemaData} />
     </div>
   );
 };

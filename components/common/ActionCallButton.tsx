@@ -15,7 +15,7 @@ export default function ActionCallButtonLamBangHieu() {
         href="https://zalo.me/0827024567"
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-4 inline-block rounded-lg bg-red-500 px-6 py-3 text-white no-underline shadow transition hover:bg-red-600"
+        className="mt-4 inline-block rounded-lg bg-red-700 px-6 py-3 text-white no-underline shadow transition hover:bg-red-600"
       >
         Liên Hệ Ngay
       </a>

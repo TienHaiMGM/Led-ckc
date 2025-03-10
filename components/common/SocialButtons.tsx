@@ -24,7 +24,12 @@ const SocialButtons = () => {
           />
         </a>
         {/* PHONE */}
-        <a href="tell:0827024567" rel="noopener noreferrer" className="ml-2">
+        <a
+          href="tell:0827024567"
+          rel="noopener noreferrer"
+          className="ml-2"
+          aria-label="Gọi điện thoại qua số 0827024567"
+        >
           <i className="fab fa-whatsapp rounded-full bg-green-500 p-3 text-xl text-white transition duration-300 hover:bg-green-600"></i>
         </a>
 
@@ -34,6 +39,7 @@ const SocialButtons = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="ml-2"
+          aria-label="Nhắn tin qua messenger của Facebook"
         >
           <i className="fab fa-facebook-messenger rounded-full bg-blue-600 p-3 text-xl text-white transition duration-300 hover:bg-blue-700"></i>
         </a>
