@@ -286,7 +286,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
     );
 
     const applyHeadingToSelection = useCallback(
-      (level: "1" | "2" | "3" | "4" | "5" | "6") => {
+      (level: 1 | 2 | 3 | 4 | 5 | 6) => {
         if (!editor) return;
 
         const { from, to } = editor.state.selection;
@@ -489,17 +489,7 @@ const RichTextEditor: FC<RichTextEditorProps> = React.memo(
                       <button
                         type="button"
                         key={level}
-                        onClick={(e) =>
-                          applyHeadingToSelection(
-                            level.toString() as
-                              | "1"
-                              | "2"
-                              | "3"
-                              | "4"
-                              | "5"
-                              | "6",
-                          )
-                        }
+                        onClick={(e) => applyHeadingToSelection(level as any)}
                         className={`inline-flex h-8 cursor-pointer items-center justify-center whitespace-nowrap rounded border border-slate-200 bg-white px-3 text-sm text-gray-700 transition-all duration-150 ease-in-out ${editor.isActive("heading", { level }) ? "bg-gray-300" : ""}`}
                       >
                         H{level}
